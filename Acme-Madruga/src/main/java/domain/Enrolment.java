@@ -3,11 +3,15 @@ package domain;
 
 import java.util.Date;
 
-public class Enrol extends DomainEntity {
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+public class Enrolment extends DomainEntity {
 
 	// Constructor
 
-	public Enrol() {
+	public Enrolment() {
 		super();
 	}
 
@@ -19,6 +23,7 @@ public class Enrol extends DomainEntity {
 	private Date	dropOutMoment;
 
 
+	@Past
 	public Date getRegisteredMoment() {
 		return this.registeredMoment;
 	}
@@ -27,6 +32,7 @@ public class Enrol extends DomainEntity {
 		this.registeredMoment = registeredMoment;
 	}
 
+	@NotBlank
 	public String getPosition() {
 		return this.position;
 	}
@@ -35,6 +41,7 @@ public class Enrol extends DomainEntity {
 		this.position = position;
 	}
 
+	@Past
 	public Date getDropOutMoment() {
 		return this.dropOutMoment;
 	}

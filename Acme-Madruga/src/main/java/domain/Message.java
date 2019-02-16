@@ -3,6 +3,10 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Message extends DomainEntity {
 
 	// Constructor
@@ -21,6 +25,7 @@ public class Message extends DomainEntity {
 	private String	tags;
 
 
+	@Past
 	public Date getSentMoment() {
 		return this.sentMoment;
 	}
@@ -29,6 +34,7 @@ public class Message extends DomainEntity {
 		this.sentMoment = sentMoment;
 	}
 
+	@NotBlank
 	public String getSubject() {
 		return this.subject;
 	}
@@ -37,6 +43,7 @@ public class Message extends DomainEntity {
 		this.subject = subject;
 	}
 
+	@NotBlank
 	public String getBody() {
 		return this.body;
 	}
@@ -45,6 +52,7 @@ public class Message extends DomainEntity {
 		this.body = body;
 	}
 
+	@NotBlank
 	public String getPriority() {
 		return this.priority;
 	}

@@ -1,6 +1,11 @@
 
 package domain;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Request extends DomainEntity {
 
 	// Constructor
@@ -18,6 +23,8 @@ public class Request extends DomainEntity {
 	private String	reasonWhy;
 
 
+	@NotBlank
+	@Pattern(regexp = "^PENDING|APPROVED|REJECTED$")
 	public String getStatus() {
 		return this.status;
 	}
@@ -26,6 +33,7 @@ public class Request extends DomainEntity {
 		this.status = status;
 	}
 
+	@Min(1)
 	public Integer getRow() {
 		return this.row;
 	}
@@ -34,6 +42,7 @@ public class Request extends DomainEntity {
 		this.row = row;
 	}
 
+	@Min(1)
 	public Integer getColumn() {
 		return this.column;
 	}

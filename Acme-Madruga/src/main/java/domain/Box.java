@@ -1,6 +1,8 @@
 
 package domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Box extends DomainEntity {
 
 	// Constructor
@@ -16,6 +18,7 @@ public class Box extends DomainEntity {
 	private boolean	isSystemBox;
 
 
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}

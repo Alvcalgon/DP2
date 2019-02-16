@@ -3,6 +3,12 @@ package domain;
 
 import java.util.Collection;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.URL;
+
 public class Customisation extends DomainEntity {
 
 	// Constructor
@@ -28,6 +34,7 @@ public class Customisation extends DomainEntity {
 	private Collection<String>	negativeWords;
 
 
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -36,6 +43,8 @@ public class Customisation extends DomainEntity {
 		this.name = name;
 	}
 
+	@NotBlank
+	@URL
 	public String getBanner() {
 		return this.banner;
 	}
@@ -44,6 +53,7 @@ public class Customisation extends DomainEntity {
 		this.banner = banner;
 	}
 
+	@NotBlank
 	public String getSpanishWelcomeMessage() {
 		return this.spanishWelcomeMessage;
 	}
@@ -52,6 +62,7 @@ public class Customisation extends DomainEntity {
 		this.spanishWelcomeMessage = spanishWelcomeMessage;
 	}
 
+	@NotBlank
 	public String getEnglishWelcomeMessage() {
 		return this.englishWelcomeMessage;
 	}
@@ -60,6 +71,8 @@ public class Customisation extends DomainEntity {
 		this.englishWelcomeMessage = englishWelcomeMessage;
 	}
 
+	@NotBlank
+	@Pattern(regexp = "\\+\\d+")
 	public String getCountryCode() {
 		return this.countryCode;
 	}
@@ -76,6 +89,7 @@ public class Customisation extends DomainEntity {
 		this.positions = positions;
 	}
 
+	@Range(min = 1, max = 24)
 	public int getTimeCachedResults() {
 		return this.timeCachedResults;
 	}
@@ -84,6 +98,7 @@ public class Customisation extends DomainEntity {
 		this.timeCachedResults = timeCachedResults;
 	}
 
+	@Range(min = 1, max = 100)
 	public int getMaxNumberResults() {
 		return this.maxNumberResults;
 	}

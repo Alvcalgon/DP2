@@ -3,6 +3,8 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
 public class Finder extends DomainEntity {
 
 	// Constructor
@@ -53,6 +55,7 @@ public class Finder extends DomainEntity {
 		this.maximumDate = maximumDate;
 	}
 
+	@Past
 	public Date getUpdatedMoment() {
 		return this.updatedMoment;
 	}

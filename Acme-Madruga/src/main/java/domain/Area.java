@@ -1,6 +1,8 @@
 
 package domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Area extends DomainEntity {
 
 	// Constructor
@@ -16,6 +18,7 @@ public class Area extends DomainEntity {
 	private String	pictures;
 
 
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}

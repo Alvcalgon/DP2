@@ -3,6 +3,10 @@ package domain;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Brotherhood extends Actor {
 
 	// Constructor
@@ -19,6 +23,7 @@ public class Brotherhood extends Actor {
 	private String	pictures;
 
 
+	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
@@ -27,6 +32,7 @@ public class Brotherhood extends Actor {
 		this.title = title;
 	}
 
+	@Past
 	public Date getEstablishmentDate() {
 		return this.establishmentDate;
 	}

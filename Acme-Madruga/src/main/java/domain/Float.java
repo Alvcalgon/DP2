@@ -1,6 +1,8 @@
 
 package domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Float extends DomainEntity {
 
 	// Constructor
@@ -17,6 +19,7 @@ public class Float extends DomainEntity {
 	private String	pictures;
 
 
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -25,6 +28,7 @@ public class Float extends DomainEntity {
 		this.name = name;
 	}
 
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}

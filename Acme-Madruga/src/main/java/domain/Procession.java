@@ -3,6 +3,11 @@ package domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Procession extends DomainEntity {
 
 	// Constructor
@@ -21,6 +26,9 @@ public class Procession extends DomainEntity {
 	private boolean	finalMode;
 
 
+	@NotBlank
+	@Column(unique = true)
+	@Pattern(regexp = "\\d{6}-[A-Z]{5}")
 	public String getTicker() {
 		return this.ticker;
 	}
@@ -29,6 +37,7 @@ public class Procession extends DomainEntity {
 		this.ticker = ticker;
 	}
 
+	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
@@ -37,6 +46,7 @@ public class Procession extends DomainEntity {
 		this.title = title;
 	}
 
+	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}

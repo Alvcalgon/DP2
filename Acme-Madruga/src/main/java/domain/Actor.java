@@ -1,6 +1,7 @@
 
 package domain;
 
+import org.hibernate.validator.constraints.NotBlank;
 
 public abstract class Actor extends DomainEntity {
 
@@ -24,6 +25,7 @@ public abstract class Actor extends DomainEntity {
 	private Double	score;
 
 
+	@NotBlank
 	public String getName() {
 		return this.name;
 	}
@@ -40,6 +42,7 @@ public abstract class Actor extends DomainEntity {
 		this.middleName = middleName;
 	}
 
+	@NotBlank
 	public String getSurname() {
 		return this.surname;
 	}
@@ -56,6 +59,7 @@ public abstract class Actor extends DomainEntity {
 		this.photo = photo;
 	}
 
+	@NotBlank
 	public String getEmail() {
 		return this.email;
 	}
