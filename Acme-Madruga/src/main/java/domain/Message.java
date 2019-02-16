@@ -89,21 +89,9 @@ public class Message extends DomainEntity {
 
 	//Relationships ----------------------------------------------------
 
-	private Collection<Box>		boxes;
 	private Actor				sender;
 	private Collection<Actor>	recipients;
 
-
-	@NotNull
-	@NotEmpty
-	@ManyToMany
-	public Collection<Box> getBoxes() {
-		return this.boxes;
-	}
-
-	public void setBoxes(final Collection<Box> boxes) {
-		this.boxes = boxes;
-	}
 
 	@Valid
 	@NotNull
