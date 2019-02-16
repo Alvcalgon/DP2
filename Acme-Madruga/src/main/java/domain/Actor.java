@@ -2,6 +2,7 @@
 package domain;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 
 public abstract class Actor extends DomainEntity {
 
@@ -51,6 +52,7 @@ public abstract class Actor extends DomainEntity {
 		this.surname = surname;
 	}
 
+	@URL
 	public String getPhoto() {
 		return this.photo;
 	}
