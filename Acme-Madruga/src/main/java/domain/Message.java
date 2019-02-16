@@ -1,12 +1,26 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
 	// Constructor
@@ -26,6 +40,9 @@ public class Message extends DomainEntity {
 
 
 	@Past
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getSentMoment() {
 		return this.sentMoment;
 	}
@@ -67,6 +84,47 @@ public class Message extends DomainEntity {
 
 	public void setTags(final String tags) {
 		this.tags = tags;
+	}
+
+
+	//Relationships ----------------------------------------------------
+
+	private Collection<Box>		boxes;
+	private Actor				sender;
+	private Collection<Actor>	recipients;
+
+
+	@NotNull
+	@NotEmpty
+	@ManyToMany
+	public Collection<Box> getBoxes() {
+		return this.boxes;
+	}
+
+	public void setBoxes(final Collection<Box> boxes) {
+		this.boxes = boxes;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Actor getSender() {
+		return this.sender;
+	}
+
+	public void setSender(final Actor sender) {
+		this.sender = sender;
+	}
+
+	@NotNull
+	@NotEmpty
+	@ManyToMany
+	public Collection<Actor> getRecipients() {
+		return this.recipients;
+	}
+
+	public void setRecipients(final Collection<Actor> recipients) {
+		this.recipients = recipients;
 	}
 
 }

@@ -3,12 +3,20 @@ package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Customisation extends DomainEntity {
 
 	// Constructor
@@ -81,6 +89,9 @@ public class Customisation extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
+	@NotNull
+	@NotEmpty
+	@ElementCollection
 	public Collection<String> getPositions() {
 		return this.positions;
 	}
@@ -107,6 +118,9 @@ public class Customisation extends DomainEntity {
 		this.maxNumberResults = maxNumberResults;
 	}
 
+	@NotNull
+	@NotEmpty
+	@ElementCollection
 	public Collection<String> getPriorities() {
 		return this.priorities;
 	}
@@ -115,6 +129,8 @@ public class Customisation extends DomainEntity {
 		this.priorities = priorities;
 	}
 
+	@NotNull
+	@ElementCollection
 	public Collection<String> getSpamWords() {
 		return this.spamWords;
 	}
@@ -123,6 +139,8 @@ public class Customisation extends DomainEntity {
 		this.spamWords = spamWords;
 	}
 
+	@NotNull
+	@ElementCollection
 	public Collection<String> getPositiveWords() {
 		return this.positiveWords;
 	}
@@ -131,6 +149,8 @@ public class Customisation extends DomainEntity {
 		this.positiveWords = positiveWords;
 	}
 
+	@NotNull
+	@ElementCollection
 	public Collection<String> getNegativeWords() {
 		return this.negativeWords;
 	}
