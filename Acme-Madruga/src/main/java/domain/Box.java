@@ -51,7 +51,7 @@ public class Box extends DomainEntity {
 	//Relationships ----------------------------------------------------
 
 	private Actor				actor;
-	private Box					parentBox;
+	private Box					parent;
 	private Collection<Message>	messages;
 
 
@@ -68,12 +68,12 @@ public class Box extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional = true)
-	public Box getParentBox() {
-		return this.parentBox;
+	public Box getParent() {
+		return this.parent;
 	}
 
-	public void setParentBox(final Box parentBox) {
-		this.parentBox = parentBox;
+	public void setParent(final Box parent) {
+		this.parent = parent;
 	}
 
 	@NotNull
