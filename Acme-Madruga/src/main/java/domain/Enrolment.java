@@ -13,7 +13,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,7 +29,6 @@ public class Enrolment extends DomainEntity {
 	// Attributes
 
 	private Date	registeredMoment;
-	private String	position;
 	private Date	dropOutMoment;
 
 
@@ -44,15 +42,6 @@ public class Enrolment extends DomainEntity {
 
 	public void setRegisteredMoment(final Date registeredMoment) {
 		this.registeredMoment = registeredMoment;
-	}
-
-	@NotBlank
-	public String getPosition() {
-		return this.position;
-	}
-
-	public void setPosition(final String position) {
-		this.position = position;
 	}
 
 	@Past
@@ -71,6 +60,7 @@ public class Enrolment extends DomainEntity {
 
 	private Brotherhood	brotherhood;
 	private Member		member;
+	private Position	position;
 
 
 	@Valid
@@ -93,6 +83,16 @@ public class Enrolment extends DomainEntity {
 
 	public void setMember(final Member member) {
 		this.member = member;
+	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public Position getPosition() {
+		return this.position;
+	}
+
+	public void setPosition(final Position position) {
+		this.position = position;
 	}
 
 }

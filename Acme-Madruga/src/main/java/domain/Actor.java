@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -78,6 +79,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@NotBlank
+	@Column(unique = true)
 	public String getEmail() {
 		return this.email;
 	}
