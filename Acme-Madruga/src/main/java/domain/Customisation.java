@@ -33,7 +33,7 @@ public class Customisation extends DomainEntity {
 	private String				spanishWelcomeMessage;
 	private String				englishWelcomeMessage;
 	private String				countryCode;
-	private Collection<String>	positions;
+	private Collection<String>	languages;
 	private int					timeCachedResults;
 	private int					maxNumberResults;
 	private Collection<String>	priorities;
@@ -92,12 +92,12 @@ public class Customisation extends DomainEntity {
 	@NotNull
 	@NotEmpty
 	@ElementCollection
-	public Collection<String> getPositions() {
-		return this.positions;
+	public Collection<String> getLanguages() {
+		return this.languages;
 	}
 
-	public void setPositions(final Collection<String> positions) {
-		this.positions = positions;
+	public void setLanguages(final Collection<String> languages) {
+		this.languages = languages;
 	}
 
 	@Range(min = 1, max = 24)

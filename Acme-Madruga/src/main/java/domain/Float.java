@@ -23,18 +23,18 @@ public class Float extends DomainEntity {
 
 	// Attributes
 
-	private String	name;
+	private String	title;
 	private String	description;
 	private String	pictures;
 
 
 	@NotBlank
-	public String getName() {
-		return this.name;
+	public String getTitle() {
+		return this.title;
 	}
 
-	public void setName(final String name) {
-		this.name = name;
+	public void setTitle(final String title) {
+		this.title = title;
 	}
 
 	@NotBlank

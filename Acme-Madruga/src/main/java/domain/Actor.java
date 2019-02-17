@@ -7,9 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
@@ -47,6 +50,7 @@ public abstract class Actor extends DomainEntity {
 		this.name = name;
 	}
 
+	@Pattern(regexp = "[a-zA-Z]*")
 	public String getMiddleName() {
 		return this.middleName;
 	}
@@ -106,6 +110,8 @@ public abstract class Actor extends DomainEntity {
 		this.isSpammer = isSpammer;
 	}
 
+	@Digits(integer = 3, fraction = 2)
+	@Range(min = -1, max = 1)
 	public Double getScore() {
 		return this.score;
 	}
