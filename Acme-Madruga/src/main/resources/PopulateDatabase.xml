@@ -1625,7 +1625,6 @@
 		<property name="area" ref="area2" />
 		<property name="enrolments">
 			<list>
-				<ref bean="enrolment3" />
 				<ref bean="enrolment4" />
 				<ref bean="enrolment6" />
 				<ref bean="enrolment7" />
@@ -1719,12 +1718,6 @@
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="member" ref="member1" />
 		<property name="position" ref="position4" />
-	</bean>
-
-	<bean id="enrolment3" class="domain.Enrolment">
-		<property name="dropOutMoment" value="2017/04/07 10:15" />
-		<property name="brotherhood" ref="brotherhood3" />
-		<property name="member" ref="member3" />
 	</bean>
 
 	<bean id="enrolment4" class="domain.Enrolment">
@@ -1832,14 +1825,13 @@
 	</bean>
 
 	<!-- Finder -->
-<!-- Finder -->
 
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="area" />
 		<property name="minimumDate" value="2018/10/05" />
 		<property name="maximumDate" value="2020/10/05" />
-		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="updatedMoment" value="2019/01/01 10:10" />
 		<property name="member" ref="member1" />
 		<property name="processions">
 			<list>
@@ -1901,7 +1893,7 @@
 		<property name="area" value="area" />
 		<property name="minimumDate" value="2018/10/05" />
 		<property name="maximumDate" value="2020/10/05" />
-		<property name="updatedMoment" value="2019/02/18 17:45" />
+		<property name="updatedMoment" value="2019/01/18 17:45" />
 		<property name="member" ref="member5" />
 		<property name="processions">
 			<list>
@@ -1928,13 +1920,30 @@
 		</property>
 	</bean>
 
+	<bean id="finder7" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member7" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
 	<bean id="finder8" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member8" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -1952,7 +1961,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member9" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -1969,7 +1978,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member10" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -1980,30 +1989,14 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="finder7" class="domain.Finder">
-		<property name="keyword" value="" />
-		<property name="area" value="" />
-		<property name="minimumDate" value="2019/01/05" />
-		<property name="maximumDate" value="2029/01/05" />
-		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
-		<property name="processions">
-			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
-			</list>
-		</property>
-	</bean>
+	
 	<bean id="finder11" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member11" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -2020,7 +2013,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member12" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -2037,7 +2030,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member13" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -2054,7 +2047,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member14" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -2071,7 +2064,7 @@
 		<property name="minimumDate" value="2019/01/05" />
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
-		<property name="member" ref="member6" />
+		<property name="member" ref="member15" />
 		<property name="processions">
 			<list>
 				<ref bean="procession1" />
@@ -2345,7 +2338,7 @@
 
 	<bean id="message3" class="domain.Message">
 		<property name="sentMoment" value="2017/04/09 11:14" />
-		<property name="subject" value="" />
+		<property name="subject" value="Welcome" />
 		<property name="body" value="Thanks for your reply" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
