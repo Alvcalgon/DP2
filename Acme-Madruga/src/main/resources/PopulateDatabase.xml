@@ -1913,8 +1913,8 @@
 	<bean id="finder6" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -1931,8 +1931,8 @@
 	<bean id="finder8" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -1949,8 +1949,8 @@
 	<bean id="finder9" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -1966,8 +1966,8 @@
 	<bean id="finder10" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -1983,8 +1983,8 @@
 	<bean id="finder7" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -2000,8 +2000,8 @@
 	<bean id="finder11" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -2017,8 +2017,8 @@
 	<bean id="finder12" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -2034,8 +2034,8 @@
 	<bean id="finder13" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -2051,8 +2051,8 @@
 	<bean id="finder14" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
@@ -2068,8 +2068,8 @@
 	<bean id="finder15" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
-		<property name="minimumDate" value="" />
-		<property name="maximumDate" value="" />
+		<property name="minimumDate" value="2019/01/05" />
+		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
 		<property name="processions">
