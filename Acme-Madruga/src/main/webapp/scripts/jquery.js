@@ -427,7 +427,7 @@ jQuery.extend({
 	},
 
 	isNumeric: function( obj ) {
-		return !isNaN( parseFloat(obj) ) && isFinite( obj );
+		return !isNaN( parseParadeFloat(obj) ) && isFinite( obj );
 	},
 
 	type: function( obj ) {
@@ -1271,7 +1271,7 @@ jQuery.support = (function() {
 	opt = select.appendChild( document.createElement("option") );
 	input = div.getElementsByTagName("input")[ 0 ];
 
-	a.style.cssText = "top:1px;float:left;opacity:.5";
+	a.style.cssText = "top:1px;paradeParadeFloat:left;opacity:.5";
 	support = {
 		// IE strips leading whitespace when .innerHTML is used
 		leadingWhitespace: ( div.firstChild.nodeType === 3 ),
@@ -1297,9 +1297,9 @@ jQuery.support = (function() {
 		// Use a regex to work around a WebKit issue. See #5145
 		opacity: /^0.5/.test( a.style.opacity ),
 
-		// Verify style float existence
-		// (IE uses styleFloat instead of cssFloat)
-		cssFloat: !!a.style.cssFloat,
+		// Verify style paradeParadeFloat existence
+		// (IE uses styleParadeFloat instead of cssParadeFloat)
+		cssParadeFloat: !!a.style.cssParadeFloat,
 
 		// Make sure that if no value is specified for a checkbox
 		// that it defaults to "on".
@@ -1472,7 +1472,7 @@ jQuery.support = (function() {
 			div.style.width = "1px";
 			div.appendChild( marginDiv );
 			support.reliableMarginRight =
-				!parseFloat( ( window.getComputedStyle( marginDiv, null ) || {} ).marginRight );
+				!parseParadeFloat( ( window.getComputedStyle( marginDiv, null ) || {} ).marginRight );
 		}
 
 		if ( typeof div.style.zoom !== "undefined" ) {
@@ -6698,8 +6698,8 @@ jQuery.extend({
 	// Add in properties whose names you wish to fix before
 	// setting or getting the value
 	cssProps: {
-		// normalize float css property
-		"float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
+		// normalize paradeParadeFloat css property
+		"paradeParadeFloat": jQuery.support.cssParadeFloat ? "cssParadeFloat" : "styleParadeFloat"
 	},
 
 	// Get and set the style property on a DOM Node
@@ -6726,7 +6726,7 @@ jQuery.extend({
 
 			// convert relative number strings (+= or -=) to relative numbers. #7345
 			if ( type === "string" && (ret = rrelNum.exec( value )) ) {
-				value = ( ret[1] + 1 ) * ret[2] + parseFloat( jQuery.css( elem, name ) );
+				value = ( ret[1] + 1 ) * ret[2] + parseParadeFloat( jQuery.css( elem, name ) );
 				// Fixes bug #9237
 				type = "number";
 			}
@@ -6789,7 +6789,7 @@ jQuery.extend({
 
 		// Return, converting to number if forced or a qualifier was provided and val looks numeric
 		if ( numeric || extra !== undefined ) {
-			num = parseFloat( val );
+			num = parseParadeFloat( val );
 			return numeric || jQuery.isNumeric( num ) ? num || 0 : val;
 		}
 		return val;
@@ -6925,20 +6925,20 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox ) {
 		if ( isBorderBox ) {
 			// border-box includes padding, so remove it if we want content
 			if ( extra === "content" ) {
-				val -= parseFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
+				val -= parseParadeFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
 			}
 
 			// at this point, extra isn't border nor margin, so remove border
 			if ( extra !== "margin" ) {
-				val -= parseFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+				val -= parseParadeFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
 			}
 		} else {
 			// at this point, extra isn't content, so add padding
-			val += parseFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
+			val += parseParadeFloat( curCSS( elem, "padding" + cssExpand[ i ] ) ) || 0;
 
 			// at this point, extra isn't content nor padding, so add border
 			if ( extra !== "padding" ) {
-				val += parseFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
+				val += parseParadeFloat( curCSS( elem, "border" + cssExpand[ i ] + "Width" ) ) || 0;
 			}
 		}
 	}
@@ -6973,7 +6973,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		valueIsBorderBox = isBorderBox && ( jQuery.support.boxSizingReliable || val === elem.style[ name ] );
 
 		// Normalize "", auto, and prepare for extra
-		val = parseFloat( val ) || 0;
+		val = parseParadeFloat( val ) || 0;
 	}
 
 	// use the active box-sizing model to add/subtract irrelevant styles
@@ -7065,7 +7065,7 @@ if ( !jQuery.support.opacity ) {
 		get: function( elem, computed ) {
 			// IE uses filters for opacity
 			return ropacity.test( (computed && elem.currentStyle ? elem.currentStyle.filter : elem.style.filter) || "" ) ?
-				( 0.01 * parseFloat( RegExp.$1 ) ) + "" :
+				( 0.01 * parseParadeFloat( RegExp.$1 ) ) + "" :
 				computed ? "1" : "";
 		},
 
@@ -8833,7 +8833,7 @@ function defaultPrefilter( elem, props, opts ) {
 		// Set display property to inline-block for height/width
 		// animations on inline elements that are having width/height animated
 		if ( jQuery.css( elem, "display" ) === "inline" &&
-				jQuery.css( elem, "float" ) === "none" ) {
+				jQuery.css( elem, "paradeParadeFloat" ) === "none" ) {
 
 			// inline-level elements accept inline-block;
 			// block-level elements need to be inline with layout
@@ -8974,8 +8974,8 @@ Tween.propHooks = {
 			}
 
 			// passing any value as a 4th parameter to .css will automatically
-			// attempt a parseFloat and fallback to a string if the parse fails
-			// so, simple values such as "10px" are parsed to Float.
+			// attempt a parseParadeFloat and fallback to a string if the parse fails
+			// so, simple values such as "10px" are parsed to ParadeFloat.
 			// complex values such as "rotate(1rad)" are returned as is.
 			result = jQuery.css( tween.elem, tween.prop, false, "" );
 			// Empty strings, null, undefined and "auto" are converted to 0.
@@ -9278,8 +9278,8 @@ jQuery.offset = {
 			left = body.offsetLeft;
 
 		if ( jQuery.support.doesNotIncludeMarginInBodyOffset ) {
-			top  += parseFloat( jQuery.css(body, "marginTop") ) || 0;
-			left += parseFloat( jQuery.css(body, "marginLeft") ) || 0;
+			top  += parseParadeFloat( jQuery.css(body, "marginTop") ) || 0;
+			left += parseParadeFloat( jQuery.css(body, "marginLeft") ) || 0;
 		}
 
 		return { top: top, left: left };
@@ -9306,8 +9306,8 @@ jQuery.offset = {
 			curTop = curPosition.top;
 			curLeft = curPosition.left;
 		} else {
-			curTop = parseFloat( curCSSTop ) || 0;
-			curLeft = parseFloat( curCSSLeft ) || 0;
+			curTop = parseParadeFloat( curCSSTop ) || 0;
+			curLeft = parseParadeFloat( curCSSLeft ) || 0;
 		}
 
 		if ( jQuery.isFunction( options ) ) {
@@ -9349,12 +9349,12 @@ jQuery.fn.extend({
 		// Subtract element margins
 		// note: when an element has margin: auto the offsetLeft and marginLeft
 		// are the same in Safari causing offset.left to incorrectly be 0
-		offset.top  -= parseFloat( jQuery.css(elem, "marginTop") ) || 0;
-		offset.left -= parseFloat( jQuery.css(elem, "marginLeft") ) || 0;
+		offset.top  -= parseParadeFloat( jQuery.css(elem, "marginTop") ) || 0;
+		offset.left -= parseParadeFloat( jQuery.css(elem, "marginLeft") ) || 0;
 
 		// Add offsetParent borders
-		parentOffset.top  += parseFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
-		parentOffset.left += parseFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
+		parentOffset.top  += parseParadeFloat( jQuery.css(offsetParent[0], "borderTopWidth") ) || 0;
+		parentOffset.left += parseParadeFloat( jQuery.css(offsetParent[0], "borderLeftWidth") ) || 0;
 
 		// Subtract the two offsets
 		return {
@@ -9441,7 +9441,7 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				}
 
 				return value === undefined ?
-					// Get width or height on the element, requesting but not forcing parseFloat
+					// Get width or height on the element, requesting but not forcing parseParadeFloat
 					jQuery.css( elem, type, value, extra ) :
 
 					// Set width or height on the element

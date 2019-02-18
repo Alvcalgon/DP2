@@ -1,5 +1,5 @@
 /*
- * StringToFloatConverter.java
+ * StringToParadeFloatConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -16,20 +16,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.FloatRepository;
-import domain.Float;
+import repositories.ParadeFloatRepository;
+import domain.ParadeFloat;
 
 @Component
 @Transactional
-public class StringToFloatConverter implements Converter<String, Float> {
+public class StringToParadeFloatConverter implements Converter<String, ParadeFloat> {
 
 	@Autowired
-	FloatRepository	floatRepository;
+	ParadeFloatRepository	paradeParadeFloatRepository;
 
 
 	@Override
-	public Float convert(final String text) {
-		Float result;
+	public ParadeFloat convert(final String text) {
+		ParadeFloat result;
 		int id;
 
 		try {
@@ -37,7 +37,7 @@ public class StringToFloatConverter implements Converter<String, Float> {
 				result = null;
 			else {
 				id = Integer.valueOf(text);
-				result = this.floatRepository.findOne(id);
+				result = this.paradeParadeFloatRepository.findOne(id);
 			}
 		} catch (final Throwable oops) {
 			throw new IllegalArgumentException(oops);
