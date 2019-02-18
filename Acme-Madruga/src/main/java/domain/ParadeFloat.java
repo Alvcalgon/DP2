@@ -12,11 +12,11 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Float extends DomainEntity {
+public class ParadeFloat extends DomainEntity {
 
 	// Constructor
 
-	public Float() {
+	public ParadeFloat() {
 		super();
 	}
 

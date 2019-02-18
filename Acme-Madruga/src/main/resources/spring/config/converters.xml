@@ -39,8 +39,8 @@
 		<bean class="converters.FinderToStringConverter" />
 		<bean class="converters.StringToFinderConverter" />
 
-		<bean class="converters.FloatToStringConverter" />
-		<bean class="converters.StringToFloatConverter" />
+		<bean class="converters.ParadeFloatToStringConverter" />
+		<bean class="converters.StringToParadeFloatConverter" />
 
 		<bean class="converters.BrotherhoodToStringConverter" />
 		<bean class="converters.StringToBrotherhoodConverter" />
@@ -92,8 +92,8 @@
 		<bean class="converters.StringToFinderConverter" />
 		<bean class="converters.FinderToStringConverter" />
 
-		<bean class="converters.StringToFloatConverter" />
-		<bean class="converters.FloatToStringConverter" />
+		<bean class="converters.StringToParadeFloatConverter" />
+		<bean class="converters.ParadeFloatToStringConverter" />
 
 		<bean class="converters.StringToMemberConverter" />
 		<bean class="converters.MemberToStringConverter" />

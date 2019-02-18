@@ -1,5 +1,5 @@
 /*
- * FloatToStringConverter.java
+ * ParadeFloatToStringConverter.java
  * 
  * Copyright (C) 2017 Universidad de Sevilla
  * 
@@ -14,20 +14,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Float;
+import domain.ParadeFloat;
 
 @Component
 @Transactional
-public class FloatToStringConverter implements Converter<Float, String> {
+public class ParadeFloatToStringConverter implements Converter<ParadeFloat, String> {
 
 	@Override
-	public String convert(final Float floatDomain) {
+	public String convert(final ParadeFloat paradeParadeFloatDomain) {
 		String result;
 
-		if (floatDomain == null)
+		if (paradeParadeFloatDomain == null)
 			result = null;
 		else
-			result = String.valueOf(floatDomain.getId());
+			result = String.valueOf(paradeParadeFloatDomain.getId());
 
 		return result;
 	}
