@@ -11,7 +11,6 @@
 	">
 
 	<!-- User accounts -->
-
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin1" />
 		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
@@ -36,7 +35,6 @@
 		</property>
 	</bean>
 
-
 	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="member2" />
 		<property name="password" value="88ed421f060aadcacbd63f28d889797f" />
@@ -60,7 +58,6 @@
 			</list>
 		</property>
 	</bean>
-
 
 	<bean id="userAccount5" class="security.UserAccount">
 		<property name="username" value="brotherhood2" />
@@ -90,7 +87,6 @@
 	</bean>
 
 	<!-- Area -->
-
 	<bean id="area1" class="domain.Area">
 		<property name="name" value="area1" />
 		<property name="pictures"
@@ -109,174 +105,6 @@
 		<property name="brotherhoods">
 			<list>
 				<ref bean="brotherhood2" />
-			</list>
-		</property>
-	</bean>
-
-
-	<!-- Member -->
-	<bean id="member1" class="domain.Member">
-		<property name="name" value="José Antonio" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Ferreras" />
-		<property name="photo"
-			value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
-		<property name="email" value="joseantonioferreras@gmail.com" />
-		<property name="phoneNumber" value="632014785" />
-		<property name="address" value="Calle Sexta 6" />
-		<property name="isSpammer" value="false" />
-		<property name="score" value="0.4" />
-		<property name="userAccount" ref="userAccount2" />
-	</bean>
-
-	<bean id="member2" class="domain.Member">
-		<property name="name" value="María Fernanda" />
-		<property name="middleName" value="" />
-		<property name="surname" value="Lobato" />
-		<property name="photo"
-			value="https://t1.uc.ltmcdn.com/images/8/5/3/img_como_usar_el_aceite_de_arbol_de_te_en_la_cara_43358_600.jpg" />
-		<property name="email" value="mariafernanda@gmail.com" />
-		<property name="phoneNumber" value="698745214" />
-		<property name="address" value="Calle Niebla 6" />
-		<property name="isSpammer" value="false" />
-		<property name="score" value="0.7" />
-		<property name="userAccount" ref="userAccount3" />
-	</bean>
-
-	<!-- Brotherhood -->
-	<bean id="brotherhood1" class="domain.Brotherhood">
-		<property name="name" value="Hermandad de la santísima Máquina Virtual" />
-		<property name="middleName" value="Virtual" />
-		<property name="surname" value="Box" />
-		<property name="photo"
-			value="https://t1.uc.ltmcdn.com/images/0/3/0/img_como_crear_una_maquina_virtual_en_virtualbox_23030_600.jpg" />
-		<property name="email" value="hermandadmaquinavirtual@gmail.com" />
-		<property name="phoneNumber" value="632014700" />
-		<property name="address" value="Calle María 2" />
-		<property name="isSpammer" value="false" />
-		<property name="userAccount" ref="userAccount4" />
-		<property name="title" value="Hermandad de la santísima" />
-		<property name="establishmentDate" value="2017/09/20" />
-		<property name="pictures"
-			value="https://cloud10.todocoleccion.online/antiguedades/tc/2014/04/27/13/43036847.jpg" />
-		<property name="area" ref="area1" />
-		<property name="enrolments">
-			<list>
-				<ref bean="enrolment1" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="brotherhood2" class="domain.Brotherhood">
-		<property name="name" value="Hermandad del Cristo de la escalera" />
-		<property name="middleName" value="Escalones" />
-		<property name="surname" value="de Madera" />
-		<property name="photo"
-			value="http://www.jesusnazarenoolias.es/hermandad/images/ESCUDO2015.png" />
-		<property name="email" value="cristodemadera2@gmail.com" />
-		<property name="phoneNumber" value="698523658" />
-		<property name="address" value="Calle Cristo 2" />
-		<property name="isSpammer" value="false" />
-		<property name="userAccount" ref="userAccount5" />
-		<property name="title" value="Hermandad del Cristo" />
-		<property name="establishmentDate" value="2017/07/20" />
-		<property name="pictures"
-			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
-		<property name="area" ref="area2" />
-		<property name="enrolments">
-			<list>
-				<null></null>
-			</list>
-		</property>
-	</bean>
-
-
-
-
-	<!-- Enrolment -->
-	<bean id="enrolment1" class="domain.Enrolment">
-		<property name="registeredMoment" value="2015/02/07 10:15" />
-		<property name="brotherhood" ref="brotherhood1" />
-		<property name="member" ref="member1" />
-		<property name="position" ref="position1" />
-	</bean>
-
-	<!-- Position -->
-	<bean id="position1" class="domain.Position">
-		<property name="translationPositions">
-			<list>
-				<ref bean="translationPosition1" />
-				<ref bean="translationPosition2" />
-			</list>
-		</property>
-	</bean>
-
-	<!-- Translation position -->
-	<bean id="translationPosition1" class="domain.TranslationPosition">
-		<property name="name" value="President" />
-		<property name="language" value="en" />
-	</bean>
-
-	<bean id="translationPosition2" class="domain.TranslationPosition">
-		<property name="name" value="Presidente" />
-		<property name="language" value="es" />
-	</bean>
-
-	<!-- Translation position -->
-	<bean id="socialProfile1" class="domain.SocialProfile">
-		<property name="nick" value="nick1" />
-		<property name="socialNetwork" value="Twitter" />
-		<property name="linkProfile" value="http://www.twitter.com/nick1" />
-		<property name="actor" ref="administrator1" />
-	</bean>
-
-	<bean id="socialProfile2" class="domain.SocialProfile">
-		<property name="nick" value="nick2" />
-		<property name="socialNetwork" value="Instagram" />
-		<property name="linkProfile" value="http://www.instagram.com/nick2" />
-		<property name="actor" ref="member1" />
-	</bean>
-
-	<bean id="socialProfile3" class="domain.SocialProfile">
-		<property name="nick" value="nick3" />
-		<property name="socialNetwork" value="Facebook" />
-		<property name="linkProfile" value="http://www.facebook.com/nick3" />
-		<property name="actor" ref="member2" />
-	</bean>
-
-	<bean id="socialProfile4" class="domain.SocialProfile">
-		<property name="nick" value="nick4" />
-		<property name="socialNetwork" value="Facebook" />
-		<property name="linkProfile" value="http://www.facebook.com/nick4" />
-		<property name="actor" ref="brotherhood1" />
-	</bean>
-
-	<bean id="socialProfile5" class="domain.SocialProfile">
-		<property name="nick" value="nick5" />
-		<property name="socialNetwork" value="Facebook" />
-		<property name="linkProfile" value="http://www.facebook.com/nick5" />
-		<property name="actor" ref="brotherhood2" />
-	</bean>
-
-	<!-- Request -->
-	<bean id="request" class="domain.Request">
-		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="3" />
-		<property name="member" ref="member1" />
-		<property name="procession" ref="procession1" />
-	</bean>
-	
-	<!-- Procession -->
-	<bean id="procession1" class="domain.Procession">
-		<property name="ticker" value="120718-ASDFG" />
-		<property name="title" value="Procesion de primavera" />
-		<property name="description" value="Esta es la procesion que sale en primavera" />
-		<property name="moment" value="2019/02/27 10:15" />
-		<property name="finalMode" value="true" />
-		<property name="paradeFloats">
-			<list>
-				<null></null>
 			</list>
 		</property>
 	</bean>
@@ -391,7 +219,7 @@
 		</property>
 		<property name="actor" ref="member1" />
 	</bean>
-	
+
 	<bean id="box11" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
@@ -501,7 +329,7 @@
 		</property>
 		<property name="actor" ref="brotherhood1" />
 	</bean>
-	
+
 	<bean id="box21" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
@@ -557,5 +385,179 @@
 		<property name="actor" ref="brotherhood2" />
 	</bean>
 
+	<!-- Brotherhood -->
+	<bean id="brotherhood1" class="domain.Brotherhood">
+		<property name="name" value="Hermandad de la santísima Máquina Virtual" />
+		<property name="middleName" value="Virtual" />
+		<property name="surname" value="Box" />
+		<property name="photo"
+			value="https://t1.uc.ltmcdn.com/images/0/3/0/img_como_crear_una_maquina_virtual_en_virtualbox_23030_600.jpg" />
+		<property name="email" value="hermandadmaquinavirtual@gmail.com" />
+		<property name="phoneNumber" value="632014700" />
+		<property name="address" value="Calle María 2" />
+		<property name="isSpammer" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="title" value="Hermandad de la santísima" />
+		<property name="establishmentDate" value="2017/09/20" />
+		<property name="pictures"
+			value="https://cloud10.todocoleccion.online/antiguedades/tc/2014/04/27/13/43036847.jpg" />
+		<property name="area" ref="area1" />
+		<property name="enrolments">
+			<list>
+				<ref bean="enrolment1" />
+			</list>
+		</property>
+	</bean>
 
+	<bean id="brotherhood2" class="domain.Brotherhood">
+		<property name="name" value="Hermandad del Cristo de la escalera" />
+		<property name="middleName" value="Escalones" />
+		<property name="surname" value="de Madera" />
+		<property name="photo"
+			value="http://www.jesusnazarenoolias.es/hermandad/images/ESCUDO2015.png" />
+		<property name="email" value="cristodemadera2@gmail.com" />
+		<property name="phoneNumber" value="698523658" />
+		<property name="address" value="Calle Cristo 2" />
+		<property name="isSpammer" value="false" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="title" value="Hermandad del Cristo" />
+		<property name="establishmentDate" value="2017/07/20" />
+		<property name="pictures"
+			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
+		<property name="area" ref="area2" />
+		<property name="enrolments">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Customisation -->
+
+
+	<!-- Enrolment -->
+	<bean id="enrolment1" class="domain.Enrolment">
+		<property name="registeredMoment" value="2015/02/07 10:15" />
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="member" ref="member1" />
+		<property name="position" ref="position1" />
+	</bean>
+
+	<!-- Finder -->
+
+
+	<!-- Member -->
+	<bean id="member1" class="domain.Member">
+		<property name="name" value="José Antonio" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ferreras" />
+		<property name="photo"
+			value="https://deca.upc.edu/ca/persones/pdi-template-shared/profile/@@images/bac720ab-ea23-4696-9bdd-15f87f706868.png" />
+		<property name="email" value="joseantonioferreras@gmail.com" />
+		<property name="phoneNumber" value="632014785" />
+		<property name="address" value="Calle Sexta 6" />
+		<property name="isSpammer" value="false" />
+		<property name="score" value="0.4" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+
+	<bean id="member2" class="domain.Member">
+		<property name="name" value="María Fernanda" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Lobato" />
+		<property name="photo"
+			value="https://t1.uc.ltmcdn.com/images/8/5/3/img_como_usar_el_aceite_de_arbol_de_te_en_la_cara_43358_600.jpg" />
+		<property name="email" value="mariafernanda@gmail.com" />
+		<property name="phoneNumber" value="698745214" />
+		<property name="address" value="Calle Niebla 6" />
+		<property name="isSpammer" value="false" />
+		<property name="score" value="0.7" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+
+	<!-- Message -->
+	
+	
+	<!-- ParadeFloat -->
+
+
+	<!-- Position -->
+	<bean id="position1" class="domain.Position">
+		<property name="translationPositions">
+			<list>
+				<ref bean="translationPosition1" />
+				<ref bean="translationPosition2" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Procession -->
+	<bean id="procession1" class="domain.Procession">
+		<property name="ticker" value="120718-ASDFG" />
+		<property name="title" value="Procesion de primavera" />
+		<property name="description" value="Esta es la procesion que sale en primavera" />
+		<property name="moment" value="2019/02/27 10:15" />
+		<property name="finalMode" value="true" />
+		<property name="paradeFloats">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Request -->
+	<bean id="request" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="3" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession1" />
+	</bean>
+	
+	<!-- SocialProfile -->
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="nick1" />
+		<property name="socialNetwork" value="Twitter" />
+		<property name="linkProfile" value="http://www.twitter.com/nick1" />
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="nick2" />
+		<property name="socialNetwork" value="Instagram" />
+		<property name="linkProfile" value="http://www.instagram.com/nick2" />
+		<property name="actor" ref="member1" />
+	</bean>
+
+	<bean id="socialProfile3" class="domain.SocialProfile">
+		<property name="nick" value="nick3" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="linkProfile" value="http://www.facebook.com/nick3" />
+		<property name="actor" ref="member2" />
+	</bean>
+
+	<bean id="socialProfile4" class="domain.SocialProfile">
+		<property name="nick" value="nick4" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="linkProfile" value="http://www.facebook.com/nick4" />
+		<property name="actor" ref="brotherhood1" />
+	</bean>
+
+	<bean id="socialProfile5" class="domain.SocialProfile">
+		<property name="nick" value="nick5" />
+		<property name="socialNetwork" value="Facebook" />
+		<property name="linkProfile" value="http://www.facebook.com/nick5" />
+		<property name="actor" ref="brotherhood2" />
+	</bean>
+
+	<!-- Translation position -->
+	<bean id="translationPosition1" class="domain.TranslationPosition">
+		<property name="name" value="President" />
+		<property name="language" value="en" />
+	</bean>
+
+	<bean id="translationPosition2" class="domain.TranslationPosition">
+		<property name="name" value="Presidente" />
+		<property name="language" value="es" />
+	</bean>
 </beans>
