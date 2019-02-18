@@ -33,7 +33,6 @@ public class Enrolment extends DomainEntity {
 
 
 	@Past
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getRegisteredMoment() {
