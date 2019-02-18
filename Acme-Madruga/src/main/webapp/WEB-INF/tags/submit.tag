@@ -24,9 +24,15 @@
 
 <%@ attribute name="name" required="true" %> 
 <%@ attribute name="code" required="true" %>
+<%@ attribute name="onclick" required="false" %>
+
+<jstl:if test="${onclick == null }">
+	<jstl:set var="onclick" value="false"/>
+</jstl:if>
+
 
 <%-- Definition --%>
 
-<button type="submit" name="${name}" class="btn btn-primary">
+<button type="submit" name="${name}" class="btn btn-primary" onclick="${onclick}" >
 	<spring:message code="${code}" />
 </button>
