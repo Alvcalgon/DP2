@@ -23,10 +23,11 @@ public class BoxService {
 	@Autowired
 	private BoxRepository	boxRepository;
 
-
 	// Other supporting services -------------------
 	@Autowired
-	//TODO:private ActorService actorService;
+	private ActorService	actorService;
+
+
 	// Constructors -------------------------------
 	public BoxService() {
 		super();
@@ -47,7 +48,7 @@ public class BoxService {
 		result = this.boxRepository.findOne(boxId);
 
 		Assert.notNull(result);
-		//TODO:this.actorService.findByPrincipal();
+		this.checkByPrincipal(result);
 
 		return result;
 	}
@@ -56,10 +57,10 @@ public class BoxService {
 		Box result;
 		final Actor principal;
 
-		//TODO:principal = this.actorService.findByPrincipal();
+		principal = this.actorService.findPrincipal();
 
 		result = new Box();
-		//TODO:result.setActor(principal);
+		result.setActor(principal);
 		result.setMessages(Collections.<Message> emptySet());
 
 		return result;
@@ -68,6 +69,7 @@ public class BoxService {
 	public Box save(final Box box) {
 		Assert.notNull(box);
 		Assert.isTrue(!box.getIsSystemBox());
+		this.checkByPrincipal(box);
 		this.checkName(box);
 
 		Box result;
@@ -85,6 +87,10 @@ public class BoxService {
 		// ¿Que ocurre si borro una carpeta que contiene mensajes?
 
 		// ¿Que ocurre si borro una carpeta que tiene carpetas dentro?
+
+	}
+
+	public void move(final Box target, final Box origin, final Box destination) {
 
 	}
 
@@ -153,6 +159,14 @@ public class BoxService {
 		validName = box.getName().equals("in box") || box.getName().equals("out box") || box.getName().equals("notification box") || box.getName().equals("trash box") || box.getName().equals("spam box");
 
 		Assert.isTrue(!validName);
+	}
+
+	private void checkByPrincipal(final Box box) {
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+
+		Assert.isTrue(box.getActor().equals(principal));
 	}
 
 }
