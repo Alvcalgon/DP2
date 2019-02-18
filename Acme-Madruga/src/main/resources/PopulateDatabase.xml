@@ -349,8 +349,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message2" />
 				<ref bean="message3" />
-				<ref bean="message4" />
 				<ref bean="message6" />
 			</list>
 		</property>
@@ -373,7 +373,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message1" />
 			</list>
 		</property>
 		<property name="actor" ref="member1" />
@@ -416,8 +416,9 @@
 		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
-			<list>
-				<null></null>
+			<list>				
+				<ref bean="message1" />
+				<ref bean="message7" />
 			</list>
 		</property>
 		<property name="actor" ref="member2" />
@@ -428,7 +429,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message4" />
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member2" />
@@ -451,7 +453,7 @@
 		<property name="messages">
 			<list>
 				<ref bean="message3" />
-				<ref bean="message4" />
+				<ref bean="message6" />
 			</list>
 		</property>
 		<property name="actor" ref="brotherhood1" />
@@ -531,7 +533,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message4" />
 			</list>
 		</property>
 		<property name="actor" ref="brotherhood2" />
@@ -586,7 +588,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message2" />		
+				<ref bean="message1" />
 			</list>
 		</property>
 		<property name="actor" ref="member3" />
@@ -620,7 +623,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message1" />
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member4" />
@@ -675,7 +679,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member5" />
@@ -698,7 +702,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message5" />
 			</list>
 		</property>
 		<property name="actor" ref="member5" />
@@ -732,7 +736,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message6" />
+				<ref bean="message9" />
 			</list>
 		</property>
 		<property name="actor" ref="member6" />
@@ -789,7 +794,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message1" />
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member7" />
@@ -811,7 +817,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message7" />
 			</list>
 		</property>
 		<property name="actor" ref="member7" />
@@ -845,7 +851,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message1" />
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member8" />
@@ -923,7 +930,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message1" />
+				<ref bean="message2" />
 			</list>
 		</property>
 		<property name="actor" ref="member9" />
@@ -957,7 +965,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message2" />
+				<ref bean="message1" />
 			</list>
 		</property>
 		<property name="actor" ref="member10" />
@@ -1013,7 +1022,8 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<null></null>
+				<ref bean="message2" />
+				<ref bean="message1" />
 			</list>
 		</property>
 		<property name="actor" ref="member11" />
@@ -1192,7 +1202,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<ref bean="message7" />
+				<ref bean="message10" />
 			</list>
 		</property>
 		<property name="actor" ref="member14" />
@@ -1822,7 +1832,255 @@
 	</bean>
 
 	<!-- Finder -->
+<!-- Finder -->
 
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="area" />
+		<property name="minimumDate" value="2018/10/05" />
+		<property name="maximumDate" value="2020/10/05" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member1" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="2005/12/14" />
+		<property name="maximumDate" value="2022/10/05" />
+		<property name="updatedMoment" value="2018/05/08 21:47" />
+		<property name="member" ref="member2" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="area" />
+		<property name="minimumDate" value="2019/10/05" />
+		<property name="maximumDate" value="2019/11/05" />
+		<property name="updatedMoment" value="2018/07/25 16:44" />
+		<property name="member" ref="member3" />
+		<property name="processions">
+			<list>
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder4" class="domain.Finder">
+		<property name="keyword" value="easter" />
+		<property name="area" value="area" />
+		<property name="minimumDate" value="2018/10/05" />
+		<property name="maximumDate" value="2020/10/05" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member4" />
+		<property name="processions">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder5" class="domain.Finder">
+		<property name="keyword" value="student" />
+		<property name="area" value="area" />
+		<property name="minimumDate" value="2018/10/05" />
+		<property name="maximumDate" value="2020/10/05" />
+		<property name="updatedMoment" value="2019/02/18 17:45" />
+		<property name="member" ref="member5" />
+		<property name="processions">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder6" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder8" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="finder9" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder10" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder7" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder11" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder12" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder13" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder14" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder15" class="domain.Finder">
+		<property name="keyword" value="" />
+		<property name="area" value="" />
+		<property name="minimumDate" value="" />
+		<property name="maximumDate" value="" />
+		<property name="updatedMoment" value="2019/01/05 10:10" />
+		<property name="member" ref="member6" />
+		<property name="processions">
+			<list>
+				<ref bean="procession1" />
+				<ref bean="procession2" />
+				<ref bean="procession3" />
+				<ref bean="procession4" />
+				<ref bean="procession5" />
+			</list>
+		</property>
 
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
@@ -2333,7 +2591,7 @@
 		<property name="title" value="Procesion de primavera" />
 		<property name="description" value="Esta es la procesion que sale en primavera" />
 		<property name="moment" value="2019/05/27 10:15" />
-		<property name="finalMode" value="true" />
+		<property name="isFinalMode" value="true" />
 		<property name="paradeFloats">
 			<list>
 				<ref bean="paradeFloat1" />
@@ -2346,7 +2604,7 @@
 		<property name="title" value="Procesion de invierno" />
 		<property name="description" value="Esta es la procesion que sale en invierno" />
 		<property name="moment" value="2019/11/27 10:15" />
-		<property name="finalMode" value="true" />
+		<property name="isFinalMode" value="true" />
 		<property name="paradeFloats">
 			<list>
 				<ref bean="paradeFloat2" />
@@ -2360,7 +2618,7 @@
 		<property name="title" value="Procesion de verano" />
 		<property name="description" value="Esta es la procesion que sale en verano" />
 		<property name="moment" value="2019/08/27 10:15" />
-		<property name="finalMode" value="true" />
+		<property name="isFinalMode" value="true" />
 		<property name="paradeFloats">
 			<list>
 				<ref bean="paradeFloat4" />
@@ -2375,7 +2633,7 @@
 		<property name="description"
 			value="Esta es la procesion que sale el jueves santo" />
 		<property name="moment" value="2018/04/27 10:15" />
-		<property name="finalMode" value="true" />
+		<property name="isFinalMode" value="true" />
 		<property name="paradeFloats">
 			<list>
 				<ref bean="paradeFloat5" />
@@ -2388,7 +2646,7 @@
 		<property name="title" value="Procesion de navidad" />
 		<property name="description" value="Esta es la procesion que sale en navidad" />
 		<property name="moment" value="2019/12/27 10:15" />
-		<property name="finalMode" value="true" />
+		<property name="isFinalMode" value="true" />
 		<property name="paradeFloats">
 			<list>
 				<ref bean="paradeFloat6" />
@@ -2397,12 +2655,82 @@
 	</bean>
 
 	<!-- Request -->
-	<bean id="request" class="domain.Request">
+<!-- Request -->
+	<bean id="request1" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="1" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession1" />
+	</bean>
+	
+	<bean id="request2" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="2" />
+		<property name="member" ref="member2" />
+		<property name="procession" ref="procession5" />
+	</bean>
+	
+	<bean id="request3" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
 		<property name="columnProcession" value="3" />
-		<property name="member" ref="member1" />
-		<property name="procession" ref="procession1" />
+		<property name="member" ref="member3" />
+		<property name="procession" ref="procession3" />
+	</bean>
+	
+	<bean id="request4" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="4" />
+		<property name="member" ref="member3" />
+		<property name="procession" ref="procession4" />
+	</bean>
+	
+	<bean id="request5" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="5" />
+		<property name="member" ref="member5" />
+		<property name="procession" ref="procession3" />
+	</bean>
+	
+	<bean id="request6" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="6" />
+		<property name="member" ref="member7" />
+		<property name="procession" ref="procession4" />
+	</bean>
+	
+	<bean id="request7" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="7" />
+		<property name="member" ref="member10" />
+		<property name="procession" ref="procession5" />
+	</bean>
+	
+	<bean id="request8" class="domain.Request">
+		<property name="status" value="APPROVED" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="4" />
+		<property name="member" ref="member12" />
+		<property name="procession" ref="procession2" />
+	</bean>
+	
+	<bean id="request9" class="domain.Request">
+		<property name="status" value="REJECTED" />
+		<property name="member" ref="member11" />
+		<property name="reasonWhy" value="Porque eres demasiado joven" />
+		<property name="procession" ref="procession3" />
+	</bean>
+	
+	<bean id="request10" class="domain.Request">
+		<property name="status" value="PENDING" />
+		<property name="member" ref="member6" />
+		<property name="procession" ref="procession4" />
 	</bean>
 
 	<!-- SocialProfile -->
