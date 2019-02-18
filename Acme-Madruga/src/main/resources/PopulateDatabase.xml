@@ -2081,6 +2081,7 @@
 				<ref bean="procession5" />
 			</list>
 		</property>
+	</bean>
 
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
