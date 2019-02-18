@@ -42,7 +42,7 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount2" class="security.UserAccount">
+	<bean id="userAccount3" class="security.UserAccount">
 		<property name="username" value="brotherhood" />
 		<property name="password" value="44843b89fec33a1c48bbb3967b65abce" />
 		<property name="authorities">
