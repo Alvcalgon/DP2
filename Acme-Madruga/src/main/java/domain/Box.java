@@ -39,11 +39,11 @@ public class Box extends DomainEntity {
 		this.name = name;
 	}
 
-	public boolean isSystemBox() {
+	public boolean getIsSystemBox() {
 		return this.isSystemBox;
 	}
 
-	public void setSystemBox(final boolean isSystemBox) {
+	public void setIsSystemBox(final boolean isSystemBox) {
 		this.isSystemBox = isSystemBox;
 	}
 

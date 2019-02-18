@@ -77,7 +77,7 @@ public class Procession extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public boolean isFinalMode() {
+	public boolean getFinalMode() {
 		return this.finalMode;
 	}
 
@@ -88,17 +88,17 @@ public class Procession extends DomainEntity {
 
 	//Relationships ----------------------------------------------------
 
-	private Collection<ParadeFloat>	paradeParadeFloats;
+	private Collection<ParadeFloat>	paradeFloats;
 
 
 	@NotNull
 	@ManyToMany
 	public Collection<ParadeFloat> getParadeFloats() {
-		return this.paradeParadeFloats;
+		return this.paradeFloats;
 	}
 
-	public void setParadeFloats(final Collection<ParadeFloat> paradeParadeFloats) {
-		this.paradeParadeFloats = paradeParadeFloats;
+	public void setParadeFloats(final Collection<ParadeFloat> paradeFloats) {
+		this.paradeFloats = paradeFloats;
 	}
 
 }
