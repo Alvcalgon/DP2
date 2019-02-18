@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -34,7 +35,7 @@ public class Procession extends DomainEntity {
 	private String	title;
 	private String	description;
 	private Date	moment;
-	private boolean	finalMode;
+	private boolean	isFinalMode;
 
 
 	@NotBlank
@@ -77,12 +78,12 @@ public class Procession extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public boolean getFinalMode() {
-		return this.finalMode;
+	public boolean getIsFinalMode() {
+		return this.isFinalMode;
 	}
 
-	public void setFinalMode(final boolean finalMode) {
-		this.finalMode = finalMode;
+	public void setIsFinalMode(final boolean isFinalMode) {
+		this.isFinalMode = isFinalMode;
 	}
 
 
@@ -92,6 +93,7 @@ public class Procession extends DomainEntity {
 
 
 	@NotNull
+	@NotEmpty
 	@ManyToMany
 	public Collection<ParadeFloat> getParadeFloats() {
 		return this.paradeFloats;
