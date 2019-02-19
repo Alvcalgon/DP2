@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,14 @@ public class ActorService {
 	@Autowired
 	private ActorRepository	actorRepository;
 
-
 	// Other supporting services -------------------
+
+	@Autowired
+	private UtilityService	utilityService;
+
+	@Autowired
+	private BoxService		boxService;
+
 
 	// Constructors -------------------------------
 
@@ -30,6 +38,46 @@ public class ActorService {
 	}
 
 	// Simple CRUD methods ------------------------
+
+	public Actor save(final Actor actor) {
+		Assert.notNull(actor);
+		this.utilityService.checkEmailActors(actor);
+
+		final Actor result;
+		boolean isUpdating;
+
+		isUpdating = this.actorRepository.exists(actor.getId());
+		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
+
+		result = this.actorRepository.save(actor);
+		result.setPhoneNumber(this.utilityService.getValidPhone(actor.getPhoneNumber()));
+
+		if (!isUpdating)
+			this.boxService.createSystemBoxes(actor);
+
+		return result;
+
+	}
+
+	public Collection<Actor> findAll() {
+		Collection<Actor> result;
+
+		result = this.actorRepository.findAll();
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Actor findOne(final int actorId) {
+		Assert.isTrue(actorId != 0);
+
+		Actor result;
+
+		result = this.actorRepository.findOne(actorId);
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	// Other business methods ---------------------
 
@@ -51,6 +99,13 @@ public class ActorService {
 		result = this.actorRepository.findActorByUserAccount(id);
 
 		return result;
+	}
+
+	private boolean isOwnerAccount(final Actor actor) {
+		int principalId;
+
+		principalId = LoginService.getPrincipal().getId();
+		return principalId == actor.getUserAccount().getId();
 	}
 
 }
