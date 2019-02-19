@@ -84,21 +84,87 @@ public class BoxService {
 		Assert.isTrue(!box.getIsSystemBox());
 		Assert.isTrue(this.boxRepository.exists(box.getId()));
 
-		// ¿Que ocurre si borro una carpeta que contiene mensajes?
+		Actor principal;
+		Box trashBox;
+		Collection<Message> messages, childMessages;
+		Collection<Box> childBoxes;
 
-		// ¿Que ocurre si borro una carpeta que tiene carpetas dentro?
+		principal = this.actorService.findPrincipal();
+		trashBox = this.findTrashBoxFromActor(principal.getId());
 
-	}
+		// If this box contains messages, we must move those messages to
+		// trash box.
+		messages = box.getMessages();
 
-	public void move(final Box target, final Box origin, final Box destination) {
+		if (messages != null && !messages.isEmpty())
+			trashBox.getMessages().addAll(messages);
 
+		// If this box contains other boxes, we must delete them. If those
+		// sub folders contains also some messages, we must to move them
+		// trash box.
+		childBoxes = this.findChildBoxesByBox(box.getId());
+
+		if (childBoxes != null && !childBoxes.isEmpty()) {
+			for (final Box child : childBoxes) {
+				childMessages = child.getMessages();
+
+				if (childMessages != null && !childMessages.isEmpty())
+					trashBox.getMessages().addAll(childMessages);
+			}
+
+			this.boxRepository.delete(childBoxes);
+		}
+
+		this.boxRepository.delete(box);
 	}
 
 	// Other business methods ---------------------
-	public Collection<Box> findBoxesByActor(final int actorId) {
+	protected void createSystemBoxes(final Actor actor) {
+		Assert.notNull(actor);
+
+		Box inBox, outBox, notificationBox, trashBox, spamBox;
+
+		inBox = new Box();
+		outBox = new Box();
+		notificationBox = new Box();
+		trashBox = new Box();
+		spamBox = new Box();
+
+		inBox.setActor(actor);
+		outBox.setActor(actor);
+		notificationBox.setActor(actor);
+		trashBox.setActor(actor);
+		spamBox.setActor(actor);
+
+		inBox.setMessages(Collections.<Message> emptySet());
+		outBox.setMessages(Collections.<Message> emptySet());
+		notificationBox.setMessages(Collections.<Message> emptySet());
+		trashBox.setMessages(Collections.<Message> emptySet());
+		spamBox.setMessages(Collections.<Message> emptySet());
+
+		inBox.setIsSystemBox(true);
+		outBox.setIsSystemBox(true);
+		notificationBox.setIsSystemBox(true);
+		trashBox.setIsSystemBox(true);
+		spamBox.setIsSystemBox(true);
+
+		inBox.setName("in box");
+		outBox.setName("out box");
+		notificationBox.setName("notification box");
+		trashBox.setName("trash box");
+		spamBox.setName("spam box");
+
+		this.boxRepository.save(inBox);
+		this.boxRepository.save(outBox);
+		this.boxRepository.save(trashBox);
+		this.boxRepository.save(notificationBox);
+		this.boxRepository.save(spamBox);
+	}
+
+	public Collection<Box> findRootBoxesByActor(final int actorId) {
 		Collection<Box> results;
 
-		results = this.boxRepository.findBoxesByActor(actorId);
+		results = this.boxRepository.findRootBoxesByActor(actorId);
 
 		return results;
 	}
@@ -112,6 +178,14 @@ public class BoxService {
 	}
 
 	// Protected methods --------------------------
+	protected Collection<Box> findBoxesByActor(final int actorId) {
+		Collection<Box> results;
+
+		results = this.boxRepository.findBoxesByActor(actorId);
+
+		return results;
+	}
+
 	protected Box findInBoxFromActor(final int actorId) {
 		Box result;
 
@@ -150,6 +224,14 @@ public class BoxService {
 		result = this.boxRepository.findNotificationBoxFromActor(actorId);
 
 		return result;
+	}
+
+	protected void addMessage(final Box box, final Message message) {
+		box.getMessages().add(message);
+	}
+
+	protected void removeMessage(final Box box, final Message message) {
+		box.getMessages().remove(message);
 	}
 
 	// Private methods ---------------------------
