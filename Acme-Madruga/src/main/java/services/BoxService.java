@@ -226,12 +226,36 @@ public class BoxService {
 		return result;
 	}
 
+	protected Collection<Box> findBoxesFromActorThatContaintsAMessage(final int actorId, final int messageId) {
+		Collection<Box> results;
+
+		results = this.boxRepository.findBoxesFromActorThatContaintsAMessage(actorId, messageId);
+
+		return results;
+	}
+
+	protected Integer numberOfBoxesThatContaintAMessage(final int messageId) {
+		Integer result;
+
+		result = this.boxRepository.numberOfBoxesThatContaintAMessage(messageId);
+
+		return result;
+	}
+
 	protected void addMessage(final Box box, final Message message) {
 		box.getMessages().add(message);
 	}
 
 	protected void removeMessage(final Box box, final Message message) {
 		box.getMessages().remove(message);
+	}
+
+	protected void checkByPrincipal(final Box box) {
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+
+		Assert.isTrue(box.getActor().equals(principal));
 	}
 
 	// Private methods ---------------------------
@@ -241,14 +265,6 @@ public class BoxService {
 		validName = box.getName().equals("in box") || box.getName().equals("out box") || box.getName().equals("notification box") || box.getName().equals("trash box") || box.getName().equals("spam box");
 
 		Assert.isTrue(!validName);
-	}
-
-	private void checkByPrincipal(final Box box) {
-		Actor principal;
-
-		principal = this.actorService.findPrincipal();
-
-		Assert.isTrue(box.getActor().equals(principal));
 	}
 
 }
