@@ -37,8 +37,6 @@ public class ProcessionService {
 
 		result = new Procession();
 
-		//	result.setTranslationPositions(Collections.<TranslationPosition> emptySet());
-
 		return result;
 	}
 
