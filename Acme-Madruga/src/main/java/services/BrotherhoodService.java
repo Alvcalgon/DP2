@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.BrotherhoodRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
@@ -21,8 +22,11 @@ public class BrotherhoodService {
 	@Autowired
 	private BrotherhoodRepository	brotherhoodRepository;
 
-
 	// Other supporting services -------------------
+
+	@Autowired
+	private ActorService			actorService;
+
 
 	// Constructors -------------------------------
 
@@ -31,6 +35,32 @@ public class BrotherhoodService {
 	}
 
 	// Simple CRUD methods ------------------------
+
+	public Brotherhood create() {
+		Brotherhood result;
+
+		result = new Brotherhood();
+		result.setUserAccount(this.actorService.createUserAccount(Authority.BROTHERHOOD));
+
+		return result;
+	}
+
+	public Brotherhood findOne(final int brotherhoodId) {
+		Brotherhood result;
+
+		result = this.brotherhoodRepository.findOne(brotherhoodId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Brotherhood save(final Brotherhood brotherhood) {
+		Brotherhood result;
+
+		result = (Brotherhood) this.actorService.save(brotherhood);
+
+		return result;
+	}
 
 	// Other business methods ---------------------
 

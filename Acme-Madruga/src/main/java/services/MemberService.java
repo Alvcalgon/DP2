@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.MemberRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Member;
@@ -21,8 +22,11 @@ public class MemberService {
 	@Autowired
 	private MemberRepository	memberRepository;
 
-
 	// Other supporting services -------------------
+
+	@Autowired
+	private ActorService		actorService;
+
 
 	// Constructors -------------------------------
 
@@ -31,6 +35,32 @@ public class MemberService {
 	}
 
 	// Simple CRUD methods ------------------------
+
+	public Member create() {
+		Member result;
+
+		result = new Member();
+		result.setUserAccount(this.actorService.createUserAccount(Authority.MEMBER));
+
+		return result;
+	}
+
+	public Member findOne(final int memberId) {
+		Member result;
+
+		result = this.memberRepository.findOne(memberId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Member save(final Member member) {
+		Member result;
+
+		result = (Member) this.actorService.save(member);
+
+		return result;
+	}
 
 	// Other business methods ---------------------
 
