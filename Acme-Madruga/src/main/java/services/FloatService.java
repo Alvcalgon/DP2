@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -100,5 +101,4 @@ public class FloatService {
 		return result;
 	}
 
-	public Collection<Float>  
 }
