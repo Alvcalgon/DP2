@@ -1,14 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -68,8 +66,7 @@ public class Brotherhood extends Actor {
 
 	//Relationships ----------------------------------------------------
 
-	private Area					area;
-	private Collection<Enrolment>	enrolments;
+	private Area	area;
 
 
 	@Valid
@@ -80,16 +77,6 @@ public class Brotherhood extends Actor {
 
 	public void setArea(final Area area) {
 		this.area = area;
-	}
-
-	@NotNull
-	@OneToMany(mappedBy = "brotherhood")
-	public Collection<Enrolment> getEnrolments() {
-		return this.enrolments;
-	}
-
-	public void setEnrolments(final Collection<Enrolment> enrolments) {
-		this.enrolments = enrolments;
 	}
 
 }
