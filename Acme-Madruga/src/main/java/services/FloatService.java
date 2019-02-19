@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FloatRepository;
-import domain.Brotherhood;
 import domain.Float;
 
 @Service
@@ -38,7 +37,7 @@ public class FloatService {
 	// Simple CRUD methods ------------------------
 	public Float create() {
 		Float result;
-		final Brotherhood brotherhood;
+		//		final Brotherhood brotherhood;
 
 		//TODO: hacer cuando se suba brotherhoodService
 		//		brotherhood = brotherhoodService.findByPrincipal();
@@ -61,6 +60,10 @@ public class FloatService {
 	public void delete(final Float paradeFloat) {
 		Assert.notNull(paradeFloat);
 		Assert.isTrue(this.floatRepository.exists(paradeFloat.getId()));
+		//TODO: hacer cuando se suba brotherhoodService
+		//Brotherhood brotherhood;
+		//		brotherhood = brotherhoodService.findByPrincipal();
+		//		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
 
 		this.floatRepository.delete(paradeFloat);
 	}
@@ -82,5 +85,20 @@ public class FloatService {
 	}
 
 	// Other business methods ---------------------
+
+	public Float findOneToEdit(final int floatId) {
+		Float result;
+
+		//TODO: hacer cuando se suba brotherhoodService
+		//		Brotherhood brotherhood;
+
+		result = this.floatRepository.findOne(floatId);
+		//		brotherhood = brotherhoodService.findByPrincipal();
+
+		Assert.notNull(result);
+		//		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
+
+		return result;
+	}
 
 }
