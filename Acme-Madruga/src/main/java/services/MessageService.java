@@ -1,8 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -13,6 +15,7 @@ import org.springframework.util.Assert;
 import repositories.MessageRepository;
 import domain.Actor;
 import domain.Box;
+import domain.Customisation;
 import domain.Message;
 
 @Service
@@ -21,17 +24,20 @@ public class MessageService {
 
 	// Managed repository  ----------------------------------
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	// Supporting services ----------------------------------
 	@Autowired
-	private BoxService			boxService;
+	private BoxService				boxService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private UtilityService		utilityService;
+	private UtilityService			utilityService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------
@@ -78,9 +84,11 @@ public class MessageService {
 	public Message send(final Message message) {
 		Assert.notNull(message);
 		Assert.isTrue(message.getId() == 0);
+		this.checkByPrincipal(message);
 
 		Message result;
 		Box inBoxRecipient, outBoxSender;
+		boolean isSpam;
 
 		result = this.messageRepository.save(message);
 
@@ -88,11 +96,21 @@ public class MessageService {
 
 		this.boxService.addMessage(outBoxSender, message);
 
-		for (final Actor recipient : message.getRecipients()) {
-			inBoxRecipient = this.boxService.findInBoxFromActor(recipient.getId());
+		isSpam = this.messageIsSpam(result);
 
-			this.boxService.addMessage(inBoxRecipient, result);
-		}
+		if (isSpam) {
+			result.setIsSpam(true);
+			for (final Actor recipient : message.getRecipients()) {
+				inBoxRecipient = this.boxService.findSpamBoxFromActor(recipient.getId());
+
+				this.boxService.addMessage(inBoxRecipient, result);
+			}
+		} else
+			for (final Actor recipient : message.getRecipients()) {
+				inBoxRecipient = this.boxService.findInBoxFromActor(recipient.getId());
+
+				this.boxService.addMessage(inBoxRecipient, result);
+			}
 
 		return result;
 	}
@@ -102,12 +120,42 @@ public class MessageService {
 	// Protected methods ------------------------------------
 
 	// Private methods --------------------------------------
+	private void checkByPrincipal(final Message message) {
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+
+		Assert.notNull(principal);
+		Assert.isTrue(message.getSender().equals(principal));
+	}
+
 	private void checkSenderOrRecipient(final Message message) {
 		Actor principal;
 
 		principal = this.actorService.findPrincipal();
 
 		Assert.isTrue(message.getSender().equals(principal) || message.getRecipients().contains(principal));
+	}
+
+	private boolean messageIsSpam(final Message message) {
+		List<String> spamWords;
+		Customisation customisation;
+		String text;
+		boolean result;
+
+		customisation = this.customisationService.find();
+		spamWords = new ArrayList<String>(customisation.getSpamWords());
+		text = message.getSubject() + " " + message.getBody();
+
+		result = false;
+		for (final String spam : spamWords)
+			if (text.toLowerCase().contains(spam.toLowerCase())) {
+				result = true;
+				;
+				break;
+			}
+
+		return result;
 	}
 
 }

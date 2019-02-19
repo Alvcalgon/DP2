@@ -21,18 +21,18 @@ public interface BoxRepository extends JpaRepository<Box, Integer> {
 	@Query("select b from Box b where b.parent.id=?1")
 	Collection<Box> findChildBoxesByBox(int boxId);
 
-	@Query("select b from Box b where b.actor.id=?1 and b.name='in box'")
+	@Query("select b from Box b where b.actor.id=?1 and b.name='in box' and b.isSystemBox=true")
 	Box findInBoxFromActor(int actorId);
 
-	@Query("select b from Box b where b.actor.id=?1 and b.name='out box'")
+	@Query("select b from Box b where b.actor.id=?1 and b.name='out box' and b.isSystemBox=true")
 	Box findOutBoxFromActor(int actorId);
 
-	@Query("select b from Box b where b.actor.id=?1 and b.name='spam box'")
+	@Query("select b from Box b where b.actor.id=?1 and b.name='spam box' and b.isSystemBox=true")
 	Box findSpamBoxFromActor(int actorId);
 
-	@Query("select b from Box b where b.actor.id=?1 and b.name='notification box'")
+	@Query("select b from Box b where b.actor.id=?1 and b.name='notification box' and b.isSystemBox=true")
 	Box findNotificationBoxFromActor(int actorId);
 
-	@Query("select b from Box b where b.actor.id=?1 and b.name='trash box'")
+	@Query("select b from Box b where b.actor.id=?1 and b.name='trash box' and b.isSystemBox=true")
 	Box findTrashBoxFromActor(int actorId);
 }
