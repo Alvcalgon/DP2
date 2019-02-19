@@ -15,6 +15,9 @@ public interface BoxRepository extends JpaRepository<Box, Integer> {
 	@Query("select b from Box b where b.actor.id=?1")
 	Collection<Box> findBoxesByActor(int actorId);
 
+	@Query("select b from Box b where b.actor.id=?1 and b.parent is null")
+	Collection<Box> findRootBoxesByActor(int actorId);
+
 	@Query("select b from Box b where b.parent.id=?1")
 	Collection<Box> findChildBoxesByBox(int boxId);
 
