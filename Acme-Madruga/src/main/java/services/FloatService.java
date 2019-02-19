@@ -20,14 +20,13 @@ public class FloatService {
 	// Managed repository --------------------------
 
 	@Autowired
-	private FloatRepository	floatRepository;
-
+	private FloatRepository		floatRepository;
 
 	// Other supporting services -------------------
 
-	//TODO: hacer cuando se suba brotherhoodService
-	//	@Autowired
-	//	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructors -------------------------------
 
@@ -40,11 +39,11 @@ public class FloatService {
 		Float result;
 		final Brotherhood brotherhood;
 
-		//TODO: hacer cuando se suba brotherhoodService
-		//		brotherhood = brotherhoodService.findByPrincipal();
+		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		result = new Float();
-		//		result.setBrotherhood(brotherhood);
+
+		result.setBrotherhood(brotherhood);
 
 		return result;
 	}
@@ -61,6 +60,12 @@ public class FloatService {
 	public void delete(final Float paradeFloat) {
 		Assert.notNull(paradeFloat);
 		Assert.isTrue(this.floatRepository.exists(paradeFloat.getId()));
+
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
 
 		this.floatRepository.delete(paradeFloat);
 	}
@@ -82,5 +87,18 @@ public class FloatService {
 	}
 
 	// Other business methods ---------------------
+
+	public Float findOneToEdit(final int floatId) {
+		Float result;
+		Brotherhood brotherhood;
+
+		result = this.floatRepository.findOne(floatId);
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.notNull(result);
+		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
+
+		return result;
+	}
 
 }
