@@ -115,6 +115,10 @@ public class MessageService {
 		return result;
 	}
 
+	// Situacion: Box1 contiene el mensaje m1 y Box2 tambien contiene a m1.
+	// Box1 y Box2 son 2 carpetas personalizables. Borramos m1 de Box1, entonces
+	// la trash box del actor pasa a tener m1. Luego, borramos m1 de Box2,
+	// entonces, trash box tendra m1 duplicado??
 	public void delete(final Message message, final Box box) {
 		Assert.notNull(message);
 		Assert.notNull(box);
@@ -126,14 +130,28 @@ public class MessageService {
 		Actor principal;
 		final Box trashBox;
 		List<Box> boxes;
+		Integer numberBoxesWithMessage;
 
 		principal = this.actorService.findPrincipal();
 		trashBox = this.boxService.findTrashBoxFromActor(principal.getId());
 
-		if (trashBox.equals(box))
-			boxes = new ArrayList<Box>();
+		if (trashBox.equals(box)) {
+			boxes = new ArrayList<Box>(this.boxService.findBoxesFromActorThatContaintsAMessage(principal.getId(), message.getId()));
+			for (final Box b : boxes)
+				this.boxService.removeMessage(b, message);
 
+			this.boxService.removeMessage(trashBox, message);
+
+			numberBoxesWithMessage = this.boxService.numberOfBoxesThatContaintAMessage(message.getId());
+			if (numberBoxesWithMessage == 0)
+				this.messageRepository.delete(message);
+		} else {
+			this.boxService.removeMessage(box, message);
+			this.boxService.addMessage(trashBox, message);
+
+		}
 	}
+
 	// Other business methods -------------------------------
 	public void moveMessage(final Message message, final Box origin, final Box destination) {
 		Assert.notNull(message);
@@ -146,6 +164,26 @@ public class MessageService {
 
 		this.boxService.addMessage(destination, message);
 		this.boxService.removeMessage(origin, message);
+	}
+
+	public void sendBroadcast(final Message message) {
+
+	}
+
+	public void notificationChangeStatus() {
+
+	}
+
+	public void notificationEnrolment() {
+
+	}
+
+	public void notificationDropOut() {
+
+	}
+
+	public void notificationPublishedProcession() {
+
 	}
 
 	// Protected methods ------------------------------------

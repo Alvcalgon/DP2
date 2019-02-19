@@ -226,6 +226,22 @@ public class BoxService {
 		return result;
 	}
 
+	protected Collection<Box> findBoxesFromActorThatContaintsAMessage(final int actorId, final int messageId) {
+		Collection<Box> results;
+
+		results = this.boxRepository.findBoxesFromActorThatContaintsAMessage(actorId, messageId);
+
+		return results;
+	}
+
+	protected Integer numberOfBoxesThatContaintAMessage(final int messageId) {
+		Integer result;
+
+		result = this.boxRepository.numberOfBoxesThatContaintAMessage(messageId);
+
+		return result;
+	}
+
 	protected void addMessage(final Box box, final Message message) {
 		box.getMessages().add(message);
 	}
