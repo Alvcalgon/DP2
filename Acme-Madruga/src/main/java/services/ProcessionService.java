@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -21,8 +22,11 @@ public class ProcessionService {
 	@Autowired
 	private ProcessionRepository	processionRepository;
 
-
 	// Other supporting services -------------------
+
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors -------------------------------
 
@@ -74,5 +78,18 @@ public class ProcessionService {
 	}
 
 	// Other business methods ---------------------
+
+	public Collection<Procession> findProcessionLess30days() {
+		Date today;
+		final Date more30days;
+		Collection<Procession> floats;
+
+		today = this.utilityService.current_moment();
+		more30days = this.utilityService.current_moment();
+		floats = this.processionRepository.findProcessionLess30days(today, more30days);
+
+		return floats;
+
+	}
 
 }
