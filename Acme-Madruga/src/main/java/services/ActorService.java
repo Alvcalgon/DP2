@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Message;
 
 @Service
 @Transactional
@@ -146,55 +149,50 @@ public class ActorService {
 		Assert.isTrue(!actor.getIsSpammer());
 		actor.setIsSpammer(true);
 	}
-	/*
-	 * public void spammerProcess() {
-	 * Collection<Actor> all;
-	 * 
-	 * all = this.findAll();
-	 * 
-	 * for (final Actor a : all)
-	 * this.launchSpammerProcess(a);
-	 * }
-	 * 
-	 * protected void launchSpammerProcess(final Actor actor) {
-	 * Assert.notNull(actor);
-	 * Assert.isTrue(actor.getId() != 0);
-	 * 
-	 * Collection<Message> messagesSent;
-	 * final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
-	 * String subject, body, tags = "";
-	 * String[] subjectWords = {};
-	 * String[] bodyWords = {};
-	 * String[] tagsWords = {};
-	 * Double counter;
-	 * Integer numberMessagesSent;
-	 * 
-	 * messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
-	 * numberMessagesSent = messagesSent.size();
-	 * 
-	 * for (final Message m : messagesSent) {
-	 * subject = m.getSubject();
-	 * body = m.getBody();
-	 * tags = m.getTags();
-	 * 
-	 * subjectWords = subject.split(" ");
-	 * bodyWords = body.split(" ");
-	 * tagsWords = tags.split(" ");
-	 * 
-	 * for (final String subjectWord : subjectWords)
-	 * for (final String bodyWord : bodyWords)
-	 * for (final String tagWord : tagsWords)
-	 * if (spamWords.contains(subjectWord.toLowerCase()))
-	 * counter++;
-	 * else if (spamWords.contains(bodyWord.toLowerCase()))
-	 * counter++;
-	 * else if (spamWords.contains(tagWord.toLowerCase()))
-	 * counter++;
-	 * }
-	 * 
-	 * if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
-	 * this.markAsSpammer(actor);
-	 * 
-	 * }
-	 */
+
+	public void spammerProcess() {
+		Collection<Actor> all;
+
+		all = this.findAll();
+
+		for (final Actor a : all)
+			this.launchSpammerProcess(a);
+	}
+
+	protected void launchSpammerProcess(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() != 0);
+
+		Collection<Message> messagesSent;
+		final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
+		String subject, body, tags = "";
+		Double counter = 0.;
+		Double division = 0.;
+		Integer numberMessagesSent;
+
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
+		numberMessagesSent = messagesSent.size();
+
+		for (final Message m : messagesSent) {
+			subject = m.getSubject();
+			body = m.getBody();
+			tags = m.getTags();
+
+			System.out.println("subject:" + subject);
+			System.out.println("body:" + body);
+			System.out.println("tags:" + tags);
+			System.out.println("spamwords: " + spamWords);
+
+			for (final String spamWord : spamWords)
+				if (subject.contains(spamWord) || body.contains(spamWord) || tags.contains(spamWord)) {
+					counter++;
+					break;
+				}
+
+		}
+		division = (counter / (numberMessagesSent * 1.0));
+		if (division >= 0.1)
+			this.markAsSpammer(actor);
+
+	}
 }
