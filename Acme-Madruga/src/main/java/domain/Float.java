@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -12,11 +13,12 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ParadeFloat extends DomainEntity {
+@Table(name = "ParadeFloat")
+public class Float extends DomainEntity {
 
 	// Constructor
 
-	public ParadeFloat() {
+	public Float() {
 		super();
 	}
 

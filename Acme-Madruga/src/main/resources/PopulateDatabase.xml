@@ -2466,8 +2466,8 @@
 		</property>
 	</bean>
 
-	<!-- ParadeFloat -->
-	<bean id="paradeFloat1" class="domain.ParadeFloat">
+	<!-- Float -->
+	<bean id="float1" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad1" />
 		<property name="pictures"
@@ -2475,7 +2475,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
-	<bean id="paradeFloat2" class="domain.ParadeFloat">
+	<bean id="float2" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad1" />
 		<property name="pictures"
@@ -2483,7 +2483,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
-	<bean id="paradeFloat3" class="domain.ParadeFloat">
+	<bean id="float3" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad1" />
 		<property name="pictures"
@@ -2491,7 +2491,7 @@
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
-	<bean id="paradeFloat4" class="domain.ParadeFloat">
+	<bean id="float4" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad2" />
 		<property name="pictures"
@@ -2499,7 +2499,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
-	<bean id="paradeFloat5" class="domain.ParadeFloat">
+	<bean id="float5" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad2" />
 		<property name="pictures"
@@ -2507,7 +2507,7 @@
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
-	<bean id="paradeFloat6" class="domain.ParadeFloat">
+	<bean id="float6" class="domain.Float">
 		<property name="title" value="Paso del sagrado corazon" />
 		<property name="description" value="Paso de la hermandad3" />
 		<property name="pictures"
@@ -2586,9 +2586,9 @@
 		<property name="description" value="Esta es la procesion que sale en primavera" />
 		<property name="moment" value="2019/05/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="paradeFloats">
+		<property name="floats">
 			<list>
-				<ref bean="paradeFloat1" />
+				<ref bean="float1" />
 			</list>
 		</property>
 	</bean>
@@ -2599,10 +2599,10 @@
 		<property name="description" value="Esta es la procesion que sale en invierno" />
 		<property name="moment" value="2019/11/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="paradeFloats">
+		<property name="floats">
 			<list>
-				<ref bean="paradeFloat2" />
-				<ref bean="paradeFloat3" />
+				<ref bean="float2" />
+				<ref bean="float3" />
 			</list>
 		</property>
 	</bean>
@@ -2613,10 +2613,10 @@
 		<property name="description" value="Esta es la procesion que sale en verano" />
 		<property name="moment" value="2019/08/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="paradeFloats">
+		<property name="floats">
 			<list>
-				<ref bean="paradeFloat4" />
-				<ref bean="paradeFloat5" />
+				<ref bean="float4" />
+				<ref bean="float5" />
 			</list>
 		</property>
 	</bean>
@@ -2628,9 +2628,9 @@
 			value="Esta es la procesion que sale el jueves santo" />
 		<property name="moment" value="2018/04/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="paradeFloats">
+		<property name="floats">
 			<list>
-				<ref bean="paradeFloat5" />
+				<ref bean="float5" />
 			</list>
 		</property>
 	</bean>
@@ -2641,9 +2641,9 @@
 		<property name="description" value="Esta es la procesion que sale en navidad" />
 		<property name="moment" value="2019/12/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="paradeFloats">
+		<property name="floats">
 			<list>
-				<ref bean="paradeFloat6" />
+				<ref bean="float6" />
 			</list>
 		</property>
 	</bean>

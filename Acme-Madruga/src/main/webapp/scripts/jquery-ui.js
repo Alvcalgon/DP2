@@ -214,12 +214,12 @@ if ( !$( "<a>" ).outerWidth( 1 ).jquery ) {
 
 		function reduce( elem, size, border, margin ) {
 			$.each( side, function() {
-				size -= parseParadeFloat( $.css( elem, "padding" + this ) ) || 0;
+				size -= parseFloat( $.css( elem, "padding" + this ) ) || 0;
 				if ( border ) {
-					size -= parseParadeFloat( $.css( elem, "border" + this + "Width" ) ) || 0;
+					size -= parseFloat( $.css( elem, "border" + this + "Width" ) ) || 0;
 				}
 				if ( margin ) {
-					size -= parseParadeFloat( $.css( elem, "margin" + this ) ) || 0;
+					size -= parseFloat( $.css( elem, "margin" + this ) ) || 0;
 				}
 			});
 			return size;
@@ -269,7 +269,7 @@ if ( $( "<a>" ).data( "a-b", "a" ).removeData( "a-b" ).data( "a-b" ) ) {
 (function() {
 	var uaMatch = /msie ([\w.]+)/.exec( navigator.userAgent.toLowerCase() ) || [];
 	$.ui.ie = uaMatch.length ? true : false;
-	$.ui.ie6 = parseParadeFloat( uaMatch[ 1 ], 10 ) === 6;
+	$.ui.ie6 = parseFloat( uaMatch[ 1 ], 10 ) === 6;
 })();
 
 $.fn.extend({
@@ -3979,8 +3979,8 @@ $.extend(Datepicker.prototype, {
 		var convert = function(value) {
 			return {thin: 1, medium: 2, thick: 3}[value] || value;
 		};
-		return [parseParadeFloat(convert(elem.css('border-left-width'))),
-			parseParadeFloat(convert(elem.css('border-top-width')))];
+		return [parseFloat(convert(elem.css('border-left-width'))),
+			parseFloat(convert(elem.css('border-top-width')))];
 	},
 
 	/* Check positioning to remain on screen. */
@@ -7174,7 +7174,7 @@ function clamp( value, prop, allowEmpty ) {
 	}
 
 	// ~~ is an short way of doing floor for positive numbers
-	value = type.floor ? ~~value : parseParadeFloat( value );
+	value = type.floor ? ~~value : parseFloat( value );
 
 	// IE will pass in empty strings as value for alpha,
 	// which will hit this case
@@ -7577,7 +7577,7 @@ each( spaces, function( spaceName, space ) {
 			if ( vtype === "string" ) {
 				match = rplusequals.exec( value );
 				if ( match ) {
-					value = cur + parseParadeFloat( match[ 2 ] ) * ( match[ 1 ] === "+" ? 1 : -1 );
+					value = cur + parseFloat( match[ 2 ] ) * ( match[ 1 ] === "+" ? 1 : -1 );
 				}
 			}
 			local[ prop.idx ] = value;
@@ -7739,7 +7739,7 @@ function styleDifference( oldStyle, newStyle ) {
 		value = newStyle[ name ];
 		if ( oldStyle[ name ] !== value ) {
 			if ( !shorthandStyles[ name ] ) {
-				if ( $.fx.step[ name ] || !isNaN( parseParadeFloat( value ) ) ) {
+				if ( $.fx.step[ name ] || !isNaN( parseFloat( value ) ) ) {
 					diff[ name ] = value;
 				}
 			}
@@ -7947,7 +7947,7 @@ $.extend( $.effects, {
 		var props = {
 				width: element.outerWidth(true),
 				height: element.outerHeight(true),
-				"paradeParadeFloat": element.css( "paradeParadeFloat" )
+				"float": element.css( "float" )
 			},
 			wrapper = $( "<div></div>" )
 				.addClass( "ui-effects-wrapper" )
@@ -8211,7 +8211,7 @@ $.fn.extend({
 
 		$.each( [ "em", "px", "%", "pt" ], function( i, unit ) {
 			if ( style.indexOf( unit ) > 0 ) {
-				val = [ parseParadeFloat( style ), unit ];
+				val = [ parseFloat( style ), unit ];
 			}
 		});
 		return val;
@@ -8305,7 +8305,7 @@ $.effects.effect.blind = function( o, done ) {
 	});
 
 	distance = wrapper[ ref ]();
-	margin = parseParadeFloat( wrapper.css( ref2 ) ) || 0;
+	margin = parseFloat( wrapper.css( ref2 ) ) || 0;
 
 	animation[ ref ] = show ? distance : 0;
 	if ( !motion ) {
@@ -9621,8 +9621,8 @@ $.widget( "ui.menu", {
 	_scrollIntoView: function( item ) {
 		var borderTop, paddingTop, offset, scroll, elementHeight, itemHeight;
 		if ( this._hasScroll() ) {
-			borderTop = parseParadeFloat( $.css( this.activeMenu[0], "borderTopWidth" ) ) || 0;
-			paddingTop = parseParadeFloat( $.css( this.activeMenu[0], "paddingTop" ) ) || 0;
+			borderTop = parseFloat( $.css( this.activeMenu[0], "borderTopWidth" ) ) || 0;
+			paddingTop = parseFloat( $.css( this.activeMenu[0], "paddingTop" ) ) || 0;
 			offset = item.offset().top - this.activeMenu.offset().top - borderTop - paddingTop;
 			scroll = this.activeMenu.scrollTop();
 			elementHeight = this.activeMenu.height();
@@ -11525,9 +11525,9 @@ $.widget( "ui.slider", $.ui.mouse, {
 			alignValue += ( valModStep > 0 ) ? step : ( -step );
 		}
 
-		// Since JavaScript has problems with large paradeParadeFloats, round
+		// Since JavaScript has problems with large floats, round
 		// the final value to 5 digits after the decimal point (see #4124)
-		return parseParadeFloat( alignValue.toFixed(5) );
+		return parseFloat( alignValue.toFixed(5) );
 	},
 
 	_valueMin: function() {
@@ -11638,7 +11638,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		this.refresh();
 
 		//Let's determine if the items are being displayed horizontally
-		this.paradeParadeFloating = this.items.length ? o.axis === 'x' || (/left|right/).test(this.items[0].item.css('paradeParadeFloat')) || (/inline|table-cell/).test(this.items[0].item.css('display')) : false;
+		this.floating = this.items.length ? o.axis === 'x' || (/left|right/).test(this.items[0].item.css('float')) || (/inline|table-cell/).test(this.items[0].item.css('display')) : false;
 
 		//Let's determine the parent's offset
 		this.offset = this.element.offset();
@@ -12045,7 +12045,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 		if(	   this.options.tolerance == "pointer"
 			|| this.options.forcePointerForContainers
-			|| (this.options.tolerance != "pointer" && this.helperProportions[this.paradeParadeFloating ? 'width' : 'height'] > item[this.paradeParadeFloating ? 'width' : 'height'])
+			|| (this.options.tolerance != "pointer" && this.helperProportions[this.floating ? 'width' : 'height'] > item[this.floating ? 'width' : 'height'])
 		) {
 			return isOverElement;
 		} else {
@@ -12069,7 +12069,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		if (!isOverElement)
 			return false;
 
-		return this.paradeParadeFloating ?
+		return this.floating ?
 			( ((horizontalDirection && horizontalDirection == "right") || verticalDirection == "down") ? 2 : 1 )
 			: ( verticalDirection && (verticalDirection == "down" ? 2 : 1) );
 
@@ -12082,7 +12082,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			verticalDirection = this._getDragVerticalDirection(),
 			horizontalDirection = this._getDragHorizontalDirection();
 
-		if (this.paradeParadeFloating && horizontalDirection) {
+		if (this.floating && horizontalDirection) {
 			return ((horizontalDirection == "right" && isOverRightHalf) || (horizontalDirection == "left" && !isOverRightHalf));
 		} else {
 			return verticalDirection && ((verticalDirection == "down" && isOverBottomHalf) || (verticalDirection == "up" && !isOverBottomHalf));
@@ -12323,8 +12323,8 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 			//When entering a new container, we will find the item with the least distance and append our item near it
 			var dist = 10000; var itemWithLeastDistance = null;
-			var posProperty = this.containers[innermostIndex].paradeParadeFloating ? 'left' : 'top';
-			var sizeProperty = this.containers[innermostIndex].paradeParadeFloating ? 'width' : 'height';
+			var posProperty = this.containers[innermostIndex].floating ? 'left' : 'top';
+			var sizeProperty = this.containers[innermostIndex].floating ? 'width' : 'height';
 			var base = this.positionAbs[posProperty] + this.offset.click[posProperty];
 			for (var j = this.items.length - 1; j >= 0; j--) {
 				if(!$.contains(this.containers[innermostIndex].element[0], this.items[j].item[0])) continue;
@@ -12995,8 +12995,8 @@ $.widget( "ui.spinner", {
 		// - rounding is based on 0, so adjust back to our base
 		value = base + aboveMin;
 
-		// fix precision from bad JS paradeParadeFloating point math
-		value = parseParadeFloat( value.toFixed( this._precision() ) );
+		// fix precision from bad JS floating point math
+		value = parseFloat( value.toFixed( this._precision() ) );
 
 		// clamp the value
 		if ( options.max !== null && value > options.max) {
@@ -13056,7 +13056,7 @@ $.widget( "ui.spinner", {
 	_parse: function( val ) {
 		if ( typeof val === "string" && val !== "" ) {
 			val = window.Globalize && this.options.numberFormat ?
-				Globalize.parseParadeFloat( val, 10, this.options.culture ) : +val;
+				Globalize.parseFloat( val, 10, this.options.culture ) : +val;
 		}
 		return val === "" || isNaN( val ) ? null : val;
 	},
