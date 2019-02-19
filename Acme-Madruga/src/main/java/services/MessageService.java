@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -223,6 +224,14 @@ public class MessageService {
 				;
 				break;
 			}
+
+		return result;
+	}
+
+	protected Collection<Message> findMessagesSentByActor(final int actorId) {
+		Collection<Message> result;
+
+		result = this.messageRepository.findMessagesSentByActor(actorId);
 
 		return result;
 	}
