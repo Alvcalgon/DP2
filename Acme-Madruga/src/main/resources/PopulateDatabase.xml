@@ -259,22 +259,12 @@
 		<property name="name" value="area1" />
 		<property name="pictures"
 			value="http://gl.maps-bangkok.com/img/0/bangkok-%C3%A1rea-mapa.jpg" />
-		<property name="brotherhoods">
-			<list>
-				<ref bean="brotherhood1" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="area2" class="domain.Area">
 		<property name="name" value="area2" />
 		<property name="pictures"
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
-		<property name="brotherhoods">
-			<list>
-				<ref bean="brotherhood2" />
-			</list>
-		</property>
 	</bean>
 
 	<!-- Box -->
@@ -1566,12 +1556,6 @@
 		<property name="pictures"
 			value="https://cloud10.todocoleccion.online/antiguedades/tc/2014/04/27/13/43036847.jpg" />
 		<property name="area" ref="area1" />
-		<property name="enrolments">
-			<list>
-				<ref bean="enrolment1" />
-				<ref bean="enrolment16" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -1590,21 +1574,6 @@
 		<property name="pictures"
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
 		<property name="area" ref="area2" />
-		<property name="enrolments">
-			<list>
-				<ref bean="enrolment2" />
-				<ref bean="enrolment5" />
-				<ref bean="enrolment7" />
-				<ref bean="enrolment8" />
-				<ref bean="enrolment9" />
-				<ref bean="enrolment10" />
-				<ref bean="enrolment11" />
-				<ref bean="enrolment12" />
-				<ref bean="enrolment13" />
-				<ref bean="enrolment15" />
-				<ref bean="enrolment18" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="brotherhood3" class="domain.Brotherhood">
@@ -1623,15 +1592,6 @@
 		<property name="pictures"
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
 		<property name="area" ref="area2" />
-		<property name="enrolments">
-			<list>
-				<ref bean="enrolment4" />
-				<ref bean="enrolment6" />
-				<ref bean="enrolment7" />
-				<ref bean="enrolment14" />
-				<ref bean="enrolment17" />
-			</list>
-		</property>
 	</bean>
 
 	<!-- Customisation -->

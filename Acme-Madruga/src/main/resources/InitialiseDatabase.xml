@@ -384,11 +384,6 @@
 		<property name="establishmentDate" value="2007/09/20" />
 		<property name="pictures"
 			value="https://cloud10.todocoleccion.online/antiguedades/tc/2014/04/27/13/43036847.jpg" />
-		<property name="enrolments">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
 
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -406,11 +401,6 @@
 		<property name="establishmentDate" value="2001/07/20" />
 		<property name="pictures"
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
-		<property name="enrolments">
-			<list>
-				<null></null>
-			</list>
-		</property>
 	</bean>
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
