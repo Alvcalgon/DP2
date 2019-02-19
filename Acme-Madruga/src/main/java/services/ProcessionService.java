@@ -85,7 +85,7 @@ public class ProcessionService {
 		Collection<Procession> floats;
 
 		today = this.utilityService.current_moment();
-
+		more30days = this.utilityService.current_moment();
 		floats = this.processionRepository.findProcessionLess30days(today, more30days);
 
 		return floats;
