@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.Collection;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.FloatRepository;
+import domain.Brotherhood;
 import domain.Float;
 
 @Service
@@ -19,14 +19,13 @@ public class FloatService {
 	// Managed repository --------------------------
 
 	@Autowired
-	private FloatRepository	floatRepository;
-
+	private FloatRepository		floatRepository;
 
 	// Other supporting services -------------------
 
-	//TODO: hacer cuando se suba brotherhoodService
-	//	@Autowired
-	//	private BrotherhoodService	brotherhoodService;
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructors -------------------------------
 
@@ -37,13 +36,13 @@ public class FloatService {
 	// Simple CRUD methods ------------------------
 	public Float create() {
 		Float result;
-		//		final Brotherhood brotherhood;
+		final Brotherhood brotherhood;
 
-		//TODO: hacer cuando se suba brotherhoodService
-		//		brotherhood = brotherhoodService.findByPrincipal();
+		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		result = new Float();
-		//		result.setBrotherhood(brotherhood);
+
+		result.setBrotherhood(brotherhood);
 
 		return result;
 	}
@@ -60,10 +59,12 @@ public class FloatService {
 	public void delete(final Float paradeFloat) {
 		Assert.notNull(paradeFloat);
 		Assert.isTrue(this.floatRepository.exists(paradeFloat.getId()));
-		//TODO: hacer cuando se suba brotherhoodService
-		//Brotherhood brotherhood;
-		//		brotherhood = brotherhoodService.findByPrincipal();
-		//		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
+
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
 
 		this.floatRepository.delete(paradeFloat);
 	}
@@ -88,17 +89,16 @@ public class FloatService {
 
 	public Float findOneToEdit(final int floatId) {
 		Float result;
-
-		//TODO: hacer cuando se suba brotherhoodService
-		//		Brotherhood brotherhood;
+		Brotherhood brotherhood;
 
 		result = this.floatRepository.findOne(floatId);
-		//		brotherhood = brotherhoodService.findByPrincipal();
+		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		Assert.notNull(result);
-		//		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
+		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
 
 		return result;
 	}
 
+	public Collection<Float>  
 }
