@@ -234,6 +234,14 @@ public class BoxService {
 		box.getMessages().remove(message);
 	}
 
+	protected void checkByPrincipal(final Box box) {
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+
+		Assert.isTrue(box.getActor().equals(principal));
+	}
+
 	// Private methods ---------------------------
 	private void checkName(final Box box) {
 		boolean validName;
@@ -241,14 +249,6 @@ public class BoxService {
 		validName = box.getName().equals("in box") || box.getName().equals("out box") || box.getName().equals("notification box") || box.getName().equals("trash box") || box.getName().equals("spam box");
 
 		Assert.isTrue(!validName);
-	}
-
-	private void checkByPrincipal(final Box box) {
-		Actor principal;
-
-		principal = this.actorService.findPrincipal();
-
-		Assert.isTrue(box.getActor().equals(principal));
 	}
 
 }

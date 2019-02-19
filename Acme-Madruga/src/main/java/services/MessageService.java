@@ -115,7 +115,38 @@ public class MessageService {
 		return result;
 	}
 
+	public void delete(final Message message, final Box box) {
+		Assert.notNull(message);
+		Assert.notNull(box);
+		Assert.isTrue(box.getId() != 0 && this.messageRepository.exists(message.getId()));
+		Assert.isTrue(box.getMessages().contains(message));
+		this.checkSenderOrRecipient(message);
+		this.boxService.checkByPrincipal(box);
+
+		Actor principal;
+		final Box trashBox;
+		List<Box> boxes;
+
+		principal = this.actorService.findPrincipal();
+		trashBox = this.boxService.findTrashBoxFromActor(principal.getId());
+
+		if (trashBox.equals(box))
+			boxes = new ArrayList<Box>();
+
+	}
 	// Other business methods -------------------------------
+	public void moveMessage(final Message message, final Box origin, final Box destination) {
+		Assert.notNull(message);
+		Assert.notNull(origin);
+		Assert.notNull(destination);
+		Assert.isTrue(origin.getId() != 0 && destination.getId() != 0 && this.messageRepository.exists(message.getId()));
+		Assert.isTrue(origin.getMessages().contains(message) && !destination.getMessages().contains(message));
+		this.boxService.checkByPrincipal(origin);
+		this.boxService.checkByPrincipal(destination);
+
+		this.boxService.addMessage(destination, message);
+		this.boxService.removeMessage(origin, message);
+	}
 
 	// Protected methods ------------------------------------
 
