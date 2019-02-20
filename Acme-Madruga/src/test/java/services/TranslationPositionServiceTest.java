@@ -45,6 +45,9 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: translationPosition es nulo.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_uno() {
 		super.authenticate("admin1");
@@ -60,6 +63,9 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: el idioma del objeto no es soportado el sistema
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_dos() {
 		super.authenticate("admin1");
@@ -77,9 +83,28 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//TODO: Tratar de insertar una translationPosition con un mismo nombre
+	// Test negativo: ya existe en la BD otro objeto con dicho nombre
 	// e idioma.
+	@Test(expected = IllegalArgumentException.class)
+	public void negative_saveTest_tres() {
+		super.authenticate("admin1");
 
+		TranslationPosition translationPosition, saved;
+
+		translationPosition = this.translationPositionService.create();
+		translationPosition.setName("President");
+		translationPosition.setLanguage("en");
+
+		saved = this.translationPositionService.save(translationPosition);
+
+		Assert.isNull(saved);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Se inserta correctamente una nueva translationPosition.
+	 */
 	@Test
 	public void positive_saveTest_uno() {
 		super.authenticate("admin1");
@@ -99,6 +124,9 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: translationPosition es nulo.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_deleteTest_uno() {
 		super.authenticate("admin1");
@@ -115,6 +143,10 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: se trata de borrar de la BD un objeto que
+	 * ni siquiera existe en la BD.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_deleteTest_dos() {
 		super.authenticate("admin1");
@@ -135,24 +167,25 @@ public class TranslationPositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test positivo: Se borra existosamente un objeto de la BD.
+	 */
 	@Test
 	public void positive_deleteTest_uno() {
 		super.authenticate("admin1");
 
 		int translationPositionId;
-		TranslationPosition translationPosition;
-		Collection<TranslationPosition> all;
+		TranslationPosition translationPosition, deleted;
+		;
 
 		translationPositionId = super.getEntityId("translationPosition1");
 		translationPosition = this.translationPositionService.findOne(translationPositionId);
 
-		all = this.translationPositionService.findAll();
-		Assert.isTrue(all.contains(translationPosition));
-
 		this.translationPositionService.delete(translationPosition);
 
-		all = this.translationPositionService.findAll();
-		Assert.isTrue(!all.contains(translationPosition));
+		deleted = this.translationPositionService.findOne(translationPositionId);
+
+		Assert.isNull(deleted);
 
 		super.unauthenticate();
 	}

@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin1" />
@@ -77,7 +71,7 @@
 		</property>
 	</bean>
 
-<!-- Administrator -->
+	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Fernando" />
 		<property name="middleName" value="" />
@@ -91,7 +85,7 @@
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
-	
+
 	<!-- Area -->
 	<bean id="area1" class="domain.Area">
 		<property name="name" value="area1" />
@@ -104,7 +98,7 @@
 		<property name="pictures"
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
 	</bean>
-	
+
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -242,7 +236,7 @@
 		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
-			<list>				
+			<list>
 				<null></null>
 			</list>
 		</property>
@@ -381,7 +375,7 @@
 		<property name="actor" ref="brotherhood2" />
 	</bean>
 
-<!-- Brotherhood -->
+	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
 		<property name="name" value="Hermandad de la santísima Máquina Virtual" />
 		<property name="middleName" value="Virtual" />
@@ -426,6 +420,8 @@
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
 		<property name="maxNumberResults" value="10" />
+		<property name="rowLimit" value="3" />
+		<property name="columnLimit" value="10000" />
 		<property name="priorities">
 			<list>
 				<value>HIGH</value>
@@ -484,8 +480,8 @@
 			</list>
 		</property>
 	</bean>
-	
-		<!-- Finder -->
+
+	<!-- Finder -->
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="area" />
@@ -513,7 +509,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
 		<property name="name" value="José Antonio" />
@@ -542,8 +538,8 @@
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
-	
-		<!-- Position -->
+
+	<!-- Position -->
 	<bean id="position1" class="domain.Position">
 		<property name="translationPositions">
 			<list>
@@ -606,9 +602,9 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-		<!-- Translation position -->
+
+
+	<!-- Translation position -->
 	<bean id="translationPosition1" class="domain.TranslationPosition">
 		<property name="name" value="President" />
 		<property name="language" value="en" />

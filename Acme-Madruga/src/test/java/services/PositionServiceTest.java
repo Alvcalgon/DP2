@@ -49,6 +49,9 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: position es nulo.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_uno() {
 		super.authenticate("admin1");
@@ -63,6 +66,11 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: Position::translationPositions posee un valor
+	 * incorrecto, los 2 translationPositions tiene definido el mismo
+	 * idioma.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_dos() {
 		super.authenticate("admin1");
@@ -83,6 +91,10 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test positivo: se inserta correctamente una position
+	 * en la BD.
+	 */
 	@Test
 	public void positive_saveTest_uno() {
 		super.authenticate("admin1");
@@ -104,6 +116,9 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: position es nulo.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_deleteTest_uno() {
 		super.authenticate("admin1");
@@ -120,6 +135,10 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test objeto: el objeto no esta persistido en la BD,
+	 * por lo tanto, no se puede eliminar.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_deleteTest_dos() {
 		super.authenticate("admin1");
@@ -139,6 +158,10 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: no se puede borrar una position si esta asociada
+	 * al menos a un objeto enrolment.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_deleteTest_tres() {
 		super.authenticate("admin1");
@@ -158,7 +181,10 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//TODO: Borrar del BD un objeto correctamente.
+	//TODO: Borrar del BD un objeto correctamente: tal y como está
+	// hecho el populateDatabase.xml, no se puede borrar ningun objeto
+	// de la entidad Position porque todas estan asociadas a algun
+	// enrolment.
 
 	private Collection<TranslationPosition> find_invalid_TP() {
 		List<TranslationPosition> results;

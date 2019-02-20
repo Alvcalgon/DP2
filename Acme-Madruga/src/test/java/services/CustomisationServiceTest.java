@@ -32,6 +32,9 @@ public class CustomisationServiceTest extends AbstractTest {
 
 	// Suite Tests ----------------------------------------------
 
+	/*
+	 * Test negativo: customisation es nulo.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_uno() {
 		super.authenticate("admin1");
@@ -46,6 +49,10 @@ public class CustomisationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: se intenta almacenar una nueva instancia
+	 * de la entidad Customisation.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void negative_saveTest_dos() {
 		super.authenticate("admin1");
@@ -78,6 +85,10 @@ public class CustomisationServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test positivo: se edita el objeto customisation
+	 * persistido en la BD.
+	 */
 	@Test
 	public void positive_saveTest_uno() {
 		super.authenticate("admin1");

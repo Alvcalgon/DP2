@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="socialProfile/administrator,customer,handyWorker,referee,sponsor/edit.do" modelAttribute="socialProfile" >
+<form:form action="socialProfile/administrator,brotherhood,member/edit.do" modelAttribute="socialProfile" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="actor"/>
@@ -31,18 +31,18 @@
 	<form:errors cssClass="error" path="nick"/>
 	<br />
 	
-	<form:label path="socialNetworkName">
-		<spring:message code="socialProfile.socialNetworkName"/>
+	<form:label path="socialNetwork">
+		<spring:message code="socialProfile.socialNetwork"/>
 	</form:label>
-	<form:input path="socialNetworkName"/>
-	<form:errors cssClass="error" path="socialNetworkName"/>
+	<form:input path="socialNetwork"/>
+	<form:errors cssClass="error" path="socialNetwork"/>
 	<br />
 	
-	<form:label path="profileLink">
-		<spring:message code="socialProfile.profileLink"/>
+	<form:label path="linkProfile">
+		<spring:message code="socialProfile.linkProfile"/>
 	</form:label>
-	<form:input path="profileLink"/>
-	<form:errors cssClass="error" path="profileLink"/>
+	<form:input path="linkProfile"/>
+	<form:errors cssClass="error" path="linkProfile"/>
 	<br />
 	
 	<!-- Buttons -->
@@ -50,6 +50,6 @@
 	<input type="submit" name="save" value="<spring:message code="socialProfile.save"/>" />
 	
 	<input type="button" name="cancel" value="<spring:message code="socialProfile.cancel" />" 
-			onclick="javascript: relativeRedir('socialProfile/administrator,customer,handyWorker,referee,sponsor/list.do?actorId=${actorId}');" />
+			onclick="javascript: relativeRedir('socialProfile/list.do?actorId=${actorId}');" />
 
 </form:form>

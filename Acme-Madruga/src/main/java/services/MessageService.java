@@ -17,7 +17,10 @@ import repositories.MessageRepository;
 import domain.Actor;
 import domain.Box;
 import domain.Customisation;
+import domain.Enrolment;
 import domain.Message;
+import domain.Procession;
+import domain.Request;
 
 @Service
 @Transactional
@@ -39,6 +42,12 @@ public class MessageService {
 
 	@Autowired
 	private CustomisationService	customisationService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private BrotherhoodService		brotherhoodService;
 
 
 	// Constructors -----------------------------------------
@@ -86,28 +95,29 @@ public class MessageService {
 		Assert.notNull(message);
 		Assert.isTrue(message.getId() == 0);
 		this.checkByPrincipal(message);
+		this.checkPriority(message);
 
 		Message result;
-		Box inBoxRecipient, outBoxSender;
+		Box inBoxRecipient, outBoxSender, spamBoxRecipient;
 		boolean isSpam;
 
 		result = this.messageRepository.save(message);
 
-		outBoxSender = this.boxService.findOutBoxFromActor(message.getSender().getId());
+		outBoxSender = this.boxService.findOutBoxFromActor(result.getSender().getId());
 
-		this.boxService.addMessage(outBoxSender, message);
+		this.boxService.addMessage(outBoxSender, result);
 
 		isSpam = this.messageIsSpam(result);
 
 		if (isSpam) {
 			result.setIsSpam(true);
-			for (final Actor recipient : message.getRecipients()) {
-				inBoxRecipient = this.boxService.findSpamBoxFromActor(recipient.getId());
+			for (final Actor recipient : result.getRecipients()) {
+				spamBoxRecipient = this.boxService.findSpamBoxFromActor(recipient.getId());
 
-				this.boxService.addMessage(inBoxRecipient, result);
+				this.boxService.addMessage(spamBoxRecipient, result);
 			}
 		} else
-			for (final Actor recipient : message.getRecipients()) {
+			for (final Actor recipient : result.getRecipients()) {
 				inBoxRecipient = this.boxService.findInBoxFromActor(recipient.getId());
 
 				this.boxService.addMessage(inBoxRecipient, result);
@@ -143,17 +153,27 @@ public class MessageService {
 
 			this.boxService.removeMessage(trashBox, message);
 
-			numberBoxesWithMessage = this.boxService.numberOfBoxesThatContaintAMessage(message.getId());
-			if (numberBoxesWithMessage == 0)
-				this.messageRepository.delete(message);
 		} else {
 			this.boxService.removeMessage(box, message);
 			this.boxService.addMessage(trashBox, message);
-
 		}
+
+		numberBoxesWithMessage = this.boxService.numberOfBoxesThatContaintAMessage(message.getId());
+		if (numberBoxesWithMessage == 0)
+			this.messageRepository.delete(message);
 	}
 
 	// Other business methods -------------------------------
+	public void copyMessage(final Message message, final Box destination) {
+		Assert.notNull(message);
+		Assert.notNull(destination);
+		Assert.isTrue(destination.getId() != 0 && this.messageRepository.exists(message.getId()));
+		Assert.isTrue(!destination.getMessages().contains(message));
+		this.boxService.checkByPrincipal(destination);
+
+		this.boxService.addMessage(destination, message);
+	}
+
 	public void moveMessage(final Message message, final Box origin, final Box destination) {
 		Assert.notNull(message);
 		Assert.notNull(origin);
@@ -167,27 +187,99 @@ public class MessageService {
 		this.boxService.removeMessage(origin, message);
 	}
 
-	public void sendBroadcast(final Message message) {
+	public Message sendBroadcast(final Message message) {
+		Assert.notNull(message);
+		Assert.isTrue(message.getId() == 0);
+		this.checkByPrincipal(message);
+
+		Message result;
+		boolean isSpam;
+		Collection<Actor> allActors;
+		Box outBoxSender, notificationBoxRecipient, spamBoxRecipient;
+
+		allActors = this.actorService.findAll();
+
+		message.setRecipients(allActors);
+
+		result = this.messageRepository.save(message);
+
+		outBoxSender = this.boxService.findOutBoxFromActor(result.getSender().getId());
+
+		this.boxService.addMessage(outBoxSender, result);
+
+		isSpam = this.messageIsSpam(result);
+		if (isSpam)
+			for (final Actor a : allActors) {
+				spamBoxRecipient = this.boxService.findSpamBoxFromActor(a.getId());
+
+				this.boxService.addMessage(spamBoxRecipient, result);
+			}
+		else
+			for (final Actor a : allActors) {
+				notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
+
+				this.boxService.addMessage(notificationBoxRecipient, result);
+			}
+
+		return result;
+	}
+
+	public void notificationChangeStatus(final Request request) {
+		//		Assert.notNull(request);
+		//		Assert.isTrue(request.getId() != 0);
+		//		
+		//		Message message, result;
+		//		Actor system, member, brotherhood;
+		//		Box outBoxSystem, notificationBoxRecipient;
+		//		List<Actor> recipients;
+		//		String subject, body;
+		//		
+		//		// system = this.administratorService.findSystem();
+		//		member = request.getMember();
+		//		//brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		//		
+		//		recipients = new ArrayList<Actor>();
+		//		recipients.add(member);
+		//		// recipients.add(brotherhood);
+		//		
+		//		subject = "request notification / Notificación de solicitud.";
+		//		body = "The status of the request has changed / El estado de la solicitud ha cambiado: " + request.getStatus();
+		//		
+		//		message = this.createNotification(system, recipients, subject, body);
+		//		result = this.messageRepository.save(message);
+		//			
+		//		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
+		//		this.boxService.addMessage(outBoxSystem, result);
+		//		
+		//		for (Actor a: recipients) {
+		//			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
+		//			
+		//			this.boxService.addMessage(notificationBoxRecipient, result);
+		//		}
+		//		
+		//		return result;
+	}
+
+	public void notificationEnrolment(final Enrolment enrolment) {
 
 	}
 
-	public void notificationChangeStatus() {
+	public void notificationDropOut(final Enrolment enrolment) {
 
 	}
 
-	public void notificationEnrolment() {
-
-	}
-
-	public void notificationDropOut() {
-
-	}
-
-	public void notificationPublishedProcession() {
+	public void notificationPublishedProcession(final Procession procession) {
 
 	}
 
 	// Protected methods ------------------------------------
+	protected Collection<Message> findMessagesSentByActor(final int actorId) {
+		Collection<Message> result;
+
+		result = this.messageRepository.findMessagesSentByActor(actorId);
+
+		return result;
+	}
 
 	// Private methods --------------------------------------
 	private void checkByPrincipal(final Message message) {
@@ -221,17 +313,33 @@ public class MessageService {
 		for (final String spam : spamWords)
 			if (text.toLowerCase().contains(spam.toLowerCase())) {
 				result = true;
-				;
 				break;
 			}
 
 		return result;
 	}
 
-	protected Collection<Message> findMessagesSentByActor(final int actorId) {
-		Collection<Message> result;
+	private void checkPriority(final Message message) {
+		Customisation customisation;
 
-		result = this.messageRepository.findMessagesSentByActor(actorId);
+		customisation = this.customisationService.find();
+
+		Assert.isTrue(customisation.getPriorities().contains(message.getPriority()));
+	}
+
+	private Message createNotification(final Actor sender, final Collection<Actor> recipients, final String subject, final String body) {
+		Message result;
+		Date current_moment;
+
+		current_moment = this.utilityService.current_moment();
+
+		result = new Message();
+		result.setSender(sender);
+		result.setRecipients(recipients);
+		result.setSentMoment(current_moment);
+		result.setPriority("NEUTRAL");
+		result.setBody(body);
+		result.setSubject(subject);
 
 		return result;
 	}
