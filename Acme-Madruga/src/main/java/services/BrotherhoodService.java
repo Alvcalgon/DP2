@@ -84,4 +84,13 @@ public class BrotherhoodService {
 		return result;
 	}
 
+	public Brotherhood findBrotherhoodByProcession(final int processionId) {
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodRepository.findBrotherhoodByProcession(processionId);
+
+		return brotherhood;
+
+	}
+
 }
