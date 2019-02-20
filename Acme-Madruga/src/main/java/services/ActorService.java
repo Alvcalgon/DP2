@@ -81,7 +81,7 @@ public class ActorService {
 
 	// Other business methods ---------------------
 
-	protected Actor findPrincipal() {
+	public Actor findPrincipal() {
 		Actor result;
 		int userAccountId;
 
