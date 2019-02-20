@@ -6,6 +6,8 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -86,8 +88,6 @@ public class FloatService {
 		return results;
 	}
 
-	// Other business methods ---------------------
-
 	public Float findOneToEdit(final int floatId) {
 		Float result;
 		Brotherhood brotherhood;
@@ -99,6 +99,29 @@ public class FloatService {
 		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
 
 		return result;
+	}
+
+	//TODO: no se si hace falta, si no quitar
+	public Page<Float> findAllPage(final Pageable pageable) {
+		Page<Float> result;
+
+		result = this.floatRepository.findAll(pageable);
+
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
+	// Other business methods ---------------------
+
+	public Page<Float> findFloatByBrotherhood(final int brotherhoodId, final Pageable pageable) {
+		Page<Float> floats;
+
+		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId, pageable);
+
+		return floats;
+
 	}
 
 }
