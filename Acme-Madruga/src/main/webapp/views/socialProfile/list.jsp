@@ -48,4 +48,4 @@
 	<br><br>
 
  <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
-				onclick="javascript: window.history.back();" />
+				onclick="javascript: relativeRedir('actor/display.do?actorId=${actorId}');" />

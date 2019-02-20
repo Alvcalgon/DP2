@@ -23,6 +23,18 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount01" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="member1" />
 		<property name="password" value="c7764cfed23c5ca3bb393308a0da2306" />
@@ -253,6 +265,20 @@
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
+	
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="Daniela" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Reina" />
+		<property name="photo"
+			value="https://previews.123rf.com/images/jemastock/jemastock1705/jemastock170509790/78457359-cara-hombre-arte-pop-estilo-imagen-vector-ilustraci%C3%B3n.jpg" />
+		<property name="email" value="danielareina@gmail.com" />
+		<property name="phoneNumber" value="63015521" />
+		<property name="address" value="Calle Daniela 4" />
+		<property name="isSpammer" value="false" />
+		<property name="score" value="0.4" />
+		<property name="userAccount" ref="userAccount01" />
+	</bean>
 
 	<!-- Area -->
 	<bean id="area1" class="domain.Area">
@@ -321,6 +347,61 @@
 			</list>
 		</property>
 		<property name="actor" ref="administrator1" />
+	</bean>
+	
+	<bean id="box001" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message5" />
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box002" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box003" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box004" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box005" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
 	</bean>
 
 	<bean id="box6" class="domain.Box">
@@ -406,7 +487,7 @@
 		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
-			<list>				
+			<list>
 				<ref bean="message1" />
 				<ref bean="message7" />
 			</list>
@@ -578,7 +659,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<ref bean="message2" />		
+				<ref bean="message2" />
 				<ref bean="message1" />
 			</list>
 		</property>
@@ -1605,6 +1686,8 @@
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
 		<property name="maxNumberResults" value="10" />
+		<property name="rowLimit" value="3" />
+		<property name="columnLimit" value="10000" />
 		<property name="priorities">
 			<list>
 				<value>HIGH</value>
@@ -1949,7 +2032,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="finder11" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="" />
@@ -2619,7 +2702,7 @@
 	</bean>
 
 	<!-- Request -->
-<!-- Request -->
+	<!-- Request -->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2627,7 +2710,7 @@
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession1" />
 	</bean>
-	
+
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2635,7 +2718,7 @@
 		<property name="member" ref="member2" />
 		<property name="procession" ref="procession5" />
 	</bean>
-	
+
 	<bean id="request3" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2643,7 +2726,7 @@
 		<property name="member" ref="member3" />
 		<property name="procession" ref="procession3" />
 	</bean>
-	
+
 	<bean id="request4" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2651,7 +2734,7 @@
 		<property name="member" ref="member3" />
 		<property name="procession" ref="procession4" />
 	</bean>
-	
+
 	<bean id="request5" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2659,7 +2742,7 @@
 		<property name="member" ref="member5" />
 		<property name="procession" ref="procession3" />
 	</bean>
-	
+
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2667,7 +2750,7 @@
 		<property name="member" ref="member7" />
 		<property name="procession" ref="procession4" />
 	</bean>
-	
+
 	<bean id="request7" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2675,7 +2758,7 @@
 		<property name="member" ref="member10" />
 		<property name="procession" ref="procession5" />
 	</bean>
-	
+
 	<bean id="request8" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
@@ -2683,14 +2766,14 @@
 		<property name="member" ref="member12" />
 		<property name="procession" ref="procession2" />
 	</bean>
-	
+
 	<bean id="request9" class="domain.Request">
 		<property name="status" value="REJECTED" />
 		<property name="member" ref="member11" />
 		<property name="reasonWhy" value="Porque eres demasiado joven" />
 		<property name="procession" ref="procession3" />
 	</bean>
-	
+
 	<bean id="request10" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member6" />

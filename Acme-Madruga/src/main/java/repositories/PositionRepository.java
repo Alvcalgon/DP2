@@ -13,4 +13,5 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	@Query("select count(e) from Enrolment e where e.position.id=?1")
 	Integer isUsedPosition(int positionId);
 
+	//TODO: Tomad los valores del histograma: Req 12.3.8
 }
