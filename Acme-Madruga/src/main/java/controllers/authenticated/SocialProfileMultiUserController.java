@@ -55,7 +55,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 		ModelAndView result;
 		SocialProfile socialProfile;
 
-		socialProfile = this.socialProfileService.findOne(socialProfileId);
+		socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
 		Assert.notNull(socialProfile);
 		result = this.createEditModelAndView(socialProfile);
 
@@ -89,7 +89,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 		SocialProfile socialProfile;
 
 		actor = this.actorService.findPrincipal();
-		socialProfile = this.socialProfileService.findOne(socialProfileId);
+		socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
 
 		try {
 			this.socialProfileService.delete(socialProfile);

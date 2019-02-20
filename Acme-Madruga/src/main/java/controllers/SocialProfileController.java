@@ -57,11 +57,13 @@ public class SocialProfileController extends AbstractController {
 		result.addObject("actorId", actorId);
 
 		result.addObject("requestURI", "socialProfile/list.do?actorId=" + actorId);
-		if (actorAuthenticateId != null)
-			result.addObject("isAuthorized", true);
-		else
+		if (actorAuthenticateId != null) {
+			if (actorAuthenticateId == actorId)
+				result.addObject("isAuthorized", true);
+			else
+				result.addObject("isAuthorized", false);
+		} else
 			result.addObject("isAuthorized", false);
-
 		return result;
 
 	}

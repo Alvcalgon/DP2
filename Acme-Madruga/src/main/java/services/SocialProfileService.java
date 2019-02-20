@@ -61,7 +61,7 @@ public class SocialProfileService {
 		return result;
 	}
 
-	public SocialProfile findOneToEditOrDisplay(final int socialProfileId) {
+	public SocialProfile findOneToEdit(final int socialProfileId) {
 		Assert.isTrue(socialProfileId != 0);
 		SocialProfile result;
 
