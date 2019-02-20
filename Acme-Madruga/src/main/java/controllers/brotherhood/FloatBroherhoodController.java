@@ -66,7 +66,7 @@ public class FloatBroherhoodController extends AbstractController {
 		else
 			try {
 				this.floatService.save(paradeFloat);
-				result = new ModelAndView("redirect:list.do?brotherhoodId=" + paradeFloat.getBrotherhood().getId());
+				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + paradeFloat.getBrotherhood().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(paradeFloat, "float.commit.error");
 			}
@@ -74,12 +74,9 @@ public class FloatBroherhoodController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int floatId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Float paradeFloat, final BindingResult binding) {
 		ModelAndView result;
-		Float paradeFloat;
-
-		paradeFloat = this.floatService.findOneToEdit(floatId);
 
 		try {
 			this.floatService.delete(paradeFloat);

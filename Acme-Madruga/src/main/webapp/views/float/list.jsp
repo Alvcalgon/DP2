@@ -24,13 +24,15 @@
 		</a>
 	</display:column>
 	
-<%-- 	<jstl:if test="${principalId == row.brotherhood.id }">	
+	<security:authorize access="hasRole('BROTHERHOOD')">
+<%-- 	<jstl:if test="${principalId == row.brotherhood.id }">	 --%>
 	<display:column >
-			<a href="float/brotherhood/edit.do?brotherhoodId=${row.id}">
+			<a href="float/brotherhood/edit.do?floatId=${row.id}">
 				<spring:message	code="float.edit" />
 			</a>
 		</display:column>
-	</jstl:if> --%>
+<%-- 	</jstl:if>  --%>
+	</security:authorize>
 	
 	<display:column property="title" titleKey="float.title" />	
 	
