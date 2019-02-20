@@ -38,7 +38,7 @@ public abstract class Actor extends DomainEntity {
 	private String	email;
 	private String	phoneNumber;
 	private String	address;
-	private boolean	isSpammer;
+	private Boolean	isSpammer;
 	private Double	score;
 
 
@@ -104,11 +104,11 @@ public abstract class Actor extends DomainEntity {
 		this.address = address;
 	}
 
-	public boolean getIsSpammer() {
+	public Boolean getIsSpammer() {
 		return this.isSpammer;
 	}
 
-	public void setIsSpammer(final boolean isSpammer) {
+	public void setIsSpammer(final Boolean isSpammer) {
 		this.isSpammer = isSpammer;
 	}
 
