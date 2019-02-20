@@ -6,8 +6,6 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -109,10 +107,10 @@ public class SocialProfileService {
 		Assert.isTrue(socialProfile.getActor().equals(actor));
 	}
 
-	public Page<SocialProfile> findSocialProfilesByActor(final int actorId, final Pageable pageable) {
-		Page<SocialProfile> result;
+	public Collection<SocialProfile> findSocialProfilesByActor(final int actorId) {
+		Collection<SocialProfile> result;
 
-		result = this.socialProfileRepository.findSocialProfilesByActor(actorId, pageable);
+		result = this.socialProfileRepository.findSocialProfilesByActor(actorId);
 
 		return result;
 	}
