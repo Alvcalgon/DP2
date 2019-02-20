@@ -17,4 +17,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+	<strong><spring:message code="float.brotherhood"/>:</strong>
+		<jstl:out value="${float.brotherhood.title}"/>
+	<br/>
 
+	<strong><spring:message code="float.title"/>:</strong>
+		<jstl:out value="${float.title}"/>
+	<br/>
+	
+	<strong><spring:message code="float.description"/>:</strong>
+		<jstl:out value="${float.description}"/>
+	<br/>
+	
+
+	<strong><spring:message code="float.pictures"/>:</strong>
+		<jstl:out value="${float.pictures}"/>
+	<br/>
+	
+	<!-- Links -->
