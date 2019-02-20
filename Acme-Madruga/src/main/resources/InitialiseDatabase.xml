@@ -92,6 +92,19 @@
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
 	
+	<!-- Area -->
+	<bean id="area1" class="domain.Area">
+		<property name="name" value="area1" />
+		<property name="pictures"
+			value="http://gl.maps-bangkok.com/img/0/bangkok-%C3%A1rea-mapa.jpg" />
+	</bean>
+
+	<bean id="area2" class="domain.Area">
+		<property name="name" value="area2" />
+		<property name="pictures"
+			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
+	</bean>
+	
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
