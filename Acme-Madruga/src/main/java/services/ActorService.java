@@ -61,11 +61,12 @@ public class ActorService {
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
 
 		result = this.actorRepository.save(actor);
-		result.setAddress(actor.getAddress().trim());
+		if (actor.getAddress() != null)
+			result.setAddress(actor.getAddress().trim());
 		result.setPhoneNumber(this.utilityService.getValidPhone(actor.getPhoneNumber()));
 
 		if (!isUpdating)
-			this.boxService.createSystemBoxes(actor);
+			this.boxService.createSystemBoxes(result);
 
 		return result;
 

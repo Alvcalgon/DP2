@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -40,6 +41,8 @@ public class Customisation extends DomainEntity {
 	private Collection<String>	spamWords;
 	private Collection<String>	positiveWords;
 	private Collection<String>	negativeWords;
+	private int					rowLimit;
+	private int					columnLimit;
 
 
 	@NotBlank
@@ -157,6 +160,24 @@ public class Customisation extends DomainEntity {
 
 	public void setNegativeWords(final Collection<String> negativeWords) {
 		this.negativeWords = negativeWords;
+	}
+
+	@Min(1)
+	public int getRowLimit() {
+		return this.rowLimit;
+	}
+
+	public void setRowLimit(final int rowLimit) {
+		this.rowLimit = rowLimit;
+	}
+
+	@Min(1)
+	public int getColumnLimit() {
+		return this.columnLimit;
+	}
+
+	public void setColumnLimit(final int columnLimit) {
+		this.columnLimit = columnLimit;
 	}
 
 }
