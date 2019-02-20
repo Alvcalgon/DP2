@@ -108,4 +108,16 @@ public class ActorServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	@Test
+	public void testSpammerProcess() {
+		super.authenticate("admin1");
+
+		Actor actor;
+
+		actor = this.actorService.findOne(super.getEntityId("brotherhood1"));
+
+		this.actorService.launchSpammerProcess(actor);
+
+	}
+
 }

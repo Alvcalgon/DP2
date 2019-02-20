@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -14,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Message;
 
 @Service
 @Transactional
@@ -58,11 +61,12 @@ public class ActorService {
 		Assert.isTrue(!isUpdating || this.isOwnerAccount(actor));
 
 		result = this.actorRepository.save(actor);
-		result.setAddress(actor.getAddress().trim());
+		if (actor.getAddress() != null)
+			result.setAddress(actor.getAddress().trim());
 		result.setPhoneNumber(this.utilityService.getValidPhone(actor.getPhoneNumber()));
 
 		if (!isUpdating)
-			this.boxService.createSystemBoxes(actor);
+			this.boxService.createSystemBoxes(result);
 
 		return result;
 
@@ -90,7 +94,7 @@ public class ActorService {
 
 	// Other business methods ---------------------
 
-	protected Actor findPrincipal() {
+	public Actor findPrincipal() {
 		Actor result;
 		int userAccountId;
 
@@ -146,55 +150,120 @@ public class ActorService {
 		Assert.isTrue(!actor.getIsSpammer());
 		actor.setIsSpammer(true);
 	}
-	/*
-	 * public void spammerProcess() {
-	 * Collection<Actor> all;
-	 * 
-	 * all = this.findAll();
-	 * 
-	 * for (final Actor a : all)
-	 * this.launchSpammerProcess(a);
-	 * }
-	 * 
-	 * protected void launchSpammerProcess(final Actor actor) {
-	 * Assert.notNull(actor);
-	 * Assert.isTrue(actor.getId() != 0);
-	 * 
-	 * Collection<Message> messagesSent;
-	 * final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
-	 * String subject, body, tags = "";
-	 * String[] subjectWords = {};
-	 * String[] bodyWords = {};
-	 * String[] tagsWords = {};
-	 * Double counter;
-	 * Integer numberMessagesSent;
-	 * 
-	 * messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
-	 * numberMessagesSent = messagesSent.size();
-	 * 
-	 * for (final Message m : messagesSent) {
-	 * subject = m.getSubject();
-	 * body = m.getBody();
-	 * tags = m.getTags();
-	 * 
-	 * subjectWords = subject.split(" ");
-	 * bodyWords = body.split(" ");
-	 * tagsWords = tags.split(" ");
-	 * 
-	 * for (final String subjectWord : subjectWords)
-	 * for (final String bodyWord : bodyWords)
-	 * for (final String tagWord : tagsWords)
-	 * if (spamWords.contains(subjectWord.toLowerCase()))
-	 * counter++;
-	 * else if (spamWords.contains(bodyWord.toLowerCase()))
-	 * counter++;
-	 * else if (spamWords.contains(tagWord.toLowerCase()))
-	 * counter++;
-	 * }
-	 * 
-	 * if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
-	 * this.markAsSpammer(actor);
-	 * 
-	 * }
-	 */
+
+	public void spammerProcess() {
+		Collection<Actor> all;
+
+		all = this.findAll();
+
+		for (final Actor a : all)
+			this.launchSpammerProcess(a);
+	}
+
+	protected void launchSpammerProcess(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() != 0);
+
+		Collection<Message> messagesSent;
+		final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
+		String subject, body, tags = "";
+		Double counter = 0.;
+		Integer numberMessagesSent;
+
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
+		numberMessagesSent = messagesSent.size();
+
+		for (final Message m : messagesSent) {
+			subject = m.getSubject().toLowerCase();
+			body = m.getBody().toLowerCase();
+			tags = m.getTags().toLowerCase();
+
+			for (final String spamWord : spamWords)
+				if (subject.contains(spamWord) || body.contains(spamWord) || tags.contains(spamWord)) {
+					counter++;
+					break;
+				}
+
+		}
+		if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
+			this.markAsSpammer(actor);
+
+	}
+
+	public void scoreProcess() {
+		Collection<Actor> all;
+
+		all = this.findAll();
+
+		for (final Actor a : all)
+			this.launchScoreProcess(a);
+	}
+
+	protected void launchScoreProcess(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() != 0);
+
+		final Double score;
+		final Integer p, n;
+		final Double maximo;
+		Collection<Message> messagesSent;
+		List<Integer> ls;
+
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
+		ls = new ArrayList<>(this.positiveNegativeWordNumbers(messagesSent));
+		p = ls.get(0);
+		n = ls.get(1);
+
+		maximo = this.max(p, n);
+
+		if (maximo != 0)
+			score = (p - n) / maximo;
+		else
+			score = 0.0;
+
+		Assert.isTrue(score >= -1.00 && score <= 1.00);
+
+		actor.setScore(score);
+	}
+	private List<Integer> positiveNegativeWordNumbers(final Collection<Message> messagesSent) {
+		Assert.isTrue(messagesSent != null);
+
+		final List<Integer> results = new ArrayList<Integer>();
+		String subject, body, tags = "";
+		Integer positive = 0, negative = 0;
+
+		final List<String> positive_ls = new ArrayList<>(this.customisationService.find().getPositiveWords());
+		final List<String> negative_ls = new ArrayList<>(this.customisationService.find().getNegativeWords());
+
+		for (final Message m : messagesSent) {
+			subject = m.getSubject().toLowerCase();
+			body = m.getBody().toLowerCase();
+			tags = m.getTags().toLowerCase();
+
+			for (final String pw : positive_ls)
+				if (subject.contains(pw) || body.contains(pw) || tags.contains(pw))
+					positive++;
+			for (final String nw : negative_ls)
+				if (subject.contains(nw) || body.contains(nw) || tags.contains(nw))
+					negative++;
+
+		}
+
+		results.add(positive);
+		results.add(negative);
+
+		return results;
+
+	}
+
+	private Double max(final Integer n, final Integer p) {
+		Double result;
+
+		if (n >= p)
+			result = n * 1.0;
+		else
+			result = p * 1.0;
+
+		return result;
+	}
 }

@@ -36,7 +36,7 @@
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
-		<security:intercept-url pattern="/security/login.do" access="permitAll" requires-channel="https"/> 
+		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
@@ -51,6 +51,10 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
+		<security:intercept-url pattern="/socialProfile/administrator,brotherhood,member/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/socialProfile/**" access="permitAll" />
+	
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
