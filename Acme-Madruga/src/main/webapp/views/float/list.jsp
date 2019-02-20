@@ -16,4 +16,24 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.action.1" /></p>
+<display:table pagesize="5" class="displaytag" name="floats" requestURI="${requestURI}" id="row">
+
+	<display:column>	
+		<a href="float/display.do?floatId=${row.id}">
+			<spring:message	code="float.display" />			
+		</a>
+	</display:column>
+	
+<%-- 	<jstl:if test="${principalId == row.brotherhood.id }">	
+	<display:column >
+			<a href="float/brotherhood/edit.do?brotherhoodId=${row.id}">
+				<spring:message	code="float.edit" />
+			</a>
+		</display:column>
+	</jstl:if> --%>
+	
+	<display:column property="title" titleKey="float.title" />	
+	
+	<display:column property="brotherhood.title" titleKey="float.brotherhood" />
+
+</display:table>

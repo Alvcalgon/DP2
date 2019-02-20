@@ -26,6 +26,8 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
+		<value>/views/float/messages</value>
+		<value>/views/procession/messages</value>
 		<value>/views/socialProfile/messages</value>
 	</util:list>
 

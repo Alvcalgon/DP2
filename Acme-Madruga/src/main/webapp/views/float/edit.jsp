@@ -15,5 +15,22 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p><spring:message code="customer.action.1" /></p>
+
+<form:form action="float/brotherhood/edit.do" modelAttribute="float">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="brotherhood" />
+
+	<acme:textbox code="float.title" path="title"/>
+		
+	<acme:textarea code="float.description" path="description" />
+	
+	<acme:textarea code="float.pictures" path="pictures" />
+
+	<acme:submit name="save" code="float.save"/>	
+
+	<acme:cancel url="float/brotherhood/edit.do?brotherhoodId=${principal.id}" code="float.cancel" />
+
+</form:form>

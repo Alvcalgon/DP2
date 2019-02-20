@@ -100,5 +100,12 @@ public class FloatService {
 	}
 
 	// Other business methods ---------------------
+	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
+		Collection<Float> floats;
 
+		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId);
+
+		return floats;
+
+	}
 }
