@@ -167,21 +167,15 @@ public class ActorService {
 		final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
 		String subject, body, tags = "";
 		Double counter = 0.;
-		Double division = 0.;
 		Integer numberMessagesSent;
 
 		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
 		numberMessagesSent = messagesSent.size();
 
 		for (final Message m : messagesSent) {
-			subject = m.getSubject();
-			body = m.getBody();
-			tags = m.getTags();
-
-			System.out.println("subject:" + subject);
-			System.out.println("body:" + body);
-			System.out.println("tags:" + tags);
-			System.out.println("spamwords: " + spamWords);
+			subject = m.getSubject().toLowerCase();
+			body = m.getBody().toLowerCase();
+			tags = m.getTags().toLowerCase();
 
 			for (final String spamWord : spamWords)
 				if (subject.contains(spamWord) || body.contains(spamWord) || tags.contains(spamWord)) {
@@ -190,9 +184,85 @@ public class ActorService {
 				}
 
 		}
-		division = (counter / (numberMessagesSent * 1.0));
-		if (division >= 0.1)
+		if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
 			this.markAsSpammer(actor);
 
+	}
+
+	public void scoreProcess() {
+		Collection<Actor> all;
+
+		all = this.findAll();
+
+		for (final Actor a : all)
+			this.launchScoreProcess(a);
+	}
+
+	protected void launchScoreProcess(final Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getId() != 0);
+
+		final Double score;
+		final Integer p, n;
+		final Double maximo;
+		Collection<Message> messagesSent;
+		List<Integer> ls;
+
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
+		ls = new ArrayList<>(this.positiveNegativeWordNumbers(messagesSent));
+		p = ls.get(0);
+		n = ls.get(1);
+
+		maximo = this.max(p, n);
+
+		if (maximo != 0)
+			score = (p - n) / maximo;
+		else
+			score = 0.0;
+
+		Assert.isTrue(score >= -1.00 && score <= 1.00);
+
+		actor.setScore(score);
+	}
+	private List<Integer> positiveNegativeWordNumbers(final Collection<Message> messagesSent) {
+		Assert.isTrue(messagesSent != null);
+
+		final List<Integer> results = new ArrayList<Integer>();
+		String subject, body, tags = "";
+		Integer positive = 0, negative = 0;
+
+		final List<String> positive_ls = new ArrayList<>(this.customisationService.find().getPositiveWords());
+		final List<String> negative_ls = new ArrayList<>(this.customisationService.find().getNegativeWords());
+
+		for (final Message m : messagesSent) {
+			subject = m.getSubject().toLowerCase();
+			body = m.getBody().toLowerCase();
+			tags = m.getTags().toLowerCase();
+
+			for (final String pw : positive_ls)
+				if (subject.contains(pw) || body.contains(pw) || tags.contains(pw))
+					positive++;
+			for (final String nw : negative_ls)
+				if (subject.contains(nw) || body.contains(nw) || tags.contains(nw))
+					negative++;
+
+		}
+
+		results.add(positive);
+		results.add(negative);
+
+		return results;
+
+	}
+
+	private Double max(final Integer n, final Integer p) {
+		Double result;
+
+		if (n >= p)
+			result = n * 1.0;
+		else
+			result = p * 1.0;
+
+		return result;
 	}
 }

@@ -118,7 +118,6 @@ public class ActorServiceTest extends AbstractTest {
 
 		this.actorService.launchSpammerProcess(actor);
 
-		System.out.println(actor.getIsSpammer());
 	}
 
 }
