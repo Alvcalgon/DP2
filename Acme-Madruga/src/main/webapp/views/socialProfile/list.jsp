@@ -19,7 +19,7 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="socialProfiles" id="row" requestURI="${requestURI }"  class="displaytag">
+<display:table name="socialProfiles" id="row" requestURI="${requestURI }"  class="displaytag" pagesize="5">
 	
 	<display:column>
 		<jstl:if test="${isAuthorized == true}">
