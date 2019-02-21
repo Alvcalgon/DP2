@@ -64,6 +64,13 @@ public class AdministratorService {
 	}
 
 	// Other business methods ---------------------
+	protected Administrator findSystem() {
+		Administrator result;
+
+		result = this.administratorRepository.findSystem();
+
+		return result;
+	}
 
 	public Administrator findByPrincipal() {
 		Administrator result;

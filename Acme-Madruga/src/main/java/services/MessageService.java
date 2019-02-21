@@ -164,16 +164,6 @@ public class MessageService {
 	}
 
 	// Other business methods -------------------------------
-	public void copyMessage(final Message message, final Box destination) {
-		Assert.notNull(message);
-		Assert.notNull(destination);
-		Assert.isTrue(destination.getId() != 0 && this.messageRepository.exists(message.getId()));
-		Assert.isTrue(!destination.getMessages().contains(message));
-		this.boxService.checkByPrincipal(destination);
-
-		this.boxService.addMessage(destination, message);
-	}
-
 	public void moveMessage(final Message message, final Box origin, final Box destination) {
 		Assert.notNull(message);
 		Assert.notNull(origin);
@@ -224,40 +214,40 @@ public class MessageService {
 		return result;
 	}
 
-	public void notificationChangeStatus(final Request request) {
-		//		Assert.notNull(request);
-		//		Assert.isTrue(request.getId() != 0);
-		//		
-		//		Message message, result;
-		//		Actor system, member, brotherhood;
-		//		Box outBoxSystem, notificationBoxRecipient;
-		//		List<Actor> recipients;
-		//		String subject, body;
-		//		
-		//		// system = this.administratorService.findSystem();
-		//		member = request.getMember();
-		//		//brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
-		//		
-		//		recipients = new ArrayList<Actor>();
-		//		recipients.add(member);
-		//		// recipients.add(brotherhood);
-		//		
-		//		subject = "request notification / Notificación de solicitud.";
-		//		body = "The status of the request has changed / El estado de la solicitud ha cambiado: " + request.getStatus();
-		//		
-		//		message = this.createNotification(system, recipients, subject, body);
-		//		result = this.messageRepository.save(message);
-		//			
-		//		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-		//		this.boxService.addMessage(outBoxSystem, result);
-		//		
-		//		for (Actor a: recipients) {
-		//			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-		//			
-		//			this.boxService.addMessage(notificationBoxRecipient, result);
-		//		}
-		//		
-		//		return result;
+	public Message notificationChangeStatus(final Request request) {
+		Assert.notNull(request);
+		Assert.isTrue(request.getId() != 0);
+
+		Message message, result;
+		Actor system, member, brotherhood;
+		Box outBoxSystem, notificationBoxRecipient;
+		List<Actor> recipients;
+		String subject, body;
+
+		system = this.administratorService.findSystem();
+		member = request.getMember();
+		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+
+		recipients = new ArrayList<Actor>();
+		recipients.add(member);
+		recipients.add(brotherhood);
+
+		subject = "request notification / Notificación de solicitud.";
+		body = "The status of the request has changed / El estado de la solicitud ha cambiado: " + request.getStatus();
+
+		message = this.createNotification(system, recipients, subject, body);
+		result = this.messageRepository.save(message);
+
+		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
+		this.boxService.addMessage(outBoxSystem, result);
+
+		for (final Actor a : recipients) {
+			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
+
+			this.boxService.addMessage(notificationBoxRecipient, result);
+		}
+
+		return result;
 	}
 
 	public void notificationEnrolment(final Enrolment enrolment) {
