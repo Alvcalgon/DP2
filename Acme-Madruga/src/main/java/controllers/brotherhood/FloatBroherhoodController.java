@@ -86,11 +86,12 @@ public class FloatBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Float paradeFloat, final BindingResult binding) {
 		ModelAndView result;
+		Brotherhood owner;
 
 		try {
 			this.floatService.delete(paradeFloat);
-			//TODO: cambiar url
-			result = new ModelAndView("redirect:../../index/welcome.do");
+			owner = this.brotherhoodService.findByPrincipal();
+			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + owner.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(paradeFloat, "float.commit.error");
 		}

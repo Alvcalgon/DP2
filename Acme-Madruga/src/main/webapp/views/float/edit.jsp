@@ -33,8 +33,8 @@
 
 	<acme:cancel url="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}" code="float.cancel" />
 	
-<%-- 	<jstl:if test="${paradeFloat.id != 0 && paradeFloat.brotherhood == owner && notProcession}"> 
- --%>		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
-<%-- 	</jstl:if> --%>
+	<jstl:if test="${notProcession}"> 
+		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
+	</jstl:if>
 
 </form:form>
