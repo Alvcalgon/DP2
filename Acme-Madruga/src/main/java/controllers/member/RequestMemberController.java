@@ -75,8 +75,8 @@ public class RequestMemberController extends AbstractController {
 
 		return result;
 	}
-	//
-	//	// Delete
+
+	// Delete
 	//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	//	public ModelAndView delete(@RequestParam final int requestId) {
 	//		ModelAndView result;
