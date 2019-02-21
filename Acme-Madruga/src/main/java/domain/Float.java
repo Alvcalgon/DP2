@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name = "ParadeFloat")
+@Table(name = "`float`")
 public class Float extends DomainEntity {
 
 	// Constructor
