@@ -2716,7 +2716,7 @@
 		<property name="rowProcession" value="1" />
 		<property name="columnProcession" value="2" />
 		<property name="member" ref="member2" />
-		<property name="procession" ref="procession5" />
+		<property name="procession" ref="procession4" />
 	</bean>
 
 	<bean id="request3" class="domain.Request">

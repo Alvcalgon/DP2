@@ -8,14 +8,16 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers;
+package controllers.brotherhoodMember;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import controllers.AbstractController;
+
 @Controller
 @RequestMapping("/profile")
-public class RequestController extends AbstractController {
+public class RequestBrotherhoodMemberController extends AbstractController {
 
 	// Action-1 ---------------------------------------------------------------		
 
