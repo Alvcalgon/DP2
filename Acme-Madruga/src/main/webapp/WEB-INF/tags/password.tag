@@ -25,12 +25,18 @@
 <%@ attribute name="path" required="true" rtexprvalue="true" %>
 <%@ attribute name="code" required="true" rtexprvalue="true" %>
 
+<%@ attribute name="id" required="false" %>
+
+<jstl:if test="${id == null}">
+	<jstl:set var="id" value="false" />
+</jstl:if>
+
 <%-- Definition --%>
 
 <div>
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>
-	<form:password path="${path}"/>
+	<form:password path="${path}" id="${id}"/>
 	<form:errors path="${path}" cssClass="error" />
 </div>

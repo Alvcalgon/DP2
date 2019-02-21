@@ -91,11 +91,11 @@
 		
 		<br />
 		
-		<acme:textbox code="userAccount.newPassword" path="userAccount.password" id="passwordId"/>
+		<acme:password code="userAccount.newPassword" path="userAccount.password" id="passwordId"/>
 		
 		<br />
 		
-		<acme:textbox code="userAccount.confirmPassword" path="userAccount.password" id="confirmPasswordId"/>
+		<acme:password code="userAccount.confirmPassword" path="userAccount.password" id="confirmPasswordId"/>
 		
 		<br />
 		
