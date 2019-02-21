@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +93,15 @@ public class BrotherhoodService {
 
 		return brotherhood;
 
+	}
+
+	public Collection<Brotherhood> findByMemberId(final int memberId) {
+		Collection<Brotherhood> result;
+
+		result = this.brotherhoodRepository.findByMemberId(memberId);
+		Assert.notNull(result);
+
+		return result;
 	}
 
 }
