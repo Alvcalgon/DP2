@@ -74,7 +74,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 		else
 			try {
 				this.socialProfileService.save(socialProfile);
-				result = new ModelAndView("redirect:list.do?actorId=" + actor.getId());
+				result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
 			}
@@ -93,7 +93,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 
 		try {
 			this.socialProfileService.delete(socialProfile);
-			result = new ModelAndView("redirect:list.do?actorId=" + actor.getId());
+			result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
 		}
