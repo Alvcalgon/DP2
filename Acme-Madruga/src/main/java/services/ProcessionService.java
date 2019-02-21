@@ -149,5 +149,18 @@ public class ProcessionService {
 		return result;
 
 	}
+	public Boolean floatBelongtToProcession(final int floatId) {
+		Boolean res;
+		Collection<Procession> processions;
+
+		processions = this.processionRepository.floatBelongtToProcession(floatId);
+		if (processions.size() == 0)
+			res = true;
+		else
+			res = false;
+
+		return res;
+
+	}
 
 }

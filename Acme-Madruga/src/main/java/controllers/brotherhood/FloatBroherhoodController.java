@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.FloatService;
+import services.ProcessionService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Float;
 
 @Controller
@@ -21,7 +24,13 @@ import domain.Float;
 public class FloatBroherhoodController extends AbstractController {
 
 	@Autowired
-	private FloatService	floatService;
+	private FloatService		floatService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ProcessionService	processionService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -101,10 +110,16 @@ public class FloatBroherhoodController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Float paradeFloat, final String messageCode) {
 		ModelAndView result;
+		Brotherhood owner;
+		Boolean notProcession;
 
+		owner = this.brotherhoodService.findByPrincipal();
+		notProcession = this.processionService.floatBelongtToProcession(paradeFloat.getId());
 		result = new ModelAndView("float/edit");
-		result.addObject("paradeFloat", paradeFloat);
+		result.addObject("float", paradeFloat);
 		result.addObject("messageCode", messageCode);
+		result.addObject("owner", owner);
+		result.addObject("notProcession", notProcession);
 
 		return result;
 

@@ -18,7 +18,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="float/brotherhood/edit.do" modelAttribute="paradeFloat">
+<form:form action="float/brotherhood/edit.do" modelAttribute="float">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="brotherhood" />
@@ -33,9 +33,8 @@
 
 	<acme:cancel url="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}" code="float.cancel" />
 	
-<%-- 	<jstl:if test="${float.id != 0 && float.brotherhood == owner}"> --%>
-	<jstl:if test="${paradeFloat.id != 0 }"> 
-		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
-	</jstl:if>
+<%-- 	<jstl:if test="${paradeFloat.id != 0 && paradeFloat.brotherhood == owner && notProcession}"> 
+ --%>		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
+<%-- 	</jstl:if> --%>
 
 </form:form>
