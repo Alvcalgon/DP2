@@ -17,7 +17,7 @@ import controllers.AbstractController;
 
 @Controller
 @RequestMapping("/profile")
-public class RequestBrotherhoodMemberController extends AbstractController {
+public class RequestBrotherhoodController extends AbstractController {
 
 	// Action-1 ---------------------------------------------------------------		
 

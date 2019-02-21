@@ -153,7 +153,11 @@ public class RequestService {
 	}
 
 	private void checkPrincipalIsBrotherhoodOfProcession(final int requestId) {
-		final Brotherhood brotherhood;
+		Brotherhood brotherhood;
+		Request request;
+
+		request = this.requestRepository.findOne(requestId);
+		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
 
 	}
 
