@@ -2529,42 +2529,42 @@
 	</bean>
 
 	<bean id="float2" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
-		<property name="description" value="Paso de la hermandad1" />
+		<property name="title" value="Paso del cristo de las penas" />
+		<property name="description" value="Paso2 de la hermandad1" />
 		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+			value="https://okdiario.com/img/2018/03/22/cambios-semana-santa-sevilla-2018-655x368.jpg" />
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
 	<bean id="float3" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
+		<property name="title" value="Virgen de las Angustias" />
 		<property name="description" value="Paso de la hermandad1" />
 		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
 		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 
 	<bean id="float4" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
-		<property name="description" value="Paso de la hermandad2" />
+		<property name="title" value="Esperanza de Triana" />
+		<property name="description" value="Paso de la Esperanza de Triana" />
 		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+			value="https://sevilla.abc.es/pasionensevilla//wp-content/uploads/2013/03/esperanzadetriana_ensupaso2013.jpg" />
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
 	<bean id="float5" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
-		<property name="description" value="Paso de la hermandad2" />
+		<property name="title" value="La borriquita" />
+		<property name="description" value="Paso de la borriquita" />
 		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+			value="https://i.ytimg.com/vi/Qa_x5Fz8MRY/maxresdefault.jpg" />
 		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 
 	<bean id="float6" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
+		<property name="title" value="Paso Jesús Nazareno" />
 		<property name="description" value="Paso de la hermandad3" />
 		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
 		<property name="brotherhood" ref="brotherhood3" />
 	</bean>
 
