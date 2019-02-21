@@ -250,7 +250,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="userAccount20" class="security.UserAccount">
 		<property name="username" value="system" />
 		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
@@ -278,7 +278,7 @@
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
-	
+
 	<bean id="administrator2" class="domain.Administrator">
 		<property name="name" value="Daniela" />
 		<property name="middleName" value="" />
@@ -369,7 +369,7 @@
 		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
-	
+
 	<bean id="box001" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />

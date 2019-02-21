@@ -29,6 +29,7 @@
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/float/tiles.xml</value>
 		<value>/views/procession/tiles.xml</value>
+		<value>/views/request/tiles.xml</value>
 		<value>/views/socialProfile/tiles.xml</value>
 	</util:list>
 

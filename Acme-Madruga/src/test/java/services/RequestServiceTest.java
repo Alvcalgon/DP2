@@ -28,7 +28,7 @@ public class RequestServiceTest extends AbstractTest {
 	private ProcessionService	processionService;
 
 
-	// Test ------------------------------------------------
+	//Test ------------------------------------------------
 	@Test
 	public void testCreate() {
 		super.authenticate("member1");
@@ -41,12 +41,48 @@ public class RequestServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	@Test
+	public void testCreate5() {
+		super.authenticate("member2");
+		final Request request;
+		Procession procession;
+		procession = this.processionService.findOne(super.getEntityId("procession3"));
+		request = this.requestService.create(procession);
+		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.notNull(request);
+		super.unauthenticate();
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreate6() {
+		super.authenticate("member3");
+		final Request request;
+		Procession procession;
+		procession = this.processionService.findOne(super.getEntityId("procession1"));
+		request = this.requestService.create(procession);
+		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.notNull(request);
+		super.unauthenticate();
+	}
+
+	@Test
+	public void testCreate7() {
+		super.authenticate("member2");
+		final Request request;
+		Procession procession;
+		procession = this.processionService.findOne(super.getEntityId("procession5"));
+		request = this.requestService.create(procession);
+		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.notNull(request);
+		super.unauthenticate();
+	}
+
 	/*
 	 * No se puede crear request ya que ese miembro se dio de baja esa hermandad
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreate2() {
-		super.authenticate("member2");
+		super.authenticate("member3");
 		final Request request;
 		Procession procession;
 		procession = this.processionService.findOne(super.getEntityId("procession5"));

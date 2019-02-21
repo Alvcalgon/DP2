@@ -18,4 +18,13 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("select r from Request r where r.member.id = ?1")
 	Collection<Request> findRequestByMember(int id);
 
+	@Query("select r from Request r where r.member.id = ?1 and r.status='PENDING'")
+	Collection<Request> findPendingRequestByMember(int id);
+
+	@Query("select r from Request r where r.member.id = ?1 and r.status='APPROVED'")
+	Collection<Request> findApprovedRequestByMember(int id);
+
+	@Query("select r from Request r where r.member.id = ?1 and r.status='REJECTED'")
+	Collection<Request> findRejectedRequestByMember(int id);
+
 }
