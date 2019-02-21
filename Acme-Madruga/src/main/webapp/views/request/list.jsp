@@ -19,20 +19,27 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+
+
+
 <fieldset>
 	<legend>
 		<spring:message code="request.pending" />
 	</legend>
+
+	<jstl:set var="colorValue" value="grey" />
+
 	<display:table name="pendingRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
-		<display:column>
+		<display:column style="background-color:${colorValue }">
 			<a href="request/member/delete.do?requestId=${row.id}"><spring:message
 					code="request.cancel" /></a>
 
 		</display:column>
 
-		<display:column property="procession.title"
+		<display:column style="background-color:${colorValue }" property="procession.title"
 			titleKey="request.procession" />
 
 	</display:table>
@@ -42,16 +49,19 @@
 	<legend>
 		<spring:message code="request.approved" />
 	</legend>
+	
+	<jstl:set var="colorValue" value="green" />
+	
 	<display:table name="approvedRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
-		<display:column property="procession.title"
+		<display:column style="background-color:${colorValue }" property="procession.title"
 			titleKey="request.procession" />
 
-		<display:column property="rowProcession"
+		<display:column style="background-color:${colorValue }" property="rowProcession"
 			titleKey="request.rowProcession" />
 
-		<display:column property="columnProcession"
+		<display:column style="background-color:${colorValue }" property="columnProcession"
 			titleKey="request.columnProcession" />
 
 	</display:table>
@@ -61,11 +71,16 @@
 	<legend>
 		<spring:message code="request.rejected" />
 	</legend>
+	
+	<jstl:set var="colorValue" value="orange" />
+	
 	<display:table name="rejectedRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
-		<display:column property="reasonWhy"
-			titleKey="request.reasonWhy" />
+		<display:column style="background-color:${colorValue }" property="procession.title"
+			titleKey="request.procession" />
+
+		<display:column style="background-color:${colorValue }" property="reasonWhy" titleKey="request.reasonWhy" />
 
 	</display:table>
 </fieldset>
