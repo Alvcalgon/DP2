@@ -42,13 +42,23 @@ public class RequestMemberController extends AbstractController {
 	public ModelAndView list() {
 		final ModelAndView result;
 		Collection<Request> requests;
+		Collection<Request> pendingRequests;
+		Collection<Request> approvedRequests;
+		Collection<Request> rejectedRequests;
+
 		Integer memberId;
 
 		requests = this.requestService.findRequestByMember();
+		pendingRequests = this.requestService.findPendingRequestByMember();
+		approvedRequests = this.requestService.findApprovedRequestByMember();
+		rejectedRequests = this.requestService.findRejectedRequestByMember();
 		memberId = this.memberService.findByPrincipal().getId();
 
 		result = new ModelAndView("request/list");
 		result.addObject("requests", requests);
+		result.addObject("pendingRequests", pendingRequests);
+		result.addObject("approvedRequests", approvedRequests);
+		result.addObject("rejectedRequests", rejectedRequests);
 		result.addObject("memberId", memberId);
 		result.addObject("requestURI", "request/member/list.do");
 
@@ -75,26 +85,24 @@ public class RequestMemberController extends AbstractController {
 
 		return result;
 	}
-	//
-	//	// Delete
-	//	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	//	public ModelAndView delete(@RequestParam final int requestId) {
-	//		ModelAndView result;
-	//		Actor actor;
-	//		Request request;
-	//
-	//		actor = this.actorService.findPrincipal();
-	//		request = this.requestService.findOne(requestId);
-	//
-	//		try {
-	//			this.requestService.delete(request);
-	//			result = new ModelAndView("redirect:../../request/list.do?actorId=" + actor.getId());
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(request, "request.commit.error");
-	//		}
-	//
-	//		return result;
-	//	}
+
+	//Delete
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int requestId) {
+		ModelAndView result;
+		Request request;
+
+		request = this.requestService.findOneToDelete(requestId);
+
+		try {
+			this.requestService.delete(request);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(request, "request.commit.error");
+		}
+
+		return result;
+	}
 
 	// Arcillary methods --------------------------
 

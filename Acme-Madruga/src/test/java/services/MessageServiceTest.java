@@ -2,6 +2,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -407,7 +408,7 @@ public class MessageServiceTest extends AbstractTest {
 		final int brotherhoodId = super.getEntityId("brotherhood2");
 		final int boxId = super.getEntityId("box14");
 		final Box box = this.boxService.findOne(boxId);
-		final Box trashBox = this.boxService.findTrashBoxFromActor(brotherhoodId);
+		Box trashBox = this.boxService.findTrashBoxFromActor(brotherhoodId);
 
 		final int messageId = super.getEntityId("message4");
 		final Message deleted, message = this.messageService.findOne(messageId);
@@ -429,6 +430,10 @@ public class MessageServiceTest extends AbstractTest {
 
 		this.messageService.delete(message, spamBox);
 
+		trashBox = this.boxService.findTrashBoxFromActor(memberId);
+
+		this.messageService.delete(message, trashBox);
+
 		deleted = this.messageService.findOne(messageId);
 
 		Assert.isNull(deleted);
@@ -437,4 +442,93 @@ public class MessageServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+
+	@Test
+	public void positive_moveTest() {
+		super.authenticate("member2");
+
+		final int messageId = super.getEntityId("message9");
+		final Message message = this.messageService.findOne(messageId);
+
+		Box inBox, trashBox;
+		final int memberId = super.getEntityId("member2");
+
+		inBox = this.boxService.findInBoxFromActor(memberId);
+		trashBox = this.boxService.findTrashBoxFromActor(memberId);
+
+		Assert.isTrue(inBox.getMessages().contains(message));
+		Assert.isTrue(!trashBox.getMessages().contains(message));
+
+		this.messageService.moveMessage(message, inBox, trashBox);
+
+		Assert.isTrue(!inBox.getMessages().contains(message));
+		Assert.isTrue(trashBox.getMessages().contains(message));
+
+		super.unauthenticate();
+	}
+
+	@Test
+	public void positive_sendBroadcastTest_uno() {
+		super.authenticate("admin1");
+
+		Box notificationBox, outBox;
+		Message message, broadcast;
+		Collection<Actor> all;
+		final int adminId = this.getEntityId("administrator1");
+
+		message = this.messageService.create();
+		message.setSubject("Subject TEST");
+		message.setBody("Body TEST");
+		message.setPriority("NEUTRAL");
+		message.setTags("NUEVO ADMINISTRATOR");
+
+		broadcast = this.messageService.sendBroadcast(message);
+
+		outBox = this.boxService.findOutBoxFromActor(adminId);
+		Assert.isTrue(outBox.getMessages().contains(broadcast));
+
+		all = this.actorService.findAll();
+		for (final Actor a : all) {
+			notificationBox = this.boxService.findNotificationBoxFromActor(a.getId());
+
+			Assert.isTrue(notificationBox.getMessages().contains(broadcast));
+		}
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test positivo: el mensaje contiene spam. Por tanto, se almacenara
+	 * en la bandeja de spam de los receptores.
+	 */
+	@Test
+	public void positive_sendBroadcastTest_dos() {
+		super.authenticate("admin1");
+
+		Box spamBox, outBox;
+		Message message, broadcast;
+		Collection<Actor> all;
+		final int adminId = this.getEntityId("administrator1");
+
+		message = this.messageService.create();
+		message.setSubject("Subject TEST - Viagra");
+		message.setBody("Body TEST - sex");
+		message.setPriority("NEUTRAL");
+		message.setTags("NUEVO ADMINISTRATOR");
+
+		broadcast = this.messageService.sendBroadcast(message);
+
+		outBox = this.boxService.findOutBoxFromActor(adminId);
+		Assert.isTrue(outBox.getMessages().contains(broadcast));
+
+		all = this.actorService.findAll();
+		for (final Actor a : all) {
+			spamBox = this.boxService.findSpamBoxFromActor(a.getId());
+
+			Assert.isTrue(spamBox.getMessages().contains(broadcast));
+		}
+
+		super.unauthenticate();
+	}
+
 }

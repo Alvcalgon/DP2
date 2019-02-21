@@ -251,6 +251,19 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount20" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Fernando" />
@@ -261,11 +274,10 @@
 		<property name="email" value="fruiz@gmail.com" />
 		<property name="phoneNumber" value="63018754" />
 		<property name="address" value="Calle Palmera 4" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
-	
+
 	<bean id="administrator2" class="domain.Administrator">
 		<property name="name" value="Daniela" />
 		<property name="middleName" value="" />
@@ -275,9 +287,15 @@
 		<property name="email" value="danielareina@gmail.com" />
 		<property name="phoneNumber" value="63015521" />
 		<property name="address" value="Calle Daniela 4" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount01" />
+	</bean>
+
+	<bean id="system" class="domain.Administrator">
+		<property name="name" value="System" />
+		<property name="surname" value="System" />
+		<property name="email" value="system@" />
+		<property name="userAccount" ref="userAccount20" />
 	</bean>
 
 	<!-- Area -->
@@ -348,7 +366,7 @@
 		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
-	
+
 	<bean id="box001" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
@@ -1423,6 +1441,60 @@
 		<property name="actor" ref="brotherhood3" />
 	</bean>
 
+	<bean id="box96" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box97" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message10" />
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box98" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box99" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
+
+	<bean id="box100" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="system" />
+	</bean>
 
 
 	<bean id="box01" class="domain.Box">
@@ -1630,7 +1702,6 @@
 		<property name="email" value="hermandadmaquinavirtual@gmail.com" />
 		<property name="phoneNumber" value="632014700" />
 		<property name="address" value="Calle María 2" />
-		<property name="isSpammer" value="false" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="title" value="Hermandad de la santísima" />
 		<property name="establishmentDate" value="2007/09/20" />
@@ -1648,7 +1719,6 @@
 		<property name="email" value="cristodemadera2@gmail.com" />
 		<property name="phoneNumber" value="698523658" />
 		<property name="address" value="Calle Cristo 2" />
-		<property name="isSpammer" value="false" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="title" value="Hermandad del Cristo" />
 		<property name="establishmentDate" value="2001/07/20" />
@@ -1666,7 +1736,6 @@
 		<property name="email" value="hermandadtercera@gmail.com" />
 		<property name="phoneNumber" value="333333333" />
 		<property name="address" value="Calle Tercera 2" />
-		<property name="isSpammer" value="false" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="title" value="Hermandad del Tercera" />
 		<property name="establishmentDate" value="2002/07/20" />
@@ -1759,6 +1828,13 @@
 	<bean id="enrolment2" class="domain.Enrolment">
 		<property name="registeredMoment" value="2017/02/07 10:15" />
 		<property name="brotherhood" ref="brotherhood2" />
+		<property name="member" ref="member1" />
+		<property name="position" ref="position4" />
+	</bean>
+	
+	<bean id="enrolment002" class="domain.Enrolment">
+		<property name="registeredMoment" value="2017/02/07 10:15" />
+		<property name="brotherhood" ref="brotherhood3" />
 		<property name="member" ref="member1" />
 		<property name="position" ref="position4" />
 	</bean>
@@ -2129,7 +2205,6 @@
 		<property name="email" value="joseantonioferreras@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
@@ -2143,7 +2218,6 @@
 		<property name="email" value="mariafernanda@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Niebla 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
@@ -2157,7 +2231,6 @@
 		<property name="email" value="lolagarcia@gmail.com" />
 		<property name="phoneNumber" value="632512369" />
 		<property name="address" value="Calle Lola 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.8" />
 		<property name="userAccount" ref="userAccount6" />
 	</bean>
@@ -2171,7 +2244,6 @@
 		<property name="email" value="mariadolores@gmail.com" />
 		<property name="phoneNumber" value="654789321" />
 		<property name="address" value="Calle Dolores 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount8" />
 	</bean>
@@ -2185,7 +2257,6 @@
 		<property name="email" value="franciscojavier@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Javier 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount9" />
 	</bean>
@@ -2199,7 +2270,6 @@
 		<property name="email" value="martalobato@gmail.com" />
 		<property name="phoneNumber" value="789456123" />
 		<property name="address" value="Calle Marta 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount10" />
 	</bean>
@@ -2213,7 +2283,6 @@
 		<property name="email" value="angelatorres@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Torres 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.3" />
 		<property name="userAccount" ref="userAccount11" />
 	</bean>
@@ -2227,7 +2296,6 @@
 		<property name="email" value="antoniomoreno@gmail.com" />
 		<property name="phoneNumber" value="625987412" />
 		<property name="address" value="Calle Moreno 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount12" />
 	</bean>
@@ -2241,7 +2309,6 @@
 		<property name="email" value="jesussuarez@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sanz 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount13" />
 	</bean>
@@ -2255,7 +2322,6 @@
 		<property name="email" value="gabrielgallego-fdas@gmail.com" />
 		<property name="phoneNumber" value="741852963" />
 		<property name="address" value="Calle Molina 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount14" />
 	</bean>
@@ -2269,7 +2335,6 @@
 		<property name="email" value="anabelfuentes456@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount15" />
 	</bean>
@@ -2283,7 +2348,6 @@
 		<property name="email" value="alonso12@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Diaz 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.1" />
 		<property name="userAccount" ref="userAccount16" />
 	</bean>
@@ -2297,7 +2361,6 @@
 		<property name="email" value="francisco_lopez_ruiz@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount17" />
 	</bean>
@@ -2311,7 +2374,6 @@
 		<property name="email" value="victorpeña@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Victor 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.3" />
 		<property name="userAccount" ref="userAccount18" />
 	</bean>
@@ -2325,7 +2387,6 @@
 		<property name="email" value="lorenzogomez@gmail.com" />
 		<property name="phoneNumber" value="698741235" />
 		<property name="address" value="Calle Lorenzo 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount19" />
 	</bean>
@@ -2710,6 +2771,31 @@
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession1" />
 	</bean>
+	
+	<bean id="request01" class="domain.Request">
+		<property name="status" value="PENDING" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession2" />
+	</bean>
+	
+	<bean id="request001" class="domain.Request">
+		<property name="status" value="PENDING" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession3" />
+	</bean>
+	
+	<bean id="request0001" class="domain.Request">
+		<property name="status" value="REJECTED" />
+		<property name="reasonWhy" value="Porque eres demasiado joven" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession4" />
+	</bean>
+	
+	<bean id="request00001" class="domain.Request">
+		<property name="status" value="PENDING" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession5" />
+	</bean>	
 
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="APPROVED" />

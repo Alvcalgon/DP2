@@ -59,6 +59,14 @@
 		<jstl:otherwise>
 			<p> <strong> <spring:message code="actor.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
 		</jstl:otherwise>
+		
+		<jstl:if test="${actor.isSpammer == true || actor.score < -0.5}">
+			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.ban"/></a>
+		</jstl:if>
+		
+		<jstl:if test="${actor.userAccount.isBanned}">
+			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.unban"/></a>
+		</jstl:if>
 	</security:authorize>
 	
 	

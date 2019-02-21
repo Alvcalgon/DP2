@@ -28,6 +28,7 @@
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
+<script type="text/javascript" src="http://pajhome.org.uk/crypt/md5/2.2/md5-min.js"></script>
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
@@ -53,6 +54,22 @@
   			loc = b[0].href + loc;
 		}
 		window.location.replace(loc);
+	}
+	
+	function checkTelephone(msg) {
+		var telephone = document.getElementById("phoneNumber").value;
+		var regExp = /^((\+[0-9]{1,3}\ )?([0-9]{1,3}\ )?([0-9]+)?)$/;
+		
+		if (regExp.test(telephone)) {
+			return true;
+		} else {
+			return confirm(msg);
+		}
+	}
+	
+	function calcMD5(){
+		document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
+		document.getElementById('confirmPasswordId').value = hex_md5(document.getElementById('confirmPasswordId').value) ;
 	}
 </script>
 

@@ -25,8 +25,6 @@ public class RequestService {
 	private RequestRepository	requestRepository;
 
 	// Other supporting services -------------------
-	@Autowired
-	private ActorService		actorService;
 
 	@Autowired
 	private MemberService		memberService;
@@ -55,6 +53,16 @@ public class RequestService {
 
 		Assert.notNull(result);
 		this.checkPrincipalIsBrotherhoodOfProcession(requestId);
+
+		return result;
+	}
+
+	public Request findOneToDelete(final int requestId) {
+		Request result;
+		result = this.requestRepository.findOne(requestId);
+
+		Assert.notNull(result);
+		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
 
 		return result;
 	}
@@ -142,18 +150,26 @@ public class RequestService {
 
 	private void checkPrincipalIsMemberOfBrotherhoodOfProcession(final Procession procession) {
 		Member member;
-		final Brotherhood brotherhoodMember;
+		final Collection<Brotherhood> brotherhoodsMember;
 		final Brotherhood brotherhoodProcession;
 
 		member = this.memberService.findByPrincipal();
-		//TODO brotherhoodMember = this.memberService.findBrotherhood(member);
+		brotherhoodsMember = this.brotherhoodService.findByMemberId(member.getId());
 		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
 
-		//TODO Assert.isTrue(brotherhoodMember.getId() == brotherhoodProcession.getId());
+		Assert.isTrue(brotherhoodsMember.contains(brotherhoodProcession));
 	}
 
 	private void checkPrincipalIsBrotherhoodOfProcession(final int requestId) {
-		final Brotherhood brotherhood;
+		Brotherhood brotherhoodProcession;
+		Brotherhood brotherhoodAuthenticate;
+		Request request;
+
+		request = this.requestRepository.findOne(requestId);
+		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		brotherhoodAuthenticate = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(brotherhoodProcession.getId() == brotherhoodAuthenticate.getId());
 
 	}
 
@@ -163,6 +179,39 @@ public class RequestService {
 
 		member = this.memberService.findByPrincipal();
 		requests = this.requestRepository.findRequestByMember(member.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findPendingRequestByMember() {
+		Collection<Request> requests;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		requests = this.requestRepository.findPendingRequestByMember(member.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findApprovedRequestByMember() {
+		Collection<Request> requests;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		requests = this.requestRepository.findApprovedRequestByMember(member.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findRejectedRequestByMember() {
+		Collection<Request> requests;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		requests = this.requestRepository.findRejectedRequestByMember(member.getId());
 
 		return requests;
 
