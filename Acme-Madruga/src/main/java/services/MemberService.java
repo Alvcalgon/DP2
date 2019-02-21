@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,6 @@ public class MemberService {
 	}
 
 	// Other business methods ---------------------
-
 	public Member findByPrincipal() {
 		Member result;
 		UserAccount userAccount;
@@ -74,6 +75,14 @@ public class MemberService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	protected Collection<Member> findEnroledMemberByProcession(final int brotherhoodId) {
+		Collection<Member> results;
+
+		results = this.memberRepository.findEnroledMemberByBrotherhood(brotherhoodId);
+
+		return results;
 	}
 
 	private Member findByUserAccount(final int userAccountId) {
