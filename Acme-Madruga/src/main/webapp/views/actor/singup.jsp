@@ -8,171 +8,125 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
 <form:form action="${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
-		<jstl:when test="${role == 'customer'}">
-			<h2><spring:message code="header.customer"/></h2>
-		
-			<form:hidden path="fixUpTasks"/>
-		</jstl:when>
-		<jstl:when test="${role == 'handyWorker'}">
-			<h2><spring:message code="header.handyworker"/></h2>
-		
-			<form:hidden path="finder"/>
-			<form:hidden path="applications"/>
-			<!-- <form:hidden path="make" /> -->
-		</jstl:when>
-		<jstl:when test="${role == 'sponsor'}">
-			<h2><spring:message code="header.sponsor"/></h2>
-		
-			<form:hidden path="sponsorships"/>
-		</jstl:when>
-		<jstl:when test="${role == 'referee'}">
-			<h2><spring:message code="header.referee"/></h2>
-		
-			<form:hidden path="complaints"/>
-		</jstl:when>
 		<jstl:when test="${role == 'administrator'}">
 			<h2><spring:message code="header.administrator"/></h2>
 		</jstl:when>
+		
+		<jstl:when test="${role == 'brotherhood'}">
+			<h2><spring:message code="header.brotherhood"/></h2>
+		
+			<form:hidden path="area"/>
+			
+		</jstl:when>
+		
+		<jstl:when test="${role == 'member'}">
+			<h2><spring:message code="header.member"/></h2>
+		</jstl:when>
+		
+		
 	</jstl:choose>
 		
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="isSuspicious"/>
+	<form:hidden path="isSpammer"/>
+	<form:hidden path="score"/>
 	<form:hidden path="userAccount"/>
 	
 	<p><spring:message code="form.note"/></p>
 	
 	<fieldset>
 		<legend><spring:message code="actor.legend"/></legend>
+		
+		<acme:textbox code="actor.name.requested" path="name"/>
 	
-		<form:label path="name">
-			<spring:message code="actor.name.requested" />
-		</form:label>
-		<form:input path="name"/>
-		<form:errors cssClass="error" path="name" />
 		<br />
 		
-		<form:label path="middleName">
-			<spring:message code="actor.middlename" />
-		</form:label>
-		<form:input path="middleName"/>
-		<form:errors cssClass="error" path="middleName" />
+		<acme:textbox code="actor.middlename" path="middleName"/>
+		
 		<br />
 		
-		<form:label path="surname">
-			<spring:message code="actor.surname.requested" />
-		</form:label>
-		<form:input path="surname"/>
-		<form:errors cssClass="error" path="surname" />
+		<acme:textbox code="actor.surname.requested" path="surname"/>
+		
 		<br />
 		
-		<form:label path="photoLink">
-			<spring:message code="actor.photoLink" />
-		</form:label>
-		<form:input path="photoLink"/>
-		<form:errors cssClass="error" path="photoLink" />
+		<acme:textbox code="actor.photo" path="photo"/>
+		
 		<br />
 		
-		<form:label path="email">
-			<spring:message code="actor.email.requested" />
-		</form:label>
-		<form:input path="email"/>
-		<form:errors cssClass="error" path="email" />
+		<acme:textbox code="actor.email.requested" path="email"/>
+		
 		<br />
 		
-		<form:label path="phoneNumber">
-			<spring:message code="actor.phoneNumber" />
-		</form:label>
-		<form:input path="phoneNumber" placeholder="+34 (111) 654654654" id="phoneNumber"/>
-		<form:errors cssClass="error" path="phoneNumber" />
+		<acme:textbox code="actor.phoneNumber" path="email" placeholder="+34 (111) 654654654" id="phoneNumber"/>
+		
 		<br />
 		
-		<form:label path="address">
-			<spring:message code="actor.address" />
-		</form:label>
-		<form:input path="address"/>
-		<form:errors cssClass="error" path="address" />
+		<acme:textbox code="actor.address" path="address"/>
+		
 		<br /> 
 		 
-		<jstl:if test="${role == 'handyWorker'}">
-			<form:label path="make">
-					<spring:message code="actor.handyworker.make" />
-				</form:label>
-				<form:input path="make"/>
-				<form:errors cssClass="error" path="make" />
-				<br /> 	
- 		</jstl:if>
+		<jstl:if test="${role == 'brotherhood'}">
+		
+			<acme:textbox code="actor.brotherhood.title.requested" path="title"/>
+			<br /> 
+			
+			<acme:textbox code="actor.brotherhood.establishmentDate.requested" path="establishmentDate"/>
+			<br />
+			
+			<acme:textbox code="actor.brotherhood.pictures" path="pictures"/>
+			<br />
+		
+		</jstl:if>
  		 
 	</fieldset>
 	
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
-	
-		<label for="usernameId">
-			<spring:message code="userAccount.username.requested" />
-		</label>
-		<input type="text" name="username" id="usernameId"/>
+		
+		<acme:textbox code="userAccount.username.requested" path="userAccount.username" id="usernameId"/>
+		
 		<br />
 		
-		<label for="passwordId">
-			<spring:message code="userAccount.password.requested" />
-		</label>
-		<input type="password" name="password" id="passwordId"/>
+		<acme:password code="userAccount.password.requested" path="userAccount.password" id="passwordId"/>
+		
 		<br />
 		
-		<label for="confirmPasswordId">
-			<spring:message code="userAccount.confirmPassword.requested" />
-		</label>
-		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
+		<acme:password code="userAccount.confirmPassword.requested" path="userAccount.password" id="confirmPasswordId"/>
+		
 		<br />
 		
-<security:authorize access="hasRole('ADMIN')" >
-<form:label path="userAccount.authorities">
-		<spring:message code="actor.authority"/>
-	</form:label>
-	<form:select path="userAccount.authorities">
-	<jstl:choose>
-		<jstl:when test="${role == 'administrator'}">
-				<form:option label="ADMINISTRATOR" value="ADMIN"/>
-		</jstl:when>
-		<jstl:when test="${role == 'referee'}">
-				<form:option label="REFEREE" value="REFEREE"/>
-		</jstl:when>
-	</jstl:choose>
-	
-	</form:select>
-	
- </security:authorize>
+		<security:authorize access="hasRole('ADMIN')" >
+			
+			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="ADMIN"/>
+				
+		</security:authorize>
  
  
-<security:authorize access="isAnonymous()" >
-	<form:label path="userAccount.authorities">
-		<spring:message code="actor.authority"/>
-	</form:label>
-	<form:select path="userAccount.authorities">
-		<jstl:choose>
-			<jstl:when test="${role == 'customer'}">
-				<form:option label="CUSTOMER" value="CUSTOMER"/>
-			</jstl:when>
-			<jstl:when test="${role == 'handyWorker'}">
-				<form:option label="HANDYWORKER" value="HANDYWORKER"/>
-			</jstl:when>
-			<jstl:when test="${role == 'sponsor'}">
-				<form:option label="SPONSOR" value="SPONSOR"/>
-			</jstl:when>
-		</jstl:choose>
-	</form:select>
-</security:authorize>
+		<security:authorize access="isAnonymous()" >
+		
+		<jstl:if test="${role == 'brotherhood'}">
+		
+			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="BROTHERHOOD"/>
+			
+		</jstl:if>
+		
+		<jstl:if test="${role == 'member'}">
+		
+			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="MEMBER"/>
+		
+		</jstl:if>
+		
+		</security:authorize>
 		
 		<input type="hidden" name="role" value="${role}"/>
 	</fieldset>
 	
+	<acme:submit name="save" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+	<acme:cancel url="welcome/index.do" code="actor.cancel"/>
 	
-	<input type="submit" name="save" value="<spring:message code="actor.save" />" onclick ="javascript: return checkTelephone('${confirmTelephone}');"/>
-	<input type="button" name="cancel" value="<spring:message code="actor.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do')" />
 </form:form>
