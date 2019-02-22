@@ -62,7 +62,7 @@
 		
 		<br />
 		
-		<acme:textbox code="actor.phoneNumber" path="email" placeholder="+34 (111) 654654654"/>
+		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 (111) 654654654"/>
 		
 		<br />
 		
@@ -87,16 +87,22 @@
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
 	
-		<acme:textbox code="userAccount.newUsername" path="userAccount.username" id="newusernameId"/>
-		
+		<label for="newusernameId">
+			<spring:message code="userAccount.newUsername" />
+		</label>
+		<input type="text" name="newUsername" id="newusernameId" value="${userAccount.username}"/>
 		<br />
 		
-		<acme:password code="userAccount.newPassword" path="userAccount.password" id="passwordId"/>
-		
+		<label for="newPasswordId">
+			<spring:message code="userAccount.newPassword" />
+		</label>
+		<input type="password" name="newPassword" id="passwordId"/>
 		<br />
 		
-		<acme:password code="userAccount.confirmPassword" path="userAccount.password" id="confirmPasswordId"/>
-		
+		<label for="confirmPasswordId">
+			<spring:message code="userAccount.confirmPassword" />
+		</label>
+		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
 	</fieldset>

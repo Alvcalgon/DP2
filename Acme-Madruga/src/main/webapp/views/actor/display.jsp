@@ -23,7 +23,7 @@
 	<legend><spring:message code="actor.legend"/></legend>
 	<p> <strong> <spring:message code="actor.name" /> </strong>  <jstl:out value="${actor.name}" /></p>
 	
-	<p> <strong> <spring:message code="actor.middleName" /> </strong>  <jstl:out value="${actor.middleName}" /></p>
+	<p> <strong> <spring:message code="actor.middlename" /> </strong>  <jstl:out value="${actor.middleName}" /></p>
 	
 	<p> <strong> <spring:message code="actor.surname" /> </strong>  <jstl:out value="${actor.surname}" /></p>
 
@@ -46,19 +46,22 @@
 	</jstl:if>
 	
 	<security:authorize access="hasRole('ADMIN')">
+	
 		<jstl:if test="${actor.isSpammer == null }">
-			<p> <strong> <spring:message code="actor.isSpammer" /> </strong> <jstl:out value="N/A" /> </p>
+			<p> <strong> <spring:message code="actor.isSpammer" /> </strong>  <jstl:out value="N/A" /></p>
 		</jstl:if>
-		<jstl:otherwise>
+		
+		<jstl:if test="${actor.isSpammer != null }">
 			<p> <strong> <spring:message code="actor.isSpammer" /> </strong>  <jstl:out value="${actor.isSpammer}" /></p>
-		</jstl:otherwise>
+		</jstl:if>
 		
 		<jstl:if test="${actor.score == null }">
-			<p> <strong> <spring:message code="actor.score" /> </strong> <jstl:out value="N/A" /> </p>
-		</jstl:if>
-		<jstl:otherwise>
+			<p> <strong> <spring:message code="actor.score" /> </strong>  <jstl:out value="N/A" /></p>
+		</jstl:if>	
+		
+		<jstl:if test="${actor.score != null }">
 			<p> <strong> <spring:message code="actor.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
-		</jstl:otherwise>
+		</jstl:if>	
 		
 		<jstl:if test="${actor.isSpammer == true || actor.score < -0.5}">
 			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.ban"/></a>
