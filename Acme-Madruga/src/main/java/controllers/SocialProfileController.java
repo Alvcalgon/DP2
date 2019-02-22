@@ -59,6 +59,6 @@ public class SocialProfileController extends AbstractController {
 		} else
 			result.addObject("isAuthorized", false);
 		return result;
-
 	}
+
 }

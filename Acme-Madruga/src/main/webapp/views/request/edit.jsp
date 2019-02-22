@@ -19,37 +19,39 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="socialProfile/administrator,brotherhood,member/edit.do" modelAttribute="socialProfile" >
+<form:form action="request/brotherhood/edit.do" modelAttribute="request" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="actor"/>
+	<form:hidden path="status"/>
+	<form:hidden path="member"/>
+	<form:hidden path="procession"/>
 	
-	<form:label path="nick">
-		<spring:message code="socialProfile.nick"/>
+	<form:label path="rowProcession">
+		<spring:message code="request.rowProcession"/>
 	</form:label>
-	<form:input path="nick"/>
-	<form:errors cssClass="error" path="nick"/>
+	<form:input path="rowProcession"/>
+	<form:errors cssClass="error" path="rowProcession"/>
 	<br />
 	
-	<form:label path="socialNetwork">
-		<spring:message code="socialProfile.socialNetwork"/>
+	<form:label path="columnProcession">
+		<spring:message code="request.columnProcession"/>
 	</form:label>
-	<form:input path="socialNetwork"/>
-	<form:errors cssClass="error" path="socialNetwork"/>
+	<form:input path="columnProcession"/>
+	<form:errors cssClass="error" path="columnProcession"/>
 	<br />
 	
-	<form:label path="linkProfile">
-		<spring:message code="socialProfile.linkProfile"/>
+	<form:label path="reasonWhy">
+		<spring:message code="request.reasonWhy"/>
 	</form:label>
-	<form:input path="linkProfile"/>
-	<form:errors cssClass="error" path="linkProfile"/>
+	<form:input path="reasonWhy"/>
+	<form:errors cssClass="error" path="reasonWhy"/>
 	<br />
 	
 	<!-- Buttons -->
 	
-	<input type="submit" name="save" value="<spring:message code="socialProfile.save"/>" />
+	<input type="submit" name="save" value="<spring:message code="request.save"/>" />
 	
-	<input type="button" name="cancel" value="<spring:message code="socialProfile.cancel" />" 
-			onclick="javascript: relativeRedir('socialProfile/list.do?actorId=${actorId}');" />
+	<input type="button" name="cancel" value="<spring:message code="request.cancel" />" 
+			onclick="javascript: relativeRedir('socialProfile/list.do');" />
 
 </form:form>

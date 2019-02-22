@@ -28,19 +28,44 @@
 		<spring:message code="request.pending" />
 	</legend>
 
-	<jstl:set var="colorValue" value="grey" />
-
 	<display:table name="pendingRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
+		<jstl:set var="colorValue" value="grey" />
+
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
+
+		<security:authorize access="hasRole('MEMBER')">
 		<display:column style="background-color:${colorValue }">
 			<a href="request/member/delete.do?requestId=${row.id}"><spring:message
 					code="request.cancel" /></a>
-
 		</display:column>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhood/reject.do?requestId=${row.id}"><spring:message
+					code="request.reject" /></a>
+		</display:column>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhood/accept.do?requestId=${row.id}"><spring:message
+					code="request.accept" /></a>
+		</display:column>
+		</security:authorize>
 
-		<display:column style="background-color:${colorValue }" property="procession.title"
-			titleKey="request.procession" />
+		<display:column style="background-color:${colorValue }"
+			property="procession.title" titleKey="request.procession" />
+
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<display:column style="background-color:${colorValue }"
+				property="member.name" titleKey="request.member" />
+		</security:authorize>
 
 	</display:table>
 </fieldset>
@@ -49,20 +74,31 @@
 	<legend>
 		<spring:message code="request.approved" />
 	</legend>
-	
-	<jstl:set var="colorValue" value="green" />
-	
+
+
 	<display:table name="approvedRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
-		<display:column style="background-color:${colorValue }" property="procession.title"
-			titleKey="request.procession" />
+		<jstl:set var="colorValue" value="green" />
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
 
-		<display:column style="background-color:${colorValue }" property="rowProcession"
-			titleKey="request.rowProcession" />
+		<display:column style="background-color:${colorValue }"
+			property="procession.title" titleKey="request.procession" />
 
-		<display:column style="background-color:${colorValue }" property="columnProcession"
-			titleKey="request.columnProcession" />
+		<display:column style="background-color:${colorValue }"
+			property="rowProcession" titleKey="request.rowProcession" />
+
+		<display:column style="background-color:${colorValue }"
+			property="columnProcession" titleKey="request.columnProcession" />
+
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<display:column style="background-color:${colorValue }"
+				property="member.name" titleKey="request.member" />
+		</security:authorize>
 
 	</display:table>
 </fieldset>
@@ -71,16 +107,29 @@
 	<legend>
 		<spring:message code="request.rejected" />
 	</legend>
-	
-	<jstl:set var="colorValue" value="orange" />
-	
+
+
+
 	<display:table name="rejectedRequests" id="row"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
-		<display:column style="background-color:${colorValue }" property="procession.title"
-			titleKey="request.procession" />
+		<jstl:set var="colorValue" value="orange" />
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
 
-		<display:column style="background-color:${colorValue }" property="reasonWhy" titleKey="request.reasonWhy" />
+		<display:column style="background-color:${colorValue }"
+			property="procession.title" titleKey="request.procession" />
+
+		<display:column style="background-color:${colorValue }"
+			property="reasonWhy" titleKey="request.reasonWhy" />
+
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<display:column style="background-color:${colorValue }"
+				property="member.name" titleKey="request.member" />
+		</security:authorize>
 
 	</display:table>
 </fieldset>
@@ -88,5 +137,5 @@
 <br>
 <br>
 <input type="button" name="return"
-	value="<spring:message code="socialProfile.return" />"
+	value="<spring:message code="request.return" />"
 	onclick="javascript: relativeRedir('actor/display.do?actorId=${actorId}');" />
