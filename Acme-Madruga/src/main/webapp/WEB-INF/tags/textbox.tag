@@ -35,15 +35,7 @@
 </jstl:if>
 
 <jstl:if test="${placeholder == null}">
-	<jstl:set var="placeholder" value="false" />
-</jstl:if>
-
-<jstl:if test="${id == null}">
-	<jstl:set var="id" value="false" />
-</jstl:if>
-
-<jstl:if test="${value == null}">
-	<jstl:set var="value" value="false" />
+	<jstl:set var="placeholder" value="" />
 </jstl:if>
 
 <%-- Definition --%>
@@ -52,6 +44,6 @@
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>	
-	<form:input path="${path}" readonly="${readonly}" placeholder="${placeholder}" id="${id}" value="${value}"/>	
+	<form:input path="${path}" readonly="${readonly}" placeholder="${placeholder}" />	
 	<form:errors path="${path}" cssClass="error" />
 </div>	
