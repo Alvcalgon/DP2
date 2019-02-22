@@ -111,9 +111,6 @@ public class FloatService {
 
 	public Float reconstruct(final FloatForm floatForm, final BindingResult binding) {
 		final Float result;
-		final Brotherhood brotherhood;
-
-		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		if (floatForm.getId() == 0) {
 
@@ -132,7 +129,6 @@ public class FloatService {
 			result.setVersion(floatForm.getVersion());
 			this.utilityService.checkPicture(result.getPictures());
 		}
-
 		this.validator.validate(result, binding);
 		return result;
 	}
@@ -144,6 +140,24 @@ public class FloatService {
 
 		return floats;
 
+	}
+	public String validateTitle(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("title", "float.error.blank", "Must not be blank");
+
+		return result;
+	}
+	public String validateDescription(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("description", "float.error.blank", "Must not be blank");
+
+		return result;
 	}
 
 }

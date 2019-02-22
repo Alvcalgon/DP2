@@ -32,13 +32,6 @@
 			</a>
 		</display:column>
 		</jstl:if>
-			<jstl:if test="${principal == row.brotherhood && row.id!=0 && not notProcession}">
-		<display:column >
-			<a href="float/brotherhood/delete.do?floatId=${row.id}">
-				<spring:message code="float.delete"/>
-			</a>
-		</display:column>
- 	</jstl:if>  
 	</security:authorize>
 	
 	<display:column property="title" titleKey="float.title" />	

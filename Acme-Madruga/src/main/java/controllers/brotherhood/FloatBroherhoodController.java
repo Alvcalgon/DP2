@@ -81,6 +81,9 @@ public class FloatBroherhoodController extends AbstractController {
 		ModelAndView result;
 		Float floatt;
 
+		this.floatService.validateTitle(floatForm, binding);
+		this.floatService.validateDescription(floatForm, binding);
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(floatForm);
 		else
@@ -95,21 +98,20 @@ public class FloatBroherhoodController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int floatId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final FloatForm floatForm, final BindingResult binding) {
 		ModelAndView result;
 		Float floatt;
 		int brotherhoodId;
 
-		floatt = this.floatService.findOneToEdit(floatId);
+		floatt = this.floatService.findOneToEdit(floatForm.getId());
 		brotherhoodId = floatt.getBrotherhood().getId();
 
 		try {
 			this.floatService.delete(floatt);
 			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable oops) {
-			result = this.deleteModelAndView(floatt, "socialProfile.commit.error");
-			//	result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + brotherhoodId);
+			result = this.createEditModelAndView(floatForm, "float.commit.error");
 		}
 
 		return result;
@@ -128,33 +130,12 @@ public class FloatBroherhoodController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final FloatForm floatForm, final String messageCode) {
 		ModelAndView result;
 		Brotherhood owner;
+		Boolean notProcession;
 
+		notProcession = this.processionService.floatBelongtToProcession(floatForm.getId());
 		owner = this.brotherhoodService.findByPrincipal();
 		result = new ModelAndView("float/edit");
 		result.addObject("floatForm", floatForm);
-		result.addObject("messageCode", messageCode);
-		result.addObject("owner", owner);
-
-		return result;
-
-	}
-	protected ModelAndView deleteModelAndView(final Float floatt) {
-		ModelAndView result;
-
-		result = this.deleteModelAndView(floatt, null);
-
-		return result;
-	}
-
-	protected ModelAndView deleteModelAndView(final Float floatt, final String messageCode) {
-		ModelAndView result;
-		Brotherhood owner;
-		Boolean notProcession;
-
-		owner = this.brotherhoodService.findByPrincipal();
-		notProcession = this.processionService.floatBelongtToProcession(floatt.getId());
-		result = new ModelAndView("float/edit");
-		result.addObject("floatt", floatt);
 		result.addObject("messageCode", messageCode);
 		result.addObject("owner", owner);
 		result.addObject("notProcession", notProcession);
@@ -162,4 +143,5 @@ public class FloatBroherhoodController extends AbstractController {
 		return result;
 
 	}
+
 }

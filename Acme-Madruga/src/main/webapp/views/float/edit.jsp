@@ -33,6 +33,11 @@
 	
 	<input type="button" name="cancel"	value="<spring:message code="float.cancel"/>" onclick="javascript: relativeRedir('float/list.do?brotherhoodId=${owner.id}');"/>
 
+	<jstl:if test="${floatForm.id != 0 && owner == floatForm.brotherhood && notProcession}">
+		<input type="submit" name="delete"
+			value="<spring:message code="float.delete" />"/>
+	</jstl:if>
+
 </form:form>
 
 
