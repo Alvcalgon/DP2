@@ -62,7 +62,7 @@
 		
 		<br />
 		
-		<acme:textbox code="actor.phoneNumber" path="email" placeholder="+34 (111) 654654654" id="phoneNumber"/>
+		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 (111) 654654654" id="phoneNumber"/>
 		
 		<br />
 		
@@ -87,17 +87,36 @@
 	
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
-		
-		<acme:textbox code="userAccount.username.requested" path="userAccount.username" id="usernameId"/>
-		
-		<br />
-		
-		<acme:password code="userAccount.password.requested" path="userAccount.password" id="passwordId"/>
+		<!-- 
+		<acme:textbox code="userAccount.username.requested" path="userAccount.username" id="usernameId" name="username"/>
 		
 		<br />
 		
-		<acme:password code="userAccount.confirmPassword.requested" path="userAccount.password" id="confirmPasswordId"/>
+		<acme:password code="userAccount.password.requested" path="userAccount.password" id="passwordId" name="password"/>
 		
+		<br />
+		
+		<acme:password code="userAccount.confirmPassword.requested" path="userAccount.password" id="confirmPasswordId" name="confirmPassword"/>
+		
+		<br />
+		 -->
+		 
+		 <label for="usernameId">
+			<spring:message code="userAccount.username.requested" />
+		</label>
+		<input type="text" name="username" id="usernameId"/>
+		<br />
+		
+		<label for="passwordId">
+			<spring:message code="userAccount.password.requested" />
+		</label>
+		<input type="password" name="password" id="passwordId"/>
+		<br />
+		
+		<label for="confirmPasswordId">
+			<spring:message code="userAccount.confirmPassword.requested" />
+		</label>
+		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
 		<br />
 		
 		<security:authorize access="hasRole('ADMIN')" >

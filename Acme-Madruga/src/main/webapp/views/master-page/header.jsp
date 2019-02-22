@@ -25,6 +25,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation" /> </a></li>					
+					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
+					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -49,6 +51,15 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+		
+			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
+			<ul>
+				<li class="arrow"></li>
+				<li><a href="actor/create.do?role=brotherhood"><spring:message code="master.page.brotherhood.create" /></a></li>
+				<li><a href="actor/create.do?role=member"><spring:message code="master.page.member.create" /></a></li>
+			</ul>
+		</li>
+		
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -58,7 +69,8 @@
 			        (<security:authentication property="principal.username" />)
 				</a>
 				<ul>
-					<li class="arrow"></li>					
+					<li class="arrow"></li>		
+					<li><a href="actor/administrator,brotherhood,member/display.do"><spring:message code="master.page.actor.display" /></a></li>			
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

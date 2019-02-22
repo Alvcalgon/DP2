@@ -92,6 +92,19 @@ public class ActorService {
 		return result;
 	}
 
+	public Actor findOneToDisplayEdit(final int actorId) {
+		Assert.isTrue(actorId != 0);
+
+		Actor result, principal;
+
+		principal = this.findPrincipal();
+		result = this.actorRepository.findOne(actorId);
+		Assert.notNull(result);
+		Assert.isTrue(principal.getId() == actorId);
+
+		return result;
+	}
+
 	// Other business methods ---------------------
 
 	public Actor findPrincipal() {
@@ -263,6 +276,16 @@ public class ActorService {
 			result = n * 1.0;
 		else
 			result = p * 1.0;
+
+		return result;
+	}
+
+	public boolean existEmail(final String email) {
+		boolean result;
+		Actor actor;
+
+		actor = this.actorRepository.findActorByEmail(email);
+		result = !(actor == null);
 
 		return result;
 	}
