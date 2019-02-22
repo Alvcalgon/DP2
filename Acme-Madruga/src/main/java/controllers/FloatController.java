@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.BrotherhoodService;
 import services.FloatService;
 import services.UtilityService;
+import domain.Brotherhood;
 import domain.Float;
 
 @Controller
@@ -19,10 +22,13 @@ import domain.Float;
 public class FloatController extends AbstractController {
 
 	@Autowired
-	private FloatService	floatService;
+	private FloatService		floatService;
 
 	@Autowired
-	private UtilityService	utilityService;
+	private UtilityService		utilityService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodSerice;
 
 
 	// Constructors -----------------------------------------------------------
@@ -54,6 +60,7 @@ public class FloatController extends AbstractController {
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		final ModelAndView result;
 		final Collection<Float> floats;
+		Brotherhood principal;
 
 		floats = this.floatService.findFloatByBrotherhood(brotherhoodId);
 
@@ -61,6 +68,14 @@ public class FloatController extends AbstractController {
 		result.addObject("floats", floats);
 		result.addObject("requestURI", "float/list.do?brotherhoodId=" + brotherhoodId);
 
+		try {
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]")) {
+				principal = this.brotherhoodSerice.findByPrincipal();
+				result.addObject("principal", principal);
+
+			}
+		} catch (final Exception e) {
+		}
 		return result;
 
 	}

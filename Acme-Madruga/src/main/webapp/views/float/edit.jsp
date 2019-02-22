@@ -18,12 +18,12 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="float/brotherhood/edit.do" modelAttribute="floatt">
+<form:form action="float/brotherhood/edit.do" modelAttribute="floatForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="brotherhood" />
+		<form:hidden path="version" />
+			<form:hidden path="brotherhood" />
 
-	<acme:textbox code="float.title" path="title"  value="${floatt.title}" placeholder=""/>
+	<acme:textbox code="float.title" path="title"/>
 		
 	<acme:textarea code="float.description" path="description" />
 	
@@ -31,11 +31,7 @@
 
 	<acme:submit name="save" code="float.save"/>	
 	
-	<jstl:if test="${notProcession && floatt.id!=0 && owner==floatt.brotherhood}"> 
-		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
-	</jstl:if>
-	
-		<input type="button" name="cancel"	value="<spring:message code="float.cancel"/>" onclick="javascript: relativeRedir('float/display.do?floatId=${floatt.id}');"/>
+	<input type="button" name="cancel"	value="<spring:message code="float.cancel"/>" onclick="javascript: relativeRedir('float/list.do?brotherhoodId=${owner.id}');"/>
 
 </form:form>
 
