@@ -47,7 +47,7 @@ public class RequestService {
 		return result;
 	}
 
-	public Request findOneToEditOrDisplay(final int requestId) {
+	public Request findOneToEdit(final int requestId) {
 		Request result;
 		result = this.requestRepository.findOne(requestId);
 
@@ -173,17 +173,6 @@ public class RequestService {
 
 	}
 
-	public Collection<Request> findRequestByMember() {
-		Collection<Request> requests;
-		Member member;
-
-		member = this.memberService.findByPrincipal();
-		requests = this.requestRepository.findRequestByMember(member.getId());
-
-		return requests;
-
-	}
-
 	public Collection<Request> findPendingRequestByMember() {
 		Collection<Request> requests;
 		Member member;
@@ -212,6 +201,39 @@ public class RequestService {
 
 		member = this.memberService.findByPrincipal();
 		requests = this.requestRepository.findRejectedRequestByMember(member.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findPendingRequestByBrotherhood() {
+		Collection<Request> requests;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+		requests = this.requestRepository.findPendingRequestByBrotherhood(brotherhood.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findApprovedRequestByBrotherhood() {
+		Collection<Request> requests;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+		requests = this.requestRepository.findApprovedRequestByBrotherhood(brotherhood.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findRejectedRequestByBrotherhood() {
+		Collection<Request> requests;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+		requests = this.requestRepository.findRejectedRequestByBrotherhood(brotherhood.getId());
 
 		return requests;
 

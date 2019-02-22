@@ -41,21 +41,18 @@ public class RequestMemberController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
-		Collection<Request> requests;
 		Collection<Request> pendingRequests;
 		Collection<Request> approvedRequests;
 		Collection<Request> rejectedRequests;
 
 		Integer memberId;
 
-		requests = this.requestService.findRequestByMember();
 		pendingRequests = this.requestService.findPendingRequestByMember();
 		approvedRequests = this.requestService.findApprovedRequestByMember();
 		rejectedRequests = this.requestService.findRejectedRequestByMember();
 		memberId = this.memberService.findByPrincipal().getId();
 
 		result = new ModelAndView("request/list");
-		result.addObject("requests", requests);
 		result.addObject("pendingRequests", pendingRequests);
 		result.addObject("approvedRequests", approvedRequests);
 		result.addObject("rejectedRequests", rejectedRequests);
@@ -86,8 +83,8 @@ public class RequestMemberController extends AbstractController {
 		return result;
 	}
 
-	//Delete
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	//Reject
+	@RequestMapping(value = "/reject", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
