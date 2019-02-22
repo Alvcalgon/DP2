@@ -41,7 +41,7 @@ public class CustomisationService {
 	// Other business methods ----------------------------
 
 	// Protected methods ---------------------------------
-	protected Customisation find() {
+	public Customisation find() {
 		Customisation result;
 		Customisation[] all;
 

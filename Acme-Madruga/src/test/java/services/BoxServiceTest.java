@@ -45,4 +45,123 @@ public class BoxServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * Test negativo: se intenta editar una systemBox
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negative_saveTest_uno() {
+		super.authenticate("member2");
+
+		final int memberId = super.getEntityId("member2");
+		Box saved, inBox;
+
+		inBox = this.boxService.findInBoxFromActor(memberId);
+		inBox.setName("in box Hacked");
+
+		saved = this.boxService.save(inBox);
+
+		Assert.isNull(saved);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test negativo: se intenta editar una systemBox
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negative_saveTest_dos() {
+		super.authenticate("member2");
+
+		Box box, saved;
+
+		box = this.boxService.create();
+		box.setName("in box");
+
+		saved = this.boxService.save(box);
+
+		Assert.isNull(saved);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test negativo: se intenta editar una systemBox
+	 */
+	@Test
+	public void positive_saveTest_uno() {
+		super.authenticate("member2");
+
+		Box box, saved;
+
+		box = this.boxService.create();
+		box.setName("Curso 18/19");
+
+		saved = this.boxService.save(box);
+
+		Assert.notNull(saved);
+		Assert.isTrue(saved.getId() != 0);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test negativo: se trata de eliminar una carpeta
+	 * predefinida.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negative_deleteTest_uno() {
+		super.authenticate("member2");
+
+		final int memberId = super.getEntityId("member2");
+		Box inBox, found;
+
+		inBox = this.boxService.findInBoxFromActor(memberId);
+		this.boxService.delete(inBox);
+
+		found = this.boxService.findOne(inBox.getId());
+		Assert.notNull(found);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test negativo: member2 trata de eliminar una carpeta
+	 * cuyo propietario es brotherhood1
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void negative_deleteTest_dos() {
+		super.authenticate("member2");
+
+		final int boxId = super.getEntityId("box01");
+		Box box, found;
+
+		box = this.boxService.findOne(boxId);
+		this.boxService.delete(box);
+
+		found = this.boxService.findOne(box.getId());
+		Assert.notNull(found);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * Test positivo: brotherhood borra con exito
+	 * una de sus carpetas personalizables.
+	 */
+	@Test
+	public void negative_deleteTest_tres() {
+		super.authenticate("brotherhood1");
+
+		final int boxId = super.getEntityId("box01");
+		Box box, found;
+
+		box = this.boxService.findOne(boxId);
+		this.boxService.delete(box);
+
+		found = this.boxService.findOne(box.getId());
+		Assert.isNull(found);
+
+		super.unauthenticate();
+	}
+
 }

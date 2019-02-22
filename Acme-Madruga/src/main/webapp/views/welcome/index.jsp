@@ -16,6 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<h2> <jstl:out value="${system_name}" /> </h2>
+<h3> <jstl:out value="${welcome_message}" /> </h3>
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
