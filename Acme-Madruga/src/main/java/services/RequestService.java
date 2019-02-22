@@ -32,6 +32,9 @@ public class RequestService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private ActorService		actorService;
+
 
 	// Constructors -------------------------------
 	public RequestService() {
@@ -47,7 +50,7 @@ public class RequestService {
 		return result;
 	}
 
-	public Request findOneToEdit(final int requestId) {
+	public Request findOneToBrotherhood(final int requestId) {
 		Request result;
 		result = this.requestRepository.findOne(requestId);
 
@@ -57,7 +60,7 @@ public class RequestService {
 		return result;
 	}
 
-	public Request findOneToDelete(final int requestId) {
+	public Request findOneToMember(final int requestId) {
 		Request result;
 		result = this.requestRepository.findOne(requestId);
 

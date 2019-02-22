@@ -84,12 +84,12 @@ public class RequestMemberController extends AbstractController {
 	}
 
 	//Reject
-	@RequestMapping(value = "/reject", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
 
-		request = this.requestService.findOneToDelete(requestId);
+		request = this.requestService.findOneToMember(requestId);
 
 		try {
 			this.requestService.delete(request);

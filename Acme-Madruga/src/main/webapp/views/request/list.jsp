@@ -33,6 +33,11 @@
 
 		<jstl:set var="colorValue" value="grey" />
 
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
+
 		<security:authorize access="hasRole('MEMBER')">
 		<display:column style="background-color:${colorValue }">
 			<a href="request/member/delete.do?requestId=${row.id}"><spring:message
@@ -75,6 +80,11 @@
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
 		<jstl:set var="colorValue" value="green" />
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
 
 		<display:column style="background-color:${colorValue }"
 			property="procession.title" titleKey="request.procession" />
@@ -104,6 +114,11 @@
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
 		<jstl:set var="colorValue" value="orange" />
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+					code="request.display" /></a>
+		</display:column>
 
 		<display:column style="background-color:${colorValue }"
 			property="procession.title" titleKey="request.procession" />
@@ -122,5 +137,5 @@
 <br>
 <br>
 <input type="button" name="return"
-	value="<spring:message code="socialProfile.return" />"
+	value="<spring:message code="request.return" />"
 	onclick="javascript: relativeRedir('actor/display.do?actorId=${actorId}');" />

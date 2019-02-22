@@ -67,7 +67,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Request request;
 
-		request = this.requestService.findOneToEdit(requestId);
+		request = this.requestService.findOneToBrotherhood(requestId);
 
 		try {
 			this.requestService.saveEditRejected(request);
@@ -85,7 +85,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Request request;
 
-		request = this.requestService.findOneToEdit(requestId);
+		request = this.requestService.findOneToBrotherhood(requestId);
 
 		try {
 			this.requestService.saveEditApproved(request);
