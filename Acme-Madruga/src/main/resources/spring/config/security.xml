@@ -56,6 +56,7 @@
 		<security:intercept-url pattern="/request/brotherhoodMember/**"  access="hasAnyRole('BROTHERHOOD','MEMBER')" />
 	
 		<security:intercept-url pattern="/customisation/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/**" access="hasRole('ADMIN')" />
 	
 		<security:intercept-url pattern="/socialProfile/administrator,brotherhood,member/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialProfile/**" access="permitAll" />
