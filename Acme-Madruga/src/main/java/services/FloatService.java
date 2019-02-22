@@ -27,6 +27,9 @@ public class FloatService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructors -------------------------------
 
@@ -47,27 +50,28 @@ public class FloatService {
 
 		return result;
 	}
-	public Float save(final Float paradeFloat) {
-		Assert.notNull(paradeFloat);
+	public Float save(final Float floatt) {
+		Assert.notNull(floatt);
 
 		Float result;
 
-		result = this.floatRepository.save(paradeFloat);
+		result = this.floatRepository.save(floatt);
+		this.utilityService.checkPicture(floatt.getPictures());
 
 		return result;
 	}
 
-	public void delete(final Float paradeFloat) {
-		Assert.notNull(paradeFloat);
-		Assert.isTrue(this.floatRepository.exists(paradeFloat.getId()));
+	public void delete(final Float floatt) {
+		Assert.notNull(floatt);
+		Assert.isTrue(this.floatRepository.exists(floatt.getId()));
 
 		Brotherhood brotherhood;
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 
-		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
+		Assert.isTrue(floatt.getBrotherhood().equals(brotherhood));
 
-		this.floatRepository.delete(paradeFloat);
+		this.floatRepository.delete(floatt);
 	}
 
 	public Float findOne(final int floatId) {

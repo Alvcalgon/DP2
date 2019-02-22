@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.FloatService;
+import services.UtilityService;
 import domain.Float;
 
 @Controller
@@ -19,6 +20,9 @@ public class FloatController extends AbstractController {
 
 	@Autowired
 	private FloatService	floatService;
+
+	@Autowired
+	private UtilityService	utilityService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -32,12 +36,15 @@ public class FloatController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int floatId) {
 		ModelAndView result;
-		Float paradeFloat;
+		Float floatt;
+		Collection<String> pictures;
 
-		paradeFloat = this.floatService.findOne(floatId);
+		floatt = this.floatService.findOne(floatId);
+		pictures = this.utilityService.getSplittedString(floatt.getPictures());
 
 		result = new ModelAndView("float/display");
-		result.addObject("paradeFloat", paradeFloat);
+		result.addObject("floatt", floatt);
+		result.addObject("pictures", pictures);
 
 		return result;
 	}

@@ -18,24 +18,31 @@
 
 
 	<strong><spring:message code="float.brotherhood"/>:</strong>
-		<jstl:out value="${paradeFloat.brotherhood.title}"/>
+		<jstl:out value="${floatt.brotherhood.title}"/>
 	<br/>
 
 	<strong><spring:message code="float.title"/>:</strong>
-		<jstl:out value="${paradeFloat.title}"/>
+		<jstl:out value="${floatt.title}"/>
 	<br/>
 	
 	<strong><spring:message code="float.description"/>:</strong>
-		<jstl:out value="${paradeFloat.description}"/>
+		<jstl:out value="${floatt.description}"/>
 	<br/>
 	
+	<jstl:if test="${not empty pictures}">
+		<strong><spring:message code="float.pictures"/>:</strong>
+		<br>
+		<ul>
+			<jstl:forEach var="picture" items="${pictures}">
+				<img src="${picture}" alt="picture" >				
+			</jstl:forEach>
+		</ul>
+	</jstl:if>
 
-	<strong><spring:message code="float.pictures"/>:</strong>
-		<img src="${paradeFloat.pictures}" alt="picture" >
-	<br/>
+
 	
 	<!-- Links -->	
 	
-	<a href="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}">
-	<spring:message	code="float.back" />			
-</a>
+	<a href="float/list.do?brotherhoodId=${floatt.brotherhood.id}">
+		<spring:message	code="float.back" />			
+	</a>

@@ -43,11 +43,11 @@ public class FloatBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Float paradeFloat;
+		Float floatt;
 
-		paradeFloat = this.floatService.create();
+		floatt = this.floatService.create();
 
-		result = this.createEditModelAndView(paradeFloat);
+		result = this.createEditModelAndView(floatt);
 
 		return result;
 	}
@@ -57,43 +57,43 @@ public class FloatBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int floatId) {
 		ModelAndView result;
-		Float paradeFloat;
+		Float floatt;
 
-		paradeFloat = this.floatService.findOneToEdit(floatId);
-		Assert.notNull(paradeFloat);
-		result = this.createEditModelAndView(paradeFloat);
+		floatt = this.floatService.findOneToEdit(floatId);
+		Assert.notNull(floatt);
+		result = this.createEditModelAndView(floatt);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Float paradeFloat, final BindingResult binding) {
+	public ModelAndView save(@Valid final Float floatt, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(paradeFloat);
+			result = this.createEditModelAndView(floatt);
 		else
 			try {
-				this.floatService.save(paradeFloat);
-				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + paradeFloat.getBrotherhood().getId());
+				this.floatService.save(floatt);
+				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + floatt.getBrotherhood().getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(paradeFloat, "float.commit.error");
+				result = this.createEditModelAndView(floatt, "float.commit.error");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Float paradeFloat, final BindingResult binding) {
+	public ModelAndView delete(final Float floatt, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood owner;
 
 		try {
-			this.floatService.delete(paradeFloat);
+			this.floatService.delete(floatt);
 			owner = this.brotherhoodService.findByPrincipal();
 			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + owner.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(paradeFloat, "float.commit.error");
+			result = this.createEditModelAndView(floatt, "float.commit.error");
 		}
 
 		return result;
@@ -101,23 +101,23 @@ public class FloatBroherhoodController extends AbstractController {
 
 	// Arcillary methods --------------------------
 
-	protected ModelAndView createEditModelAndView(final Float paradeFloat) {
+	protected ModelAndView createEditModelAndView(final Float floatt) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(paradeFloat, null);
+		result = this.createEditModelAndView(floatt, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Float paradeFloat, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Float floatt, final String messageCode) {
 		ModelAndView result;
 		Brotherhood owner;
 		Boolean notProcession;
 
 		owner = this.brotherhoodService.findByPrincipal();
-		notProcession = this.processionService.floatBelongtToProcession(paradeFloat.getId());
+		notProcession = this.processionService.floatBelongtToProcession(floatt.getId());
 		result = new ModelAndView("float/edit");
-		result.addObject("float", paradeFloat);
+		result.addObject("floatt", floatt);
 		result.addObject("messageCode", messageCode);
 		result.addObject("owner", owner);
 		result.addObject("notProcession", notProcession);

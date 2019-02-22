@@ -1,7 +1,11 @@
 
 package services;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -89,6 +93,35 @@ public class UtilityService {
 		return result;
 	}
 
+	public void checkPicture(final String pictures) {
+		final List<String> pictureList;
+
+		Assert.notNull(pictures);
+		pictureList = this.getSplittedString(pictures);
+
+		for (final String at : pictureList)
+			try {
+				new URL(at);
+			} catch (final MalformedURLException e) {
+				throw new IllegalArgumentException("Invalid URL");
+			}
+	}
+
+	public List<String> getSplittedString(final String string) {
+		List<String> result;
+		String[] stringsArray;
+
+		result = new ArrayList<>();
+		stringsArray = string.split("\r");
+
+		for (String at : stringsArray) {
+			at = at.trim();
+			if (!at.isEmpty())
+				result.add(at);
+		}
+
+		return result;
+	}
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {
