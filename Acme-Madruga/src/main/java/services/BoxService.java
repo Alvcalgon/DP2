@@ -83,10 +83,11 @@ public class BoxService {
 		Assert.notNull(box);
 		Assert.isTrue(!box.getIsSystemBox());
 		Assert.isTrue(this.boxRepository.exists(box.getId()));
+		this.checkByPrincipal(box);
 
 		Actor principal;
-		Box trashBox;
-		Collection<Message> messages, childMessages;
+		Box trashBox, parentBox;
+		Collection<Message> messages;
 		Collection<Box> childBoxes;
 
 		principal = this.actorService.findPrincipal();
@@ -95,70 +96,51 @@ public class BoxService {
 		// If this box contains messages, we must move those messages to
 		// trash box.
 		messages = box.getMessages();
-
 		if (messages != null && !messages.isEmpty())
-			trashBox.getMessages().addAll(messages);
+			this.addMessages(trashBox, messages);
 
-		// If this box contains other boxes, we must delete them. If those
-		// sub folders contains also some messages, we must to move them
-		// trash box.
+		// If this box has child boxes, we must update childBox::parent.
 		childBoxes = this.findChildBoxesByBox(box.getId());
+		parentBox = box.getParent();
 
-		if (childBoxes != null && !childBoxes.isEmpty()) {
-			for (final Box child : childBoxes) {
-				childMessages = child.getMessages();
-
-				if (childMessages != null && !childMessages.isEmpty())
-					trashBox.getMessages().addAll(childMessages);
-			}
-
-			this.boxRepository.delete(childBoxes);
-		}
+		if (childBoxes != null && !childBoxes.isEmpty())
+			for (final Box child : childBoxes)
+				child.setParent(parentBox);
 
 		this.boxRepository.delete(box);
 	}
 
 	// Other business methods ---------------------
+	public void moveBox(final Box target, final Box destination) {
+		Assert.notNull(target);
+		Assert.isTrue(this.boxRepository.exists(target.getId()));
+		this.checkByPrincipal(target);
+
+		// An actor could move the box target to root directory, that is,
+		// Box destination would be null.
+		if (destination != null) {
+			Assert.isTrue(this.boxRepository.exists(destination.getId()));
+			this.checkByPrincipal(destination);
+			//TODO: Comprobar que no se forme un ciclo al mover la carpeta.
+		}
+
+		target.setParent(destination);
+	}
+
 	protected void createSystemBoxes(final Actor actor) {
 		Assert.notNull(actor);
 
-		Box inBox, outBox, notificationBox, trashBox, spamBox;
+		final String inBox = "in box";
+		final String outBox = "out box";
+		final String notificationBox = "notification box";
+		final String trashBox = "trash box";
+		final String spamBox = "spam box";
 
-		inBox = new Box();
-		outBox = new Box();
-		notificationBox = new Box();
-		trashBox = new Box();
-		spamBox = new Box();
-
-		inBox.setActor(actor);
-		outBox.setActor(actor);
-		notificationBox.setActor(actor);
-		trashBox.setActor(actor);
-		spamBox.setActor(actor);
-
-		inBox.setMessages(Collections.<Message> emptySet());
-		outBox.setMessages(Collections.<Message> emptySet());
-		notificationBox.setMessages(Collections.<Message> emptySet());
-		trashBox.setMessages(Collections.<Message> emptySet());
-		spamBox.setMessages(Collections.<Message> emptySet());
-
-		inBox.setIsSystemBox(true);
-		outBox.setIsSystemBox(true);
-		notificationBox.setIsSystemBox(true);
-		trashBox.setIsSystemBox(true);
-		spamBox.setIsSystemBox(true);
-
-		inBox.setName("in box");
-		outBox.setName("out box");
-		notificationBox.setName("notification box");
-		trashBox.setName("trash box");
-		spamBox.setName("spam box");
-
-		this.boxRepository.save(inBox);
-		this.boxRepository.save(outBox);
-		this.boxRepository.save(trashBox);
-		this.boxRepository.save(notificationBox);
-		this.boxRepository.save(spamBox);
+		this.createSystemBox(actor, inBox);
+		this.createSystemBox(actor, outBox);
+		this.createSystemBox(actor, spamBox);
+		this.createSystemBox(actor, notificationBox);
+		this.createSystemBox(actor, trashBox);
 	}
 
 	public Collection<Box> findRootBoxesByActor(final int actorId) {
@@ -246,6 +228,10 @@ public class BoxService {
 		box.getMessages().add(message);
 	}
 
+	protected void addMessages(final Box box, final Collection<Message> messages) {
+		box.getMessages().addAll(messages);
+	}
+
 	protected void removeMessage(final Box box, final Message message) {
 		box.getMessages().remove(message);
 	}
@@ -265,6 +251,18 @@ public class BoxService {
 		validName = box.getName().equals("in box") || box.getName().equals("out box") || box.getName().equals("notification box") || box.getName().equals("trash box") || box.getName().equals("spam box");
 
 		Assert.isTrue(!validName);
+	}
+
+	private void createSystemBox(final Actor actor, final String name) {
+		Box box;
+
+		box = new Box();
+		box.setActor(actor);
+		box.setMessages(Collections.<Message> emptySet());
+		box.setIsSystemBox(true);
+		box.setName(name);
+
+		this.boxRepository.save(box);
 	}
 
 }
