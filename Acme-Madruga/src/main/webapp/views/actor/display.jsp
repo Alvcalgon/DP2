@@ -86,5 +86,11 @@
 
 </fieldset>
 
+<fieldset>
+	<legend><spring:message code="other.legend"/></legend>
+	<p> <strong> <spring:message code="actor.socialProfiles" />: </strong>  <a href="socialProfile/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a></p>
+
+</fieldset>
+
 <a href="welcome/index.do"><spring:message code="actor.return"/></a>
 
