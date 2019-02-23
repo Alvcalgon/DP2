@@ -1943,6 +1943,21 @@
 		<property name="member" ref="member12" />
 		<property name="position" ref="position3" />
 	</bean>
+	
+	<bean id="enrolment19" class="domain.Enrolment">
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="member" ref="member11" />
+	</bean>
+
+	<bean id="enrolment20" class="domain.Enrolment">
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="member" ref="member10" />
+	</bean>
+
+	<bean id="enrolment21" class="domain.Enrolment">
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="member" ref="member9" />
+	</bean>
 
 	<!-- Finder -->
 
