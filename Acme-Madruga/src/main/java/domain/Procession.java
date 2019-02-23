@@ -31,11 +31,12 @@ public class Procession extends DomainEntity {
 
 	// Attributes
 
-	private String	ticker;
-	private String	title;
-	private String	description;
-	private Date	moment;
-	private boolean	isFinalMode;
+	private String		ticker;
+	private String		title;
+	private String		description;
+	private Date		moment;
+	private boolean		isFinalMode;
+	private Integer[][]	matrizProcession;
 
 
 	@NotBlank
@@ -86,6 +87,14 @@ public class Procession extends DomainEntity {
 		this.isFinalMode = isFinalMode;
 	}
 
+	public Integer[][] getMatrizProcession() {
+		return this.matrizProcession;
+	}
+
+	public void setMatrizProcession(final Integer[][] matrizProcession) {
+		this.matrizProcession = matrizProcession;
+	}
+
 
 	//Relationships ----------------------------------------------------
 
@@ -102,5 +111,4 @@ public class Procession extends DomainEntity {
 	public void setFloats(final Collection<Float> floats) {
 		this.floats = floats;
 	}
-
 }
