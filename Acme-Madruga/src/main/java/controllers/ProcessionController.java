@@ -35,21 +35,42 @@ public class ProcessionController extends AbstractController {
 
 	// Procession display ---------------------------------------------------------------		
 
-	//	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	//	public ModelAndView display(@RequestParam final int floatId) {
-	//		ModelAndView result;
-	//		Float floatt;
-	//		Collection<String> pictures;
-	//
-	//		floatt = this.floatService.findOne(floatId);
-	//		pictures = this.utilityService.getSplittedString(floatt.getPictures());
-	//
-	//		result = new ModelAndView("float/display");
-	//		result.addObject("floatt", floatt);
-	//		result.addObject("pictures", pictures);
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int processionId) {
+		ModelAndView result;
+		Procession procession;
+		Brotherhood brotherhood;
+		Brotherhood principal;
+		Collection<domain.Float> floats;
+
+		result = new ModelAndView("welcome/error");
+
+		try {
+			procession = this.processionService.findOneToDisplay(processionId);
+			brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+			floats = procession.getFloats();
+
+			result = new ModelAndView("procession/display");
+			result.addObject("procession", procession);
+			result.addObject("brotherhood", brotherhood);
+			result.addObject("floats", floats);
+
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))
+				if (brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
+
+					procession = this.processionService.findOne(processionId);
+					principal = this.brotherhoodService.findByPrincipal();
+
+					result.addObject("isOwner", true);
+					result.addObject("procession", procession);
+					result.addObject("principal", principal);
+				}
+		} catch (final Exception e) {
+			//		result = new ModelAndView("redirect:../error.do");
+		}
+
+		return result;
+	}
 
 	// Procession list ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

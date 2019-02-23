@@ -15,5 +15,75 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<p><spring:message code="customer.action.2" /></p>
+	<strong><spring:message code="procession.brotherhood"/>:</strong>
+		<jstl:out value="${brotherhood.title}"/>
+	<br/>
+	
+
+	<strong><spring:message code="procession.title"/>:</strong>
+		<jstl:out value="${procession.title}"/>
+	<br/>
+	
+	<strong><spring:message code="procession.description"/>:</strong>
+		<jstl:out value="${procession.description}"/>
+	<br/>
+	
+		<strong> <spring:message code="procession.moment" />: </strong>
+	
+	<spring:message code="procession.formatMoment1" var="formatMoment"/>
+		<fmt:formatDate value="${procession.moment}" pattern="${formatMoment}"/>
+	
+	
+	<security:authorize access="hasRole('BROTHERHOOD')">		
+ 	<jstl:if test="${owner}">
+ 		<strong><spring:message code="procession.finalMode"/>:</strong>
+			<jstl:out value="${procession.isFinalMode}"/>
+		<br/>
+ 	
+ 	</jstl:if>
+ 	</security:authorize>
+
+
+	
+<jstl:if test="${ not empty floats}">	
+<fieldset name="<spring:message	code="procession.floats" />">
+	<display:table pagesize="5" class="displaytag" name="procession.floats" requestURI="${requestURI}" id="row">
+
+		<display:column>	
+			<a href="float/display.do?floatId=${row.id}">
+				<spring:message	code="procession.display" />			
+			</a>
+		</display:column>
+		
+		<security:authorize access="hasRole('BROTHERHOOD')">		
+	<jstl:if test="${principal == row.brotherhood}">	 
+		<display:column >
+			<a href="float/brotherhood/edit.do?floatId=${row.id}">
+				<spring:message	code="procession.edit" />
+			</a>
+		</display:column>
+	</jstl:if>
+		</security:authorize>
+	
+		<display:column property="title" titleKey="procession.title" />	
+		
+		<display:column property="brotherhood.title" titleKey="procession.brotherhood" />
+	
+	</display:table>
+	<security:authorize access="hasRole('BROTHERHOOD')">		
+	<jstl:if test="${principal == row.brotherhood}">	 
+	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
+	</jstl:if>
+		</security:authorize>
+
+	
+	
+	</fieldset>
+			</jstl:if>
+			
+			
+	<a href="procession/list.do?brotherhoodId=${brotherhood.id}">
+		<spring:message	code="procession.back" />			
+	</a>

@@ -103,6 +103,17 @@ public class ProcessionService {
 		return result;
 	}
 
+	public Procession findOneToDisplay(final int processionId) {
+		Procession result;
+
+		result = this.processionRepository.findOne(processionId);
+
+		Assert.notNull(result);
+		Assert.isTrue(result.getIsFinalMode() == true);
+
+		return result;
+	}
+
 	// Other business methods ---------------------
 
 	public Collection<Procession> findProcessionLess30days() {

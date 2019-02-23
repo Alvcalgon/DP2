@@ -39,8 +39,8 @@
 	<display:column property="brotherhood.title" titleKey="float.brotherhood" />
 
 </display:table>
-
+<security:authorize access="hasRole('BROTHERHOOD')">
 	
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
-	
+	</security:authorize>
 	
