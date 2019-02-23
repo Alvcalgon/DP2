@@ -2813,7 +2813,7 @@
 		<property name="title" value="Procesion del jueves santo" />
 		<property name="description"
 			value="Esta es la procesion que sale el jueves santo" />
-		<property name="moment" value="2018/04/27 10:15" />
+		<property name="moment" value="2019/04/27 10:15" />
 		<property name="isFinalMode" value="true" />
 		<property name="matrizProcession">
 			<list>
