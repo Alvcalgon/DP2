@@ -16,4 +16,37 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="customer.action.1" /></p>
+
+<display:table pagesize="5" class="displaytag" name="processions" requestURI="${requestURI}" id="row">
+
+	<display:column>	
+		<a href="procession/display.do?processionId=${row.id}">
+			<spring:message	code="procession.display" />			
+		</a>
+	</display:column>
+	
+	<security:authorize access="hasRole('BROTHERHOOD')">		
+ 	<jstl:if test="${isOwner}">	 
+	<display:column >
+			<a href="procession/brotherhood/edit.do?processionId=${row.id}">
+				<spring:message	code="procession.edit" />
+			</a>
+		</display:column>
+		<display:column property="isFinalMode" titleKey="procession.finalMode" />	
+		
+		</jstl:if>
+	</security:authorize>
+	
+	<display:column property="title" titleKey="procession.title" />	
+	
+	<spring:message code="procession.formatMoment" var="formatMomentHeader" />
+	<display:column property="moment" titleKey="procession.moment" format="${formatMomentHeader}" />
+	
+
+</display:table>
+
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		<a href="procession/brotherhood/create.do"><spring:message code="procession.create"/></a>
+	</security:authorize>
+	
+	

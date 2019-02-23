@@ -28,7 +28,7 @@ public class FloatController extends AbstractController {
 	private UtilityService		utilityService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodSerice;
+	private BrotherhoodService	brotherhoodService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -70,7 +70,7 @@ public class FloatController extends AbstractController {
 
 		try {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]")) {
-				principal = this.brotherhoodSerice.findByPrincipal();
+				principal = this.brotherhoodService.findByPrincipal();
 				result.addObject("principal", principal);
 
 			}

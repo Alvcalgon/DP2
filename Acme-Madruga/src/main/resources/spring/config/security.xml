@@ -74,7 +74,13 @@
 		<security:intercept-url pattern="/float/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/float/brotherhood/edit.do"  access="hasRole('BROTHERHOOD')" /> 		
 		<security:intercept-url pattern="/float/brotherhood/create.do"  access="hasRole('BROTHERHOOD')"/> 
-		<security:intercept-url pattern="/float/brotherhood/delete.do"  access="hasRole('BROTHERHOOD')"/> 	
+		<security:intercept-url pattern="/float/brotherhood/delete.do"  access="hasRole('BROTHERHOOD')"/> 
+		
+		<security:intercept-url pattern="/procession/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/procession/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/procession/brotherhood/edit.do"  access="hasRole('BROTHERHOOD')" /> 		
+		<security:intercept-url pattern="/procession/brotherhood/create.do"  access="hasRole('BROTHERHOOD')"/> 
+		<security:intercept-url pattern="/procession/brotherhood/delete.do"  access="hasRole('BROTHERHOOD')"/> 	
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
