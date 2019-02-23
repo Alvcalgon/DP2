@@ -63,8 +63,6 @@
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
 
-
-
 		<bean class="converters.StringToActorConverter" />
 		<bean class="converters.ActorToStringConverter" />
 
@@ -112,6 +110,12 @@
 
 		<bean class="converters.StringToUserAccountConverter" />
 		<bean class="converters.UserAccountToStringConverter" />
+		
+		<bean class="converters.PositionToStringConverter" />
+		<bean class="converters.StringToPositionConverter" />
+		
+		<bean class="converters.TranslationPositionToStringConverter" />
+		<bean class="converters.StringToTranslationPositionConverter" />
 	</util:list>
 
 </beans>
