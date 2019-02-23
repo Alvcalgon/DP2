@@ -41,6 +41,8 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
+		<security:intercept-url pattern="/error.do" access="permitAll" /> 
+		
 		<security:intercept-url pattern="/actor/create.do**" access="permitAll" />
 		<security:intercept-url pattern="/actor/registerbrotherhood.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/registermember.do" access="permitAll" />
