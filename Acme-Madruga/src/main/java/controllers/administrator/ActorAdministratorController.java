@@ -90,7 +90,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 
 	// Spammers
 
-	@RequestMapping(value = "/spammersProcess", method = RequestMethod.GET, params = "spammers")
+	@RequestMapping(value = "/spammersProcess", method = RequestMethod.POST, params = "spammers")
 	public ModelAndView spammersProcess() {
 		ModelAndView result;
 

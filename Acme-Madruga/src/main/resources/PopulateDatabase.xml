@@ -249,6 +249,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="true" />
 	</bean>
 
 	<bean id="userAccount20" class="security.UserAccount">
@@ -2411,7 +2412,7 @@
 	<bean id="message1" class="domain.Message">
 		<property name="sentMoment" value="2018/10/06 21:55" />
 		<property name="subject" value="Welcome" />
-		<property name="body" value="Welcome to our brotherhood" />
+		<property name="body" value="sex to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />
@@ -2436,7 +2437,7 @@
 	<bean id="message2" class="domain.Message">
 		<property name="sentMoment" value="2017/01/03 11:14" />
 		<property name="subject" value="Welcome" />
-		<property name="body" value="Welcome to our brotherhood" />
+		<property name="body" value="good fantastic to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="true" />
@@ -2507,7 +2508,7 @@
 		<property name="sentMoment" value="2019/01/02 10:17" />
 		<property name="subject" value="Buy our bracelets" />
 		<property name="body"
-			value="You've been selected to buy our personalized bracelets" />
+			value="You've been selected to buy our viagra bracelets" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />

@@ -72,14 +72,6 @@
 		<jstl:if test="${actor.userAccount.isBanned}">
 			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.unban"/></a>
 		</jstl:if>
-
-		<form:form action="actor/administrator/computeScore.do">
-			<input type="submit" name="compute" value="<spring:message code="actor.compute.score" />" />
-		</form:form>
-
-		<form:form action="actor/administrator/spammersProcess.do">
-			<input type="submit" name="compute" value="<spring:message code="actor.isSpammer.process" />" />
-		</form:form>
 	</security:authorize>
 	
 	

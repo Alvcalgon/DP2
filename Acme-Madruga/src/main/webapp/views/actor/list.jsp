@@ -27,9 +27,23 @@
 	
 	<display:column property="phoneNumber" titleKey="table.phoneNumber" />
 	
+	<display:column property="score" titleKey="table.score" />
+	
+	<display:column property="isSpammer" titleKey="table.isSpammer" />
+	
 	<display:column property="userAccount.username" titleKey="table.username" />
 	
 	<display:column property="userAccount.authorities" titleKey="table.authority" />
-	
-	
+
+
 </display:table>
+
+	<form:form action="actor/administrator/computeScore.do">
+		<input type="submit" name="compute"
+			value="<spring:message code="actor.compute.score" />" />
+	</form:form>
+
+	<form:form action="actor/administrator/spammersProcess.do">
+		<input type="submit" name="spammers"
+			value="<spring:message code="actor.isSpammer.process" />" />
+	</form:form>
