@@ -20,20 +20,33 @@
 <form:form action="procession/brotherhood/edit.do" modelAttribute="procession">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="isFinalMode"/>
 	
 	<acme:textbox code="procession.ticker" path="ticker" readonly="true"/>
 	
 	<acme:textbox code="procession.title" path="title"/>
 	
 	<acme:textarea code="procession.description" path="description" />
-	moment
-	isFInalMode
-	Floats
-
+	
+	<form:label path="moment" >
+		<spring:message code="procession.moment" />:
+	</form:label>
+	<form:input path="moment"  placeholder="dd/MM/yyyy hh:mm"/>
+	<form:errors cssClass="error" path="moment" />
+	<p/>
+	
+	<form:label path="floats">
+		<spring:message code="procession.floats"/>:
+	</form:label>
+	<form:select path="floats" multiple="true" size="5">
+		<form:options items="${floats}" itemLabel="title" itemValue="id"/>
+	</form:select>
+	<form:errors cssClass="error" path="floats"/>
+	<br/>
 	
 
 	<input type="submit" name="save" value="<spring:message code="procession.save" />" />
-	<jstl:if test="${procession.id != 0 && owner}">
+	<jstl:if test="${procession.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="procession.delete" />" onclick="return confirm('<spring:message code="procession.confirm.delete" />')" />
 	</jstl:if>
 	<input type="button" name="cancel"	value="<spring:message code="procession.cancel"/>" onclick="javascript: relativeRedir('procession/brotherhood/list.do?brotherhoodId=${brotherhood.id}');" />
