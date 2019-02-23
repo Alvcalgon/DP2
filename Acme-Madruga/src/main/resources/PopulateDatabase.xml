@@ -1854,6 +1854,7 @@
 	</bean>
 
 	<bean id="enrolment6" class="domain.Enrolment">
+		<property name="registeredMoment" value="2014/02/07 10:15" />
 		<property name="dropOutMoment" value="2017/02/07 10:15" />
 		<property name="brotherhood" ref="brotherhood3" />
 		<property name="member" ref="member3" />

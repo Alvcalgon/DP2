@@ -32,9 +32,6 @@ public class RequestService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
-	@Autowired
-	private ActorService		actorService;
-
 
 	// Constructors -------------------------------
 	public RequestService() {

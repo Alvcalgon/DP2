@@ -138,4 +138,4 @@
 <br>
 <input type="button" name="return"
 	value="<spring:message code="request.return" />"
-	onclick="javascript: relativeRedir('actor/display.do?actorId=${actorId}');" />
+	onclick="javascript: relativeRedir('welcome/index.do');" />

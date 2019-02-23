@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.ActorService;
 import services.BrotherhoodService;
 import services.RequestService;
 import controllers.AbstractController;
@@ -36,9 +35,6 @@ public class RequestBrotherhoodMemberController extends AbstractController {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
-	@Autowired
-	private ActorService		actorService;
-
 
 	// Constructors -----------------------------------------------------------
 
@@ -53,16 +49,20 @@ public class RequestBrotherhoodMemberController extends AbstractController {
 		Request request;
 		String rolActor;
 
-		result = new ModelAndView("request/display");
-		if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]")) {
-			request = this.requestService.findOneToMember(requestId);
-			rolActor = "member";
-		} else {
-			request = this.requestService.findOneToBrotherhood(requestId);
-			rolActor = "brotherhood";
+		try {
+			result = new ModelAndView("request/display");
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]")) {
+				request = this.requestService.findOneToMember(requestId);
+				rolActor = "member";
+			} else {
+				request = this.requestService.findOneToBrotherhood(requestId);
+				rolActor = "brotherhood";
+			}
+			result.addObject("request", request);
+			result.addObject("rolActor", rolActor);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
-		result.addObject("request", request);
-		result.addObject("rolActor", rolActor);
 
 		return result;
 	}

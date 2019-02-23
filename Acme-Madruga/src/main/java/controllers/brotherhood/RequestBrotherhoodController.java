@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Request;
@@ -22,9 +21,6 @@ public class RequestBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private RequestService		requestService;
-
-	@Autowired
-	private ProcessionService	processionService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -66,16 +62,18 @@ public class RequestBrotherhoodController extends AbstractController {
 	public ModelAndView reject(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
-
-		request = this.requestService.findOneToBrotherhood(requestId);
-
 		try {
-			this.requestService.saveEditRejected(request);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(request, "request.commit.error");
-		}
+			request = this.requestService.findOneToBrotherhood(requestId);
 
+			try {
+				this.requestService.saveEditRejected(request);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(request, "request.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 		return result;
 	}
 
@@ -85,13 +83,17 @@ public class RequestBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Request request;
 
-		request = this.requestService.findOneToBrotherhood(requestId);
-
 		try {
-			this.requestService.saveEditApproved(request);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(request, "request.commit.error");
+			request = this.requestService.findOneToBrotherhood(requestId);
+
+			try {
+				this.requestService.saveEditApproved(request);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(request, "request.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
