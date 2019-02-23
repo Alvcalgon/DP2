@@ -69,7 +69,7 @@ public class ProcessionService {
 		Brotherhood brotherhood;
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
-		//TODO: preguntar
+
 		Assert.isTrue(this.getBrotherhoodToProcession(procession).equals(brotherhood));
 
 		this.processionRepository.delete(procession);
@@ -184,6 +184,17 @@ public class ProcessionService {
 		processions = this.processionRepository.findProcessionFinalByBrotherhood(id);
 
 		return processions;
+	}
+	public void makeFinal(final Procession procession) {
+		Brotherhood principal;
+		Brotherhood owner;
+
+		principal = this.brotherhoodService.findByPrincipal();
+		owner = this.getBrotherhoodToProcession(procession);
+
+		Assert.isTrue(owner.equals(principal));
+
+		procession.setIsFinalMode(true);
 	}
 
 }

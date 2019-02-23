@@ -81,6 +81,7 @@
 		<security:intercept-url pattern="/procession/brotherhood/edit.do"  access="hasRole('BROTHERHOOD')" /> 		
 		<security:intercept-url pattern="/procession/brotherhood/create.do"  access="hasRole('BROTHERHOOD')"/> 
 		<security:intercept-url pattern="/procession/brotherhood/delete.do"  access="hasRole('BROTHERHOOD')"/> 	
+		<security:intercept-url pattern="/procession/brotherhood/makeFinal.do"  access="hasRole('BROTHERHOOD')"/> 	
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

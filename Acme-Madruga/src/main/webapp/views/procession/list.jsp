@@ -25,17 +25,26 @@
 		</a>
 	</display:column>
 	
-	<security:authorize access="hasRole('BROTHERHOOD')">		
+	<security:authorize access="hasRole('BROTHERHOOD')">
+	<display:column >
+	<jstl:if test="${!row.isFinalMode}">	
+			<a href="procession/brotherhood/makeFinal.do?processionId=${row.id}">
+				<spring:message	code="procession.makeFinal" />
+			</a>
+		
+		</jstl:if>
+		</display:column>
+		</security:authorize>
+			
  	<jstl:if test="${isOwner}">	 
 	<display:column >
 			<a href="procession/brotherhood/edit.do?processionId=${row.id}">
 				<spring:message	code="procession.edit" />
 			</a>
 		</display:column>
-		<display:column property="isFinalMode" titleKey="procession.finalMode" />	
 		
+		<display:column property="isFinalMode" titleKey="procession.finalMode" />	
 		</jstl:if>
-	</security:authorize>
 	
 	<display:column property="title" titleKey="procession.title" />	
 	
@@ -48,5 +57,8 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<a href="procession/brotherhood/create.do"><spring:message code="procession.create"/></a>
 	</security:authorize>
-	
+
+<jstl:if test="${isOwner}">
+	<p style="color:blue;"><spring:message code="procession.info"/></p>
+</jstl:if>	
 	

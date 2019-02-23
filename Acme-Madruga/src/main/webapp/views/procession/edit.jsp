@@ -49,6 +49,6 @@
 	<jstl:if test="${procession.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="procession.delete" />" onclick="return confirm('<spring:message code="procession.confirm.delete" />')" />
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="procession.cancel"/>" onclick="javascript: relativeRedir('procession/brotherhood/list.do?brotherhoodId=${brotherhood.id}');" />
+	<input type="button" name="cancel"	value="<spring:message code="procession.cancel"/>" onclick="javascript: relativeRedir('procession/list.do?brotherhoodId=${owner.id}');" />
 	<br />
 </form:form>

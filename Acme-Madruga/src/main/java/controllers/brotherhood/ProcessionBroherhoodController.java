@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
 import services.FloatService;
@@ -76,13 +77,14 @@ public class ProcessionBroherhoodController extends AbstractController {
 	public ModelAndView save(@Valid final Procession procession, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
+		Procession saved;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(procession);
 		else
 			try {
-				this.processionService.save(procession);
-				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
+				saved = this.processionService.save(procession);
+				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(procession, "procession.commit.error");
@@ -109,6 +111,24 @@ public class ProcessionBroherhoodController extends AbstractController {
 	//
 	//		return result;
 	//	}
+
+	@RequestMapping(value = "/makeFinal", method = RequestMethod.GET)
+	public ModelAndView makeFinal(@RequestParam final int processionId, final RedirectAttributes redir) {
+		ModelAndView result;
+		Procession procession;
+
+		procession = this.processionService.findOne(processionId);
+
+		try {
+			this.processionService.makeFinal(procession);
+		} catch (final Throwable oops) {
+			redir.addFlashAttribute("messageCode", "procession.make.final.error");
+		}
+
+		result = new ModelAndView("redirect:/procession/display.do?processionId=" + processionId);
+
+		return result;
+	}
 
 	// Arcillary methods --------------------------
 
