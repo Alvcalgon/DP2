@@ -159,9 +159,9 @@ public class ActorService {
 		userAccount.setIsBanned(!isBanned);
 	}
 
-	public void markAsSpammer(final Actor actor) {
-		Assert.isTrue(!actor.getIsSpammer());
-		actor.setIsSpammer(true);
+	public void markAsSpammer(final Actor actor, final Boolean bool) {
+		Assert.notNull(actor);
+		actor.setIsSpammer(bool);
 	}
 
 	public void spammerProcess() {
@@ -199,7 +199,9 @@ public class ActorService {
 
 		}
 		if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
-			this.markAsSpammer(actor);
+			this.markAsSpammer(actor, true);
+		else
+			this.markAsSpammer(actor, false);
 
 	}
 

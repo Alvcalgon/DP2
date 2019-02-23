@@ -249,6 +249,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="isBanned" value="true" />
 	</bean>
 
 	<bean id="userAccount20" class="security.UserAccount">
@@ -1496,7 +1497,6 @@
 		<property name="actor" ref="system" />
 	</bean>
 
-
 	<bean id="box01" class="domain.Box">
 		<property name="name" value="favorite box" />
 		<property name="isSystemBox" value="false" />
@@ -1754,7 +1754,7 @@
 			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
-		<property name="maxNumberResults" value="10" />
+		<property name="maxNumberResults" value="3" />
 		<property name="rowLimit" value="3" />
 		<property name="columnLimit" value="10000" />
 		<property name="priorities">
@@ -2411,7 +2411,7 @@
 	<bean id="message1" class="domain.Message">
 		<property name="sentMoment" value="2018/10/06 21:55" />
 		<property name="subject" value="Welcome" />
-		<property name="body" value="Welcome to our brotherhood" />
+		<property name="body" value="sex to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />
@@ -2436,7 +2436,7 @@
 	<bean id="message2" class="domain.Message">
 		<property name="sentMoment" value="2017/01/03 11:14" />
 		<property name="subject" value="Welcome" />
-		<property name="body" value="Welcome to our brotherhood" />
+		<property name="body" value="good fantastic to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="true" />
@@ -2507,7 +2507,7 @@
 		<property name="sentMoment" value="2019/01/02 10:17" />
 		<property name="subject" value="Buy our bracelets" />
 		<property name="body"
-			value="You've been selected to buy our personalized bracelets" />
+			value="You've been selected to buy our viagra bracelets" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />
@@ -2716,6 +2716,25 @@
 		<property name="description" value="Esta es la procesion que sale en primavera" />
 		<property name="moment" value="2019/05/27 10:15" />
 		<property name="isFinalMode" value="true" />
+		<property name="matrizProcession">
+			<list>
+				<list>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
 		<property name="floats">
 			<list>
 				<ref bean="float1" />
@@ -2729,6 +2748,25 @@
 		<property name="description" value="Esta es la procesion que sale en invierno" />
 		<property name="moment" value="2019/11/27 10:15" />
 		<property name="isFinalMode" value="true" />
+		<property name="matrizProcession">
+			<list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
 		<property name="floats">
 			<list>
 				<ref bean="float2" />
@@ -2743,6 +2781,25 @@
 		<property name="description" value="Esta es la procesion que sale en verano" />
 		<property name="moment" value="2019/08/27 10:15" />
 		<property name="isFinalMode" value="true" />
+		<property name="matrizProcession">
+			<list>
+				<list>
+					<value>1</value>
+					<value>1</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
 		<property name="floats">
 			<list>
 				<ref bean="float4" />
@@ -2758,6 +2815,25 @@
 			value="Esta es la procesion que sale el jueves santo" />
 		<property name="moment" value="2018/04/27 10:15" />
 		<property name="isFinalMode" value="true" />
+		<property name="matrizProcession">
+			<list>
+				<list>
+					<value>1</value>
+					<value>1</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
 		<property name="floats">
 			<list>
 				<ref bean="float5" />
@@ -2771,6 +2847,25 @@
 		<property name="description" value="Esta es la procesion que sale en navidad" />
 		<property name="moment" value="2019/12/27 10:15" />
 		<property name="isFinalMode" value="true" />
+		<property name="matrizProcession">
+			<list>
+				<list>
+					<value>0</value>
+					<value>1</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
 		<property name="floats">
 			<list>
 				<ref bean="float6" />
@@ -2778,7 +2873,6 @@
 		</property>
 	</bean>
 
-	<!-- Request -->
 	<!-- Request -->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
@@ -2816,7 +2910,7 @@
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="2" />
+		<property name="columnProcession" value="1" />
 		<property name="member" ref="member2" />
 		<property name="procession" ref="procession4" />
 	</bean>
@@ -2824,7 +2918,7 @@
 	<bean id="request3" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="3" />
+		<property name="columnProcession" value="2" />
 		<property name="member" ref="member3" />
 		<property name="procession" ref="procession3" />
 	</bean>
@@ -2832,7 +2926,7 @@
 	<bean id="request4" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="4" />
+		<property name="columnProcession" value="2" />
 		<property name="member" ref="member3" />
 		<property name="procession" ref="procession4" />
 	</bean>
@@ -2840,15 +2934,15 @@
 	<bean id="request5" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="5" />
+		<property name="columnProcession" value="1" />
 		<property name="member" ref="member5" />
 		<property name="procession" ref="procession3" />
 	</bean>
 
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="6" />
+		<property name="rowProcession" value="2" />
+		<property name="columnProcession" value="1" />
 		<property name="member" ref="member7" />
 		<property name="procession" ref="procession4" />
 	</bean>
@@ -2856,15 +2950,15 @@
 	<bean id="request7" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="7" />
+		<property name="columnProcession" value="2" />
 		<property name="member" ref="member10" />
 		<property name="procession" ref="procession5" />
 	</bean>
 
 	<bean id="request8" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="4" />
+		<property name="rowProcession" value="2" />
+		<property name="columnProcession" value="1" />
 		<property name="member" ref="member12" />
 		<property name="procession" ref="procession2" />
 	</bean>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
+import services.CustomisationService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Request;
@@ -20,10 +21,13 @@ import domain.Request;
 public class RequestBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private RequestService		requestService;
+	private RequestService			requestService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -82,12 +86,17 @@ public class RequestBrotherhoodController extends AbstractController {
 	public ModelAndView accept(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
+		int rowProcession;
+		int columnProcession;
+
+		rowProcession = this.customisationService.find().getRowLimit();
+		columnProcession = this.customisationService.find().getColumnLimit();
 
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
 
 			try {
-				this.requestService.saveEditApproved(request);
+				this.requestService.saveEditApproved(request, rowProcession, columnProcession);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(request, "request.commit.error");

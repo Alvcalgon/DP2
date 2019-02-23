@@ -95,7 +95,7 @@ public class RequestService {
 		return result;
 	}
 
-	public Request saveEditApproved(final Request request) {
+	public Request saveEditApproved(final Request request, final int rowProcession, final int columnProcession) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
@@ -104,6 +104,7 @@ public class RequestService {
 		final Request result;
 
 		request.setStatus("APPROVED");
+		this.suggestGoodPosition(request, rowProcession, columnProcession);
 		result = this.requestRepository.save(request);
 
 		return result;
@@ -133,8 +134,12 @@ public class RequestService {
 		this.requestRepository.delete(request);
 	}
 
-	public void deleteDropOut(final Request request) {
+	public void deleteRequest(final Request request) {
 		this.requestRepository.delete(request);
+	}
+
+	public void suggestGoodPosition(final Request request, final int rowProcession, final int columnProcession) {
+
 	}
 
 	// Other business methods ---------------------
