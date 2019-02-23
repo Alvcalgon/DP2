@@ -63,7 +63,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			actor = this.actorService.findOneToDisplayEdit(actorId);
 			result = this.editModelAndView(actor);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/welcome/index.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;
@@ -81,15 +81,28 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		result = new ModelAndView();
 
-		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+		if (!newUsername.isEmpty() && newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Solo ha modificado el username y la password la ha dejado en blanco
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
-			else if (newPassword.length() < 5 || newPassword.length() > 32)
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+			if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword))
+				this.editModelAndView(actor, "actor.password.missmatch");
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), actor.getUserAccount().getUsername(), newPassword);
+		} else if (!newUsername.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Actualiza ambas cosas
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
 				this.editModelAndView(actor, "actor.password.missmatch");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
+		}
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
@@ -103,7 +116,6 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveBrotherhood")
 	public ModelAndView save(@Valid final Brotherhood actor, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
@@ -115,15 +127,28 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		result = new ModelAndView();
 
-		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+		if (!newUsername.isEmpty() && newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Solo ha modificado el username y la password la ha dejado en blanco
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
-			else if (newPassword.length() < 5 || newPassword.length() > 32)
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+			if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword))
+				this.editModelAndView(actor, "actor.password.missmatch");
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), actor.getUserAccount().getUsername(), newPassword);
+		} else if (!newUsername.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Actualiza ambas cosas
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
 				this.editModelAndView(actor, "actor.password.missmatch");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
+		}
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);
@@ -149,15 +174,28 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		result = new ModelAndView();
 
-		if (!newUsername.isEmpty() && !newPassword.isEmpty())
+		if (!newUsername.isEmpty() && newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Solo ha modificado el username y la password la ha dejado en blanco
 			if (this.userAccountService.existUsername(newUsername))
 				this.editModelAndView(actor, "actor.username.used");
-			else if (newPassword.length() < 5 || newPassword.length() > 32)
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+			if (newPassword.length() < 5 || newPassword.length() > 32)
+				this.editModelAndView(actor, "actor.password.size");
+			else if (!confirmPassword.equals(newPassword))
+				this.editModelAndView(actor, "actor.password.missmatch");
+			else
+				this.userAccountService.setLogin(actor.getUserAccount(), actor.getUserAccount().getUsername(), newPassword);
+		} else if (!newUsername.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) { // Actualiza ambas cosas
+			if (this.userAccountService.existUsername(newUsername))
+				this.editModelAndView(actor, "actor.username.used");
+			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
 				this.editModelAndView(actor, "actor.password.missmatch");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, newPassword);
+		}
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(actor);

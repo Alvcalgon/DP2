@@ -18,6 +18,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+
 
 <fieldset>
 	<legend><spring:message code="actor.legend"/></legend>
@@ -70,6 +72,14 @@
 		<jstl:if test="${actor.userAccount.isBanned}">
 			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.unban"/></a>
 		</jstl:if>
+
+		<form:form action="actor/administrator/computeScore.do">
+			<input type="submit" name="compute" value="<spring:message code="actor.compute.score" />" />
+		</form:form>
+
+		<form:form action="actor/administrator/spammersProcess.do">
+			<input type="submit" name="compute" value="<spring:message code="actor.isSpammer.process" />" />
+		</form:form>
 	</security:authorize>
 	
 	
@@ -86,5 +96,11 @@
 
 </fieldset>
 
-<a href="welcome/index.do"><spring:message code="actor.return"/></a>
+<fieldset>
+	<legend><spring:message code="other.legend"/></legend>
+	<p> <strong> <spring:message code="actor.socialProfiles" />: </strong>  <a href="socialProfile/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a></p>
+
+</fieldset>
+
+<a href="javascript: window.history.back();"><spring:message code="actor.return"/></a>
 

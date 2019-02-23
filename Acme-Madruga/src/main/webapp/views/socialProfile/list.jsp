@@ -33,6 +33,11 @@
 		</jstl:if>
 	</display:column>
 	
+	<display:column>
+			<a href="socialProfile/display.do?socialProfileId=${row.id}"><spring:message
+					code="socialProfile.display" /></a>
+		</display:column>
+	
 	<display:column property="nick" titleKey="socialProfile.nick"/>
 	
 	<display:column property="socialNetwork" titleKey="socialProfile.socialNetwork"/>

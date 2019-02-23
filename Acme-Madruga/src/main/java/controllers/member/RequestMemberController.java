@@ -69,17 +69,20 @@ public class RequestMemberController extends AbstractController {
 		final Request request;
 
 		try {
-			final Procession procession;
+			try {
+				final Procession procession;
 
-			procession = this.processionService.findOne(processionId);
-			request = this.requestService.create(procession);
+				procession = this.processionService.findOne(processionId);
+				request = this.requestService.create(procession);
 
-			result = this.createEditModelAndView(request);
-		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/request/member/list.do");
+				result = this.createEditModelAndView(request);
+			} catch (final Throwable oops) {
+				result = new ModelAndView("redirect:/request/member/list.do");
 
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
-
 		return result;
 	}
 
@@ -89,13 +92,19 @@ public class RequestMemberController extends AbstractController {
 		ModelAndView result;
 		Request request;
 
-		request = this.requestService.findOneToMember(requestId);
-
 		try {
-			this.requestService.delete(request);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(request, "request.commit.error");
+
+			request = this.requestService.findOneToMember(requestId);
+
+			try {
+				this.requestService.deleteCancel(request);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(request, "request.commit.error");
+			}
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
