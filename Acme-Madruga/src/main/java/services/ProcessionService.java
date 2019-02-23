@@ -117,6 +117,15 @@ public class ProcessionService {
 
 	// Other business methods ---------------------
 
+	public Double[] findDataNumberResultsPerFinder() {
+		Double[] result;
+
+		result = this.processionRepository.findDataNumberResultsPerFinder();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Collection<Procession> findProcessionLess30days() {
 		Date today;
 		final Date more30days;

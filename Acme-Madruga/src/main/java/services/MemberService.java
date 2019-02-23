@@ -65,6 +65,16 @@ public class MemberService {
 	}
 
 	// Other business methods ---------------------
+
+	public Double[] findDataNumberMembersPerBrotherhood() {
+		Double[] result;
+
+		result = this.memberRepository.findDataNumberMembersPerBrotherhood();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Member findByPrincipal() {
 		Member result;
 		UserAccount userAccount;
