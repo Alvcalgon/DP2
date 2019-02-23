@@ -22,4 +22,7 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select p from Procession p join p.floats f where f.id=?1")
 	Collection<Procession> floatBelongtToProcession(Integer id);
 
+	@Query("select min(f.processions.size), max(f.processions.size), avg(f.processions.size), stddev(f.processions.size) from Finder f")
+	Double[] findDataNumberResultsPerFinder();
+
 }

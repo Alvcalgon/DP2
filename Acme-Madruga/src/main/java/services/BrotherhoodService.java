@@ -66,6 +66,22 @@ public class BrotherhoodService {
 
 	// Other business methods ---------------------
 
+	public Brotherhood findLargest() {
+		Brotherhood result;
+
+		result = this.brotherhoodRepository.findLargest();
+
+		return result;
+	}
+
+	public Brotherhood findSmallest() {
+		Brotherhood result;
+
+		result = this.brotherhoodRepository.findSmallest();
+
+		return result;
+	}
+
 	public Brotherhood findByPrincipal() {
 		Brotherhood result;
 		UserAccount userAccount;
