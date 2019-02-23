@@ -16,26 +16,21 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table pagesize="5" class="displaytag" name="floats" requestURI="${requestURI}" id="row">
-
+<display:table name="${mapa.keySet()}" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	<display:column>	
-		<a href="float/display.do?floatId=${row.id}">
-			<spring:message	code="float.display" />			
+		<a href="position/administrator/display.do?positionId=${row}">
+			<spring:message	code="position.display" />			
+		</a>
+	</display:column>
+	<display:column>	
+		<a href="position/administrator/edit.do?positionId=${row}">
+			<spring:message	code="position.edit" />			
 		</a>
 	</display:column>
 	
-	<security:authorize access="hasRole('BROTHERHOOD')">
-<%-- 	<jstl:if test="${principalId == row.brotherhood.id }">	 --%>
-	<display:column >
-			<a href="float/brotherhood/edit.do?floatId=${row.id}">
-				<spring:message	code="float.edit" />
-			</a>
-		</display:column>
-<%-- 	</jstl:if>  --%>
-	</security:authorize>
-	
-	<display:column property="title" titleKey="float.title" />	
-	
-	<display:column property="brotherhood.title" titleKey="float.brotherhood" />
-
+	<display:column value="${mapa.get(row)}" titleKey="position.name" />
 </display:table>
+
+<a href="position/administrator/create.do">
+	<spring:message code="position.create" />
+</a>

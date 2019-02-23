@@ -1496,7 +1496,6 @@
 		<property name="actor" ref="system" />
 	</bean>
 
-
 	<bean id="box01" class="domain.Box">
 		<property name="name" value="favorite box" />
 		<property name="isSystemBox" value="false" />

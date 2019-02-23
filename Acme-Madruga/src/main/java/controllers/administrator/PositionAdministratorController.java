@@ -50,7 +50,7 @@ public class PositionAdministratorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(final Locale locale) {
 		ModelAndView result;
 		Collection<Position> positions;
@@ -60,11 +60,13 @@ public class PositionAdministratorController extends AbstractController {
 		mapa = this.positionService.positionsByLanguages(positions, locale.getLanguage());
 
 		result = new ModelAndView("position/list");
-		result.addObject("positions", mapa);
+		result.addObject("mapa", mapa);
+		result.addObject("requestURI", "position/administrator/list.do");
 
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(final Locale locale) {
 		ModelAndView result;
 		PositionForm positionForm;
@@ -129,7 +131,7 @@ public class PositionAdministratorController extends AbstractController {
 			this.positionService.delete(position);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(positionForm, locale, "category.commit.error");
+			result = this.createEditModelAndView(positionForm, locale, "position.commit.error");
 		}
 
 		return result;

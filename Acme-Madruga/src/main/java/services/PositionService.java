@@ -85,11 +85,14 @@ public class PositionService {
 		Assert.notNull(position);
 		Assert.isTrue(this.positionRepository.exists(position.getId()) && this.isUsedPosition(position.getId()) == 0);
 
-		// Remove position::translationPositions
-		for (final TranslationPosition tp : position.getTranslationPositions())
-			this.translationPositionService.delete(tp);
+		Collection<TranslationPosition> translationPositions;
+		translationPositions = position.getTranslationPositions();
 
 		this.positionRepository.delete(position);
+
+		// Remove position::translationPositions
+		for (final TranslationPosition tp : translationPositions)
+			this.translationPositionService.delete(tp);
 	}
 
 	// Other business methods --------------------
@@ -115,7 +118,7 @@ public class PositionService {
 		List<TranslationPosition> translationPositions;
 		TranslationPosition en_position, es_position, en_saved, es_saved;
 
-		if (positionForm.getId() != 0) {
+		if (positionForm.getId() == 0) {
 			result = this.create();
 			translationPositions = new ArrayList<TranslationPosition>();
 
@@ -155,6 +158,14 @@ public class PositionService {
 			binding.rejectValue(nameAttribute, "category.error.blank", "Must not be blank");
 
 		return result;
+	}
+
+	public Collection<Integer> findHistogramValues() {
+		Collection<Integer> results;
+
+		results = this.positionRepository.findHistogramValues();
+
+		return results;
 	}
 
 	// Protected methods -------------------------

@@ -18,24 +18,15 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="float/brotherhood/edit.do" modelAttribute="paradeFloat">
+<form:form action="position/administrator/edit.do" modelAttribute="positionForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="brotherhood" />
 
-	<acme:textbox code="float.title" path="title"/>
-		
-	<acme:textarea code="float.description" path="description" />
-	
-	<acme:textarea code="float.pictures" path="pictures" />
+	<acme:textbox code="position.enName" path="en_name"/>
+	<acme:textbox code="position.esName" path="es_name"/>
 
-	<acme:submit name="save" code="float.save"/>	
-
-	<acme:cancel url="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}" code="float.cancel" />
-	
-<%-- 	<jstl:if test="${float.id != 0 && float.brotherhood == owner}"> --%>
-	<jstl:if test="${paradeFloat.id != 0 }"> 
-		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
+	<acme:submit name="save" code="position.save"/>	
+	<jstl:if test="${positionForm.id != 0 }"> 
+		<acme:submit name="delete" code="position.delete"/>
 	</jstl:if>
-
+	<acme:cancel url="position/administrator/list.do" code="position.cancel" />
 </form:form>
