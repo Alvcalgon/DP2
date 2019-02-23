@@ -95,11 +95,22 @@ public class RequestService {
 		return result;
 	}
 
+	public Request saveEdit(final Request request) {
+		Assert.notNull(request);
+		Assert.isTrue(request.getId() != 0);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
+		final Request result;
+
+		result = this.requestRepository.save(request);
+
+		return result;
+	}
+
 	public Request saveEditApproved(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		this.checkPrincipalIsBthotherhoodOfRequest(request);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 		Integer[][] matrizProcession;
@@ -123,7 +134,7 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		this.checkPrincipalIsBthotherhoodOfRequest(request);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 
@@ -195,7 +206,7 @@ public class RequestService {
 		Assert.isTrue(memberRequest.equals(memberPrincipal));
 	}
 
-	private void checkPrincipalIsBthotherhoodOfRequest(final Request request) {
+	private void checkPrincipalIsBrotherhoodOfRequest(final Request request) {
 		Brotherhood brotherhoodRequest;
 		Brotherhood brotherhoodPrincipal;
 

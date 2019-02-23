@@ -85,6 +85,11 @@
 			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhood/edit.do?requestId=${row.id}"><spring:message
+					code="request.edit" /></a>
+		</display:column>
 
 		<display:column style="background-color:${colorValue }"
 			property="procession.title" titleKey="request.procession" />
@@ -118,6 +123,11 @@
 		<display:column style="background-color:${colorValue }">
 			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
 					code="request.display" /></a>
+		</display:column>
+		
+		<display:column style="background-color:${colorValue }">
+			<a href="request/brotherhood/edit.do?requestId=${row.id}"><spring:message
+					code="request.edit" /></a>
 		</display:column>
 
 		<display:column style="background-color:${colorValue }"

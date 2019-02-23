@@ -3,8 +3,12 @@ package controllers.brotherhood;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +18,7 @@ import services.BrotherhoodService;
 import services.CustomisationService;
 import services.RequestService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Request;
 
 @Controller
@@ -103,7 +108,47 @@ public class RequestBrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	// Request create -----------------------------------------------------------
+	//Edit
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int requestId) {
+		ModelAndView result;
+		Request request;
+
+		try {
+			request = this.requestService.findOneToBrotherhood(requestId);
+			Assert.notNull(request);
+			result = this.createEditModelAndView(request);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	//Save
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Request request, final BindingResult binding) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(request);
+			else
+				try {
+					this.requestService.saveEdit(request);
+					result = new ModelAndView("redirect:../../brotherhood,member/request/list.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(request, "request.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
 
 	// Arcillary methods --------------------------
 
