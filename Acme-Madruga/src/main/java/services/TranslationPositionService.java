@@ -80,7 +80,7 @@ public class TranslationPositionService {
 	// Other business methods ----------------
 
 	// Protected methods ---------------------
-	protected TranslationPosition findByLanguagePosition(final int positionId, final String language) {
+	public TranslationPosition findByLanguagePosition(final int positionId, final String language) {
 		TranslationPosition result;
 
 		result = this.translationPositionRepository.findByLanguagePosition(positionId, language);

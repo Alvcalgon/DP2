@@ -22,6 +22,12 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select p from Procession p join p.floats f where f.id=?1")
 	Collection<Procession> floatBelongtToProcession(Integer id);
 
+	@Query("select distinct p from Procession p join p.floats f where f.brotherhood.id=?1")
+	Collection<Procession> findProcessionByBrotherhood(int id);
+
+	@Query("select distinct p from Procession p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true")
+	Collection<Procession> findProcessionFinalByBrotherhood(int id);
+
 	@Query("select min(f.processions.size), max(f.processions.size), avg(f.processions.size), stddev(f.processions.size) from Finder f")
 	Double[] findDataNumberResultsPerFinder();
 

@@ -8,8 +8,6 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -104,15 +102,16 @@ public class ProcessionService {
 
 		return result;
 	}
-	public Page<Procession> findAllPage(final Pageable pageable) {
-		Page<Procession> result;
 
-		result = this.processionRepository.findAll(pageable);
+	public Procession findOneToDisplay(final int processionId) {
+		Procession result;
+
+		result = this.processionRepository.findOne(processionId);
 
 		Assert.notNull(result);
+		Assert.isTrue(result.getIsFinalMode() == true);
 
 		return result;
-
 	}
 
 	// Other business methods ---------------------
@@ -170,6 +169,21 @@ public class ProcessionService {
 
 		return res;
 
+	}
+	public Collection<Procession> findProcessionByBrotherhood(final int id) {
+		Collection<Procession> processions;
+
+		processions = this.processionRepository.findProcessionByBrotherhood(id);
+
+		return processions;
+	}
+
+	public Collection<Procession> findProcessionFinalByBrotherhood(final int id) {
+		Collection<Procession> processions;
+
+		processions = this.processionRepository.findProcessionFinalByBrotherhood(id);
+
+		return processions;
 	}
 
 }

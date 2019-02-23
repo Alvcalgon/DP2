@@ -24,7 +24,8 @@
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation" /> </a></li>					
+					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation" /> </a></li>
+					<li><a href="position/administrator/list.do"> <spring:message code="master.page.position" /> </a></li>					
 					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 				</ul>

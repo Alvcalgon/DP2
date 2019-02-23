@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +16,8 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	Integer isUsedPosition(int positionId);
 
 	//TODO: Tomad los valores del histograma: Req 12.3.8
+	// El problema de esta query es que no tiene en cuenta los cargos
+	// que no son ocupados por ningun miembro.
+	@Query("select count(e) from Enrolment e where e.position is not null group by e.position")
+	Collection<Integer> findHistogramValues();
 }

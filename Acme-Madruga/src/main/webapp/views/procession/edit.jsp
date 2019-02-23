@@ -15,5 +15,27 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<p><spring:message code="customer.action.1" /></p>
+<form:form action="procession/brotherhood/edit.do" modelAttribute="procession">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	
+	<acme:textbox code="procession.ticker" path="ticker" readonly="true"/>
+	
+	<acme:textbox code="procession.title" path="title"/>
+	
+	<acme:textarea code="procession.description" path="description" />
+	moment
+	isFInalMode
+	Floats
+
+	
+
+	<input type="submit" name="save" value="<spring:message code="procession.save" />" />
+	<jstl:if test="${procession.id != 0 && owner}">
+		<input type="submit" name="delete" value="<spring:message code="procession.delete" />" onclick="return confirm('<spring:message code="procession.confirm.delete" />')" />
+	</jstl:if>
+	<input type="button" name="cancel"	value="<spring:message code="procession.cancel"/>" onclick="javascript: relativeRedir('procession/brotherhood/list.do?brotherhoodId=${brotherhood.id}');" />
+	<br />
+</form:form>
