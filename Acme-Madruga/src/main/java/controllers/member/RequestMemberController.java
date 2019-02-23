@@ -92,7 +92,7 @@ public class RequestMemberController extends AbstractController {
 		request = this.requestService.findOneToMember(requestId);
 
 		try {
-			this.requestService.delete(request);
+			this.requestService.deleteCancel(request);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(request, "request.commit.error");
