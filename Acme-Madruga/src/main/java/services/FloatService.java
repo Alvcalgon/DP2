@@ -8,10 +8,13 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.FloatRepository;
 import domain.Brotherhood;
 import domain.Float;
+import forms.FloatForm;
 
 @Service
 @Transactional
@@ -26,6 +29,12 @@ public class FloatService {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private UtilityService		utilityService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	// Constructors -------------------------------
@@ -47,27 +56,28 @@ public class FloatService {
 
 		return result;
 	}
-	public Float save(final Float paradeFloat) {
-		Assert.notNull(paradeFloat);
+	public Float save(final Float floatt) {
+		Assert.notNull(floatt);
 
 		Float result;
 
-		result = this.floatRepository.save(paradeFloat);
+		result = this.floatRepository.save(floatt);
+		this.utilityService.checkPicture(floatt.getPictures());
 
 		return result;
 	}
 
-	public void delete(final Float paradeFloat) {
-		Assert.notNull(paradeFloat);
-		Assert.isTrue(this.floatRepository.exists(paradeFloat.getId()));
+	public void delete(final Float floatt) {
+		Assert.notNull(floatt);
+		Assert.isTrue(this.floatRepository.exists(floatt.getId()));
 
 		Brotherhood brotherhood;
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 
-		Assert.isTrue(paradeFloat.getBrotherhood().equals(brotherhood));
+		Assert.isTrue(floatt.getBrotherhood().equals(brotherhood));
 
-		this.floatRepository.delete(paradeFloat);
+		this.floatRepository.delete(floatt);
 	}
 
 	public Float findOne(final int floatId) {
@@ -99,6 +109,29 @@ public class FloatService {
 		return result;
 	}
 
+	public Float reconstruct(final FloatForm floatForm, final BindingResult binding) {
+		final Float result;
+
+		if (floatForm.getId() == 0) {
+
+			result = this.create();
+			result.setTitle(floatForm.getTitle());
+			result.setId(floatForm.getId());
+			result.setPictures(floatForm.getPictures());
+			result.setDescription(floatForm.getDescription());
+			result.setVersion(floatForm.getVersion());
+		} else {
+			result = this.findOneToEdit(floatForm.getId());
+			result.setTitle(floatForm.getTitle());
+			result.setPictures(floatForm.getPictures());
+			result.setDescription(floatForm.getDescription());
+			result.setId(floatForm.getId());
+			result.setVersion(floatForm.getVersion());
+			this.utilityService.checkPicture(result.getPictures());
+		}
+		this.validator.validate(result, binding);
+		return result;
+	}
 	// Other business methods ---------------------
 	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
 		Collection<Float> floats;
@@ -108,4 +141,23 @@ public class FloatService {
 		return floats;
 
 	}
+	public String validateTitle(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("title", "float.error.blank", "Must not be blank");
+
+		return result;
+	}
+	public String validateDescription(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("description", "float.error.blank", "Must not be blank");
+
+		return result;
+	}
+
 }

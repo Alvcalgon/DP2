@@ -32,9 +32,6 @@ public class RequestService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
-	@Autowired
-	private ActorService		actorService;
-
 
 	// Constructors -------------------------------
 	public RequestService() {
@@ -66,6 +63,7 @@ public class RequestService {
 
 		Assert.notNull(result);
 		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
+		this.checkPrincipalIsMemberOfRequest(result);
 
 		return result;
 	}
@@ -101,9 +99,7 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		Brotherhood brotherhoodProcession;
-		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
-		Assert.isTrue(brotherhoodProcession.getId() == this.brotherhoodService.findByPrincipal().getId());
+		this.checkPrincipalIsBthotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 
@@ -117,9 +113,7 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		Brotherhood brotherhoodProcession;
-		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
-		Assert.isTrue(brotherhoodProcession.getId() == this.brotherhoodService.findByPrincipal().getId());
+		this.checkPrincipalIsBthotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 
@@ -129,12 +123,17 @@ public class RequestService {
 		return result;
 	}
 
-	public void delete(final Request request) {
+	public void deleteCancel(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(request.getProcession());
+		this.checkPrincipalIsMemberOfRequest(request);
 
+		this.requestRepository.delete(request);
+	}
+
+	public void deleteDropOut(final Request request) {
 		this.requestRepository.delete(request);
 	}
 
@@ -174,6 +173,26 @@ public class RequestService {
 
 		Assert.isTrue(brotherhoodProcession.getId() == brotherhoodAuthenticate.getId());
 
+	}
+
+	private void checkPrincipalIsMemberOfRequest(final Request request) {
+		Member memberRequest;
+		Member memberPrincipal;
+
+		memberRequest = request.getMember();
+		memberPrincipal = this.memberService.findByPrincipal();
+
+		Assert.isTrue(memberRequest.equals(memberPrincipal));
+	}
+
+	private void checkPrincipalIsBthotherhoodOfRequest(final Request request) {
+		Brotherhood brotherhoodRequest;
+		Brotherhood brotherhoodPrincipal;
+
+		brotherhoodRequest = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		brotherhoodPrincipal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(brotherhoodRequest.equals(brotherhoodPrincipal));
 	}
 
 	public Collection<Request> findPendingRequestByMember() {

@@ -27,7 +27,7 @@
 <%@ attribute name="onclick" required="false" %>
 
 <jstl:if test="${onclick == null }">
-	<jstl:set var="onclick" value="false"/>
+	<jstl:set var="onclick" value=""/>
 </jstl:if>
 
 

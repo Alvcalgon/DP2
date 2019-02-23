@@ -117,6 +117,15 @@ public class ProcessionService {
 
 	// Other business methods ---------------------
 
+	public Double[] findDataNumberResultsPerFinder() {
+		Double[] result;
+
+		result = this.processionRepository.findDataNumberResultsPerFinder();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Collection<Procession> findProcessionLess30days() {
 		Date today;
 		final Date more30days;
@@ -147,6 +156,19 @@ public class ProcessionService {
 		result = floatt.getBrotherhood();
 
 		return result;
+
+	}
+	public Boolean floatBelongtToProcession(final int floatId) {
+		Boolean res;
+		Collection<Procession> processions;
+
+		processions = this.processionRepository.floatBelongtToProcession(floatId);
+		if (processions.size() == 0)
+			res = true;
+		else
+			res = false;
+
+		return res;
 
 	}
 

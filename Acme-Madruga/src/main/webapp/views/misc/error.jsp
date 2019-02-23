@@ -1,5 +1,5 @@
 <%--
- * action-2.jsp
+ * panic.jsp
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -16,21 +16,14 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<%@taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-	<strong><spring:message code="socialProfile.nick"/>:</strong>
-		<jstl:out value="${socialProfile.nick}"/>
-	<br/>
+<h2><spring:message code="error.message" />
 
-	<strong><spring:message code="socialProfile.socialNetwork"/>:</strong>
-		<jstl:out value="${socialProfile.socialNetwork}"/>
+
+	<a href="welcome/index.do"><spring:message code="error.index"/></a>
 	<br/>
-	
-	<strong><spring:message code="socialProfile.linkProfile"/>:</strong>
-		<jstl:out value="${socialProfile.linkProfile}"/>
-	<br/>
-	<br/>
-	<!-- Links -->	
-	
-	<a href="socialProfile/list.do?actorId=${actorId}">
-	<spring:message	code="socialProfile.return" />			
-</a>
+	</h2>
+
+

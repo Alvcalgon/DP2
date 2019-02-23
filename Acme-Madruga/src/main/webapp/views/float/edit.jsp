@@ -18,10 +18,10 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="float/brotherhood/edit.do" modelAttribute="paradeFloat">
+<form:form action="float/brotherhood/edit.do" modelAttribute="floatForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="brotherhood" />
+		<form:hidden path="version" />
+			<form:hidden path="brotherhood" />
 
 	<acme:textbox code="float.title" path="title"/>
 		
@@ -30,12 +30,14 @@
 	<acme:textarea code="float.pictures" path="pictures" />
 
 	<acme:submit name="save" code="float.save"/>	
-
-	<acme:cancel url="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}" code="float.cancel" />
 	
-<%-- 	<jstl:if test="${float.id != 0 && float.brotherhood == owner}"> --%>
-	<jstl:if test="${paradeFloat.id != 0 }"> 
-		<input type="submit" name="delete" value="<spring:message code="float.delete" />" />
+	<input type="button" name="cancel"	value="<spring:message code="float.cancel"/>" onclick="javascript: relativeRedir('float/list.do?brotherhoodId=${owner.id}');"/>
+
+	<jstl:if test="${floatForm.id != 0 && owner == floatForm.brotherhood && notProcession}">
+		<input type="submit" name="delete"
+			value="<spring:message code="float.delete" />"/>
 	</jstl:if>
 
 </form:form>
+
+

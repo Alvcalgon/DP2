@@ -61,4 +61,23 @@ public class SocialProfileController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int socialProfileId) {
+		ModelAndView result;
+		SocialProfile socialProfile;
+
+		try {
+			result = new ModelAndView("socialProfile/display");
+			socialProfile = this.socialProfileService.findOne(socialProfileId);
+
+			result.addObject("socialProfile", socialProfile);
+			result.addObject("actorId", socialProfile.getActor().getId());
+
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
 }
