@@ -71,6 +71,40 @@ public class ActorAdministratorController extends ActorAbstractController {
 		return result;
 	}
 
+	// Score
+
+	@RequestMapping(value = "/computeScore", method = RequestMethod.POST, params = "compute")
+	public ModelAndView computeScore() {
+		ModelAndView result;
+
+		try {
+			this.actorService.scoreProcess();
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
+	// Spammers
+
+	@RequestMapping(value = "/spammersProcess", method = RequestMethod.GET, params = "spammers")
+	public ModelAndView spammersProcess() {
+		ModelAndView result;
+
+		try {
+			this.actorService.spammerProcess();
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
 	// Creation
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

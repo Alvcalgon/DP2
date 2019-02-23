@@ -142,6 +142,8 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isAuthorized", true);
 		} else {
 			actor = this.actorService.findOne(actorId);
+			if (actor instanceof Administrator)
+				actor = null;
 			result.addObject("isAuthorized", false);
 		}
 
@@ -149,7 +151,6 @@ public class ActorAbstractController extends AbstractController {
 
 		return result;
 	}
-
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createModelAndView(final Actor actor, final String role) {

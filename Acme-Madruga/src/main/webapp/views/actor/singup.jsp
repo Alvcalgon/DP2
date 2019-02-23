@@ -58,7 +58,7 @@
 		
 		<br />
 		
-		<acme:textbox code="actor.email.requested" path="email"/>
+		<acme:textbox code="actor.email.requested" path="email"/> 
 		
 		<br />
 		
