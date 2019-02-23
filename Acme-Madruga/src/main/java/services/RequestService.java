@@ -95,16 +95,24 @@ public class RequestService {
 		return result;
 	}
 
-	public Request saveEditApproved(final Request request, final int rowProcession, final int columnProcession) {
+	public Request saveEditApproved(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBthotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
+		Integer[][] matrizProcession;
 
+		matrizProcession = request.getProcession().getMatrizProcession();
+		for (int i = 0; i < matrizProcession.length; i++)
+			for (int j = 0; j < matrizProcession[0].length; j++)
+				if (matrizProcession[i][j].equals(0)) {
+					request.setRowProcession(i);
+					request.setColumnProcession(j);
+					break;
+				}
 		request.setStatus("APPROVED");
-		this.suggestGoodPosition(request, rowProcession, columnProcession);
 		result = this.requestRepository.save(request);
 
 		return result;
@@ -136,10 +144,6 @@ public class RequestService {
 
 	public void deleteRequest(final Request request) {
 		this.requestRepository.delete(request);
-	}
-
-	public void suggestGoodPosition(final Request request, final int rowProcession, final int columnProcession) {
-
 	}
 
 	// Other business methods ---------------------
@@ -261,6 +265,15 @@ public class RequestService {
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 		requests = this.requestRepository.findRejectedRequestByBrotherhood(brotherhood.getId());
+
+		return requests;
+
+	}
+
+	public Collection<Request> findRequestByProcession(final int processionId) {
+		Collection<Request> requests;
+
+		requests = this.requestRepository.findRequestByProcession(processionId);
 
 		return requests;
 

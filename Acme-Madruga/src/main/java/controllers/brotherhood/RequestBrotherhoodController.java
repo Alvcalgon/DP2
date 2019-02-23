@@ -86,17 +86,12 @@ public class RequestBrotherhoodController extends AbstractController {
 	public ModelAndView accept(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
-		int rowProcession;
-		int columnProcession;
-
-		rowProcession = this.customisationService.find().getRowLimit();
-		columnProcession = this.customisationService.find().getColumnLimit();
 
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
 
 			try {
-				this.requestService.saveEditApproved(request, rowProcession, columnProcession);
+				this.requestService.saveEditApproved(request);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(request, "request.commit.error");
