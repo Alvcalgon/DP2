@@ -34,7 +34,7 @@
 		<jstl:set var="colorValue" value="grey" />
 
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
 
@@ -82,7 +82,7 @@
 		<jstl:set var="colorValue" value="green" />
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
 
@@ -116,7 +116,7 @@
 		<jstl:set var="colorValue" value="orange" />
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhoodMember/display.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
 

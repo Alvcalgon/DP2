@@ -26,7 +26,7 @@ import controllers.AbstractController;
 import domain.Request;
 
 @Controller
-@RequestMapping("/request/brotherhoodMember")
+@RequestMapping("/request/brotherhood,member")
 public class RequestBrotherhoodMemberController extends AbstractController {
 
 	@Autowired

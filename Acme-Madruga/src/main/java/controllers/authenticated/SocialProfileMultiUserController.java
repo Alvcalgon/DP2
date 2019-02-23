@@ -41,9 +41,13 @@ public class SocialProfileMultiUserController extends AbstractController {
 		ModelAndView result;
 		SocialProfile socialProfile;
 
-		socialProfile = this.socialProfileService.create();
+		try {
+			socialProfile = this.socialProfileService.create();
 
-		result = this.createEditModelAndView(socialProfile);
+			result = this.createEditModelAndView(socialProfile);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -55,9 +59,13 @@ public class SocialProfileMultiUserController extends AbstractController {
 		ModelAndView result;
 		SocialProfile socialProfile;
 
-		socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
-		Assert.notNull(socialProfile);
-		result = this.createEditModelAndView(socialProfile);
+		try {
+			socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
+			Assert.notNull(socialProfile);
+			result = this.createEditModelAndView(socialProfile);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -67,17 +75,21 @@ public class SocialProfileMultiUserController extends AbstractController {
 		ModelAndView result;
 		Actor actor;
 
-		actor = this.actorService.findPrincipal();
+		try {
+			actor = this.actorService.findPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(socialProfile);
-		else
-			try {
-				this.socialProfileService.save(socialProfile);
-				result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(socialProfile);
+			else
+				try {
+					this.socialProfileService.save(socialProfile);
+					result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -88,14 +100,18 @@ public class SocialProfileMultiUserController extends AbstractController {
 		Actor actor;
 		SocialProfile socialProfile;
 
-		actor = this.actorService.findPrincipal();
-		socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
-
 		try {
-			this.socialProfileService.delete(socialProfile);
-			result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+			actor = this.actorService.findPrincipal();
+			socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
+
+			try {
+				this.socialProfileService.delete(socialProfile);
+				result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;

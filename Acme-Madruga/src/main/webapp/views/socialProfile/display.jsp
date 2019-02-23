@@ -17,25 +17,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-	<strong><spring:message code="float.brotherhood"/>:</strong>
-		<jstl:out value="${paradeFloat.brotherhood.title}"/>
+	<strong><spring:message code="socialProfile.nick"/>:</strong>
+		<jstl:out value="${socialProfile.nick}"/>
 	<br/>
 
-	<strong><spring:message code="float.title"/>:</strong>
-		<jstl:out value="${paradeFloat.title}"/>
+	<strong><spring:message code="socialProfile.socialNetwork"/>:</strong>
+		<jstl:out value="${socialProfile.socialNetwork}"/>
 	<br/>
 	
-	<strong><spring:message code="float.description"/>:</strong>
-		<jstl:out value="${paradeFloat.description}"/>
+	<strong><spring:message code="socialProfile.linkProfile"/>:</strong>
+		<jstl:out value="${socialProfile.linkProfile}"/>
 	<br/>
-	
-
-	<strong><spring:message code="float.pictures"/>:</strong>
-		<img src="${paradeFloat.pictures}" alt="picture" >
 	<br/>
-	
 	<!-- Links -->	
 	
-	<a href="float/list.do?brotherhoodId=${paradeFloat.brotherhood.id}">
-	<spring:message	code="float.back" />			
+	<a href="socialProfile/list.do?actorId=${actorId}">
+	<spring:message	code="socialProfile.return" />			
 </a>
