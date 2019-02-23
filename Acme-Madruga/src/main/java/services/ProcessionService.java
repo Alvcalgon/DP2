@@ -15,6 +15,7 @@ import repositories.ProcessionRepository;
 import domain.Brotherhood;
 import domain.Float;
 import domain.Procession;
+import domain.Request;
 
 @Service
 @Transactional
@@ -32,6 +33,9 @@ public class ProcessionService {
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private RequestService			requestService;
 
 
 	// Constructors -------------------------------
@@ -67,14 +71,19 @@ public class ProcessionService {
 		Assert.isTrue(this.processionRepository.exists(procession.getId()));
 
 		Brotherhood brotherhood;
+		Collection<Request> requests;
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(this.getBrotherhoodToProcession(procession).equals(brotherhood));
 
-		this.processionRepository.delete(procession);
-	}
+		requests = this.requestService.findRequestByProcession(procession.getId());
 
+		for (final Request r : requests)
+			this.requestService.deleteRequest(r);
+		this.processionRepository.delete(procession);
+
+	}
 	public Procession findOne(final int processionId) {
 		Procession result;
 

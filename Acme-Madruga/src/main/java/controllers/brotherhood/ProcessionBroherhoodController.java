@@ -93,24 +93,21 @@ public class ProcessionBroherhoodController extends AbstractController {
 		return result;
 	}
 
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	//	public ModelAndView delete(final FloatForm floatForm, final BindingResult binding) {
-	//		ModelAndView result;
-	//		Float floatt;
-	//		int brotherhoodId;
-	//
-	//		floatt = this.floatService.findOneToEdit(floatForm.getId());
-	//		brotherhoodId = floatt.getBrotherhood().getId();
-	//
-	//		try {
-	//			this.floatService.delete(floatt);
-	//			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + brotherhoodId);
-	//		} catch (final Throwable oops) {
-	//			result = this.createEditModelAndView(floatForm, "float.commit.error");
-	//		}
-	//
-	//		return result;
-	//	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Procession procession, final BindingResult binding) {
+		ModelAndView result;
+		int brotherhoodId;
+
+		try {
+			brotherhoodId = this.brotherhoodService.findBrotherhoodByProcession(procession.getId()).getId();
+			this.processionService.delete(procession);
+			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + brotherhoodId);
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(procession, "float.delete.error");
+		}
+
+		return result;
+	}
 
 	@RequestMapping(value = "/makeFinal", method = RequestMethod.GET)
 	public ModelAndView makeFinal(@RequestParam final int processionId, final RedirectAttributes redir) {
