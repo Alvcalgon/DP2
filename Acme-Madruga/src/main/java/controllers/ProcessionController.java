@@ -43,30 +43,38 @@ public class ProcessionController extends AbstractController {
 		Brotherhood principal;
 		Collection<domain.Float> floats;
 
-		result = new ModelAndView("welcome/error");
+		result = new ModelAndView("procession/display");
+		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
 
 		try {
-			procession = this.processionService.findOneToDisplay(processionId);
-			brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
+
+				principal = this.brotherhoodService.findByPrincipal();
+
+				result.addObject("isOwner", true);
+				result.addObject("principal", principal);
+
+			}
+			procession = this.processionService.findOne(processionId);
 			floats = procession.getFloats();
 
-			result = new ModelAndView("procession/display");
 			result.addObject("procession", procession);
-			result.addObject("brotherhood", brotherhood);
 			result.addObject("floats", floats);
+			result.addObject("brotherhood", brotherhood);
 
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))
-				if (brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
-
-					procession = this.processionService.findOne(processionId);
-					principal = this.brotherhoodService.findByPrincipal();
-
-					result.addObject("isOwner", true);
-					result.addObject("procession", procession);
-					result.addObject("principal", principal);
-				}
 		} catch (final Exception e) {
-			//		result = new ModelAndView("redirect:../error.do");
+			try {
+				procession = this.processionService.findOneToDisplay(processionId);
+				floats = procession.getFloats();
+
+				result.addObject("procession", procession);
+				result.addObject("floats", floats);
+				result.addObject("brotherhood", brotherhood);
+
+			} catch (final Exception e1) {
+				result = new ModelAndView("redirect:../error.do");
+			}
+
 		}
 
 		return result;
