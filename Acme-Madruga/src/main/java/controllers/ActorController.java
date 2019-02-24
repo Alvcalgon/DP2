@@ -45,7 +45,11 @@ public class ActorController extends ActorAbstractController {
 	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
 		ModelAndView result;
 
-		result = super.display(actorId);
+		try {
+			result = super.display(actorId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
 
 		return result;
 	}

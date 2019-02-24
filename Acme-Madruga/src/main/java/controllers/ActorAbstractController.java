@@ -150,6 +150,8 @@ public class ActorAbstractController extends AbstractController {
 			actor = this.actorService.findOne(actorId);
 			if (actor instanceof Administrator && actorId == principal.getId())
 				actor = this.actorService.findOneToDisplayEdit(actorId);
+			else if (actor instanceof Administrator && actorId != principal.getId())
+				throw new IllegalArgumentException();
 			result.addObject("isAuthorized", false);
 		}
 
