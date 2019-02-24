@@ -76,10 +76,7 @@
 			code="procession.create" /></a>
 </security:authorize>
 
-<jstl:if test="${isOwner}">
 
-	<p style="color:blue;"><spring:message code="procession.info"/></p>
-</jstl:if>	
 	
 	 <input type="button" name="return" value="<spring:message code="procession.return" />" 
 				onclick="javascript: window.history.back();" />
