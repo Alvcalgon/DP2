@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.MemberService;
-
-import com.mysql.fabric.xmlrpc.base.Member;
+import domain.Member;
 
 @Controller
 @RequestMapping(value = "/member")

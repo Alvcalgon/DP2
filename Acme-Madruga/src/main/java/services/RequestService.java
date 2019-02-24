@@ -168,6 +168,10 @@ public class RequestService {
 		this.requestRepository.delete(request);
 	}
 
+	public void deleteDropOut(final Request request) {
+		this.requestRepository.delete(request);
+	}
+
 	// Other business methods ---------------------
 
 	// Private methods ---------------------------
@@ -306,7 +310,15 @@ public class RequestService {
 		requests = this.requestRepository.findRequestByProcession(processionId);
 
 		return requests;
+	}
 
+	public Collection<Request> findRequestByMemberId(final int memberId) {
+		Collection<Request> result;
+
+		result = this.requestRepository.findRequestByMemberId(memberId);
+		Assert.notNull(result);
+
+		return result;
 	}
 
 }
