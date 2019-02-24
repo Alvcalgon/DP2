@@ -75,16 +75,16 @@ public class BrotherhoodService {
 
 	// Other business methods ---------------------
 
-	public Brotherhood findLargest() {
-		Brotherhood result;
+	public Collection<Brotherhood> findLargest() {
+		Collection<Brotherhood> result;
 
 		result = this.brotherhoodRepository.findLargest();
 
 		return result;
 	}
 
-	public Brotherhood findSmallest() {
-		Brotherhood result;
+	public Collection<Brotherhood> findSmallest() {
+		Collection<Brotherhood> result;
 
 		result = this.brotherhoodRepository.findSmallest();
 

@@ -62,7 +62,12 @@ public class EnrolmentController extends AbstractController {
 		positions = this.positionService.findAll();
 		positionMap = this.positionService.positionsByLanguages(positions, locale.getLanguage());
 		enrolments = this.enrolmentService.findEnroledMembers(brotherhoodId);
-		isOwnBrotherhood = this.brotherhoodService.findByPrincipal().getId() == brotherhoodId;
+
+		try {
+			isOwnBrotherhood = this.brotherhoodService.findByPrincipal().getId() == brotherhoodId;
+		} catch (final Throwable oops) {
+			isOwnBrotherhood = false;
+		}
 
 		result = new ModelAndView("enrolment/memberList");
 		result.addObject("requestURI", "enrolment/listMember.do");

@@ -83,12 +83,12 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/enrol", method = RequestMethod.GET)
-	public ModelAndView enrol(@RequestParam final int enrolmentId, final Locale locale, final RedirectAttributes redir) {
+	public ModelAndView enrol(@RequestParam final int enrolmentId, final RedirectAttributes redir) {
 		ModelAndView result;
 
 		// TODO: comprobar si al llamar enrol, el idioma se sigue manteniendo (inglés y español)
-		result = new ModelAndView("redirect:edit.do?enrolmentId=" + enrolmentId);
 		redir.addFlashAttribute("isEnrolling", true);
+		result = new ModelAndView("redirect:edit.do?enrolmentId=" + enrolmentId);
 
 		return result;
 	}
@@ -98,10 +98,7 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Enrolment saved;
 		boolean isEnrolling;
-		String debugging;
 
-		debugging = request.getParameter("position");
-		System.out.println(debugging);
 		enrolment = this.enrolmentService.reconstruct(enrolment, binding);
 		isEnrolling = this.stringToBoolean(request.getParameter("isEnrolling"));
 		// TODO: pasar la transformacion string-boolean a createEditModelAndView?
@@ -109,12 +106,12 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 			result = this.createEditModelAndView(enrolment, isEnrolling, locale);
 		else
 			try {
-				if (isEnrolling) {
+				if (!isEnrolling) {
 					saved = this.enrolmentService.saveToEditPosition(enrolment);
-					result = new ModelAndView("redirect:/enrolment/brotherhood/listMemberRequest.do");
+					result = new ModelAndView("redirect:/enrolment/listMember.do?brotherhoodId=" + saved.getBrotherhood().getId());
 				} else {
 					saved = this.enrolmentService.enrol(enrolment);
-					result = new ModelAndView("redirect:/enrolment/listMember.do?brotherhoodId=" + saved.getBrotherhood().getId());
+					result = new ModelAndView("redirect:/enrolment/brotherhood/listMemberRequest.do");
 				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(enrolment, isEnrolling, locale, "enrolment.commit.error");
