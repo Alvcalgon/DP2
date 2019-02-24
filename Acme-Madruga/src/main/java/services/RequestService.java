@@ -32,6 +32,9 @@ public class RequestService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private ProcessionService	processionService;
+
 
 	// Constructors -------------------------------
 	public RequestService() {
@@ -39,6 +42,14 @@ public class RequestService {
 	}
 
 	// Simple CRUD methods ------------------------
+	public Collection<Request> findAll() {
+		Collection<Request> results;
+
+		results = this.requestRepository.findAll();
+
+		return results;
+	}
+
 	public Request findOne(final int requestId) {
 		Request result;
 
@@ -95,34 +106,45 @@ public class RequestService {
 		return result;
 	}
 
-	public Request saveEditApproved(final Request request) {
+	public Request saveEdit(final Request request) {
 		Assert.notNull(request);
-		Assert.isTrue(!(request.getId() == 0));
-		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		this.checkPrincipalIsBthotherhoodOfRequest(request);
-		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.isTrue(request.getId() != 0);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		final Request result;
-		Integer[][] matrizProcession;
 
-		matrizProcession = request.getProcession().getMatrizProcession();
-		for (int i = 0; i < matrizProcession.length; i++)
-			for (int j = 0; j < matrizProcession[0].length; j++)
-				if (matrizProcession[i][j].equals(0)) {
-					request.setRowProcession(i);
-					request.setColumnProcession(j);
-					break;
-				}
-		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 
 		return result;
 	}
 
+	public Request saveEditApproved(final Request request) {
+		Assert.notNull(request);
+		Assert.isTrue(!(request.getId() == 0));
+		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
+		Assert.isTrue(request.getStatus().equals("PENDING"));
+		final Request result;
+		Integer[][] matrizProcession;
+
+		matrizProcession = request.getProcession().getMatrizProcession();
+		compare: for (int i = 0; i < matrizProcession.length; i++)
+			for (int j = 0; j < matrizProcession[0].length; j++)
+				if (matrizProcession[i][j].equals(0)) {
+					request.setRowProcession(i + 1);
+					request.setColumnProcession(j + 1);
+					break compare;
+				}
+		this.processionService.updateMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
+		request.setStatus("APPROVED");
+		result = this.requestRepository.save(request);
+
+		return result;
+	}
 	public Request saveEditRejected(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
-		this.checkPrincipalIsBthotherhoodOfRequest(request);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 
@@ -194,7 +216,7 @@ public class RequestService {
 		Assert.isTrue(memberRequest.equals(memberPrincipal));
 	}
 
-	private void checkPrincipalIsBthotherhoodOfRequest(final Request request) {
+	private void checkPrincipalIsBrotherhoodOfRequest(final Request request) {
 		Brotherhood brotherhoodRequest;
 		Brotherhood brotherhoodPrincipal;
 
