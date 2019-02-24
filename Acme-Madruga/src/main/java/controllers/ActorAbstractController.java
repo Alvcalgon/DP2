@@ -132,9 +132,15 @@ public class ActorAbstractController extends AbstractController {
 
 	public ModelAndView display(final Integer actorId) {
 		ModelAndView result;
-		Actor actor;
+		Actor actor, principal;
 
 		actor = null;
+		principal = null;
+		try {
+			principal = this.actorService.findPrincipal();
+		} catch (final Throwable oops) {
+
+		}
 		result = new ModelAndView("actor/display");
 
 		if (actorId == null) {
@@ -142,8 +148,8 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isAuthorized", true);
 		} else {
 			actor = this.actorService.findOne(actorId);
-			if (actor instanceof Administrator)
-				actor = null;
+			if (actor instanceof Administrator && actorId == principal.getId())
+				actor = this.actorService.findOneToDisplayEdit(actorId);
 			result.addObject("isAuthorized", false);
 		}
 
