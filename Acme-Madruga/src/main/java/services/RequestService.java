@@ -32,6 +32,9 @@ public class RequestService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private ProcessionService	processionService;
+
 
 	// Constructors -------------------------------
 	public RequestService() {
@@ -39,6 +42,14 @@ public class RequestService {
 	}
 
 	// Simple CRUD methods ------------------------
+	public Collection<Request> findAll() {
+		Collection<Request> results;
+
+		results = this.requestRepository.findAll();
+
+		return results;
+	}
+
 	public Request findOne(final int requestId) {
 		Request result;
 
@@ -123,6 +134,7 @@ public class RequestService {
 					request.setColumnProcession(j + 1);
 					break compare;
 				}
+		this.processionService.updateMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 

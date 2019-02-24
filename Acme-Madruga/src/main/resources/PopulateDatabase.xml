@@ -2938,6 +2938,12 @@
 		<property name="member" ref="member5" />
 		<property name="procession" ref="procession3" />
 	</bean>
+	
+	<bean id="request05" class="domain.Request">
+		<property name="status" value="PENDING" />
+		<property name="member" ref="member5" />
+		<property name="procession" ref="procession4" />
+	</bean>
 
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />

@@ -123,6 +123,21 @@ public class ProcessionService {
 		return result;
 	}
 
+	public Procession updateMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
+		Assert.notNull(procession);
+
+		Procession result;
+		Integer[][] matriz;
+
+		matriz = procession.getMatrizProcession();
+		matriz[rowProcession - 1][columnProcession - 1] = 1;
+		procession.setMatrizProcession(matriz);
+
+		result = this.processionRepository.save(procession);
+
+		return result;
+	}
+
 	// Other business methods ---------------------
 
 	public Double[] findDataNumberResultsPerFinder() {
