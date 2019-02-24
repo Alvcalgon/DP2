@@ -15,7 +15,7 @@
 	
 	<display:column>
 		<jstl:if test="${row.userAccount.authorities == '[BROTHERHOOD]' || row.userAccount.authorities == '[MEMBER]' }">
-			<a href="actor/administrator,brotherhood,member/display.do?actorId=${row.id}"><spring:message code="actor.table.display.profile"/></a>
+			<a href="actor/display.do?actorId=${row.id}"><spring:message code="actor.table.display.profile"/></a>
 		</jstl:if>
 	</display:column>		
 	
@@ -27,23 +27,46 @@
 	
 	<display:column property="phoneNumber" titleKey="table.phoneNumber" />
 	
-	<display:column property="score" titleKey="table.score" />
+	<security:authorize access="hasRole('ADMIN')">
 	
-	<display:column property="isSpammer" titleKey="table.isSpammer" />
+		<display:column property="score" titleKey="table.score" />
 	
-	<display:column property="userAccount.username" titleKey="table.username" />
+		<display:column property="isSpammer" titleKey="table.isSpammer" />
+		
+		<display:column property="userAccount.username" titleKey="table.username" />
+		
+		<display:column property="userAccount.authorities" titleKey="table.authority" />
 	
-	<display:column property="userAccount.authorities" titleKey="table.authority" />
+	</security:authorize>
+	
+	<security:authorize access="isAnonymous()">
+		
+		<jstl:if test="${row.userAccount.authorities == '[BROTHERHOOD]'}">
+		
+			<display:column property="title" titleKey="table.title" />
+		
+			<display:column property="establishmentDate" titleKey="table.establishmentDate" />
+		
+		
+		</jstl:if>
+		
+	
+	</security:authorize>
+	
 
 
 </display:table>
 
-	<form:form action="actor/administrator/computeScore.do">
+	<security:authorize access="hasRole('ADMIN')">
+	
+		<form:form action="actor/administrator/computeScore.do">
 		<input type="submit" name="compute"
 			value="<spring:message code="actor.compute.score" />" />
-	</form:form>
-
-	<form:form action="actor/administrator/spammersProcess.do">
-		<input type="submit" name="spammers"
-			value="<spring:message code="actor.isSpammer.process" />" />
-	</form:form>
+		</form:form>
+	
+		<form:form action="actor/administrator/spammersProcess.do">
+			<input type="submit" name="spammers"
+				value="<spring:message code="actor.isSpammer.process" />" />
+		</form:form>
+	
+	</security:authorize>

@@ -87,7 +87,7 @@ public class MemberService {
 		return result;
 	}
 
-	protected Collection<Member> findEnroledMemberByProcession(final int brotherhoodId) {
+	public Collection<Member> findEnroledMemberByProcession(final int brotherhoodId) {
 		Collection<Member> results;
 
 		results = this.memberRepository.findEnroledMemberByBrotherhood(brotherhoodId);

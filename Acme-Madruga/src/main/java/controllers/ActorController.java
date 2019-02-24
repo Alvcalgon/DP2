@@ -38,6 +38,18 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
+	// Display
+
+	@Override
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
+		ModelAndView result;
+
+		result = super.display(actorId);
+
+		return result;
+	}
+
 	// Register
 
 	@RequestMapping(value = "/registerbrotherhood", method = RequestMethod.POST, params = "save")
