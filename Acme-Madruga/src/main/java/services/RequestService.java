@@ -116,15 +116,13 @@ public class RequestService {
 		Integer[][] matrizProcession;
 
 		matrizProcession = request.getProcession().getMatrizProcession();
-		for (int i = 0; i < matrizProcession.length; i++) {
+		compare: for (int i = 0; i < matrizProcession.length; i++)
 			for (int j = 0; j < matrizProcession[0].length; j++)
 				if (matrizProcession[i][j].equals(0)) {
 					request.setRowProcession(i + 1);
 					request.setColumnProcession(j + 1);
-					break;
+					break compare;
 				}
-			break;
-		}
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 

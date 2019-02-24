@@ -2820,10 +2820,10 @@
 				<list>
 					<value>1</value>
 					<value>1</value>
-					<value>0</value>
+					<value>1</value>
 				</list>
 				<list>
-					<value>1</value>
+					<value>0</value>
 					<value>0</value>
 					<value>0</value>
 				</list>
@@ -2941,8 +2941,8 @@
 
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="2" />
-		<property name="columnProcession" value="1" />
+		<property name="rowProcession" value="1" />
+		<property name="columnProcession" value="3" />
 		<property name="member" ref="member7" />
 		<property name="procession" ref="procession4" />
 	</bean>
