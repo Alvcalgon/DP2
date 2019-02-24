@@ -261,4 +261,13 @@ public class RequestService {
 
 	}
 
+	public Collection<Request> findRequestByMemberId(final int memberId) {
+		Collection<Request> result;
+
+		result = this.requestRepository.findRequestByMemberId(memberId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }
