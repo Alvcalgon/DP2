@@ -71,16 +71,14 @@ public class UtilityService {
 		return result;
 	}
 
-	public String generateValidTicker() {
+	public String generateValidTicker(final LocalDate organisedMoment) {
 		String numbers, result;
-		Integer day, month, year;
-		LocalDate currentDate;
+		int day, month, year;
 		Integer counter;
 
-		currentDate = LocalDate.now();
-		year = currentDate.getYear() % 100;
-		month = currentDate.getMonthOfYear();
-		day = currentDate.getDayOfMonth();
+		year = organisedMoment.getYear() % 100;
+		month = organisedMoment.getMonthOfYear();
+		day = organisedMoment.getDayOfMonth();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
