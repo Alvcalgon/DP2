@@ -124,12 +124,12 @@ public class RequestService {
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
-		Integer[][] matrizProcession;
+		int[][] matrizProcession;
 
 		matrizProcession = request.getProcession().getMatrizProcession();
 		compare: for (int i = 0; i < matrizProcession.length; i++)
 			for (int j = 0; j < matrizProcession[0].length; j++)
-				if (matrizProcession[i][j].equals(0)) {
+				if (matrizProcession[i][j] == 0) {
 					request.setRowProcession(i + 1);
 					request.setColumnProcession(j + 1);
 					break compare;

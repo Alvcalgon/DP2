@@ -127,7 +127,7 @@ public class ProcessionService {
 		Assert.notNull(procession);
 
 		Procession result;
-		Integer[][] matriz;
+		int[][] matriz;
 
 		matriz = procession.getMatrizProcession();
 		matriz[rowProcession - 1][columnProcession - 1] = 1;
