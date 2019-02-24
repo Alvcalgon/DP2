@@ -3,7 +3,6 @@ package services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,16 +71,14 @@ public class UtilityService {
 		return result;
 	}
 
-	public String generateValidTicker(final Date organisedMoment) {
+	public String generateValidTicker(final LocalDate organisedMoment) {
 		String numbers, result;
 		int day, month, year;
 		Integer counter;
-		LocalDate localdate;
 
-		localdate = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(organisedMoment));
-		year = localdate.getYear() % 100;
-		month = localdate.getMonthOfYear();
-		day = localdate.getDayOfMonth();
+		year = organisedMoment.getYear() % 100;
+		month = organisedMoment.getMonthOfYear();
+		day = organisedMoment.getDayOfMonth();
 
 		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
 		counter = 0;
