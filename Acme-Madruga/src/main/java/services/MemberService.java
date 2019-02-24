@@ -87,7 +87,9 @@ public class MemberService {
 		return result;
 	}
 
+	
 	public Collection<Member> findEnroledMemberByBrotherhood(final int brotherhoodId) {
+
 		Collection<Member> results;
 
 		results = this.memberRepository.findEnroledMemberByBrotherhood(brotherhoodId);

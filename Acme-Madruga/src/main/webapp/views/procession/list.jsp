@@ -17,6 +17,7 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
 <display:table pagesize="5" class="displaytag" name="processions"
@@ -76,8 +77,10 @@
 </security:authorize>
 
 <jstl:if test="${isOwner}">
-	<p style="color: blue;">
-		<spring:message code="procession.info" />
-	</p>
-</jstl:if>
+
+	<p style="color:blue;"><spring:message code="procession.info"/></p>
+</jstl:if>	
+	
+	 <input type="button" name="return" value="<spring:message code="procession.return" />" 
+				onclick="javascript: window.history.back();" />
 
