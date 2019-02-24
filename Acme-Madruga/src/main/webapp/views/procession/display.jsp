@@ -44,11 +44,10 @@
  	
  	</jstl:if>
  	</security:authorize>
-
-
-	
+ 	<br/><br/>
 <jstl:if test="${ not empty floats}">	
-<fieldset name="<spring:message	code="procession.floats" />">
+<fieldset name="">
+<strong><spring:message	code="procession.floats" /></strong>
 	<display:table pagesize="5" class="displaytag" name="procession.floats" requestURI="${requestURI}" id="row">
 
 		<display:column>	
@@ -77,13 +76,15 @@
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
 	</jstl:if>
 		</security:authorize>
-
-	
-	
 	</fieldset>
 			</jstl:if>
-			
+		<jstl:if test="${brotherhood==principal && !procession.isFinalMode }">
+
+	<p style="color:blue;"><spring:message code="procession.info"/></p>
+</jstl:if>		
 			
 	<a href="procession/list.do?brotherhoodId=${brotherhood.id}">
 		<spring:message	code="procession.back" />			
 	</a>
+	
+	

@@ -21,8 +21,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="isFinalMode"/>
+	<form:hidden path = "ticker"/>
 	
-	<acme:textbox code="procession.ticker" path="ticker" readonly="true"/>
 	
 	<acme:textbox code="procession.title" path="title"/>
 	

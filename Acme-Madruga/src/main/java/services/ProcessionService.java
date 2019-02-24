@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -37,6 +38,9 @@ public class ProcessionService {
 	@Autowired
 	private RequestService			requestService;
 
+	@Autowired
+	private FinderService			finderService;
+
 
 	// Constructors -------------------------------
 
@@ -50,18 +54,19 @@ public class ProcessionService {
 		Procession result;
 
 		result = new Procession();
-		result.setTicker(this.utilityService.generateValidTicker());
+		result.setTicker("000000-XXXXX");
 		result.setFloats(Collections.<Float> emptySet());
 
 		return result;
 	}
 	public Procession save(final Procession procession, final int rowLimit, final int columnLimit) {
 		Assert.notNull(procession);
-		//TODO:preguntar
 
 		final Procession result;
 
 		if (procession.getId() == 0) {
+			procession.setTicker(this.utilityService.generateValidTicker(procession.getMoment()));
+
 			final Integer[][] matrizProcession;
 
 			matrizProcession = new Integer[rowLimit][columnLimit];
@@ -91,6 +96,9 @@ public class ProcessionService {
 
 		for (final Request r : requests)
 			this.requestService.deleteRequest(r);
+
+		this.finderService.removeProcessionToFinder(procession);
+
 		this.processionRepository.delete(procession);
 
 	}
@@ -162,13 +170,19 @@ public class ProcessionService {
 	public Collection<Procession> findProcessionLess30days() {
 		Date today;
 		final Date more30days;
-		Collection<Procession> floats;
+		Collection<Procession> processions;
+		Calendar calendar;
 
+		calendar = Calendar.getInstance();
 		today = this.utilityService.current_moment();
-		more30days = this.utilityService.current_moment();
-		floats = this.processionRepository.findProcessionLess30days(today, more30days);
 
-		return floats;
+		calendar.setTime(today);
+		calendar.add(Calendar.DAY_OF_YEAR, 30);
+
+		more30days = calendar.getTime();
+		processions = this.processionRepository.findProcessionLess30days(today, more30days);
+
+		return processions;
 
 	}
 
