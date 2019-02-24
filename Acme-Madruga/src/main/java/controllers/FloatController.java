@@ -45,12 +45,18 @@ public class FloatController extends AbstractController {
 		Float floatt;
 		Collection<String> pictures;
 
-		floatt = this.floatService.findOne(floatId);
-		pictures = this.utilityService.getSplittedString(floatt.getPictures());
-
 		result = new ModelAndView("float/display");
-		result.addObject("floatt", floatt);
-		result.addObject("pictures", pictures);
+
+		try {
+			floatt = this.floatService.findOne(floatId);
+			pictures = this.utilityService.getSplittedString(floatt.getPictures());
+
+			result = new ModelAndView("float/display");
+			result.addObject("floatt", floatt);
+			result.addObject("pictures", pictures);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../error.do");
+		}
 
 		return result;
 	}

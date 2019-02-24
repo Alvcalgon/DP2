@@ -61,17 +61,21 @@ public class FloatBroherhoodController extends AbstractController {
 		Brotherhood brotherhood;
 		Float floatt;
 
-		floatt = this.floatService.findOneToEdit(floatId);
+		try {
+			floatt = this.floatService.findOneToEdit(floatId);
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
-		floatForm = new FloatForm();
-		floatForm.setTitle(floatt.getTitle());
-		floatForm.setId(floatt.getId());
-		floatForm.setVersion(floatt.getVersion());
-		floatForm.setPictures(floatt.getPictures());
-		floatForm.setDescription(floatt.getDescription());
-		floatForm.setBrotherhood(brotherhood);
-		result = this.createEditModelAndView(floatForm);
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			floatForm = new FloatForm();
+			floatForm.setTitle(floatt.getTitle());
+			floatForm.setId(floatt.getId());
+			floatForm.setVersion(floatt.getVersion());
+			floatForm.setPictures(floatt.getPictures());
+			floatForm.setDescription(floatt.getDescription());
+			floatForm.setBrotherhood(brotherhood);
+			result = this.createEditModelAndView(floatForm);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
