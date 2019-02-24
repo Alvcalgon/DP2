@@ -101,9 +101,9 @@ public class ProcessionBroherhoodController extends AbstractController {
 		try {
 			brotherhoodId = this.brotherhoodService.findBrotherhoodByProcession(procession.getId()).getId();
 			this.processionService.delete(procession);
-			result = new ModelAndView("redirect:../../float/list.do?brotherhoodId=" + brotherhoodId);
+			result = new ModelAndView("redirect:../../procession/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(procession, "float.delete.error");
+			result = this.createEditModelAndView(procession, "procession.delete.error");
 		}
 
 		return result;
