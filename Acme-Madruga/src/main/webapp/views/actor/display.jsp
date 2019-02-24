@@ -107,5 +107,16 @@
 
 </fieldset>
 
+<security:authorize access="hasRole('MEMBER')">
+	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
+		<jstl:if test="${isEnrolled}">
+			<a href="enrolment/member/dropOut.do?brotherhoodId=${actor.id}" onclick="return confirm('<spring:message code="enrolment.confirm.drop.out"/>')"><spring:message code="actor.drop.out"/></a>
+		</jstl:if>
+		<jstl:if test="${!isEnrolled && !existEnrolmentRequest}">
+			<a href="enrolment/member/requestEnrolment.do?brotherhoodId=${actor.id}"><spring:message code="actor.request.enrolment"/></a>
+		</jstl:if>
+		&nbsp;
+	</jstl:if>
+</security:authorize>
 <a href="javascript: window.history.back();"><spring:message code="actor.return"/></a>
 

@@ -13,6 +13,7 @@ import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.EnrolmentService;
 import services.MemberService;
 import domain.Actor;
 import domain.Administrator;
@@ -35,6 +36,9 @@ public class ActorAbstractController extends AbstractController {
 
 	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private EnrolmentService		enrolmentService;
 
 	@Autowired
 	private UserAccountService		userAccountService;
@@ -133,6 +137,8 @@ public class ActorAbstractController extends AbstractController {
 	public ModelAndView display(final Integer actorId) {
 		ModelAndView result;
 		Actor actor, principal;
+		boolean isEnrolled;
+		boolean existEnrolmentRequest;
 
 		actor = null;
 		principal = null;
@@ -153,6 +159,14 @@ public class ActorAbstractController extends AbstractController {
 			else if (actor instanceof Administrator && actorId != principal.getId())
 				throw new IllegalArgumentException();
 			result.addObject("isAuthorized", false);
+		}
+
+		if (principal != null && principal instanceof Member) {
+			isEnrolled = this.enrolmentService.findIsEnrolledIn(principal.getId(), actorId);
+			existEnrolmentRequest = this.enrolmentService.findExistEnrolmentRequestOf(principal.getId(), actorId);
+
+			result.addObject("isEnrolled", isEnrolled);
+			result.addObject("existEnrolmentRequest", existEnrolmentRequest);
 		}
 
 		result.addObject("actor", actor);

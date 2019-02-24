@@ -33,13 +33,13 @@
 		</display:column>
 	</jstl:if>
 	
-	<display:column property="member.name" titleKey="enrolment.member.name"/>
-	<display:column property="member.middleName" titleKey="enrolment.member.middleName"/>
-	<display:column property="member.surname" titleKey="enrolment.member.surname"/>
-	<display:column property="member.email" titleKey="enrolment.member.email"/>
+	<display:column property="member.name" titleKey="enrolment.member.name" sortable="true"/>
+	<display:column property="member.middleName" titleKey="enrolment.member.middleName" sortable="true"/>
+	<display:column property="member.surname" titleKey="enrolment.member.surname" sortable="true"/>
+	<display:column property="member.email" titleKey="enrolment.member.email" sortable="true"/>
 	
 	<jstl:if test="${!isRequestList}">
-		<display:column titleKey="enrolment.position">
+		<display:column titleKey="enrolment.position" sortable="true">
 			<jstl:if test="${row.position ne null}">
 				<jstl:out value="${positions.get(row.position.id)}"/>
 			</jstl:if>

@@ -3,10 +3,10 @@ package services;
 
 import java.util.Collection;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -78,6 +78,16 @@ public class EnrolmentService {
 		return saved;
 	}
 
+	private void delete(final Enrolment enrolment) {
+		Collection<Request> requests;
+
+		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
+		for (final Request r : requests)
+			this.requestService.deleteDropOut(r);
+
+		this.enrolmentRepository.delete(enrolment);
+	}
+
 	public Enrolment findOne(final int enrolmentId) {
 		Enrolment result;
 
@@ -110,20 +120,22 @@ public class EnrolmentService {
 		Assert.notNull(enrolment);
 		this.checkOwnerBrotherhood(enrolment);
 
-		Collection<Request> requests;
+		this.delete(enrolment);
+	}
 
-		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
-		for (final Request r : requests)
-			this.requestService.deleteDropOut(r);
+	public void dropOut(final Enrolment enrolment) {
+		Assert.notNull(enrolment);
+		this.checkOwnerMember(enrolment);
 
-		this.enrolmentRepository.delete(enrolment);
+		this.delete(enrolment);
 	}
 
 	public Enrolment saveToEditPosition(final Enrolment enrolment) {
 		Enrolment saved;
 
+		this.checkIsActive(enrolment);
+
 		saved = this.save(enrolment);
-		this.checkIsActive(saved);
 
 		return saved;
 	}
@@ -131,10 +143,10 @@ public class EnrolmentService {
 	public Enrolment enrol(final Enrolment enrolment) {
 		Enrolment saved;
 
-		saved = this.save(enrolment);
-		this.checkIsRequest(saved);
+		this.checkIsRequest(enrolment);
 
-		saved.setRegisteredMoment(this.utilityService.current_moment());
+		enrolment.setRegisteredMoment(this.utilityService.current_moment());
+		saved = this.save(enrolment);
 
 		return saved;
 	}
@@ -146,6 +158,7 @@ public class EnrolmentService {
 		this.enrolmentRepository.save(enrolment);
 	}
 
+	@Transactional(propagation = Propagation.NEVER)
 	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
 		Enrolment result;
 
@@ -158,6 +171,33 @@ public class EnrolmentService {
 
 			this.validator.validate(result, binding);
 		}
+
+		return result;
+	}
+
+	public boolean findIsEnrolledIn(final int memberId, final int brotherhoodId) {
+		boolean result;
+
+		result = this.enrolmentRepository.findActiveEnrolment(memberId, brotherhoodId) != null;
+
+		return result;
+	}
+
+	public boolean findExistEnrolmentRequestOf(final int memberId, final int brotherhoodId) {
+		boolean result;
+
+		result = this.enrolmentRepository.findRequestEnrolment(memberId, brotherhoodId) != null;
+
+		return result;
+	}
+
+	public Enrolment findByBrotherhoodId(final int brotherhoodId) {
+		Enrolment result;
+		Member principal;
+
+		principal = this.memberService.findByPrincipal();
+		result = this.enrolmentRepository.findActiveEnrolment(principal.getId(), brotherhoodId);
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -187,6 +227,13 @@ public class EnrolmentService {
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(brotherhood.getId() == enrolment.getBrotherhood().getId());
+	}
+
+	private void checkOwnerMember(final Enrolment enrolment) {
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		Assert.isTrue(member.getId() == enrolment.getMember().getId());
 	}
 
 	private void checkIsRequest(final Enrolment enrolment) {
