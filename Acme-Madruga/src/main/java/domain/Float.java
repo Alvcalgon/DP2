@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -48,6 +49,7 @@ public class Float extends DomainEntity {
 		this.description = description;
 	}
 
+	@Column(length = 30000)
 	public String getPictures() {
 		return this.pictures;
 	}

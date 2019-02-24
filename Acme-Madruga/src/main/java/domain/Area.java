@@ -34,7 +34,7 @@ public class Area extends DomainEntity {
 	public void setName(final String name) {
 		this.name = name;
 	}
-
+	@Column(length = 30000)
 	public String getPictures() {
 		return this.pictures;
 	}

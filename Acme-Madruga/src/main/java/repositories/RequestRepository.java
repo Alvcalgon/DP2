@@ -33,7 +33,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("select distinct r from Request r join r.procession p join p.floats f where f.brotherhood.id = ?1 and r.status='REJECTED'")
 	Collection<Request> findRejectedRequestByBrotherhood(int id);
 
-	@Query("select r from Request r where r.procession.id=?2")
+	@Query("select r from Request r where r.procession.id=?1")
 	Collection<Request> findRequestByProcession(int processionId);
 
 }
