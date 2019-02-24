@@ -10,6 +10,8 @@
 
 package controllers.member;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +48,19 @@ public class EnrolmentMemberController extends AbstractController {
 
 		this.enrolmentService.requestEnrolment(brotherhoodId);
 		result = new ModelAndView("redirect:/actor/display.do?actorId=" + brotherhoodId);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/listBrotherhood", method = RequestMethod.GET)
+	public ModelAndView listBrotherhood() {
+		ModelAndView result;
+		Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentService.findAllEnrolmentsByPrincipal();
+
+		result = new ModelAndView("enrolment/brotherhoodList");
+		result.addObject("enrolments", enrolments);
 
 		return result;
 	}

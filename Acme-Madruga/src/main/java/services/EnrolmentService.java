@@ -78,16 +78,6 @@ public class EnrolmentService {
 		return saved;
 	}
 
-	private void delete(final Enrolment enrolment) {
-		Collection<Request> requests;
-
-		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
-		for (final Request r : requests)
-			this.requestService.deleteDropOut(r);
-
-		this.enrolmentRepository.delete(enrolment);
-	}
-
 	public Enrolment findOne(final int enrolmentId) {
 		Enrolment result;
 
@@ -120,14 +110,14 @@ public class EnrolmentService {
 		Assert.notNull(enrolment);
 		this.checkOwnerBrotherhood(enrolment);
 
-		this.delete(enrolment);
+		this.manageExitOfMember(enrolment);
 	}
 
 	public void dropOut(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
 		this.checkOwnerMember(enrolment);
 
-		this.delete(enrolment);
+		this.manageExitOfMember(enrolment);
 	}
 
 	public Enrolment saveToEditPosition(final Enrolment enrolment) {
@@ -191,6 +181,17 @@ public class EnrolmentService {
 		return result;
 	}
 
+	public Collection<Enrolment> findAllEnrolmentsByPrincipal() {
+		Collection<Enrolment> result;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		result = this.enrolmentRepository.findAllEnrolmentsByMemberId(member.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Enrolment findByBrotherhoodId(final int brotherhoodId) {
 		Enrolment result;
 		Member principal;
@@ -220,6 +221,17 @@ public class EnrolmentService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	private void manageExitOfMember(final Enrolment enrolment) {
+		Collection<Request> requests;
+
+		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
+		for (final Request r : requests)
+			this.requestService.deleteDropOut(r);
+
+		enrolment.setPosition(null);
+		enrolment.setDropOutMoment(this.utilityService.current_moment());
 	}
 
 	private void checkOwnerBrotherhood(final Enrolment enrolment) {
