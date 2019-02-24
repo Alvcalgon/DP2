@@ -352,7 +352,7 @@ public class MessageService {
 
 		recipients = new ArrayList<Actor>();
 		recipients.add(brotherhood);
-		recipients.addAll(this.memberService.findEnroledMemberByProcession(brotherhood.getId()));
+		recipients.addAll(this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId()));
 
 		ticker = procession.getTicker();
 

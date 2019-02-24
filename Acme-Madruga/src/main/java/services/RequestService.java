@@ -124,7 +124,7 @@ public class RequestService {
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
-		int[][] matrizProcession;
+		Integer[][] matrizProcession;
 
 		matrizProcession = request.getProcession().getMatrizProcession();
 		compare: for (int i = 0; i < matrizProcession.length; i++)
@@ -176,9 +176,17 @@ public class RequestService {
 		Collection<Request> requests;
 
 		member = this.memberService.findByPrincipal();
-		requests = this.requestRepository.findRequestByMemberProcession(member.getId(), procession.getId());
+		requests = this.findRequestByMemberProcession(member.getId(), procession.getId());
 
 		Assert.isTrue(requests.isEmpty());
+	}
+
+	Collection<Request> findRequestByMemberProcession(final int memberId, final int processionId) {
+		Collection<Request> requests;
+
+		requests = this.requestRepository.findRequestByMemberProcession(memberId, processionId);
+
+		return requests;
 	}
 
 	private void checkPrincipalIsMemberOfBrotherhoodOfProcession(final Procession procession) {

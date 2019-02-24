@@ -12,8 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.MemberService;
 import services.ProcessionService;
+import services.RequestService;
 import domain.Brotherhood;
+import domain.Member;
 import domain.Procession;
 
 @Controller
@@ -25,6 +28,12 @@ public class ProcessionController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private MemberService		memberService;
+
+	@Autowired
+	private RequestService		requestService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -86,8 +95,10 @@ public class ProcessionController extends AbstractController {
 		ModelAndView result;
 		Collection<Procession> processions;
 		Brotherhood principal;
+		Collection<Member> members;
 
 		result = new ModelAndView("procession/list");
+		members = this.memberService.findEnroledMemberByBrotherhood(brotherhoodId);
 		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
 		result.addObject("processions", processions);
 
@@ -102,6 +113,11 @@ public class ProcessionController extends AbstractController {
 					result.addObject("isOwner", true);
 					result.addObject("processions", processions);
 				}
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
+				if (members.contains(this.memberService.findByPrincipal()))
+					result.addObject("memberAutorize", true);
+				else
+					result.addObject("memberAutorize", false);
 		} catch (final Exception e) {
 		}
 
