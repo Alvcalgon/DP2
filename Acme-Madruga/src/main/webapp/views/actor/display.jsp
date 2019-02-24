@@ -41,7 +41,12 @@
 		
 		<p> <strong> <spring:message code="actor.brotherhood.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
 		
-		<p> <strong> <spring:message code="actor.brotherhood.establishmentDate" /> </strong>  <jstl:out value="${actor.establishmentDate}" /></p>
+		<p> 
+			<strong> <spring:message code="actor.brotherhood.establishmentDate" /> </strong>
+	
+			<spring:message code="actor.formatMoment1" var="formatMoment"/>
+				<fmt:formatDate value="${actor.establishmentDate}" pattern="${formatMoment}"/>
+		</p>
 		
 		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong>  <jstl:out value="${actor.pictures}" /></p>
 		
@@ -51,6 +56,8 @@
 		
 		<p> <strong> <spring:message code="actor.brotherhood.floats" />: </strong>  <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.floats"/></a></p>
 	
+		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <jstl:out value="${actor.area.name}" /></p>
+		
 	</jstl:if>
 	
 	<security:authorize access="hasRole('ADMIN')">

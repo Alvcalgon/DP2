@@ -45,7 +45,8 @@
 		
 			<display:column property="title" titleKey="table.title" />
 		
-			<display:column property="establishmentDate" titleKey="table.establishmentDate" />
+			<spring:message code="actor.formatMoment" var="formatMomentHeader" />
+			<display:column  property="establishmentDate" titleKey="table.establishmentDate" sortable="true" format="${formatMomentHeader}" />
 		
 		
 		</jstl:if>
