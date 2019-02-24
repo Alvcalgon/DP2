@@ -36,7 +36,7 @@ public class MemberController extends AbstractController {
 		ModelAndView result;
 		Collection<Member> members;
 
-		members = this.memberService.findEnroledMemberByProcession(brotherhoodId);
+		members = this.memberService.findEnroledMemberByBrotherhood(brotherhoodId);
 
 		result = new ModelAndView("actor/list");
 
