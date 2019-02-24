@@ -44,3 +44,5 @@
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
 	</security:authorize>
 	
+	<input type="button" name="return" value="<spring:message code="float.back" />" 
+				onclick="javascript: window.history.back();" />

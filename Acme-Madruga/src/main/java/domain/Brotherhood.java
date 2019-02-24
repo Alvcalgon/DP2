@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -55,6 +56,7 @@ public class Brotherhood extends Actor {
 		this.establishmentDate = establishmentDate;
 	}
 
+	@Column(length = 30000)
 	public String getPictures() {
 		return this.pictures;
 	}

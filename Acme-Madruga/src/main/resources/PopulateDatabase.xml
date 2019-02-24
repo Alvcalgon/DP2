@@ -1831,7 +1831,7 @@
 		<property name="member" ref="member1" />
 		<property name="position" ref="position4" />
 	</bean>
-	
+
 	<bean id="enrolment002" class="domain.Enrolment">
 		<property name="registeredMoment" value="2017/02/07 10:15" />
 		<property name="brotherhood" ref="brotherhood3" />
@@ -1943,7 +1943,7 @@
 		<property name="member" ref="member12" />
 		<property name="position" ref="position3" />
 	</bean>
-	
+
 	<bean id="enrolment19" class="domain.Enrolment">
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="member" ref="member11" />
@@ -2881,31 +2881,31 @@
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession1" />
 	</bean>
-	
+
 	<bean id="request01" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession2" />
 	</bean>
-	
+
 	<bean id="request001" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession3" />
 	</bean>
-	
+
 	<bean id="request0001" class="domain.Request">
 		<property name="status" value="REJECTED" />
 		<property name="reasonWhy" value="Porque eres demasiado joven" />
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession4" />
 	</bean>
-	
+
 	<bean id="request00001" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
 		<property name="procession" ref="procession5" />
-	</bean>	
+	</bean>
 
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="APPROVED" />
@@ -2938,7 +2938,7 @@
 		<property name="member" ref="member5" />
 		<property name="procession" ref="procession3" />
 	</bean>
-	
+
 	<bean id="request05" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member5" />

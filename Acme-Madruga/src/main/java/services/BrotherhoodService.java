@@ -56,6 +56,15 @@ public class BrotherhoodService {
 		return result;
 	}
 
+	public Collection<Brotherhood> findAll() {
+		Collection<Brotherhood> result;
+
+		result = this.brotherhoodRepository.findAll();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Brotherhood save(final Brotherhood brotherhood) {
 		Brotherhood result;
 

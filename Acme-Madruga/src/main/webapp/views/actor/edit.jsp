@@ -121,7 +121,7 @@
 		</jstl:when>
 	</jstl:choose>
 	
-	<acme:cancel url="actor/administrator,brotherhood,member/display.do" code="actor.cancel"/>
+	<acme:cancel url="actor/display.do" code="actor.cancel"/>
  
 	
 	<hr>

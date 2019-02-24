@@ -61,6 +61,8 @@
 			</ul>
 		</li>
 		
+		<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
+		
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -71,10 +73,12 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>		
-					<li><a href="actor/administrator,brotherhood,member/display.do"><spring:message code="master.page.actor.display" /></a></li>			
+					<li><a href="actor/display.do"><spring:message code="master.page.actor.display" /></a></li>			
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
+			
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 		</security:authorize>
 	</ul>
 </div>

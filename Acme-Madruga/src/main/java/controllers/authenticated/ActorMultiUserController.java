@@ -40,18 +40,6 @@ public class ActorMultiUserController extends ActorAbstractController {
 		super();
 	}
 
-	// Display
-
-	@Override
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = false) final Integer actorId) {
-		ModelAndView result;
-
-		result = super.display(actorId);
-
-		return result;
-	}
-
 	// Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -86,7 +74,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				this.editModelAndView(actor, "actor.username.used");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
-		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) {// Modifica la password solo
 			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
@@ -109,7 +97,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		else
 			try {
 				this.actorService.save(actor);
-				result = new ModelAndView("redirect:display.do");
+				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(actor, "actor.commit.error");
 			}
@@ -132,7 +120,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				this.editModelAndView(actor, "actor.username.used");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
-		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) {// Modifica la password solo
 			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
@@ -155,7 +143,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		else
 			try {
 				this.actorService.save(actor);
-				result = new ModelAndView("redirect:display.do");
+				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(actor, "actor.commit.error");
 			}
@@ -179,7 +167,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				this.editModelAndView(actor, "actor.username.used");
 			else
 				this.userAccountService.setLogin(actor.getUserAccount(), newUsername, actor.getUserAccount().getPassword());
-		} else if (newUsername.isEmpty() && !newPassword.isEmpty()) {// Modifica la password solo
+		} else if (newUsername.isEmpty() && !newPassword.isEmpty() && !newPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) {// Modifica la password solo
 			if (newPassword.length() < 5 || newPassword.length() > 32)
 				this.editModelAndView(actor, "actor.password.size");
 			else if (!confirmPassword.equals(newPassword))
@@ -202,7 +190,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		else
 			try {
 				this.actorService.save(actor);
-				result = new ModelAndView("redirect:display.do");
+				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.editModelAndView(actor, "actor.commit.error");
 			}

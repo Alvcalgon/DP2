@@ -76,18 +76,18 @@
 	</legend>
 
 
-	<display:table name="approvedRequests" id="row"
+	<display:table name="approvedRequests" id="row1"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
 		<jstl:set var="colorValue" value="green" />
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood,member/display.do?requestId=${row1.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhood/edit.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood/edit.do?requestId=${row1.id}"><spring:message
 					code="request.edit" /></a>
 		</display:column>
 
@@ -115,18 +115,18 @@
 
 
 
-	<display:table name="rejectedRequests" id="row"
+	<display:table name="rejectedRequests" id="row2"
 		requestURI="${requestURI }" class="displaytag" pagesize="5">
 
 		<jstl:set var="colorValue" value="orange" />
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood,member/display.do?requestId=${row2.id}"><spring:message
 					code="request.display" /></a>
 		</display:column>
 		
 		<display:column style="background-color:${colorValue }">
-			<a href="request/brotherhood/edit.do?requestId=${row.id}"><spring:message
+			<a href="request/brotherhood/edit.do?requestId=${row2.id}"><spring:message
 					code="request.edit" /></a>
 		</display:column>
 

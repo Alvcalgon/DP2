@@ -44,6 +44,12 @@
 		<p> <strong> <spring:message code="actor.brotherhood.establishmentDate" /> </strong>  <jstl:out value="${actor.establishmentDate}" /></p>
 		
 		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong>  <jstl:out value="${actor.pictures}" /></p>
+		
+		<p> <strong> <spring:message code="actor.brotherhood.members" />: </strong>  <a href="member/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.members"/></a></p>
+		
+		<p> <strong> <spring:message code="actor.brotherhood.processions" />: </strong>  <a href="procession/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.processions"/></a></p>
+		
+		<p> <strong> <spring:message code="actor.brotherhood.floats" />: </strong>  <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.floats"/></a></p>
 	
 	</jstl:if>
 	

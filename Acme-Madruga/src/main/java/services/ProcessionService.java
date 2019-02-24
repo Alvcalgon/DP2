@@ -55,17 +55,27 @@ public class ProcessionService {
 
 		return result;
 	}
-	public Procession save(final Procession procession) {
+	public Procession save(final Procession procession, final int rowLimit, final int columnLimit) {
 		Assert.notNull(procession);
 		//TODO:preguntar
 
-		Procession result;
+		final Procession result;
+
+		if (procession.getId() == 0) {
+			final Integer[][] matrizProcession;
+
+			matrizProcession = new Integer[rowLimit][columnLimit];
+
+			for (int i = 0; i < matrizProcession.length; i++)
+				for (int j = 0; j < matrizProcession[0].length; j++)
+					matrizProcession[i][j] = 0;
+			procession.setMatrizProcession(matrizProcession);
+		}
 
 		result = this.processionRepository.save(procession);
 
 		return result;
 	}
-
 	public void delete(final Procession procession) {
 		Assert.notNull(procession);
 		Assert.isTrue(this.processionRepository.exists(procession.getId()));

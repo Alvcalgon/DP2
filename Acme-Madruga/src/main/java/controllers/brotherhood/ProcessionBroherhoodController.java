@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
+import services.CustomisationService;
 import services.FloatService;
 import services.ProcessionService;
 import controllers.AbstractController;
@@ -27,13 +28,16 @@ import domain.Procession;
 public class ProcessionBroherhoodController extends AbstractController {
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ProcessionService		processionService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
 
 	@Autowired
-	private FloatService		floatService;
+	private FloatService			floatService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -78,12 +82,16 @@ public class ProcessionBroherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		Procession saved;
+		int rowLimit;
+		int columnLimit;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(procession);
 		else
 			try {
-				saved = this.processionService.save(procession);
+				rowLimit = this.customisationService.find().getRowLimit();
+				columnLimit = this.customisationService.find().getRowLimit();
+				saved = this.processionService.save(procession, rowLimit, columnLimit);
 				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
 			} catch (final Throwable oops) {
@@ -92,7 +100,6 @@ public class ProcessionBroherhoodController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Procession procession, final BindingResult binding) {
 		ModelAndView result;
