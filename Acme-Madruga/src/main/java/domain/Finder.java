@@ -37,6 +37,7 @@ public class Finder extends DomainEntity {
 	private Date	updatedMoment;
 
 
+	@NotNull
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -45,6 +46,7 @@ public class Finder extends DomainEntity {
 		this.keyword = keyword;
 	}
 
+	@NotNull
 	public String getArea() {
 		return this.area;
 	}

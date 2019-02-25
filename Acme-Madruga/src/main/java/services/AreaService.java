@@ -141,4 +141,13 @@ public class AreaService {
 		Assert.notNull(admin);
 	}
 
+	public Collection<String> findAllAreaNames() {
+		Collection<String> result;
+
+		result = this.areaRepository.findAllAreaNames();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

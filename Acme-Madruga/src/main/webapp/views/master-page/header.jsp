@@ -46,6 +46,8 @@
 					<li><a href="enrolment/member/listBrotherhood.do"><spring:message code="master.page.brotherhoods.belong" /></a></li>			
 				</ul>
 			</li>
+			
+			<li><a class="fNiv" href="procession/member/listFinder.do"><spring:message code="master.page.finder.procession" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">
