@@ -1,8 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.BoxRepository;
 import domain.Actor;
@@ -44,13 +45,25 @@ public class BoxService {
 		return result;
 	}
 
-	public Box findOneToEditOrDisplay(final int boxId) {
+	public Box findOneToDisplay(final int boxId) {
 		Box result;
 
 		result = this.boxRepository.findOne(boxId);
 
 		Assert.notNull(result);
 		this.checkByPrincipal(result);
+
+		return result;
+	}
+
+	public Box findOneToEdit(final int boxId) {
+		Box result;
+
+		result = this.boxRepository.findOne(boxId);
+
+		Assert.notNull(result);
+		this.checkByPrincipal(result);
+		Assert.isTrue(!result.getIsSystemBox());
 
 		return result;
 	}
@@ -83,6 +96,9 @@ public class BoxService {
 		this.checkName(box);
 
 		Box result;
+
+		if (this.boxRepository.exists(box.getId()))
+			this.checkParent(box);
 
 		result = this.boxRepository.save(box);
 
@@ -120,22 +136,6 @@ public class BoxService {
 		this.boxRepository.delete(box);
 	}
 
-	protected void createSystemBoxes(final Actor actor) {
-		Assert.notNull(actor);
-
-		final String inBox = "in box";
-		final String outBox = "out box";
-		final String notificationBox = "notification box";
-		final String trashBox = "trash box";
-		final String spamBox = "spam box";
-
-		this.createSystemBox(actor, inBox);
-		this.createSystemBox(actor, outBox);
-		this.createSystemBox(actor, spamBox);
-		this.createSystemBox(actor, notificationBox);
-		this.createSystemBox(actor, trashBox);
-	}
-
 	public Collection<Box> findRootBoxesByActor(final int actorId) {
 		Collection<Box> results;
 
@@ -160,10 +160,8 @@ public class BoxService {
 		return results;
 	}
 
-
-	@Autowired
-	private Validator	validator;
-
+	//	@Autowired
+	//	private Validator	validator;
 
 	@Transactional(propagation = Propagation.NEVER)
 	public Box reconstruct(final Box box, final BindingResult binding) {
@@ -177,12 +175,38 @@ public class BoxService {
 		result.setName(box.getName());
 		result.setParent(box.getParent());
 
-		this.validator.validate(result, binding);
+		//this.validator.validate(result, binding);
 
 		return result;
 	}
 
+	public Collection<Box> posibleParentBoxes(final Box box, final int actorId) {
+		Collection<Box> results, descendantBoxes;
+
+		descendantBoxes = this.descendantBoxes(box);
+		results = this.findBoxesByActor(actorId);
+		results.removeAll(descendantBoxes);
+
+		return results;
+	}
+
 	// Protected methods --------------------------
+	protected void createSystemBoxes(final Actor actor) {
+		Assert.notNull(actor);
+
+		final String inBox = "in box";
+		final String outBox = "out box";
+		final String notificationBox = "notification box";
+		final String trashBox = "trash box";
+		final String spamBox = "spam box";
+
+		this.createSystemBox(actor, inBox);
+		this.createSystemBox(actor, outBox);
+		this.createSystemBox(actor, spamBox);
+		this.createSystemBox(actor, notificationBox);
+		this.createSystemBox(actor, trashBox);
+	}
+
 	protected Box findInBoxFromActor(final int actorId) {
 		Box result;
 
@@ -259,6 +283,22 @@ public class BoxService {
 		Assert.isTrue(box.getActor().equals(principal));
 	}
 
+	protected Collection<Box> descendantBoxes(final Box box) {
+		List<Box> results;
+		Collection<Box> childBoxes;
+
+		childBoxes = this.findChildBoxesByBox(box.getId());
+
+		results = new ArrayList<>();
+		if (!childBoxes.isEmpty()) {
+			results.addAll(childBoxes);
+			for (final Box b : childBoxes)
+				results.addAll(this.descendantBoxes(b));
+		}
+
+		return results;
+	}
+
 	// Private methods ---------------------------
 	private void checkName(final Box box) {
 		boolean validName;
@@ -270,7 +310,13 @@ public class BoxService {
 
 	// Check that box doesn't create a cycle.
 	private void checkParent(final Box box) {
+		Box parent;
+		Collection<Box> descendantBoxes;
 
+		parent = box.getParent();
+		descendantBoxes = this.descendantBoxes(box);
+
+		Assert.isTrue(!descendantBoxes.contains(parent));
 	}
 
 	private void createSystemBox(final Actor actor, final String name) {

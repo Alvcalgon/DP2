@@ -41,7 +41,7 @@ public class BoxMultiUserController extends AbstractController {
 		Collection<Message> messages;
 
 		try {
-			box = this.boxService.findOneToEditOrDisplay(boxId);
+			box = this.boxService.findOneToDisplay(boxId);
 			childBoxes = this.boxService.findChildBoxesByBox(boxId);
 			messages = box.getMessages();
 
@@ -90,7 +90,7 @@ public class BoxMultiUserController extends AbstractController {
 		Box box;
 
 		try {
-			box = this.boxService.findOneToEditOrDisplay(boxId);
+			box = this.boxService.findOneToEdit(boxId);
 
 			result = this.createEditModelAndView(box);
 		} catch (final Throwable oops) {
@@ -147,7 +147,7 @@ public class BoxMultiUserController extends AbstractController {
 		Actor principal;
 
 		principal = this.actorService.findPrincipal();
-		parents = this.boxService.findBoxesByActor(principal.getId());
+		parents = this.boxService.posibleParentBoxes(box, principal.getId());
 
 		if (box.getId() != 0)
 			parents.remove(box);

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.FloatRepository;
 import domain.Brotherhood;
@@ -33,9 +32,9 @@ public class FloatService {
 	@Autowired
 	private UtilityService		utilityService;
 
-	@Autowired
-	private Validator			validator;
 
+	//	@Autowired
+	//	private Validator			validator;
 
 	// Constructors -------------------------------
 
@@ -129,7 +128,8 @@ public class FloatService {
 			result.setVersion(floatForm.getVersion());
 			this.utilityService.checkPicture(result.getPictures());
 		}
-		this.validator.validate(result, binding);
+		//this.validator.validate(result, binding);
+
 		return result;
 	}
 	// Other business methods ---------------------

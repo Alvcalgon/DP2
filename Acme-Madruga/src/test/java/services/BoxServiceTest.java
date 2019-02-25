@@ -1,6 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -28,6 +31,25 @@ public class BoxServiceTest extends AbstractTest {
 	// Other services ------------------------
 
 	// Suite test ----------------------------
+	@Test
+	public void testDescendantBoxes() {
+		super.authenticate("member1");
+
+		List<Box> descendant;
+		final int boxId = super.getEntityId("box010");
+		final Box box = this.boxService.findOne(boxId);
+
+		descendant = new ArrayList<Box>();
+		descendant.addAll(this.boxService.descendantBoxes(box));
+
+		for (final Box b : descendant)
+			System.out.println(b.getName());
+
+		Assert.isTrue(descendant.size() > 0);
+
+		super.unauthenticate();
+	}
+
 	@Test
 	public void testCreate() {
 		super.authenticate("member2");
