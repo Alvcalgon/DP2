@@ -20,6 +20,26 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
+<jstl:if test="${finder ne null}">
+	<fieldset>
+		<legend><spring:message code="procession.finder.parameters"/></legend>
+		
+		<p style="color:blue;"><spring:message code="procession.finder.warning"/><jstl:out value="${numberOfResults}"/></p>
+		
+		<ul>
+			<li><strong><spring:message code="procession.finder.keyword"/>:</strong> <jstl:out value="${finder.keyword}"/></li>
+			<li><strong><spring:message code="procession.finder.area"/>:</strong> <jstl:out value="${finder.area}"/></li>
+			<li><strong><spring:message code="procession.finder.minimum.date"/>:</strong> <jstl:out value="${finder.minimumDate}"/></li>
+			<li><strong><spring:message code="procession.finder.maximum.date"/>:</strong> <jstl:out value="${finder.maximumDate}"/></li>
+		</ul>
+		<div>
+			<a href="finder/member/edit.do"><spring:message code="procession.finder.edit"/></a>
+			&nbsp;
+			<a href="finder/member/clear.do"><spring:message code="procession.finder.clear"/></a>
+		</div>
+	</fieldset>
+</jstl:if>
+
 <display:table pagesize="5" class="displaytag" name="processions"
 	requestURI="${requestURI}" id="row">
 
@@ -95,8 +115,10 @@
 	 <br>
 </security:authorize>
 	
-	<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
-			code="actor.return" /></a>
+	<jstl:if test="${finder == null}">
+		<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
+				code="actor.return" /></a>
+	</jstl:if>
 
 
 

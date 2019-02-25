@@ -29,6 +29,9 @@ public class MemberService {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private FinderService		finderService;
+
 
 	// Constructors -------------------------------
 
@@ -61,6 +64,9 @@ public class MemberService {
 
 		result = (Member) this.actorService.save(member);
 
+		if (!this.memberRepository.exists(member.getId()))
+			this.finderService.assignNewFinder(member);
+
 		return result;
 	}
 
@@ -87,7 +93,6 @@ public class MemberService {
 		return result;
 	}
 
-	
 	public Collection<Member> findEnroledMemberByBrotherhood(final int brotherhoodId) {
 
 		Collection<Member> results;

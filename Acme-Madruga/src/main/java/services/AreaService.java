@@ -152,7 +152,15 @@ public class AreaService {
 
 	private void checkNotArea(final Brotherhood brotherhood) {
 		Assert.isTrue(brotherhood.getArea() == null);
+	}
 
+	public Collection<String> findAllAreaNames() {
+		Collection<String> result;
+
+		result = this.areaRepository.findAllAreaNames();
+		Assert.notNull(result);
+
+		return result;
 	}
 
 }
