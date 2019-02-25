@@ -4,11 +4,13 @@ package services;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BoxRepository;
 import domain.Actor;
@@ -51,6 +53,14 @@ public class BoxService {
 		this.checkByPrincipal(result);
 
 		return result;
+	}
+
+	public Collection<Box> findAll() {
+		Collection<Box> results;
+
+		results = this.boxRepository.findAll();
+
+		return results;
 	}
 
 	public Box create() {
@@ -110,23 +120,6 @@ public class BoxService {
 		this.boxRepository.delete(box);
 	}
 
-	// Other business methods ---------------------
-	public void moveBox(final Box target, final Box destination) {
-		Assert.notNull(target);
-		Assert.isTrue(this.boxRepository.exists(target.getId()));
-		this.checkByPrincipal(target);
-
-		// An actor could move the box target to root directory, that is,
-		// Box destination would be null.
-		if (destination != null) {
-			Assert.isTrue(this.boxRepository.exists(destination.getId()));
-			this.checkByPrincipal(destination);
-			//TODO: Comprobar que no se forme un ciclo al mover la carpeta.
-		}
-
-		target.setParent(destination);
-	}
-
 	protected void createSystemBoxes(final Actor actor) {
 		Assert.notNull(actor);
 
@@ -159,8 +152,7 @@ public class BoxService {
 		return results;
 	}
 
-	// Protected methods --------------------------
-	protected Collection<Box> findBoxesByActor(final int actorId) {
+	public Collection<Box> findBoxesByActor(final int actorId) {
 		Collection<Box> results;
 
 		results = this.boxRepository.findBoxesByActor(actorId);
@@ -168,6 +160,29 @@ public class BoxService {
 		return results;
 	}
 
+
+	@Autowired
+	private Validator	validator;
+
+
+	@Transactional(propagation = Propagation.NEVER)
+	public Box reconstruct(final Box box, final BindingResult binding) {
+		Box result;
+
+		if (box.getId() == 0)
+			result = this.create();
+		else
+			result = this.findOne(box.getId());
+
+		result.setName(box.getName());
+		result.setParent(box.getParent());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+
+	// Protected methods --------------------------
 	protected Box findInBoxFromActor(final int actorId) {
 		Box result;
 
@@ -251,6 +266,11 @@ public class BoxService {
 		validName = box.getName().equals("in box") || box.getName().equals("out box") || box.getName().equals("notification box") || box.getName().equals("trash box") || box.getName().equals("spam box");
 
 		Assert.isTrue(!validName);
+	}
+
+	// Check that box doesn't create a cycle.
+	private void checkParent(final Box box) {
+
 	}
 
 	private void createSystemBox(final Actor actor, final String name) {
