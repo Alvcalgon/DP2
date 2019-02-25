@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AreaRepository;
+import domain.Administrator;
 import domain.Area;
 import domain.Brotherhood;
 
@@ -19,12 +20,15 @@ public class AreaService {
 
 	// Managed repository --------------------------
 	@Autowired
-	private AreaRepository		areaRepository;
+	private AreaRepository			areaRepository;
 
 	// Other supporting services -------------------
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Constructors -------------------------------
@@ -37,6 +41,27 @@ public class AreaService {
 		Area result;
 
 		result = this.areaRepository.findOne(areaId);
+
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Area> findAll() {
+		Collection<Area> areas;
+
+		areas = this.areaRepository.findAll();
+
+		return areas;
+	}
+
+	public Area findOneToEditAdministrator(final int areaId) {
+		Area result;
+
+		result = this.areaRepository.findOne(areaId);
+
+		this.checkPrincipalIsAdministrator();
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -62,6 +87,17 @@ public class AreaService {
 		brotherhood.setArea(result);
 
 		return result;
+
+	}
+
+	public Area save(final Area area) {
+		Assert.notNull(area);
+		this.checkPrincipalIsAdministrator();
+
+		Area result;
+		result = this.areaRepository.save(area);
+
+		return result;
 	}
 
 	public void delete(final Area area) {
@@ -74,7 +110,7 @@ public class AreaService {
 
 	}
 
-	public void findOneToEdit(final int brotherhoodId) {
+	public void findOneToEditBrotherhood(final int brotherhoodId) {
 		Brotherhood principal;
 
 		principal = this.brotherhoodService.findByPrincipal();
@@ -96,6 +132,13 @@ public class AreaService {
 	private void checkUnusedArea(final Area area) {
 		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
 
+	}
+
+	private void checkPrincipalIsAdministrator() {
+		Administrator admin;
+		admin = this.administratorService.findByPrincipal();
+
+		Assert.notNull(admin);
 	}
 
 }

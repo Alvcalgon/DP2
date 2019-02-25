@@ -20,8 +20,6 @@
 
 <form:form action="float/brotherhood/edit.do" modelAttribute="floatForm">
 	<form:hidden path="id" />
-		<form:hidden path="version" />
-			<form:hidden path="brotherhood" />
 
 	<acme:textbox code="float.title" path="title"/>
 		

@@ -60,6 +60,7 @@ public class AreaBrotherhoodController extends AbstractController {
 			result = this.createEditModelAndView(area, brotherhoodId);
 		else
 			try {
+				this.areaService.findOneToEditBrotherhood(brotherhoodId);
 				this.areaService.save(area, brotherhoodId);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
