@@ -19,25 +19,29 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="area/brotherhood/edit.do" modelAttribute="area">
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
 
-	
-	<input type="hidden" name="brotherhoodId" value="${brotherhoodId}"/>
-	
-	<acme:textbox code="area.name" path="name"/>
-	<br>
-	
-	<acme:textbox code="area.pictures" path="pictures"/>
-	<br>
-	
-	
-	<!-- Buttons -->
+
+<form action="area/brotherhood/edit.do" method="post">
+
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		
+		<input type="hidden" name="brotherhoodId" value="${brotherhoodId}">
+		
+		<label for="areaSelectId"> <spring:message code="area.form" />
+		</label>
+		<select name="areaId" id="areaSelectId">
+			<jstl:if test="${not empty areas}">
+				<jstl:forEach var="rowArea" items="${areas}">
+					<option value="${rowArea.id}">${rowArea.name}</option>
+				</jstl:forEach>
+			</jstl:if>
+		</select>
+
+	</security:authorize>
 	
 	<acme:submit name="save" code="area.save"/>
 	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do" code="area.cancel"/>
 	<br />
+</form>
 
-</form:form>
 
