@@ -28,6 +28,7 @@
 					<li><a href="position/administrator/list.do"> <spring:message code="master.page.position" /> </a></li>					
 					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
+					<li><a href="area/administrator/list.do"><spring:message code="master.page.area.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

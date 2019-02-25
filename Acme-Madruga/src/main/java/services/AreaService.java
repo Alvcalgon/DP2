@@ -139,7 +139,7 @@ public class AreaService {
 	// Private methods ---------------------------
 
 	private void checkUnusedArea(final Area area) {
-		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
+		//	Assert.isTrue(this.brotherhoodService.findBrotherhoodFromArea(area).isEmpty());
 
 	}
 

@@ -38,7 +38,8 @@
 
 	<display:column	property="name" titleKey="area.name" />
 	
-	<a href="area/administrator/create.do"><spring:message code="area.create"/></a>
 
 </display:table>
+
+<a href="area/administrator/create.do"><spring:message code="area.create"/></a>
 
