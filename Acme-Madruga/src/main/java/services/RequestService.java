@@ -134,7 +134,7 @@ public class RequestService {
 					request.setColumnProcession(j + 1);
 					break compare;
 				}
-		this.processionService.updateMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
+		this.processionService.addToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 
@@ -169,6 +169,8 @@ public class RequestService {
 	}
 
 	public void deleteDropOut(final Request request) {
+		if (request.getStatus().equals("APPROVED"))
+			this.processionService.removeToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		this.requestRepository.delete(request);
 	}
 

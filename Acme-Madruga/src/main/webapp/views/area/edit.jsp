@@ -38,7 +38,8 @@
 		</select>
 
 	</security:authorize>
-	
+	<br />
+	<br />
 	<acme:submit name="save" code="area.save"/>
 	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do" code="area.cancel"/>
 	<br />

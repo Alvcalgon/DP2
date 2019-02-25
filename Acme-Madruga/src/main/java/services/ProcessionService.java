@@ -145,7 +145,7 @@ public class ProcessionService {
 		return result;
 	}
 
-	public Procession updateMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
+	public Procession addToMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
 		Assert.notNull(procession);
 
 		Procession result;
@@ -153,6 +153,21 @@ public class ProcessionService {
 
 		matriz = procession.getMatrizProcession();
 		matriz[rowProcession - 1][columnProcession - 1] = 1;
+		procession.setMatrizProcession(matriz);
+
+		result = this.processionRepository.save(procession);
+
+		return result;
+	}
+
+	public Procession removeToMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
+		Assert.notNull(procession);
+
+		Procession result;
+		Integer[][] matriz;
+
+		matriz = procession.getMatrizProcession();
+		matriz[rowProcession - 1][columnProcession - 1] = 0;
 		procession.setMatrizProcession(matriz);
 
 		result = this.processionRepository.save(procession);
