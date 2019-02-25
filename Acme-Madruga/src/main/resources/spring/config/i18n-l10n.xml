@@ -25,6 +25,7 @@
 		
 		<value>/views/actor/messages</value>
 		<value>/views/administrator/messages</value>
+		<value>/views/area/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/customisation/messages</value>
 		<value>/views/enrolment/messages</value>
