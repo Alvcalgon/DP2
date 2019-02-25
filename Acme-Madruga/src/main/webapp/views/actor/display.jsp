@@ -118,5 +118,4 @@
 		&nbsp;
 	</jstl:if>
 </security:authorize>
-<a href="javascript: window.history.back();"><spring:message code="actor.return"/></a>
 

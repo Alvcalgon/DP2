@@ -20,7 +20,7 @@
 		<jstl:when test="${role == 'brotherhood'}">
 			<h2><spring:message code="header.brotherhood"/></h2>
 		
-			<form:hidden path="area"/>
+			<form:hidden path="area"/>  
 			
 		</jstl:when>
 		

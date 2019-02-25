@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.BrotherhoodService;
 import services.EnrolmentService;
 import services.PositionService;
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Enrolment;
 import domain.Position;
 
@@ -43,6 +45,9 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 	@Autowired
 	private PositionService		positionService;
 
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -56,13 +61,20 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 	public ModelAndView listMemberRequest() {
 		ModelAndView result;
 		Collection<Enrolment> enrolments;
+		Brotherhood brotherhood;
 
 		enrolments = this.enrolmentService.findRequestEnrolments();
+		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		result = new ModelAndView("enrolment/requestList");
 		result.addObject("requestURI", "enrolment/brotherhood/listMemberRequest.do");
 		result.addObject("enrolments", enrolments);
 		result.addObject("isRequestList", true);
+		result.addObject("brotherhoodId", brotherhood.getId());
+		if (brotherhood.getArea() == null)
+			result.addObject("areaSelected", false);
+		else
+			result.addObject("areaSelected", true);
 
 		return result;
 	}

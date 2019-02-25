@@ -77,12 +77,23 @@
 </display:table>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-	<a href="procession/brotherhood/create.do"><spring:message
-			code="procession.create" /></a>
+	 
+	<jstl:if test="${areaSelected == true}">
+
+		<a href="procession/brotherhood/create.do"><spring:message
+				code="procession.create" /></a>
+
+	</jstl:if>
+
+
+	<jstl:if test="${areaSelected == false}">
+
+		<a href="area/brotherhood/create.do?brotherhoodId=${brotherhoodId}"><spring:message
+				code="select.area.procession" /></a>
+
+	</jstl:if>
+	 
 </security:authorize>
 
 
-	
-	 <input type="button" name="return" value="<spring:message code="procession.return" />" 
-				onclick="javascript: window.history.back();" />
 

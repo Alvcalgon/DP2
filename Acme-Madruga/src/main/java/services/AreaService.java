@@ -19,10 +19,13 @@ public class AreaService {
 
 	// Managed repository --------------------------
 	@Autowired
-	private AreaRepository	areaRepository;
-
+	private AreaRepository		areaRepository;
 
 	// Other supporting services -------------------
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
 
 	// Constructors -------------------------------
 	public AreaService() {
@@ -46,12 +49,17 @@ public class AreaService {
 		return result;
 	}
 
-	public Area save(final Area area) {
-		Assert.notNull(area);
+	public Area save(final Area area, final int brotherhoodId) {
+		Assert.notNull(brotherhoodId);
 
 		Area result;
+		final Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 
 		result = this.areaRepository.save(area);
+
+		brotherhood.setArea(result);
 
 		return result;
 	}
@@ -64,6 +72,14 @@ public class AreaService {
 
 		this.areaRepository.delete(area);
 
+	}
+
+	public void findOneToEdit(final int brotherhoodId) {
+		Brotherhood principal;
+
+		principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(principal.getId() == brotherhoodId);
 	}
 
 	// Protected methods --------------------------

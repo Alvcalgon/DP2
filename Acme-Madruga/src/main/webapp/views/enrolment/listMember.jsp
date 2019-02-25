@@ -24,9 +24,23 @@
 	</jstl:if>
 	
 	<jstl:if test="${isRequestList}">
-		<display:column>
-			<a href="enrolment/brotherhood/enrol.do?enrolmentId=${row.id}"><spring:message code="enrolment.enrol"/></a>
-		</display:column>
+	
+		<jstl:if test="${areaSelected == true}">
+		
+			<display:column>
+				<a href="enrolment/brotherhood/enrol.do?enrolmentId=${row.id}"><spring:message code="enrolment.enrol"/></a>
+			</display:column>
+		
+		</jstl:if>
+		
+		
+		<jstl:if test="${areaSelected == false}">
+		
+			<display:column>
+				<a href="area/brotherhood/create.do?brotherhoodId=${brotherhoodId}"><spring:message code="select.area"/></a>
+			</display:column>
+		
+		</jstl:if>
 		
 		<display:column>
 			<a href="enrolment/brotherhood/reject.do?enrolmentId=${row.id}"><spring:message code="enrolment.reject"/></a>
