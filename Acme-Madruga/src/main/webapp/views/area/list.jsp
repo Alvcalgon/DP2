@@ -22,36 +22,18 @@
 	requestURI="${requestURI }" class="displaytag" pagesize="5">
 
 	<display:column>
-		<a href="request/brotherhood,member/display.do?requestId=${row.id}"><spring:message
-				code="request.display" /></a>
+		<a href="area/administrator/edit.do?areaId=${row.id}"><spring:message
+				code="area.edit" /></a>
+	</display:column>
+	
+	<display:column>
+		<a href="area/administrator/delete.do?areaId=${row.id}"><spring:message
+				code="area.delete" /></a>
 	</display:column>
 
-	<security:authorize access="hasRole('MEMBER')">
-		<display:column>
-			<a href="request/member/delete.do?requestId=${row.id}"><spring:message
-					code="request.cancel" /></a>
-		</display:column>
-	</security:authorize>
-
-	<security:authorize access="hasRole('BROTHERHOOD')">
-		<display:column>
-			<a href="request/brotherhood/reject.do?requestId=${row.id}"><spring:message
-					code="request.reject" /></a>
-		</display:column>
-	</security:authorize>
-
-	<security:authorize access="hasRole('BROTHERHOOD')">
-		<display:column>
-			<a href="request/brotherhood/accept.do?requestId=${row.id}"><spring:message
-					code="request.accept" /></a>
-		</display:column>
-	</security:authorize>
-
-	<display:column	property="procession.title" titleKey="request.procession" />
-
-	<security:authorize access="hasRole('BROTHERHOOD')">
-		<display:column	property="member.name" titleKey="request.member" />
-	</security:authorize>
+	<display:column	property="area.name" titleKey="area.name" />
+	
+	<display:column	property="area.pictures" titleKey="area.pictures" />
 
 </display:table>
 
