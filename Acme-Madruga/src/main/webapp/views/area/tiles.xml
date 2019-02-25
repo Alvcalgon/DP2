@@ -15,19 +15,19 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
        
 <tiles-definitions>
-	<definition name="float/display" extends="master.page">	
-		<put-attribute name="title" value="Display float" />
-		<put-attribute name="body" value="/views/float/display.jsp" />
+	<definition name="area/display" extends="master.page">	
+		<put-attribute name="title" value="Display area" />
+		<put-attribute name="body" value="/views/area/display.jsp" />
 	</definition>
 	
-	<definition name="float/edit" extends="master.page">	
-		<put-attribute name="title" value="Edit float" />
-		<put-attribute name="body" value="/views/float/edit.jsp" />
+	<definition name="area/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit area" />
+		<put-attribute name="body" value="/views/area/edit.jsp" />
 	</definition>
 	
 		
-	<definition name="float/list" extends="master.page">	
-		<put-attribute name="title" value="Float list" />
-		<put-attribute name="body" value="/views/float/list.jsp" />
+	<definition name="area/list" extends="master.page">	
+		<put-attribute name="title" value="Area list" />
+		<put-attribute name="body" value="/views/area/list.jsp" />
 	</definition>
 </tiles-definitions>
