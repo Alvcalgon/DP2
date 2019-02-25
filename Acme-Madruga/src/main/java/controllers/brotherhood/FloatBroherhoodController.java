@@ -58,21 +58,18 @@ public class FloatBroherhoodController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int floatId) {
 		ModelAndView result;
 		FloatForm floatForm;
-		Brotherhood brotherhood;
 		Float floatt;
 
 		try {
 			floatt = this.floatService.findOneToEdit(floatId);
 
-			brotherhood = this.brotherhoodService.findByPrincipal();
 			floatForm = new FloatForm();
 			floatForm.setTitle(floatt.getTitle());
 			floatForm.setId(floatt.getId());
-			floatForm.setVersion(floatt.getVersion());
 			floatForm.setPictures(floatt.getPictures());
 			floatForm.setDescription(floatt.getDescription());
-			floatForm.setBrotherhood(brotherhood);
 			result = this.createEditModelAndView(floatForm);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -95,6 +92,8 @@ public class FloatBroherhoodController extends AbstractController {
 				floatt = this.floatService.reconstruct(floatForm, binding);
 				this.floatService.save(floatt);
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + floatt.getBrotherhood().getId());
+			} catch (final IllegalArgumentException e1) {
+				result = this.createEditModelAndView(floatForm, "float.commit.url");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(floatForm, "float.commit.error");
 			}

@@ -119,14 +119,12 @@ public class FloatService {
 			result.setId(floatForm.getId());
 			result.setPictures(floatForm.getPictures());
 			result.setDescription(floatForm.getDescription());
-			result.setVersion(floatForm.getVersion());
 		} else {
 			result = this.findOneToEdit(floatForm.getId());
 			result.setTitle(floatForm.getTitle());
 			result.setPictures(floatForm.getPictures());
 			result.setDescription(floatForm.getDescription());
 			result.setId(floatForm.getId());
-			result.setVersion(floatForm.getVersion());
 			this.utilityService.checkPicture(result.getPictures());
 		}
 		this.validator.validate(result, binding);
