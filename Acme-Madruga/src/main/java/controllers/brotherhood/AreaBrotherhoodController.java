@@ -99,15 +99,19 @@ public class AreaBrotherhoodController extends AbstractController {
 		Collection<Area> areas;
 		Brotherhood brotherhood;
 
-		areas = this.areaService.findAll();
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			areas = this.areaService.findAllByBrotherhood(brotherhood);
 
-		result = new ModelAndView("area/edit");
-		result.addObject("area", area);
-		result.addObject("brotherhoodId", brotherhood.getId());
-		result.addObject("areas", areas);
+			result = new ModelAndView("area/edit");
+			result.addObject("area", area);
+			result.addObject("brotherhoodId", brotherhood.getId());
+			result.addObject("areas", areas);
 
-		result.addObject("messageCode", messageCode);
+			result.addObject("messageCode", messageCode);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}

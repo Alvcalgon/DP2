@@ -55,6 +55,15 @@ public class AreaService {
 		return areas;
 	}
 
+	public Collection<Area> findAllByBrotherhood(final Brotherhood brotherhood) {
+		Collection<Area> areas;
+
+		this.checkNotArea(brotherhood);
+		areas = this.areaRepository.findAll();
+
+		return areas;
+	}
+
 	public Area findOneToEditAdministrator(final int areaId) {
 		Area result;
 
@@ -139,6 +148,11 @@ public class AreaService {
 		admin = this.administratorService.findByPrincipal();
 
 		Assert.notNull(admin);
+	}
+
+	private void checkNotArea(final Brotherhood brotherhood) {
+		Assert.isTrue(brotherhood.getArea() == null);
+
 	}
 
 }
