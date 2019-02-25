@@ -86,10 +86,12 @@
 					code="request.display" /></a>
 		</display:column>
 		
+		<security:authorize access="hasRole('BROTHERHOOD')">
 		<display:column style="background-color:${colorValue }">
 			<a href="request/brotherhood/edit.do?requestId=${row1.id}"><spring:message
 					code="request.edit" /></a>
 		</display:column>
+		</security:authorize>
 
 		<display:column style="background-color:${colorValue }"
 			property="procession.title" titleKey="request.procession" />
@@ -125,10 +127,12 @@
 					code="request.display" /></a>
 		</display:column>
 		
+		<security:authorize access="hasRole('BROTHERHOOD')">
 		<display:column style="background-color:${colorValue }">
 			<a href="request/brotherhood/edit.do?requestId=${row2.id}"><spring:message
 					code="request.edit" /></a>
 		</display:column>
+		</security:authorize>
 
 		<display:column style="background-color:${colorValue }"
 			property="procession.title" titleKey="request.procession" />
