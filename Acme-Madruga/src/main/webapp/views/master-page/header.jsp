@@ -39,6 +39,13 @@
 					<li><a href="request/member/list.do"><spring:message code="master.page.requests.list" /></a></li>			
 				</ul>
 			</li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.brotherhoods" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="enrolment/member/listBrotherhood.do"><spring:message code="master.page.brotherhoods.belong" /></a></li>			
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">
@@ -48,21 +55,27 @@
 					<li><a href="request/brotherhood/list.do"><spring:message code="master.page.requests.list" /></a></li>				
 				</ul>
 			</li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.enrolments" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="enrolment/brotherhood/listMemberRequest.do"><spring:message code="master.page.enrolments.list" /></a></li>			
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
-			<ul>
-				<li class="arrow"></li>
-				<li><a href="actor/create.do?role=brotherhood"><spring:message code="master.page.brotherhood.create" /></a></li>
-				<li><a href="actor/create.do?role=member"><spring:message code="master.page.member.create" /></a></li>
-			</ul>
-		</li>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/create.do?role=brotherhood"><spring:message code="master.page.brotherhood.create" /></a></li>
+					<li><a href="actor/create.do?role=member"><spring:message code="master.page.member.create" /></a></li>
+				</ul>
+			</li>
 		
-		<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
-		
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
