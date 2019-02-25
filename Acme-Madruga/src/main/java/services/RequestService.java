@@ -180,12 +180,12 @@ public class RequestService {
 		Collection<Request> requests;
 
 		member = this.memberService.findByPrincipal();
-		requests = this.findRequestByMemberProcession(member.getId(), procession.getId());
+		requests = this.findRequestMemberProcession(member.getId(), procession.getId());
 
 		Assert.isTrue(requests.isEmpty());
 	}
 
-	Collection<Request> findRequestByMemberProcession(final int memberId, final int processionId) {
+	public Collection<Request> findRequestMemberProcession(final int memberId, final int processionId) {
 		Collection<Request> requests;
 
 		requests = this.requestRepository.findRequestByMemberProcession(memberId, processionId);

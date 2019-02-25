@@ -54,9 +54,14 @@
 		<display:column>
 			<jstl:if test="${row.isFinalMode}">
 				<jstl:if test="${memberAutorize==true}">
-					<a href="request/member/create.do?processionId=${row.id}">
-						<spring:message code="procession.request" />
-					</a>
+					<jstl:if test="${dateNow<row.moment}">
+						<jstl:if test="${isRequest==true}">
+							<jstl:forEach items="${requestsMember}" var="request">
+								
+								
+							</jstl:forEach>
+						</jstl:if>
+					</jstl:if>
 				</jstl:if>
 			</jstl:if>
 		</display:column>

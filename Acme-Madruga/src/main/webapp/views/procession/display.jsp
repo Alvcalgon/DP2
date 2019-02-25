@@ -17,6 +17,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+	<security:authorize access="hasRole('MEMBER')">
+	<jstl:if test="${memberAutorize == true}">
+	<h2><a href="request/member/create.do?processionId=${procession.id}"><spring:message code="procession.request" /></a></h2> 
+	</jstl:if>
+	</security:authorize>
+	
+
 	<strong><spring:message code="procession.brotherhood"/>:</strong>
 		<jstl:out value="${brotherhood.title}"/>
 	<br/>
@@ -44,6 +51,8 @@
  	
  	</jstl:if>
  	</security:authorize>
+ 	
+ 	
  	<br/><br/>
 <jstl:if test="${ not empty floats}">	
 <fieldset name="">
@@ -76,6 +85,7 @@
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
 	</jstl:if>
 		</security:authorize>
+	
 	</fieldset>
 			</jstl:if>
 		<jstl:if test="${brotherhood==principal && !procession.isFinalMode }">
