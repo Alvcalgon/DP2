@@ -116,6 +116,7 @@ public class ProcessionController extends AbstractController {
 		result = new ModelAndView("procession/list");
 		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
 		result.addObject("processions", processions);
+		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))
@@ -127,6 +128,11 @@ public class ProcessionController extends AbstractController {
 					result.addObject("principal", principal);
 					result.addObject("isOwner", true);
 					result.addObject("processions", processions);
+					result.addObject("brotherhoodId", principal.getId());
+					if (principal.getArea() == null)
+						result.addObject("areaSelected", false);
+					else
+						result.addObject("areaSelected", true);
 				}
 		} catch (final Exception e) {
 		}

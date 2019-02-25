@@ -25,6 +25,9 @@ public class AreaService {
 	// Other supporting services -------------------
 
 	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
 	private AdministratorService	administratorService;
 
 
@@ -52,7 +55,7 @@ public class AreaService {
 		return areas;
 	}
 
-	public Area findOneToEdit(final int areaId) {
+	public Area findOneToEditAdministrator(final int areaId) {
 		Area result;
 
 		result = this.areaRepository.findOne(areaId);
@@ -65,11 +68,26 @@ public class AreaService {
 
 	public Area create() {
 		Area result;
-		this.checkPrincipalIsAdministrator();
 
 		result = new Area();
 
 		return result;
+	}
+
+	public Area save(final Area area, final int brotherhoodId) {
+		Assert.notNull(brotherhoodId);
+
+		Area result;
+		final Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+
+		result = this.areaRepository.save(area);
+
+		brotherhood.setArea(result);
+
+		return result;
+
 	}
 
 	public Area save(final Area area) {
@@ -77,7 +95,6 @@ public class AreaService {
 		this.checkPrincipalIsAdministrator();
 
 		Area result;
-
 		result = this.areaRepository.save(area);
 
 		return result;
@@ -91,6 +108,14 @@ public class AreaService {
 
 		this.areaRepository.delete(area);
 
+	}
+
+	public void findOneToEditBrotherhood(final int brotherhoodId) {
+		Brotherhood principal;
+
+		principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(principal.getId() == brotherhoodId);
 	}
 
 	// Protected methods --------------------------

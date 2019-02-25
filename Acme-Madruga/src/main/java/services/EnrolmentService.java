@@ -69,6 +69,7 @@ public class EnrolmentService {
 
 	private Enrolment save(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
+		Assert.isTrue(enrolment.getBrotherhood().getArea() != null);
 		this.checkOwnerBrotherhood(enrolment);
 
 		Enrolment saved;

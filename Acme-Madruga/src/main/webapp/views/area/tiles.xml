@@ -3,7 +3,11 @@
 <!-- 
  * tiles.xml
  *
+<<<<<<< HEAD
+ * Copyright (C) 2018 Universidad de Sevilla
+=======
  * Copyright (C) 2019 Universidad de Sevilla
+>>>>>>> e5bbadc6525f17b38a3295b63e58d60098d644b9
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -15,6 +19,12 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
        
 <tiles-definitions>
+
+	<definition name="area/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit Area" />
+		<put-attribute name="body" value="/views/area/edit.jsp" />
+	</definition>
+
 	<definition name="area/display" extends="master.page">	
 		<put-attribute name="title" value="Display area" />
 		<put-attribute name="body" value="/views/area/display.jsp" />
@@ -30,4 +40,5 @@
 		<put-attribute name="title" value="Area list" />
 		<put-attribute name="body" value="/views/area/list.jsp" />
 	</definition>
+
 </tiles-definitions>

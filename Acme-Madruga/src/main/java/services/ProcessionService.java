@@ -63,6 +63,10 @@ public class ProcessionService {
 		Assert.notNull(procession);
 
 		final Procession result;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+		Assert.isTrue(brotherhood.getArea() != null);
 
 		if (procession.getId() == 0) {
 			procession.setTicker(this.utilityService.generateValidTicker(procession.getMoment()));

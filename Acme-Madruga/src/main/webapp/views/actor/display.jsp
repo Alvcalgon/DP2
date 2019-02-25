@@ -118,5 +118,8 @@
 		&nbsp;
 	</jstl:if>
 </security:authorize>
-<a href="javascript: window.history.back();"><spring:message code="actor.return"/></a>
+
+ <security:authorize access="isAnonymous()"> 	
+ 	<a href="brotherhood/list.do"><spring:message code="actor.return"/></a>
+ </security:authorize>
 
