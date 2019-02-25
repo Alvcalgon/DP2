@@ -116,6 +116,7 @@ public class ProcessionController extends AbstractController {
 		result = new ModelAndView("procession/list");
 		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
 		result.addObject("processions", processions);
+		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))

@@ -43,3 +43,7 @@
 	
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
 	</security:authorize>
+	<br>
+
+	<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
+			code="actor.return" /></a>

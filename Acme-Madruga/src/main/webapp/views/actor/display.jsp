@@ -119,3 +119,7 @@
 	</jstl:if>
 </security:authorize>
 
+ <security:authorize access="isAnonymous()"> 	
+ 	<a href="brotherhood/list.do"><spring:message code="actor.return"/></a>
+ </security:authorize>
+

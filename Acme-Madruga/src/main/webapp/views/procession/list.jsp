@@ -92,8 +92,11 @@
 				code="select.area.procession" /></a>
 
 	</jstl:if>
-	 
+	 <br>
 </security:authorize>
+	
+	<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
+			code="actor.return" /></a>
 
 
 
