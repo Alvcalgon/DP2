@@ -42,15 +42,13 @@ public class BrotherhoodBroherhoodController extends AbstractController {
 	public ModelAndView selectArea() {
 		ModelAndView result;
 		final BrotherhoodForm brotherhoodForm;
-		final Brotherhood brotherhood;
 
 		try {
-			brotherhood = this.brotherhoodService.findBrotherhoodToSelectArea();
 
+			this.brotherhoodService.checkBrotherhoodHasArea();
 			brotherhoodForm = new BrotherhoodForm();
 
 			result = this.createEditModelAndView(brotherhoodForm);
-
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -95,6 +93,7 @@ public class BrotherhoodBroherhoodController extends AbstractController {
 		result = new ModelAndView("brotherhood/selectArea");
 		result.addObject("messageCode", messageCode);
 		result.addObject("areas", areas);
+		result.addObject("brotherhoodForm", brotherhoodForm);
 
 		return result;
 

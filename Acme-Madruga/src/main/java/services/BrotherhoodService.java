@@ -299,4 +299,13 @@ public class BrotherhoodService {
 
 	}
 
+	public void checkBrotherhoodHasArea() {
+		final Brotherhood principal;
+
+		principal = this.findByPrincipal();
+
+		Assert.isNull(principal.getArea());
+
+	}
+
 }

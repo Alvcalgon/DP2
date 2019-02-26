@@ -56,10 +56,10 @@
 		
 		<p> <strong> <spring:message code="actor.brotherhood.floats" />: </strong>  <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.floats"/></a></p>
 	
-		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <jstl:out value="${actor.area.name}" />
+		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out value="${actor.area.name}" /></a>
 		<jstl:if test="${actor.area.name == null}">
 
-		<a href="area/brotherhood/create.do?brotherhoodId=${actor.id}"><spring:message
+		<a href="brotherhood/brotherhood/selectArea.do"><spring:message
 				code="select.area.procession" /></a>
 
 		</jstl:if>
