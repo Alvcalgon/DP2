@@ -26,7 +26,7 @@
 					<li class="arrow"></li>
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation" /> </a></li>
 					<li><a href="position/administrator/list.do"> <spring:message code="master.page.position" /> </a></li>					
-					<li><a href="actor/administrator/create.do?role=administrator"><spring:message code="master.page.administrator.create" /></a></li>
+					<li><a href="actor/registerAdministrator.do"><spring:message code="master.page.administrator.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 				</ul>
 			</li>
@@ -70,8 +70,8 @@
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/create.do?role=brotherhood"><spring:message code="master.page.brotherhood.create" /></a></li>
-					<li><a href="actor/create.do?role=member"><spring:message code="master.page.member.create" /></a></li>
+					<li><a href="actor/registerBrotherhood.do"><spring:message code="master.page.brotherhood.create" /></a></li>
+					<li><a href="actor/registerMember.do"><spring:message code="master.page.member.create" /></a></li>
 				</ul>
 			</li>
 		

@@ -11,31 +11,27 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/administrator,brotherhood,member/edit.do" modelAttribute="actor" onsubmit="javascript:calcMD5();">
+<form:form action="actor/administrator,brotherhood,member/edit.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
-		<jstl:when test="${role == 'administrator'}">
-			<h2><spring:message code="header.administrator"/></h2>
+		<jstl:when test="${rol == 'Brotherhood'}">
+			<h2>
+				<spring:message code="header.brotherhood" />
+			</h2>
 		</jstl:when>
-		
-		<jstl:when test="${role == 'brotherhood'}">
-			<h2><spring:message code="header.brotherhood"/></h2>
-		
-			<form:hidden path="area"/>  
-			
+		<jstl:when test="${rol == 'Member'}">
+			<h2>
+				<spring:message code="header.member" />
+			</h2>
 		</jstl:when>
-		
-		<jstl:when test="${role == 'member'}">
-			<h2><spring:message code="header.member"/></h2>
+		<jstl:when test="${rol == 'Administrator'}">
+			<h2>
+				<spring:message code="header.administrator" />
+			</h2>
 		</jstl:when>
-		
-		
+
 	</jstl:choose>
-		
+
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="isSpammer"/>
-	<form:hidden path="score"/>
-	<form:hidden path="userAccount"/>
 	
 	<fieldset>
 		<legend><spring:message code="actor.legend"/></legend>
@@ -70,7 +66,7 @@
 		
 		<br /> 
 		
-		<jstl:if test="${role == 'brotherhood'}">
+		<jstl:if test="${rol == 'Brotherhood'}">
 		
 			<acme:textbox code="actor.brotherhood.title" path="title"/>
 			<br /> 
@@ -83,40 +79,31 @@
 		
 		</jstl:if>
 	</fieldset>
- 
+ <!-- 
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
 	
-		<label for="newusernameId">
-			<spring:message code="userAccount.newUsername" />
-		</label>
-		<input type="text" name="newUsername" id="newusernameId" value="${userAccount.username}"/>
-		<br />
-		
-		<label for="newPasswordId">
-			<spring:message code="userAccount.newPassword" />
-		</label>
-		<input type="password" name="newPassword" id="passwordId"/>
-		<br />
-		
-		<label for="confirmPasswordId">
-			<spring:message code="userAccount.confirmPassword" />
-		</label>
-		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
-		<br />
+		<acme:textbox path="username" code="userAccount.username.requested" />
+		<br>
+
+		<acme:password path="password" code="userAccount.password.requested" id="passwordId" />
+		<br>
+
+		<acme:password path="confirmPassword" code="userAccount.confirmPassword.requested" id="confirmPasswordId"/>
+		<br>
 		
 	</fieldset>
-	
+ -->	
  
  
  	<jstl:choose>
-		<jstl:when test="${role == 'administrator'}">
+		<jstl:when test="${rol == 'Administrator'}">
 			<acme:submit name="saveAdmin" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
-		<jstl:when test="${role == 'brotherhood'}">
+		<jstl:when test="${rol == 'Brotherhood'}">
 			<acme:submit name="saveBrotherhood" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
-		<jstl:when test="${role == 'member'}">
+		<jstl:when test="${rol == 'Member'}">
 			<acme:submit name="saveMember" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 	</jstl:choose>

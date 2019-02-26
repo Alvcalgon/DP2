@@ -11,31 +11,23 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="${Url}register${role}.do" modelAttribute="${role}" onsubmit="javascript:calcMD5();">
+<form:form action="actor/register${rol}.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
+		
+	<form:hidden path="id"/>
+	
 	<jstl:choose>
-		<jstl:when test="${role == 'administrator'}">
+		<jstl:when test="${rol == 'Brotherhood'}">
+			<h2><spring:message code="header.brotherhood"/></h2>
+		</jstl:when>
+		<jstl:when test="${rol == 'Member'}">
+			<h2><spring:message code="header.member"/></h2>
+		</jstl:when>
+		<jstl:when test="${rol == 'Administrator'}">
 			<h2><spring:message code="header.administrator"/></h2>
 		</jstl:when>
 		
-		<jstl:when test="${role == 'brotherhood'}">
-			<h2><spring:message code="header.brotherhood"/></h2>
-		
-			<!--  <form:hidden path="area"/>   -->
-			
-		</jstl:when>
-		
-		<jstl:when test="${role == 'member'}">
-			<h2><spring:message code="header.member"/></h2>
-		</jstl:when>
-		
-		
+	
 	</jstl:choose>
-		
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="isSpammer"/>
-	<form:hidden path="score"/>
-	<form:hidden path="userAccount"/>
 	
 	<p><spring:message code="form.note"/></p>
 	
@@ -70,7 +62,7 @@
 		
 		<br /> 
 		 
-		<jstl:if test="${role == 'brotherhood'}">
+		<jstl:if test="${rol == 'Brotherhood'}">
 		
 			<acme:textbox code="actor.brotherhood.title.requested" path="title"/>
 			<br /> 
@@ -103,25 +95,16 @@
 		
 		<br />
 		 -->
-		 
-		 <label for="usernameId">
-			<spring:message code="userAccount.username.requested" />
-		</label>
-		<input type="text" name="username" id="usernameId"/>
-		<br />
-		
-		<label for="passwordId">
-			<spring:message code="userAccount.password.requested" />
-		</label>
-		<input type="password" name="password" id="passwordId"/>
-		<br />
-		
-		<label for="confirmPasswordId">
-			<spring:message code="userAccount.confirmPassword.requested" />
-		</label>
-		<input type="password" name="confirmPassword" id="confirmPasswordId"/>
-		<br />
-		
+
+		<acme:textbox path="username" code="userAccount.username.requested" />
+		<br>
+
+		<acme:password path="password" code="userAccount.password.requested" id="passwordId" />
+		<br>
+
+		<acme:password path="confirmPassword" code="userAccount.confirmPassword.requested" id="confirmPasswordId"/>
+		<br>
+
 		<security:authorize access="hasRole('ADMIN')" >
 			
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="ADMIN"/>
@@ -131,13 +114,13 @@
  
 		<security:authorize access="isAnonymous()" >
 		
-		<jstl:if test="${role == 'brotherhood'}">
+		<jstl:if test="${rol == 'Brotherhood'}">
 		
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="BROTHERHOOD"/>
 			
 		</jstl:if>
 		
-		<jstl:if test="${role == 'member'}">
+		<jstl:if test="${role == 'Member'}">
 		
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="MEMBER"/>
 		
@@ -145,7 +128,6 @@
 		
 		</security:authorize>
 		
-		<input type="hidden" name="role" value="${role}"/>
 	</fieldset>
 	
 	<acme:submit name="save" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>

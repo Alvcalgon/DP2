@@ -43,13 +43,13 @@
 		
 		<security:intercept-url pattern="/error.do" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/actor/create.do**" access="permitAll" />
-		<security:intercept-url pattern="/actor/registerbrotherhood.do" access="permitAll" />
-		<security:intercept-url pattern="/actor/registermember.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/registerBrotherhood.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/actor/registerMember.do" access="isAnonymous()" />
 		
 		<security:intercept-url pattern="/actor/administrator,brotherhood,member/**" access="isAuthenticated()" /> 
 		
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/actor/registerAdministrator.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/display.do**" access="permitAll" />  
 		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" /> 
 		
