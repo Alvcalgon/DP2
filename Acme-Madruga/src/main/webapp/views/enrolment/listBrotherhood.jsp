@@ -10,7 +10,7 @@
 <display:table name="enrolments" id="row" requestURI="enrolment/member/listBrotherhood.do" pagesize="5" class="displaytag">
 
 	<display:column>
-		<a href="actor/display.do?actorId=${row.member.id}"><spring:message code="enrolment.display"/></a>
+		<a href="actor/display.do?actorId=${row.brotherhood.id}"><spring:message code="enrolment.display"/></a>
 	</display:column>
 	
 	<display:column property="brotherhood.title" titleKey="enrolment.brotherhood.title" sortable="true"/>
