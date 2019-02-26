@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ public class FinderService {
 		result.setKeyword("");
 		result.setArea("");
 		result.setUpdatedMoment(new Date(Integer.MIN_VALUE));
+		result.setProcessions(Collections.<Procession> emptySet());
 
 		return result;
 	}
@@ -120,8 +122,8 @@ public class FinderService {
 
 		result = this.finderRepository.findOne(finder.getId());
 
-		result.setKeyword(finder.getKeyword());
-		result.setArea(finder.getArea());
+		result.setKeyword(finder.getKeyword().trim());
+		result.setArea(finder.getArea().trim());
 		result.setMinimumDate(finder.getMinimumDate());
 		result.setMaximumDate(finder.getMaximumDate());
 

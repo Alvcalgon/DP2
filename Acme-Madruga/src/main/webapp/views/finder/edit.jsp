@@ -11,10 +11,6 @@
 <form:form action="finder/member/edit.do" modelAttribute="finder">
 
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	<form:hidden path="updatedMoment" value="0"/>
-	<form:hidden path="member" value="0"/>
-	<form:hidden path="processions" value="0"/>
 	
 	<acme:textbox path="keyword" code="finder.keyword"/>
 	<div>

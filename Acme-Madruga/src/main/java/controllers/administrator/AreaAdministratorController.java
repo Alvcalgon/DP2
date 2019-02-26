@@ -99,10 +99,8 @@ public class AreaAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
 		ModelAndView result;
-		Administrator admin;
 
 		try {
-			admin = this.administratorService.findByPrincipal();
 
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(area);
@@ -110,9 +108,13 @@ public class AreaAdministratorController extends AbstractController {
 				try {
 					this.areaService.save(area);
 					result = new ModelAndView("redirect:../administrator/list.do");
+				} catch (final IllegalArgumentException e1) {
+					result = this.createEditModelAndView(area, "area.commit.url");
+
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(area, "area.commit.error");
 				}
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -123,10 +125,8 @@ public class AreaAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Area area, final BindingResult binding) {
 		ModelAndView result;
-		Administrator admin;
 
 		try {
-			admin = this.administratorService.findByPrincipal();
 
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(area);
