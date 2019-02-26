@@ -57,6 +57,7 @@
 		<security:intercept-url pattern="/area/brotherhood/**" access="hasRole('BROTHERHOOD')" /> 
 		
 		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" />
+		<security:intercept-url pattern="/brotherhood/brotherhood/selectArea.do" access="hasRole('BROTHERHOOD')" />
 
 		<security:intercept-url pattern="/box/**" access="isAuthenticated()" /> 
 		
