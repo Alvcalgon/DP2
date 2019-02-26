@@ -120,8 +120,8 @@ public class FinderService {
 
 		result = this.finderRepository.findOne(finder.getId());
 
-		result.setKeyword(finder.getKeyword());
-		result.setArea(finder.getArea());
+		result.setKeyword(finder.getKeyword().trim());
+		result.setArea(finder.getArea().trim());
 		result.setMinimumDate(finder.getMinimumDate());
 		result.setMaximumDate(finder.getMaximumDate());
 
