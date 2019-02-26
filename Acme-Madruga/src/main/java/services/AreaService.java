@@ -107,7 +107,7 @@ public class AreaService {
 		this.checkPrincipalIsAdministrator();
 
 		Area result;
-		utilityService.checkPicture(area.getPictures());
+		this.utilityService.checkPicture(area.getPictures());
 		result = this.areaRepository.save(area);
 
 		return result;
@@ -143,8 +143,8 @@ public class AreaService {
 	// Private methods ---------------------------
 
 	private void checkUnusedArea(final Area area) {
-		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
 
+		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
 	}
 
 	private void checkPrincipalIsAdministrator() {
