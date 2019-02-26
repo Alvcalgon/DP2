@@ -13,6 +13,7 @@ import repositories.BrotherhoodRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Area;
 import domain.Brotherhood;
 
 @Service
@@ -129,12 +130,12 @@ public class BrotherhoodService {
 		return result;
 	}
 
-	//	public Collection<Brotherhood> findBrotherhoodFromArea(Area area) {
-	//		Collection<Brotherhood> brotherhoods;
-	//		
-	//		this.brotherhoodRepository.findBrotherhoodFromArea(area);
-	//		
-	//		return brotherhoods;
-	//	}
+	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
+		Collection<Brotherhood> brotherhoods;
+
+		brotherhoods = this.brotherhoodRepository.findBrotherhoodFromArea(area.getId());
+
+		return brotherhoods;
+	}
 
 }

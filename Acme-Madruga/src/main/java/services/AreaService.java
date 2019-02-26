@@ -128,10 +128,10 @@ public class AreaService {
 	}
 
 	// Protected methods --------------------------
-	protected Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
+	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
 		Collection<Brotherhood> result;
 
-		result = this.areaRepository.findBrotherhoodFromArea(area);
+		result = this.areaRepository.findBrotherhoodFromArea(area.getId());
 
 		return result;
 	}
@@ -139,7 +139,7 @@ public class AreaService {
 	// Private methods ---------------------------
 
 	private void checkUnusedArea(final Area area) {
-		//	Assert.isTrue(this.brotherhoodService.findBrotherhoodFromArea(area).isEmpty());
+		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
 
 	}
 

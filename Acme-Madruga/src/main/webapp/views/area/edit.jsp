@@ -51,7 +51,12 @@
 		<input type="button" name="cancel"
 			value="<spring:message code="area.cancel" />"
 			onclick="javascript: relativeRedir('area/administrator/list.do');" />
-
+			
+		<jstl:if test="${isEmpty==true}">	
+		<input type="submit" name="delete"
+			value="<spring:message code="area.delete" />" />
+		</jstl:if>
+		
 	</form:form>
 </security:authorize>
 

@@ -19,6 +19,7 @@ import services.AreaService;
 import controllers.AbstractController;
 import domain.Administrator;
 import domain.Area;
+import domain.Brotherhood;
 
 @Controller
 @RequestMapping("/area/administrator")
@@ -73,18 +74,28 @@ public class AreaAdministratorController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int areaId) {
 		ModelAndView result;
 		Area area;
+		Collection<Brotherhood> brotherhoods;
 
 		try {
+
 			area = this.areaService.findOneToEditAdministrator(areaId);
+			brotherhoods = this.areaService.findBrotherhoodFromArea(area);
+
 			Assert.notNull(area);
+
 			result = this.createEditModelAndView(area);
+			result.addObject("areaId", areaId);
+
+			if (brotherhoods.isEmpty())
+				result.addObject("isEmpty", true);
+			else
+				result.addObject("isEmpty", false);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
 		ModelAndView result;
@@ -109,22 +120,23 @@ public class AreaAdministratorController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int areaId) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Area area, final BindingResult binding) {
 		ModelAndView result;
 		Administrator admin;
-		Area area;
 
 		try {
 			admin = this.administratorService.findByPrincipal();
-			area = this.areaService.findOneToEditAdministrator(areaId);
 
-			try {
-				this.areaService.delete(area);
-				result = new ModelAndView("redirect:../administrator/list.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(area, "socialProfile.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(area);
+			else
+				try {
+					this.areaService.delete(area);
+					result = new ModelAndView("redirect:../administrator/list.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(area, "area.commit.error");
+				}
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}

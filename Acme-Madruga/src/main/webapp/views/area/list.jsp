@@ -27,11 +27,6 @@
 	</display:column>
 	
 	<display:column>
-		<a href="area/administrator/delete.do?areaId=${row.id}"><spring:message
-				code="area.delete" /></a>
-	</display:column>
-	
-	<display:column>
 		<a href="area/display.do?areaId=${row.id}"><spring:message
 				code="area.display" /></a>
 	</display:column>
