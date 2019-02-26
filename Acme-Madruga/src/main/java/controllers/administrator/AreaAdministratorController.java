@@ -110,9 +110,13 @@ public class AreaAdministratorController extends AbstractController {
 				try {
 					this.areaService.save(area);
 					result = new ModelAndView("redirect:../administrator/list.do");
+				} catch (final IllegalArgumentException e1) {
+					result = this.createEditModelAndView(area, "area.commit.url");
+
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(area, "area.commit.error");
 				}
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
