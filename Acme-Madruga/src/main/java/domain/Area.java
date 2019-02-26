@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -27,6 +28,7 @@ public class Area extends DomainEntity {
 
 	@Column(unique = true)
 	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}
@@ -34,7 +36,9 @@ public class Area extends DomainEntity {
 	public void setName(final String name) {
 		this.name = name;
 	}
+
 	@Column(length = 30000)
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getPictures() {
 		return this.pictures;
 	}

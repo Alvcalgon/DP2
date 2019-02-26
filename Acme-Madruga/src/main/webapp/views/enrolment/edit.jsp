@@ -12,7 +12,6 @@
 
 	<input type="hidden" name="isEnrolling" value="${isEnrolling}"/>	
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
 	<form:hidden path="registeredMoment"/>
 	<form:hidden path="dropOutMoment"/>
 	

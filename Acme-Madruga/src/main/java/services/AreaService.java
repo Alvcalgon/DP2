@@ -30,6 +30,9 @@ public class AreaService {
 	@Autowired
 	private AdministratorService	administratorService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors -------------------------------
 	public AreaService() {
@@ -104,6 +107,7 @@ public class AreaService {
 		this.checkPrincipalIsAdministrator();
 
 		Area result;
+		utilityService.checkPicture(area.getPictures());
 		result = this.areaRepository.save(area);
 
 		return result;
