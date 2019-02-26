@@ -76,7 +76,7 @@ public class RequestBrotherhoodController extends AbstractController {
 
 			try {
 				this.requestService.saveEditRejected(request);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:edit.do?requestId=" + requestId);
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(request, "request.commit.error");
 			}

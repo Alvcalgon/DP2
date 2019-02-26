@@ -42,9 +42,10 @@
 		<form:errors cssClass="error" path="columnProcession" />
 		<br />
 	</jstl:if>
+	
 	<jstl:if test="${request.status=='REJECTED'}">
 		<form:label path="reasonWhy">
-			<spring:message code="request.reasonWhy" />
+			<spring:message code="request.reasonWhyText" />
 		</form:label>
 		<form:input path="reasonWhy" />
 		<form:errors cssClass="error" path="reasonWhy" />
