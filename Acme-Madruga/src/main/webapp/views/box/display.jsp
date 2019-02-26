@@ -64,6 +64,11 @@
 			</a>
 		</display:column>
 		<display:column>
+			<a href="message/administrator,brotherhood,member/move.do?messageId=${row.id}&boxId=${box.id}">
+				<spring:message code="box.move" />
+			</a>
+		</display:column>
+		<display:column>
 			<a href="message/administrator,brotherhood,member/delete.do?messageId=${row.id}&boxId=${box.id}">
 				<spring:message code="box.delete" />
 			</a>
@@ -86,6 +91,14 @@
 	<spring:message code="message.send"/>
 </a>
 <br />
+
+<security:authorize access="hasRole('ADMIN')">
+	<a href="message/administrator/broadcast.do">
+		<spring:message code="message.broadcast" />
+	</a>
+</security:authorize>
+<br />
+
 <a href="box/administrator,brotherhood,member/list.do">
 	<spring:message code="box.return" />
 </a>

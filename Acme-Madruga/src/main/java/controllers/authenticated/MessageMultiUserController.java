@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdministratorService;
 import services.BoxService;
 import services.CustomisationService;
 import services.MessageService;
@@ -22,6 +23,7 @@ import domain.Actor;
 import domain.Box;
 import domain.Customisation;
 import domain.Message;
+import forms.MessageForm;
 
 @Controller
 @RequestMapping("/message/administrator,brotherhood,member")
@@ -38,6 +40,9 @@ public class MessageMultiUserController extends AbstractController {
 
 	@Autowired
 	private CustomisationService	customisationService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	public MessageMultiUserController() {
@@ -73,6 +78,46 @@ public class MessageMultiUserController extends AbstractController {
 
 		return result;
 
+	}
+
+	@RequestMapping(value = "/move", method = RequestMethod.GET)
+	public ModelAndView move(@RequestParam final int messageId, @RequestParam final int boxId) {
+		ModelAndView result;
+		MessageForm messageForm;
+
+		messageForm = new MessageForm();
+		messageForm.setMessageId(messageId);
+		messageForm.setOriginBoxId(boxId);
+
+		result = this.moveModelAndView(messageForm);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/move", method = RequestMethod.POST, params = "move")
+	public ModelAndView moveMessage(final MessageForm messageForm, final BindingResult binding) {
+		ModelAndView result;
+		Message target;
+		Box origin, destination;
+
+		target = this.messageService.findOne(messageForm.getMessageId());
+		origin = this.boxService.findOne(messageForm.getOriginBoxId());
+		destination = this.boxService.findOne(messageForm.getDestinationBoxId());
+
+		this.messageService.validateDestinationBox(messageForm, binding);
+		if (binding.hasErrors())
+			result = this.moveModelAndView(messageForm);
+		else
+			try {
+				this.messageService.moveMessage(target, origin, destination);
+				result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
+			} catch (final Throwable oops) {
+				result = this.moveModelAndView(messageForm, "message.commit.error");
+			}
+
+		result = this.moveModelAndView(messageForm);
+
+		return result;
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "send")
@@ -125,23 +170,51 @@ public class MessageMultiUserController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Message message, final String messageCode) {
 		ModelAndView result;
 		Collection<Actor> actors;
-		Actor principal;
+		Actor principal, system;
 		Customisation customisation;
 
 		customisation = this.customisationService.find();
 
+		system = this.administratorService.findSystem();
 		principal = this.actorService.findPrincipal();
 		actors = this.actorService.findAll();
 		actors.remove(principal);
+		actors.remove(system);
 
 		result = new ModelAndView("message/send");
 		result.addObject("message", message);
 		result.addObject("actors", actors);
 		result.addObject("priorities", customisation.getPriorities());
+		result.addObject("isBroadcastMessage", false);
+		result.addObject("actionURI", "message/administrator,brotherhood,member/send.do");
 		result.addObject("messageCode", messageCode);
 
 		return result;
 
+	}
+
+	protected ModelAndView moveModelAndView(final MessageForm messageForm) {
+		ModelAndView result;
+
+		result = this.moveModelAndView(messageForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView moveModelAndView(final MessageForm messageForm, final String messageCode) {
+		ModelAndView result;
+		Collection<Box> boxes;
+		Actor principal;
+
+		principal = this.actorService.findPrincipal();
+		boxes = this.boxService.findBoxesByActor(principal.getId());
+
+		result = new ModelAndView("message/move");
+		result.addObject("messageForm", messageForm);
+		result.addObject("destinationBoxes", boxes);
+		result.addObject("messageCode", messageCode);
+
+		return result;
 	}
 
 }

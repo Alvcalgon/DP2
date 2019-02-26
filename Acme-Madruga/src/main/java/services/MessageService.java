@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.MessageRepository;
 import domain.Actor;
@@ -21,6 +22,7 @@ import domain.Enrolment;
 import domain.Message;
 import domain.Procession;
 import domain.Request;
+import forms.MessageForm;
 
 @Service
 @Transactional
@@ -90,6 +92,21 @@ public class MessageService {
 		result.setSender(principal);
 		result.setRecipients(Collections.<Actor> emptySet());
 		result.setSentMoment(current_moment);
+
+		return result;
+	}
+
+	public Message createBroadcast() {
+		Message result;
+		Actor principal;
+		Collection<Actor> recipients;
+
+		principal = this.actorService.findPrincipal();
+		recipients = this.actorService.findAll();
+		recipients.remove(principal);
+
+		result = this.create();
+		result.setRecipients(recipients);
 
 		return result;
 	}
@@ -180,6 +197,17 @@ public class MessageService {
 		this.boxService.removeMessage(origin, message);
 	}
 
+	public Integer validateDestinationBox(final MessageForm messageForm, final BindingResult binding) {
+		Integer result;
+
+		result = messageForm.getDestinationBoxId();
+
+		if (result == null || result == 0)
+			binding.rejectValue("destinationBoxId", "message.error.null", "Must not be null");
+
+		return result;
+	}
+
 	public Message sendBroadcast(final Message message) {
 		Assert.notNull(message);
 		Assert.isTrue(message.getId() == 0);
@@ -187,12 +215,8 @@ public class MessageService {
 
 		Message result;
 		boolean isSpam;
-		Collection<Actor> allActors;
+		Collection<Actor> recipients;
 		Box outBoxSender, notificationBoxRecipient, spamBoxRecipient;
-
-		allActors = this.actorService.findAll();
-
-		message.setRecipients(allActors);
 
 		result = this.messageRepository.save(message);
 
@@ -200,15 +224,16 @@ public class MessageService {
 
 		this.boxService.addMessage(outBoxSender, result);
 
+		recipients = result.getRecipients();
 		isSpam = this.messageIsSpam(result);
 		if (isSpam)
-			for (final Actor a : allActors) {
+			for (final Actor a : recipients) {
 				spamBoxRecipient = this.boxService.findSpamBoxFromActor(a.getId());
 
 				this.boxService.addMessage(spamBoxRecipient, result);
 			}
 		else
-			for (final Actor a : allActors) {
+			for (final Actor a : recipients) {
 				notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
 
 				this.boxService.addMessage(notificationBoxRecipient, result);
