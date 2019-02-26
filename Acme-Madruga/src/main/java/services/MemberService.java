@@ -65,7 +65,7 @@ public class MemberService {
 		result = (Member) this.actorService.save(member);
 
 		if (!this.memberRepository.exists(member.getId()))
-			this.finderService.assignNewFinder(member);
+			this.finderService.assignNewFinder(result);
 
 		return result;
 	}
