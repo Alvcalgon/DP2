@@ -1692,6 +1692,55 @@
 		<property name="actor" ref="member2" />
 	</bean>
 
+
+	<bean id="box017" class="domain.Box">
+		<property name="name" value="box 4" />
+		<property name="isSystemBox" value="false" />
+		<property name="parent" ref="box012" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="member1" />
+	</bean>
+	
+	<bean id="box018" class="domain.Box">
+		<property name="name" value="box 5" />
+		<property name="isSystemBox" value="false" />
+		<property name="parent" ref="box012" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="member1" />
+	</bean>
+	
+	<bean id="box019" class="domain.Box">
+		<property name="name" value="box 6" />
+		<property name="isSystemBox" value="false" />
+		<property name="parent" ref="box018" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="member1" />
+	</bean>
+	
+	<bean id="box020" class="domain.Box">
+		<property name="name" value="box 7" />
+		<property name="isSystemBox" value="false" />
+		<property name="parent" ref="box013" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="member1" />
+	</bean>
+	
 	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
 		<property name="name" value="Hermandad de la santísima Máquina Virtual" />

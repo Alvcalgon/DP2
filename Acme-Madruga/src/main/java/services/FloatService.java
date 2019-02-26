@@ -127,7 +127,9 @@ public class FloatService {
 			result.setId(floatForm.getId());
 			this.utilityService.checkPicture(result.getPictures());
 		}
+
 		this.validator.validate(result, binding);
+
 		return result;
 	}
 	// Other business methods ---------------------
