@@ -139,7 +139,7 @@ public class RequestBrotherhoodController extends AbstractController {
 			else
 				try {
 					this.requestService.saveEdit(request);
-					result = new ModelAndView("redirect:../../brotherhood,member/request/list.do");
+					result = new ModelAndView("redirect:../../request/brotherhood/list.do");
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(request, "request.commit.error");
 				}

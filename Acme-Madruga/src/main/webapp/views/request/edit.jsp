@@ -59,6 +59,6 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="request.cancel" />"
-		onclick="javascript: relativeRedir('socialProfile/list.do');" />
+		onclick="javascript: relativeRedir('request/brotherhood/list.do');" />
 
 </form:form>
