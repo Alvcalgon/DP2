@@ -71,3 +71,9 @@
 		</form:form>
 	
 	</security:authorize>
+	
+	 	
+	 	<jstl:if test="${requestURI == 'member/list.do' }">
+	 		<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message code="actor.return"/></a>
+	 	</jstl:if>
+ 	

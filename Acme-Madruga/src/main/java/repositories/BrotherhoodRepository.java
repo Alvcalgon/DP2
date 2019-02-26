@@ -27,4 +27,7 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	@Query("select e.brotherhood from Enrolment e where e.dropOutMoment is null and e.registeredMoment is not null group by e.brotherhood having count(e) = (select min(1.0 * (select count(ee) from Enrolment ee where ee.dropOutMoment is null and ee.registeredMoment is not null and ee.brotherhood.id = b.id group by ee.brotherhood)) from Brotherhood b)")
 	Collection<Brotherhood> findSmallest();
 
+	@Query("select b from Brotherhood b where b.area.id=?1")
+	Collection<Brotherhood> findBrotherhoodFromArea(int areaId);
+
 }

@@ -42,6 +42,7 @@ public class MemberController extends AbstractController {
 
 		result.addObject("actors", members);
 		result.addObject("requestURI", "member/list.do");
+		result.addObject("brotherhoodId", brotherhoodId);
 		return result;
 	}
 

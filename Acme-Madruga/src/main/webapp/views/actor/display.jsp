@@ -56,7 +56,16 @@
 		
 		<p> <strong> <spring:message code="actor.brotherhood.floats" />: </strong>  <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.floats"/></a></p>
 	
-		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <jstl:out value="${actor.area.name}" /></p>
+		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <jstl:out value="${actor.area.name}" />
+		<jstl:if test="${actor.area.name == null}">
+
+		<a href="area/brotherhood/create.do?brotherhoodId=${actor.id}"><spring:message
+				code="select.area.procession" /></a>
+
+		</jstl:if>
+		</p>
+		
+		
 		
 	</jstl:if>
 	
@@ -118,5 +127,8 @@
 		&nbsp;
 	</jstl:if>
 </security:authorize>
-<a href="javascript: window.history.back();"><spring:message code="actor.return"/></a>
+
+ <security:authorize access="isAnonymous()"> 	
+ 	<a href="brotherhood/list.do"><spring:message code="actor.return"/></a>
+ </security:authorize>
 

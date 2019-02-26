@@ -134,7 +134,7 @@ public class RequestService {
 					request.setColumnProcession(j + 1);
 					break compare;
 				}
-		this.processionService.updateMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
+		this.processionService.addToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 
@@ -169,6 +169,8 @@ public class RequestService {
 	}
 
 	public void deleteDropOut(final Request request) {
+		if (request.getStatus().equals("APPROVED"))
+			this.processionService.removeToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		this.requestRepository.delete(request);
 	}
 
@@ -180,12 +182,12 @@ public class RequestService {
 		Collection<Request> requests;
 
 		member = this.memberService.findByPrincipal();
-		requests = this.findRequestByMemberProcession(member.getId(), procession.getId());
+		requests = this.findRequestMemberProcession(member.getId(), procession.getId());
 
 		Assert.isTrue(requests.isEmpty());
 	}
 
-	Collection<Request> findRequestByMemberProcession(final int memberId, final int processionId) {
+	public Collection<Request> findRequestMemberProcession(final int memberId, final int processionId) {
 		Collection<Request> requests;
 
 		requests = this.requestRepository.findRequestByMemberProcession(memberId, processionId);

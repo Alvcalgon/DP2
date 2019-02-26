@@ -74,10 +74,10 @@ public class RequestMemberController extends AbstractController {
 
 				procession = this.processionService.findOne(processionId);
 				request = this.requestService.create(procession);
-
-				result = this.createEditModelAndView(request);
-			} catch (final Throwable oops) {
+				this.requestService.saveNew(request);
 				result = new ModelAndView("redirect:/request/member/list.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("redirect:../../error.do");
 
 			}
 		} catch (final Exception e) {

@@ -2,6 +2,7 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import services.BrotherhoodService;
 import services.MemberService;
 import services.ProcessionService;
 import services.RequestService;
+import services.UtilityService;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Procession;
@@ -35,6 +37,9 @@ public class ProcessionController extends AbstractController {
 	@Autowired
 	private RequestService		requestService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -51,9 +56,13 @@ public class ProcessionController extends AbstractController {
 		Brotherhood brotherhood;
 		Brotherhood principal;
 		Collection<domain.Float> floats;
+		Collection<Member> members;
+		Date dateNow;
 
 		result = new ModelAndView("procession/display");
 		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+		members = this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId());
+		dateNow = this.utilityService.current_moment();
 
 		try {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
@@ -64,12 +73,21 @@ public class ProcessionController extends AbstractController {
 				result.addObject("principal", principal);
 
 			}
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
+				if (members.contains(this.memberService.findByPrincipal())) {
+					if (this.requestService.findRequestMemberProcession(this.memberService.findByPrincipal().getId(), processionId).isEmpty())
+						if (dateNow.before(this.processionService.findOne(processionId).getMoment()))
+							result.addObject("memberAutorize", true);
+				} else
+					result.addObject("memberAutorize", false);
+
 			procession = this.processionService.findOne(processionId);
 			floats = procession.getFloats();
 
 			result.addObject("procession", procession);
 			result.addObject("floats", floats);
 			result.addObject("brotherhood", brotherhood);
+			result.addObject("dateNow", dateNow);
 
 		} catch (final Exception e) {
 			try {
@@ -88,19 +106,17 @@ public class ProcessionController extends AbstractController {
 
 		return result;
 	}
-
 	// Procession list ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
 		Collection<Procession> processions;
 		Brotherhood principal;
-		Collection<Member> members;
 
 		result = new ModelAndView("procession/list");
-		members = this.memberService.findEnroledMemberByBrotherhood(brotherhoodId);
 		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
 		result.addObject("processions", processions);
+		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))
@@ -112,12 +128,12 @@ public class ProcessionController extends AbstractController {
 					result.addObject("principal", principal);
 					result.addObject("isOwner", true);
 					result.addObject("processions", processions);
+					result.addObject("brotherhoodId", principal.getId());
+					if (principal.getArea() == null)
+						result.addObject("areaSelected", false);
+					else
+						result.addObject("areaSelected", true);
 				}
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
-				if (members.contains(this.memberService.findByPrincipal()))
-					result.addObject("memberAutorize", true);
-				else
-					result.addObject("memberAutorize", false);
 		} catch (final Exception e) {
 		}
 

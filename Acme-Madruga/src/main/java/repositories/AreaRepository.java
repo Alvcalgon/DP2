@@ -14,6 +14,9 @@ import domain.Brotherhood;
 public interface AreaRepository extends JpaRepository<Area, Integer> {
 
 	@Query("select b from Brotherhood b where b.area.id=?1")
-	Collection<Brotherhood> findBrotherhoodFromArea(Area area);
+	Collection<Brotherhood> findBrotherhoodFromArea(int i);
+
+	@Query("select a.name from Area a")
+	Collection<String> findAllAreaNames();
 
 }

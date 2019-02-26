@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,13 @@ import security.UserAccount;
 import security.UserAccountService;
 import services.ActorService;
 import services.AdministratorService;
+import services.AreaService;
 import services.BrotherhoodService;
 import services.EnrolmentService;
 import services.MemberService;
 import domain.Actor;
 import domain.Administrator;
+import domain.Area;
 import domain.Brotherhood;
 import domain.Member;
 
@@ -42,6 +46,9 @@ public class ActorAbstractController extends AbstractController {
 
 	@Autowired
 	private UserAccountService		userAccountService;
+
+	@Autowired
+	private AreaService				areaService;
 
 
 	// Main methods -----------------------------------------------------------
@@ -185,10 +192,15 @@ public class ActorAbstractController extends AbstractController {
 
 	protected ModelAndView createModelAndView(final Actor actor, final String role, final String messageCode) {
 		ModelAndView result;
+		Collection<Area> areas;
+
+		areas = this.areaService.findAll();
 
 		result = new ModelAndView("actor/singup");
 		result.addObject("role", role);
 		result.addObject(role, actor);
+		if (role.equals("brotherhood"))
+			result.addObject("areas", areas);
 
 		result.addObject("messageCode", messageCode);
 
