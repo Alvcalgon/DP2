@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BoxRepository;
 import domain.Actor;
@@ -160,8 +161,10 @@ public class BoxService {
 		return results;
 	}
 
-	//	@Autowired
-	//	private Validator	validator;
+
+	@Autowired
+	private Validator	validator;
+
 
 	@Transactional(propagation = Propagation.NEVER)
 	public Box reconstruct(final Box box, final BindingResult binding) {
@@ -175,7 +178,7 @@ public class BoxService {
 		result.setName(box.getName());
 		result.setParent(box.getParent());
 
-		//this.validator.validate(result, binding);
+		this.validator.validate(result, binding);
 
 		return result;
 	}

@@ -19,22 +19,33 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+	<a href="box/administrator,brotherhood,member/display.do?boxId=${boxId}">
+		<spring:message code="message.button.return" />
+	</a>
+
 	<spring:message code="message.format.date" var="formatDate" />
-	<p> <strong> <spring:message code="message.display.sendMoment" />: </strong>  <fmt:formatDate value="${messageToDisplay.sendMoment}" pattern="${formatDate}"/> </p>
-	<br />
-	
-	<p> <strong> <spring:message code="message.display.subject" />: </strong> <jstl:out value="${messageToDisplay.subject}" /> </p>
-	<br />
+	<p> 
+		<strong> <spring:message code="message.display.sentMoment" />: </strong>
+		<fmt:formatDate value="${messageToDisplay.sentMoment}" pattern="${formatDate}"/>
+	</p>
+		
+	<p> 
+		<strong> <spring:message code="message.display.subject" />: </strong>
+	 	<jstl:out value="${messageToDisplay.subject}" />
+	</p>
 
-	<p> <strong> <spring:message code="message.display.body" />: </strong> <jstl:out value="${messageToDisplay.body}" /> </p>
-	<br />
+	<p> 
+		<strong> <spring:message code="message.display.body" />: </strong>
+		<jstl:out value="${messageToDisplay.body}" />
+	</p>
 
-	<p> <strong> <spring:message code="message.display.priority" />: </strong>  <jstl:out value="${messageToDisplay.priority}" /> </p>
-	<br />
+	<p>
+		<strong> <spring:message code="message.display.priority" />: </strong>
+	  	<jstl:out value="${messageToDisplay.priority}" />
+	</p>
 	
 	<jstl:if test="${not empty tags}">
 		<strong><spring:message code="message.display.tags"/>:</strong>
-		<br>
 		<ul>
 			<jstl:forEach var="tag" items="${tags}">
 				<li><jstl:out value="${tag}" /> </li>
@@ -42,32 +53,22 @@
 		</ul>
 	</jstl:if>
 	
-	<p> <strong> <spring:message code="message.display.sender" />: </strong>  <jstl:out value="${messageToDisplay.sender.name} ${messageToDisplay.sender.middleName} ${messageToDisplay.sender.surname} ${messageToDisplay.sender.email}" /> </p>
-	<br />
+	<p>
+		<strong> <spring:message code="message.display.sender" />: </strong>
+		<jstl:out value="${messageToDisplay.sender.fullname}" />
+	</p>
 
- <fieldset>
-	<legend><spring:message code="message.display.recipients"/></legend>
-	
-	<display:table name="${messageToDisplay.recipients }" id="row" requestURI="message/administrator,customer,handyWorker,referee,sponsor/display.do?messageId=${messageToDisplay.id }" pagesize="5" class="displaytag">
+	<strong> <spring:message code="message.display.recipients"/> </strong>
+	<display:table name="${messageToDisplay.recipients}" id="row" requestURI="message/administrator,brotherhood,member/display.do?messageId=${messageToDisplay.id}" pagesize="5" class="displaytag">
 		
-		<display:column property="name" titleKey="message.recipient.name"/>
-		
-		<display:column property="surname" titleKey="message.recipient.surname"/>
+		<display:column property="fullname" titleKey="message.recipient.name"/>
 	
 		<display:column property="email" titleKey="message.recipient.email"/>
 	
 	</display:table>
-</fieldset> 
-
-
-<input type="button" name="return" value="<spring:message code="message.button.return" />" 
-				onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/display.do?boxId=${boxId}');" />
-<!-- 
-<jstl:if test="${messageToDisplay.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="message.button.delete"/>" 
-			onclick="return confirm('<spring:message code="message.confirm.delete" />')" />
-
-</jstl:if>
- -->					
-<input type="submit" name="move" value="<spring:message code="message.button.move" />"
-				onclick="javascript: relativeRedir('message/administrator,customer,handyWorker,referee,sponsor/move.do?messageId=${messageToDisplay.id}');" />
+	
+<input type="submit"
+	   name="move"
+	   value="<spring:message code="message.button.move" />" onclick="javascript: relativeRedir('message/administrator,brotherhood,member/move.do?messageId=${messageToDisplay.id}');" />
+	   
+	   

@@ -18,63 +18,23 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="message/administrator,customer,handyWorker,referee,sponsor/send.do" modelAttribute="message" >
+<form:form action="message/administrator,brotherhood,member/send.do" modelAttribute="message" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="sendMoment"/>
+	<form:hidden path="sentMoment"/>
 	<form:hidden path="sender"/>
+	<form:hidden path="isSpam" />
 	
-	<form:label path="subject">
-		<spring:message code="message.display.subject"/>
-	</form:label>
-	<form:input path="subject"/>
-	<form:errors cssClass="error" path="subject"/>
-	<br>
-	
-	<form:label path="body">
-		<spring:message code="message.display.body"/>
-	</form:label>
-	<form:textarea path="body"/>
-	<form:errors cssClass="error" path="body"/>
-	<br>
-	
-	<form:label path="priority">
-		<spring:message code="message.display.priority"/>
-	</form:label>
-	<form:select path="priority">
-		<form:option label="-----" value="0"/>
-		<form:option label="HIGH" value="HIGH"/>
-		<form:option label="NEUTRAL" value="NEUTRAL"/>
-		<form:option label="LOW" value="LOW"/>
-	</form:select>
-	<br>
-
- 	
- 	<form:label path="recipients">
-		<spring:message code="message.display.recipients"/>
-	</form:label>
-	<form:select path="recipients">
-		<jstl:forEach var="recipient" items="${actors}">
-			<form:option label="${recipient.name} ${recipient.surname} - (${recipient.email})" value="${recipient.id}"/>
-		</jstl:forEach>
-	</form:select>
-	<br>
- 	
-	
-	
-	<form:label path="tags">
-		<spring:message code="message.display.tags"/>
-	</form:label>
-	<form:textarea path="tags"/>
-	<form:errors cssClass="error" path="tags"/>
-	<br>
-	
+	<acme:textbox path="subject" code="message.display.subject" />
+	<acme:textarea path="body" code="message.display.body" />
+	<acme:select path="priority" code="message.display.priority" items="${priorities}" itemLabel="${priorities.iterator}" />
+	<acme:select path="recipients" code="message.display.recipients" items="${actors}" itemLabel="fullname" />
+	<acme:textarea path="tags" code="message.display.tags" />	
+ 	<br />
 	
 	<!-- Buttons -->
-	
-	<input type="submit" name="send" value="<spring:message code="message.button.send"/>" />
-	<input type="button" name="cancel" value="<spring:message code="message.button.cancel"/>" 
-			onclick="javascript: relativeRedir('box/administrator,customer,handyWorker,referee,sponsor/list.do')" />	
-
+	<acme:submit name="send" code="message.button.send" />
+	<acme:cancel url="box/administrator,brotherhood,member/list.do" code="message.button.cancel" />
 </form:form>

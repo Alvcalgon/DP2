@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.EnrolmentRepository;
 import domain.Brotherhood;
@@ -39,9 +40,9 @@ public class EnrolmentService {
 	@Autowired
 	private UtilityService		utilityService;
 
+	@Autowired
+	private Validator			validator;
 
-	//	@Autowired
-	//	private Validator			validator;
 
 	// Constructors ---------------------------------------
 
@@ -158,7 +159,7 @@ public class EnrolmentService {
 
 			result.setPosition(enrolment.getPosition());
 
-			//this.validator.validate(result, binding);
+			this.validator.validate(result, binding);
 		}
 
 		return result;

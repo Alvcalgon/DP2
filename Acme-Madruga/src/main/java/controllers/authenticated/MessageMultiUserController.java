@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.BoxService;
+import services.CustomisationService;
 import services.MessageService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Box;
+import domain.Customisation;
 import domain.Message;
 
 @Controller
@@ -26,13 +28,16 @@ import domain.Message;
 public class MessageMultiUserController extends AbstractController {
 
 	@Autowired
-	private MessageService	messageService;
+	private MessageService			messageService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private BoxService		boxService;
+	private BoxService				boxService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	public MessageMultiUserController() {
@@ -40,7 +45,7 @@ public class MessageMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int messageId) {
+	public ModelAndView display(@RequestParam final int messageId, @RequestParam final int boxId) {
 		ModelAndView result;
 		Message message;
 
@@ -48,7 +53,8 @@ public class MessageMultiUserController extends AbstractController {
 			message = this.messageService.findOneToDisplay(messageId);
 
 			result = new ModelAndView("message/display");
-			result.addObject("message", message);
+			result.addObject("boxId", boxId);
+			result.addObject("messageToDisplay", message);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:error.do");
 		}
@@ -120,6 +126,9 @@ public class MessageMultiUserController extends AbstractController {
 		ModelAndView result;
 		Collection<Actor> actors;
 		Actor principal;
+		Customisation customisation;
+
+		customisation = this.customisationService.find();
 
 		principal = this.actorService.findPrincipal();
 		actors = this.actorService.findAll();
@@ -128,6 +137,7 @@ public class MessageMultiUserController extends AbstractController {
 		result = new ModelAndView("message/send");
 		result.addObject("message", message);
 		result.addObject("actors", actors);
+		result.addObject("priorities", customisation.getPriorities());
 		result.addObject("messageCode", messageCode);
 
 		return result;

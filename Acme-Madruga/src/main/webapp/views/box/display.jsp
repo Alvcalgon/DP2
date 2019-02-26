@@ -59,7 +59,7 @@
 	<p> <strong> <spring:message code="box.messages" />: </strong> </p>
 	<display:table name="messages" id="row" requestURI="box/administrator,brotherhood,member/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
 		<display:column>
-			<a href="message/administrator,brotherhood,member/display.do?messageId=${row.id}">
+			<a href="message/administrator,brotherhood,member/display.do?messageId=${row.id}&boxId=${box.id}">
 				<spring:message code="box.display" />
 			</a>
 		</display:column>
@@ -82,7 +82,7 @@
 </jstl:if>
 
 <!-- LINKS -->
-<a href="message/administrator,customer,handyWorker,referee,sponsor/send.do">
+<a href="message/administrator,brotherhood,member/send.do">
 	<spring:message code="message.send"/>
 </a>
 <br />
