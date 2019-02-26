@@ -20,7 +20,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="message/administrator,brotherhood,member/send.do" modelAttribute="message" >
+<form:form action="${actionURI}" modelAttribute="message" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="sentMoment"/>
@@ -29,8 +29,15 @@
 	
 	<acme:textbox path="subject" code="message.display.subject" />
 	<acme:textarea path="body" code="message.display.body" />
-	<acme:select path="priority" code="message.display.priority" items="${priorities}" itemLabel="${priorities.iterator}" />
-	<acme:select path="recipients" code="message.display.recipients" items="${actors}" itemLabel="fullname" />
+	<acme:selectPrime path="priority" code="message.display.priority" items="${priorities}" />
+	
+	<jstl:if test="${!isBroadcastMessage}">
+		<acme:selectMandatory path="recipients" code="message.display.recipients" items="${actors}" itemLabel="fullname" multiple="true" />
+	</jstl:if>
+	<jstl:if test="${isBroadcastMessage}">
+		<form:hidden path="recipients" />
+	</jstl:if>
+
 	<acme:textarea path="tags" code="message.display.tags" />	
  	<br />
 	

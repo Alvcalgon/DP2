@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -38,6 +39,7 @@ public class Finder extends DomainEntity {
 
 
 	@NotNull
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -47,6 +49,7 @@ public class Finder extends DomainEntity {
 	}
 
 	@NotNull
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getArea() {
 		return this.area;
 	}
