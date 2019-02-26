@@ -3,22 +3,33 @@ package controllers.administrator;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AdministratorService;
 import services.AreaService;
 import controllers.AbstractController;
+import domain.Administrator;
 import domain.Area;
+import domain.Brotherhood;
 
 @Controller
 @RequestMapping("/area/administrator")
 public class AreaAdministratorController extends AbstractController {
 
 	@Autowired
-	private AreaService	areaService;
+	private AreaService				areaService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	public AreaAdministratorController() {
@@ -40,71 +51,124 @@ public class AreaAdministratorController extends AbstractController {
 		return result;
 	}
 
-	//	//Edit
-	//	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	//	public ModelAndView edit(@RequestParam final int requestId) {
-	//		ModelAndView result;
-	//		Request request;
-	//
-	//		try {
-	//			request = this.requestService.findOneToBrotherhood(requestId);
-	//			Assert.notNull(request);
-	//			result = this.createEditModelAndView(request);
-	//		} catch (final Exception e) {
-	//			result = new ModelAndView("redirect:../../error.do");
-	//		}
-	//
-	//		return result;
-	//	}
-	//
-	//	//Save
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Request request, final BindingResult binding) {
-	//		ModelAndView result;
-	//		Brotherhood brotherhood;
-	//
-	//		try {
-	//			brotherhood = this.brotherhoodService.findByPrincipal();
-	//
-	//			if (binding.hasErrors())
-	//				result = this.createEditModelAndView(request);
-	//			else
-	//				try {
-	//					this.requestService.saveEdit(request);
-	//					result = new ModelAndView("redirect:../../brotherhood,member/request/list.do");
-	//				} catch (final Throwable oops) {
-	//					result = this.createEditModelAndView(request, "request.commit.error");
-	//				}
-	//		} catch (final Exception e) {
-	//			result = new ModelAndView("redirect:../../error.do");
-	//		}
-	//
-	//		return result;
-	//	}
-	//
-	//	// Arcillary methods --------------------------
-	//
-	//	protected ModelAndView createEditModelAndView(final Request request) {
-	//		ModelAndView result;
-	//
-	//		result = this.createEditModelAndView(request, null);
-	//
-	//		return result;
-	//	}
-	//
-	//	protected ModelAndView createEditModelAndView(final Request request, final String messageCode) {
-	//		ModelAndView result;
-	//		int brotherhoodId;
-	//
-	//		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
-	//
-	//		result = new ModelAndView("request/edit");
-	//		result.addObject("request", request);
-	//		result.addObject("messageCode", messageCode);
-	//		result.addObject("brotherhoodId", brotherhoodId);
-	//
-	//		return result;
-	//
-	//	}
+	// Create
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Area area;
+
+		try {
+			area = this.areaService.create();
+
+			result = this.createEditModelAndView(area);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	// Edit
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int areaId) {
+		ModelAndView result;
+		Area area;
+		Collection<Brotherhood> brotherhoods;
+
+		try {
+
+			area = this.areaService.findOneToEditAdministrator(areaId);
+			brotherhoods = this.areaService.findBrotherhoodFromArea(area);
+
+			Assert.notNull(area);
+
+			result = this.createEditModelAndView(area);
+			result.addObject("areaId", areaId);
+
+			if (brotherhoods.isEmpty())
+				result.addObject("isEmpty", true);
+			else
+				result.addObject("isEmpty", false);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
+		ModelAndView result;
+		Administrator admin;
+
+		try {
+			admin = this.administratorService.findByPrincipal();
+
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(area);
+			else
+				try {
+					this.areaService.save(area);
+					result = new ModelAndView("redirect:../administrator/list.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(area, "area.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Area area, final BindingResult binding) {
+		ModelAndView result;
+		Administrator admin;
+
+		try {
+			admin = this.administratorService.findByPrincipal();
+
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(area);
+			else
+				try {
+					this.areaService.delete(area);
+					result = new ModelAndView("redirect:../administrator/list.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(area, "area.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	// Arcillary methods --------------------------
+
+	protected ModelAndView createEditModelAndView(final Area area) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(area, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Area area, final String messageCode) {
+		ModelAndView result;
+		Administrator admin;
+		int actorId;
+
+		admin = this.administratorService.findByPrincipal();
+		actorId = admin.getId();
+
+		result = new ModelAndView("area/edit");
+		result.addObject("area", area);
+		result.addObject("messageCode", messageCode);
+		result.addObject("actorId", actorId);
+
+		return result;
+
+	}
 
 }

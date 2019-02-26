@@ -32,4 +32,9 @@
 		<put-attribute name="body" value="/views/procession/list.jsp" />
 	</definition>
 	
+	<definition name="procession/listFinder" extends="master.page">	
+		<put-attribute name="title" value="Buscador de procesiones" />
+		<put-attribute name="body" value="/views/procession/list.jsp" />
+	</definition>
+	
 </tiles-definitions>

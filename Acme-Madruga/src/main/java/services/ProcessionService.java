@@ -9,11 +9,14 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ProcessionRepository;
 import domain.Brotherhood;
+import domain.Finder;
 import domain.Float;
 import domain.Procession;
 import domain.Request;
@@ -145,7 +148,7 @@ public class ProcessionService {
 		return result;
 	}
 
-	public Procession updateMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
+	public Procession addToMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
 		Assert.notNull(procession);
 
 		Procession result;
@@ -156,6 +159,30 @@ public class ProcessionService {
 		procession.setMatrizProcession(matriz);
 
 		result = this.processionRepository.save(procession);
+
+		return result;
+	}
+
+	public Procession removeToMatriz(final Procession procession, final Integer rowProcession, final Integer columnProcession) {
+		Assert.notNull(procession);
+
+		Procession result;
+		Integer[][] matriz;
+
+		matriz = procession.getMatrizProcession();
+		matriz[rowProcession - 1][columnProcession - 1] = 0;
+		procession.setMatrizProcession(matriz);
+
+		result = this.processionRepository.save(procession);
+
+		return result;
+	}
+
+	protected Page<Procession> searchProcessionFinder(final Finder finder, final Pageable pageable) {
+		Page<Procession> result;
+
+		result = this.processionRepository.searchProcessionFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
+		Assert.notNull(result);
 
 		return result;
 	}

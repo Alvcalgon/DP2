@@ -10,38 +10,42 @@
  --%>
 
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-
-<form action="area/brotherhood/edit.do" method="post">
-
-	<security:authorize access="hasRole('BROTHERHOOD')">
+	<form:form action="area/administrator/edit.do"
+		modelAttribute="area">
+		<form:hidden path="id" />
+		<form:hidden path="version" />
 		
-		<input type="hidden" name="brotherhoodId" value="${brotherhoodId}">
-		
-		<label for="areaSelectId"> <spring:message code="area.form" />
-		</label>
-		<select name="areaId" id="areaSelectId">
-			<jstl:if test="${not empty areas}">
-				<jstl:forEach var="rowArea" items="${areas}">
-					<option value="${rowArea.id}">${rowArea.name}</option>
-				</jstl:forEach>
-			</jstl:if>
-		</select>
+<acme:textbox code="area.name" path="name"/>
 
-	</security:authorize>
-	
-	<acme:submit name="save" code="area.save"/>
-	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do" code="area.cancel"/>
-	<br />
-</form>
+		<acme:textarea code="area.pictures" path="pictures" />
+
+		<br />
+
+		<!-- Buttons -->
+
+		<acme:submit name="save" code="area.save"/>	
+
+		<input type="button" name="cancel"
+			value="<spring:message code="area.cancel" />"
+			onclick="javascript: relativeRedir('area/administrator/list.do');" />
+			
+		<jstl:if test="${isEmpty==true}">	
+		<input type="submit" name="delete"
+			value="<spring:message code="area.delete" />" />
+		</jstl:if>
+		
+	</form:form>
 
 

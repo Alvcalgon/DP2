@@ -12,11 +12,8 @@
 
 	<input type="hidden" name="isEnrolling" value="${isEnrolling}"/>	
 	<form:hidden path="id"/>
-	<form:hidden path="version"/>
 	<form:hidden path="registeredMoment"/>
 	<form:hidden path="dropOutMoment"/>
-	<form:hidden path="member" value="0"/>
-	<form:hidden path="brotherhood" value="0"/>
 	
 	<div>
 		<strong><spring:message code="enrolment.member"/>:</strong>

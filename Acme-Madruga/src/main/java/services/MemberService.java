@@ -39,6 +39,9 @@ public class MemberService {
 	@Autowired
 	private UserAccountService	userAccountService;
 
+	@Autowired
+	private FinderService		finderService;
+
 
 	// Constructors -------------------------------
 
@@ -83,6 +86,9 @@ public class MemberService {
 		Member result;
 
 		result = (Member) this.actorService.save(member);
+
+		if (!this.memberRepository.exists(member.getId()))
+			this.finderService.assignNewFinder(result);
 
 		return result;
 	}

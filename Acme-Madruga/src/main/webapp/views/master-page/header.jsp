@@ -28,6 +28,7 @@
 					<li><a href="position/administrator/list.do"> <spring:message code="master.page.position" /> </a></li>					
 					<li><a href="actor/registerAdministrator.do"><spring:message code="master.page.administrator.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
+					<li><a href="area/administrator/list.do"><spring:message code="master.page.area.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -46,6 +47,8 @@
 					<li><a href="enrolment/member/listBrotherhood.do"><spring:message code="master.page.brotherhoods.belong" /></a></li>			
 				</ul>
 			</li>
+			
+			<li><a class="fNiv" href="procession/member/listFinder.do"><spring:message code="master.page.finder.procession" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">
@@ -65,6 +68,7 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
@@ -74,11 +78,10 @@
 					<li><a href="actor/registerMember.do"><spring:message code="master.page.member.create" /></a></li>
 				</ul>
 			</li>
-		
-			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
@@ -87,11 +90,10 @@
 				<ul>
 					<li class="arrow"></li>		
 					<li><a href="actor/display.do"><spring:message code="master.page.actor.display" /></a></li>			
+					<li><a href="box/administrator,brotherhood,member/list.do"><spring:message code="master.page.box.list" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
-			
-			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
 		</security:authorize>
 	</ul>
 </div>

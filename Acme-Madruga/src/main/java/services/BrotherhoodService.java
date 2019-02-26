@@ -16,7 +16,9 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
+import domain.Area;
 import domain.Brotherhood;
+import forms.BrotherhoodForm;
 import forms.BrotherhoodRegistrationForm;
 
 @Service
@@ -268,6 +270,31 @@ public class BrotherhoodService {
 		if (result.equals(null))
 			binding.rejectValue("establishmentDate", "establishmentDate.error.blank", "Must not be blank");
 
+		return result;
+	}
+
+	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
+		Collection<Brotherhood> brotherhoods;
+
+		brotherhoods = this.brotherhoodRepository.findBrotherhoodFromArea(area.getId());
+
+		return brotherhoods;
+	}
+	public Brotherhood findBrotherhoodToSelectArea() {
+		Brotherhood result;
+
+		result = this.findByPrincipal();
+
+		Assert.isNull(result.getArea());
+
+		return result;
+	}
+
+	public Brotherhood reconstruct(final BrotherhoodForm brotherhoodForm, final BindingResult binding) {
+		final Brotherhood result;
+
+		result = this.findBrotherhoodToSelectArea();
+		result.setArea(brotherhoodForm.getArea());
 		return result;
 
 	}

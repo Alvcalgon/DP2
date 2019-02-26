@@ -153,15 +153,10 @@ public class EnrolmentService {
 	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
 		Enrolment result;
 
-		if (enrolment.getId() == 0)
-			result = enrolment;
-		else {
-			result = this.enrolmentRepository.findOne(enrolment.getId());
+		result = this.enrolmentRepository.findOne(enrolment.getId());
+		result.setPosition(enrolment.getPosition());
 
-			result.setPosition(enrolment.getPosition());
-
-			this.validator.validate(result, binding);
-		}
+		this.validator.validate(result, binding);
 
 		return result;
 	}

@@ -27,13 +27,14 @@
 	</display:column>
 	
 	<display:column>
-		<a href="area/administrator/delete.do?areaId=${row.id}"><spring:message
-				code="area.delete" /></a>
+		<a href="area/display.do?areaId=${row.id}"><spring:message
+				code="area.display" /></a>
 	</display:column>
 
-	<display:column	property="area.name" titleKey="area.name" />
+	<display:column	property="name" titleKey="area.name" />
 	
-	<display:column	property="area.pictures" titleKey="area.pictures" />
 
 </display:table>
+
+<a href="area/administrator/create.do"><spring:message code="area.create"/></a>
 
