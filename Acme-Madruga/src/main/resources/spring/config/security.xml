@@ -85,6 +85,8 @@
 	
 		<security:intercept-url pattern="/socialProfile/administrator,brotherhood,member/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialProfile/**" access="permitAll" />
+		
+		<security:intercept-url pattern="/finder/member/**" access="hasRole('MEMBER')" />
 	
 		<security:intercept-url pattern="/float/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/float/list.do" access="permitAll" /> 
@@ -100,6 +102,7 @@
 		<security:intercept-url pattern="/procession/brotherhood/create.do"  access="hasRole('BROTHERHOOD')"/> 
 		<security:intercept-url pattern="/procession/brotherhood/delete.do"  access="hasRole('BROTHERHOOD')"/> 	
 		<security:intercept-url pattern="/procession/brotherhood/makeFinal.do"  access="hasRole('BROTHERHOOD')"/> 	
+		<security:intercept-url pattern="/procession/member/**"  access="hasRole('MEMBER')"/>
 		
 		
 		
