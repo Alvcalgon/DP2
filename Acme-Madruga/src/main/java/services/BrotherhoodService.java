@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
@@ -15,6 +16,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
+import forms.BrotherhoodForm;
 
 @Service
 @Transactional
@@ -136,6 +138,23 @@ public class BrotherhoodService {
 		brotherhoods = this.brotherhoodRepository.findBrotherhoodFromArea(area.getId());
 
 		return brotherhoods;
+	}
+	public Brotherhood findBrotherhoodToSelectArea() {
+		Brotherhood result;
+
+		result = this.findByPrincipal();
+
+		Assert.isNull(result.getArea());
+
+		return result;
+	}
+
+	public Brotherhood reconstruct(final BrotherhoodForm brotherhoodForm, final BindingResult binding) {
+		final Brotherhood result;
+
+		result = this.findBrotherhoodToSelectArea();
+		result.setArea(brotherhoodForm.getArea());
+		return result;
 	}
 
 }

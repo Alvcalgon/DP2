@@ -34,7 +34,9 @@
 
 	
 	<!-- Links -->	
-	
-	<a href="area/list.do?brotherhoodId=">
+
+<security:authorize access="hasRole('ADMIN')">
+	<a href="area/administrator/list.do">
 		<spring:message	code="area.back" />			
 	</a>
+	</security:authorize>
