@@ -168,7 +168,7 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isAuthorized", false);
 		}
 
-		if (principal != null && principal instanceof Member) {
+		if (principal != null && actor != null && principal instanceof Member && actor instanceof Brotherhood) {
 			isEnrolled = this.enrolmentService.findIsEnrolledIn(principal.getId(), actorId);
 			existEnrolmentRequest = this.enrolmentService.findExistEnrolmentRequestOf(principal.getId(), actorId);
 
