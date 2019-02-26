@@ -99,10 +99,8 @@ public class AreaAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Area area, final BindingResult binding) {
 		ModelAndView result;
-		Administrator admin;
 
 		try {
-			admin = this.administratorService.findByPrincipal();
 
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(area);
@@ -127,10 +125,8 @@ public class AreaAdministratorController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Area area, final BindingResult binding) {
 		ModelAndView result;
-		Administrator admin;
 
 		try {
-			admin = this.administratorService.findByPrincipal();
 
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(area);
