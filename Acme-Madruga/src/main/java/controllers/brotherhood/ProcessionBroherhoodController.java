@@ -94,7 +94,11 @@ public class ProcessionBroherhoodController extends AbstractController {
 				saved = this.processionService.save(procession, rowLimit, columnLimit);
 				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
+			} catch (final IllegalArgumentException invalidMoment) {
+				result = this.createEditModelAndView(procession, "procession.invalid.moment");
+			}
+
+			catch (final Throwable oops) {
 				result = this.createEditModelAndView(procession, "procession.commit.error");
 			}
 
