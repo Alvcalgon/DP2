@@ -131,7 +131,12 @@ public class EnrolmentService {
 	}
 
 	public Enrolment enrol(final Enrolment enrolment) {
-		Enrolment saved;
+		Enrolment saved, inactive;
+
+		inactive = this.findInactiveByBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
+
+		if (inactive != null)
+			this.enrolmentRepository.delete(inactive);
 
 		this.checkIsRequest(enrolment);
 
@@ -194,7 +199,7 @@ public class EnrolmentService {
 		return result;
 	}
 
-	public Enrolment findByBrotherhoodId(final int brotherhoodId) {
+	public Enrolment findActiveByBrotherhoodId(final int brotherhoodId) {
 		Enrolment result;
 		Member principal;
 
@@ -221,6 +226,14 @@ public class EnrolmentService {
 		brotherhood = this.brotherhoodService.findByPrincipal();
 		result = this.enrolmentRepository.findRequestEnrolments(brotherhood.getId());
 		Assert.notNull(result);
+
+		return result;
+	}
+
+	private Enrolment findInactiveByBrotherhoodId(final int memberId, final int brotherhoodId) {
+		Enrolment result;
+
+		result = this.enrolmentRepository.findInactiveEnrolment(memberId, brotherhoodId);
 
 		return result;
 	}

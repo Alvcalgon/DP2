@@ -67,10 +67,7 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		result.addObject("enrolments", enrolments);
 		result.addObject("isRequestList", true);
 		result.addObject("brotherhoodId", brotherhood.getId());
-		if (brotherhood.getArea() == null)
-			result.addObject("areaSelected", false);
-		else
-			result.addObject("areaSelected", true);
+		result.addObject("areaSelected", brotherhood.getArea() != null);
 
 		return result;
 	}

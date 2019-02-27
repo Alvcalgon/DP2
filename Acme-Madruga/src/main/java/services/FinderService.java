@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -70,25 +69,30 @@ public class FinderService {
 
 	public void save(final Finder finder) {
 		Assert.notNull(finder);
+		Assert.isTrue(this.validDates(finder));
 
-		this.finderRepository.save(finder);
-	}
-
-	// Other business methods -----------------------------
-
-	public Finder evaluateSearch(final Finder finder) {
-		Page<Procession> processions;
+		Finder saved;
 		Pageable pageable;
 		Customisation customisation;
 
 		customisation = this.customisationService.find();
 		pageable = new PageRequest(0, customisation.getMaxNumberResults());
 
-		if (this.isFinderOutdated(finder.getUpdatedMoment(), customisation.getTimeCachedResults())) {
-			processions = this.processionService.searchProcessionFinder(finder, pageable);
+		saved = this.finderRepository.save(finder);
+		this.processionService.searchProcessionFinder(saved, pageable);
+	}
 
-			finder.setProcessions(processions.getContent());
-		}
+	// Other business methods -----------------------------
+
+	public Finder evaluateSearch(final Finder finder) {
+		Pageable pageable;
+		Customisation customisation;
+
+		customisation = this.customisationService.find();
+		pageable = new PageRequest(0, customisation.getMaxNumberResults());
+
+		if (this.isFinderOutdated(finder.getUpdatedMoment(), customisation.getTimeCachedResults()))
+			this.processionService.searchProcessionFinder(finder, pageable);
 
 		return finder;
 	}
@@ -132,6 +136,8 @@ public class FinderService {
 		result.setVersion(finderStored.getVersion());
 
 		this.validator.validate(result, binding);
+		if (!this.validDates(result))
+			binding.rejectValue("minimumDate", null, "Minimum date cannot be later than maximum date.");
 
 		return result;
 	}
@@ -174,4 +180,14 @@ public class FinderService {
 		return result;
 	}
 
+	private boolean validDates(final Finder finder) {
+		boolean result;
+
+		if (finder.getMaximumDate() != null && finder.getMinimumDate() != null)
+			result = finder.getMinimumDate().before(finder.getMaximumDate());
+		else
+			result = true;
+
+		return result;
+	}
 }

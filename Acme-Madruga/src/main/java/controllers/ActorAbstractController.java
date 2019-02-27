@@ -31,8 +31,9 @@ public class ActorAbstractController extends AbstractController {
 	public ModelAndView display(final Integer actorId) {
 		ModelAndView result;
 		Actor actor, principal;
-		boolean isEnrolled;
-		boolean existEnrolmentRequest;
+		Brotherhood brotherhood;
+		boolean isEnrolled, existEnrolmentRequest;
+		final boolean hasSelectedArea;
 
 		actor = null;
 		principal = null;
@@ -59,8 +60,11 @@ public class ActorAbstractController extends AbstractController {
 		if (principal != null && actor != null && principal instanceof Member && actor instanceof Brotherhood) {
 			isEnrolled = this.enrolmentService.findIsEnrolledIn(principal.getId(), actorId);
 			existEnrolmentRequest = this.enrolmentService.findExistEnrolmentRequestOf(principal.getId(), actorId);
+			brotherhood = (Brotherhood) actor;
+			hasSelectedArea = brotherhood.getArea() != null;
 
 			result.addObject("isEnrolled", isEnrolled);
+			result.addObject("hasSelectedArea", hasSelectedArea);
 			result.addObject("existEnrolmentRequest", existEnrolmentRequest);
 		}
 
