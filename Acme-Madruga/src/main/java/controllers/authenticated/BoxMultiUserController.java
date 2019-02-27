@@ -121,9 +121,11 @@ public class BoxMultiUserController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Box box, final BindingResult binding) {
 		ModelAndView result;
+		Box deleted;
 
+		deleted = this.boxService.findOne(box.getId());
 		try {
-			this.boxService.delete(box);
+			this.boxService.delete(deleted);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(box, "box.commit.error");

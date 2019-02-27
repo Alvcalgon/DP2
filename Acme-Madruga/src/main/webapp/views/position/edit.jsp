@@ -25,7 +25,7 @@
 	<acme:textbox code="position.esName" path="es_name"/>
 
 	<acme:submit name="save" code="position.save"/>	
-	<jstl:if test="${positionForm.id != 0 }"> 
+	<jstl:if test="${positionForm.id != 0}"> 
 		<acme:submit name="delete" code="position.delete"/>
 	</jstl:if>
 	<acme:cancel url="position/administrator/list.do" code="position.cancel" />
