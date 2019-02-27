@@ -101,15 +101,16 @@ public class BoxMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Box box, final BindingResult binding) {
+	public ModelAndView save(final Box box, final BindingResult binding) {
 		ModelAndView result;
+		Box boxRec;
 
-		box = this.boxService.reconstruct(box, binding);
+		boxRec = this.boxService.reconstruct(box, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(box);
 		else
 			try {
-				this.boxService.save(box);
+				this.boxService.save(boxRec);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(box, "box.commit.error");

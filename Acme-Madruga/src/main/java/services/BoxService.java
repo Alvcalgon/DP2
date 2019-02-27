@@ -6,10 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -166,7 +166,6 @@ public class BoxService {
 	private Validator	validator;
 
 
-	@Transactional(propagation = Propagation.NEVER)
 	public Box reconstruct(final Box box, final BindingResult binding) {
 		Box result;
 

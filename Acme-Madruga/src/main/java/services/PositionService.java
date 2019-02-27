@@ -10,12 +10,13 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.PositionRepository;
 import domain.Position;
@@ -113,7 +114,11 @@ public class PositionService {
 		return result;
 	}
 
-	@Transactional(propagation = Propagation.NEVER)
+
+	@Autowired
+	private Validator	validator;
+
+
 	public Position reconstruct(final PositionForm positionForm) {
 		Position result;
 		List<TranslationPosition> translationPositions;
