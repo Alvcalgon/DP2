@@ -90,7 +90,7 @@ public class ProcessionBroherhoodController extends AbstractController {
 		else
 			try {
 				rowLimit = this.customisationService.find().getRowLimit();
-				columnLimit = this.customisationService.find().getRowLimit();
+				columnLimit = this.customisationService.find().getColumnLimit();
 				saved = this.processionService.save(procession, rowLimit, columnLimit);
 				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());

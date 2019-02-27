@@ -90,6 +90,7 @@ public class Procession extends DomainEntity {
 		this.isFinalMode = isFinalMode;
 	}
 
+	@Column(length = 400000000)
 	public Integer[][] getMatrizProcession() {
 		return this.matrizProcession;
 	}
