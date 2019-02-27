@@ -160,7 +160,6 @@ public class RequestBrotherhoodController extends AbstractController {
 		Request request;
 
 		request = this.requestService.reconstruct(requestForm, binding);
-		//this.requestService.validateReasonWhy(requestForm, binding);
 
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();

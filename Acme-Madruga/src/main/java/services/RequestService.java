@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.SortedMap;
 
 import javax.transaction.Transactional;
 
@@ -116,15 +118,14 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		if (request.getStatus().equals("APPROVED"))
-			this.checkPositionIsFree(request);
+		//		if (request.getStatus().equals("APPROVED"))
+		//			this.checkPositionIsFree(request);
 		final Request result;
 
 		result = this.requestRepository.save(request);
 
 		return result;
 	}
-
 	public Request saveEditApproved(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));
@@ -198,12 +199,22 @@ public class RequestService {
 
 	public Request reconstruct(final RequestForm requestForm, final BindingResult binding) {
 		final Request result, requestStored;
+		Integer position;
+		SortedMap<Integer, List<Integer>> positionsMap;
+		Integer row = null, column = null;
 
 		result = new Request();
 		requestStored = this.findOneToBrotherhood(requestForm.getId());
+		position = requestForm.getPositionProcession();
+		positionsMap = this.processionService.positionsFree(requestForm.getProcession());
+		row = positionsMap.get(position).get(0);
+		column = positionsMap.get(position).get(1);
 
-		result.setRowProcession(requestForm.getRowProcession());
-		result.setColumnProcession(requestForm.getColumnProcession());
+		this.processionService.addToMatriz(requestStored.getProcession(), row, column);
+		this.processionService.removeToMatriz(requestStored.getProcession(), requestStored.getRowProcession(), requestStored.getColumnProcession());
+
+		result.setRowProcession(row);
+		result.setColumnProcession(column);
 		result.setReasonWhy(requestForm.getReasonWhy());
 
 		result.setStatus(requestStored.getStatus());

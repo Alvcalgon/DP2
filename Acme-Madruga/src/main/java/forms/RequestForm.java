@@ -13,6 +13,7 @@ public class RequestForm {
 	private Procession	procession;
 	private String		status;
 	private Member		member;
+	private Integer		positionProcession;
 
 
 	public int getId() {
@@ -64,6 +65,14 @@ public class RequestForm {
 
 	public void setMember(final Member member) {
 		this.member = member;
+	}
+
+	public Integer getPositionProcession() {
+		return this.positionProcession;
+	}
+
+	public void setPositionProcession(final Integer positionProcession) {
+		this.positionProcession = positionProcession;
 	}
 
 }

@@ -27,33 +27,28 @@
 	<form:hidden path="status" />
 	<form:hidden path="member" />
 	<form:hidden path="procession" />
+	<form:hidden path="rowProcession" />
+	<form:hidden path="columnProcession" />
 
 	<jstl:if test="${requestForm.status=='APPROVED'}">
-		<%-- 	<form:label path="rowProcession">
-			<spring:message code="request.rowProcession" />:
+		<form:label path="positionProcession">
+			<spring:message code="request.positionProcession" />:
 		</form:label>
-		<form:select path="rowProcession" multiple="false" size="1">
-			<jstl:forEach var="rowProcession" items="${positions.keySet()}">
-				<form:option label="${positions.get(positionId)[0]}"
-					value="${positionId}" />
+		<form:select path="positionProcession" multiple="false" size="1">
+			<jstl:forEach var="position" items="${positions.keySet()}">
+				<form:option label="${positions.get(position)[0]}, ${positions.get(position)[1]}"
+					value="${position}" />
 			</jstl:forEach>
 		</form:select>
-		<form:errors cssClass="error" path="category" />
-		<br /> --%>
+		<form:errors cssClass="error" path="positionProcession" />
 
-		<form:label path="rowProcession">
-			<spring:message code="request.rowProcession" />
-		</form:label>
-		<form:input path="rowProcession" />
-		<form:errors cssClass="error" path="rowProcession" />
 		<br />
-
-		<form:label path="columnProcession">
-			<spring:message code="request.columnProcession" />
-		</form:label>
-		<form:input path="columnProcession" />
-		<form:errors cssClass="error" path="columnProcession" />
-		<br />
+		
+		<div>
+			<acme:submit name="save" code="request.save" />
+			&nbsp;
+			<acme:cancel code="request.cancel" url="request/brotherhood/list.do" />
+		</div>
 	</jstl:if>
 
 	<jstl:if test="${requestForm.status!='APPROVED'}">
