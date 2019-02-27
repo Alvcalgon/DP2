@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -149,11 +148,18 @@ public class EnrolmentService {
 		this.enrolmentRepository.save(enrolment);
 	}
 
-	@Transactional(propagation = Propagation.NEVER)
 	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
-		Enrolment result;
+		Enrolment result, enrolmentStored;
 
-		result = this.enrolmentRepository.findOne(enrolment.getId());
+		result = new Enrolment();
+		enrolmentStored = this.enrolmentRepository.findOne(enrolment.getId());
+
+		result.setId(enrolment.getId());
+		result.setVersion(enrolmentStored.getVersion());
+		result.setBrotherhood(enrolmentStored.getBrotherhood());
+		result.setDropOutMoment(enrolmentStored.getDropOutMoment());
+		result.setMember(enrolmentStored.getMember());
+		result.setRegisteredMoment(enrolmentStored.getRegisteredMoment());
 		result.setPosition(enrolment.getPosition());
 
 		this.validator.validate(result, binding);

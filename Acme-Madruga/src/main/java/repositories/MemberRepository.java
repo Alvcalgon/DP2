@@ -21,4 +21,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	@Query("select avg(1.0 * (select count(e) from Enrolment e where e.dropOutMoment is null and e.registeredMoment is not null and e.brotherhood.id = b.id)), min(1.0 * (select count(e) from Enrolment e where e.dropOutMoment is null and e.registeredMoment is not null and e.brotherhood.id = b.id)), max(1.0 * (select count(e) from Enrolment e where e.dropOutMoment is null and e.registeredMoment is not null and e.brotherhood.id = b.id)), stddev(1.0 * (select count(e) from Enrolment e where e.dropOutMoment is null and e.registeredMoment is not null and e.brotherhood.id = b.id group by e.brotherhood)) from Brotherhood b")
 	Double[] findDataNumberMembersPerBrotherhood();
 
+	@Query("select e.member from Enrolment e where e.id = ?1")
+	Member findByEnrolmentId(int enrolmentId);
+
 }
