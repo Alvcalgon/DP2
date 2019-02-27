@@ -4,6 +4,7 @@ package controllers.authenticated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -127,29 +128,29 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveBrotherhood")
-	public ModelAndView saveBrotherhood(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
+	public ModelAndView saveBrotherhood(@ModelAttribute("registrationForm") final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		brotherhood = null;
 
-		this.brotherhoodService.validateName(registrationForm, binding);
-		this.brotherhoodService.validateSurname(registrationForm, binding);
-		this.brotherhoodService.validateEmail(registrationForm, binding);
-		this.brotherhoodService.validateTitle(registrationForm, binding);
-		this.brotherhoodService.validateTitle(registrationForm, binding);
+		this.brotherhoodService.validateName(brotherhoodRegistrationForm, binding);
+		this.brotherhoodService.validateSurname(brotherhoodRegistrationForm, binding);
+		this.brotherhoodService.validateEmail(brotherhoodRegistrationForm, binding);
+		this.brotherhoodService.validateTitle(brotherhoodRegistrationForm, binding);
+		this.brotherhoodService.validateTitle(brotherhoodRegistrationForm, binding);
 
 		if (!binding.hasErrors())
-			brotherhood = this.brotherhoodService.reconstruct(registrationForm, binding);
+			brotherhood = this.brotherhoodService.reconstruct(brotherhoodRegistrationForm, binding);
 
 		if (binding.hasErrors()) {
-			result = this.createModelAndView(registrationForm);
+			result = this.createModelAndView(brotherhoodRegistrationForm);
 			result.addObject("rol", "Brotherhood");
 		} else
 			try {
 				this.brotherhoodService.save(brotherhood);
 				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result = this.createModelAndView(brotherhoodRegistrationForm, "actor.commit.error");
 			}
 
 		return result;
@@ -202,19 +203,19 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm registrationForm) {
+	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm brotherhoodRegistrationForm) {
 		ModelAndView result;
 
-		result = this.createModelAndView(registrationForm, null);
+		result = this.createModelAndView(brotherhoodRegistrationForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm registrationForm, final String messageCode) {
+	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final String messageCode) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");
-		result.addObject("registrationForm", registrationForm);
+		result.addObject("registrationForm", brotherhoodRegistrationForm);
 		result.addObject("messageCode", messageCode);
 		result.addObject("role", "brotherhood");
 

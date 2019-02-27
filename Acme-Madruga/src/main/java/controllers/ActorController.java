@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,12 +69,12 @@ public class ActorController extends ActorAbstractController {
 	@RequestMapping(value = "/registerBrotherhood", method = RequestMethod.GET)
 	public ModelAndView createBrotherhood() {
 		ModelAndView result;
-		BrotherhoodRegistrationForm registrationForm;
+		BrotherhoodRegistrationForm brotherhoodRegistrationForm;
 		String rol;
 
 		rol = "Brotherhood";
-		registrationForm = new BrotherhoodRegistrationForm();
-		result = this.createModelAndView(registrationForm);
+		brotherhoodRegistrationForm = new BrotherhoodRegistrationForm();
+		result = this.createModelAndView(brotherhoodRegistrationForm);
 		result.addObject("rol", rol);
 
 		return result;
@@ -94,7 +95,7 @@ public class ActorController extends ActorAbstractController {
 	}
 
 	@RequestMapping(value = "/registerBrotherhood", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveBrotherhood(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
+	public ModelAndView saveBrotherhood(@ModelAttribute("registrationForm") final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
@@ -192,22 +193,22 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm registrationForm) {
+	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm brotherhoodRegistrationForm) {
 		ModelAndView result;
 
-		result = this.createModelAndView(registrationForm, null);
+		result = this.createModelAndView(brotherhoodRegistrationForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm registrationForm, final String messageCode) {
+	protected ModelAndView createModelAndView(final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final String messageCode) {
 		ModelAndView result;
 		Collection<Area> areas;
 
 		areas = this.areaService.findAll();
 
 		result = new ModelAndView("actor/singup");
-		result.addObject("registrationForm", registrationForm);
+		result.addObject("registrationForm", brotherhoodRegistrationForm);
 		result.addObject("messageCode", messageCode);
 		result.addObject("role", "brotherhood");
 		result.addObject("areas", areas);

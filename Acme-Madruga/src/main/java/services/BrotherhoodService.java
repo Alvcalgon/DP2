@@ -172,6 +172,7 @@ public class BrotherhoodService {
 			result.setTitle(registrationForm.getTitle());
 			result.setEstablishmentDate(registrationForm.getEstablishmentDate());
 			result.setPictures(registrationForm.getPictures());
+			result.setArea(registrationForm.getArea());
 
 			userAccount = result.getUserAccount();
 			userAccount.setUsername(registrationForm.getUsername());
@@ -179,6 +180,7 @@ public class BrotherhoodService {
 
 			this.validateRegistration(result, registrationForm, binding);
 		} else {
+
 			result = this.findOneToDisplayEdit(registrationForm.getId());
 			result.setName(registrationForm.getName());
 			result.setSurname(registrationForm.getSurname());
@@ -305,6 +307,26 @@ public class BrotherhoodService {
 		principal = this.findByPrincipal();
 
 		Assert.isNull(principal.getArea());
+
+	}
+
+	public BrotherhoodRegistrationForm createBrotherhoodRegistrationForm(final Brotherhood brotherhood) {
+		BrotherhoodRegistrationForm result;
+
+		result = new BrotherhoodRegistrationForm();
+
+		result.setId(brotherhood.getId());
+		result.setName(brotherhood.getName());
+		result.setSurname(brotherhood.getSurname());
+		result.setAddress(brotherhood.getAddress());
+		result.setEmail(brotherhood.getEmail());
+		result.setMiddleName(brotherhood.getMiddleName());
+		result.setPhoto(brotherhood.getPhoto());
+		result.setTitle(brotherhood.getTitle());
+		result.setEstablishmentDate(brotherhood.getEstablishmentDate());
+		result.setPictures(brotherhood.getPictures());
+
+		return result;
 
 	}
 
