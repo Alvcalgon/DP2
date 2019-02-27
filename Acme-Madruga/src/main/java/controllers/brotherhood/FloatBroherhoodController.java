@@ -57,18 +57,12 @@ public class FloatBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int floatId) {
 		ModelAndView result;
-		FloatForm floatForm;
 		Float floatt;
 
 		try {
 			floatt = this.floatService.findOneToEdit(floatId);
 
-			floatForm = new FloatForm();
-			floatForm.setTitle(floatt.getTitle());
-			floatForm.setId(floatt.getId());
-			floatForm.setPictures(floatt.getPictures());
-			floatForm.setDescription(floatt.getDescription());
-			result = this.createEditModelAndView(floatForm);
+			result = this.createEditModelAndView(floatt);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -76,20 +70,17 @@ public class FloatBroherhoodController extends AbstractController {
 
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final FloatForm floatForm, final BindingResult binding) {
 		ModelAndView result;
 		Float floatt;
 
-		this.floatService.validateTitle(floatForm, binding);
-		this.floatService.validateDescription(floatForm, binding);
+		floatt = this.floatService.reconstruct(floatForm, binding);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(floatForm);
 		else
 			try {
-				floatt = this.floatService.reconstruct(floatForm, binding);
 				this.floatService.save(floatt);
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + floatt.getBrotherhood().getId());
 			} catch (final IllegalArgumentException e1) {
@@ -121,6 +112,17 @@ public class FloatBroherhoodController extends AbstractController {
 	}
 
 	// Arcillary methods --------------------------
+
+	protected ModelAndView createEditModelAndView(final Float floatt) {
+		ModelAndView result;
+		FloatForm floatForm;
+
+		floatForm = this.floatService.createForm(floatt);
+
+		result = this.createEditModelAndView(floatForm, null);
+
+		return result;
+	}
 
 	protected ModelAndView createEditModelAndView(final FloatForm floatForm) {
 		ModelAndView result;
