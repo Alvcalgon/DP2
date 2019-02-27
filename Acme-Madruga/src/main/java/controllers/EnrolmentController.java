@@ -65,6 +65,7 @@ public class EnrolmentController extends AbstractController {
 		result.addObject("enrolments", enrolments);
 		result.addObject("positions", positionMap);
 		result.addObject("isOwnBrotherhood", isOwnBrotherhood);
+		result.addObject("brotherhoodId", brotherhoodId);
 
 		return result;
 	}

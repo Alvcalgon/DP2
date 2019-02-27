@@ -37,7 +37,7 @@
 		<jstl:if test="${areaSelected == false}">
 		
 			<display:column>
-				<a href="area/brotherhood/create.do?brotherhoodId=${brotherhoodId}"><spring:message code="select.area"/></a>
+				<a href="brotherhood/brotherhood/selectArea.do"><spring:message code="select.area"/></a>
 			</display:column>
 		
 		</jstl:if>
@@ -61,3 +61,8 @@
 	</jstl:if>
 		
 </display:table>
+
+	<jstl:if test="${requestURI == 'enrolment/listMember.do'}">
+		<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
+			code="actor.return" /></a>
+	</jstl:if>

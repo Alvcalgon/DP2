@@ -46,13 +46,14 @@ public class ActorAbstractController extends AbstractController {
 		if (actorId == null) {
 			actor = this.actorService.findPrincipal();
 			result.addObject("isAuthorized", true);
+			result.addObject("isActorLogged", true);
 		} else {
 			actor = this.actorService.findOne(actorId);
 			if (actor instanceof Administrator && actorId == principal.getId())
 				actor = this.actorService.findOneToDisplayEdit(actorId);
 			else if (actor instanceof Administrator && actorId != principal.getId())
 				throw new IllegalArgumentException();
-			result.addObject("isAuthorized", false);
+
 		}
 
 		if (principal != null && actor != null && principal instanceof Member && actor instanceof Brotherhood) {
@@ -62,6 +63,9 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isEnrolled", isEnrolled);
 			result.addObject("existEnrolmentRequest", existEnrolmentRequest);
 		}
+
+		if (principal != null && actor != null && principal == actor)
+			result.addObject("isActorLogged", true);
 
 		result.addObject("actor", actor);
 

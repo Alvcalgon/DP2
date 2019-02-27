@@ -50,20 +50,7 @@
 		
 		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong>  <jstl:out value="${actor.pictures}" /></p>
 		
-		<p> <strong> <spring:message code="actor.brotherhood.members" />: </strong>  <a href="member/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.members"/></a></p>
 		
-		<p> <strong> <spring:message code="actor.brotherhood.processions" />: </strong>  <a href="procession/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.processions"/></a></p>
-		
-		<p> <strong> <spring:message code="actor.brotherhood.floats" />: </strong>  <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message code="actor.brotherhood.floats"/></a></p>
-	
-		<p> <strong> <spring:message code="actor.brotherhood.area" /> </strong>  <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out value="${actor.area.name}" /></a>
-		<jstl:if test="${actor.area.name == null}">
-
-		<a href="brotherhood/brotherhood/selectArea.do"><spring:message
-				code="select.area.procession" /></a>
-
-		</jstl:if>
-		</p>
 		
 		
 		
@@ -101,6 +88,46 @@
 	<a href="actor/administrator,brotherhood,member/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
 	</jstl:if>
 </fieldset>
+
+<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
+<fieldset>
+		<legend>
+			<spring:message code="actor.brotherhood.legend" />
+		</legend>
+		<p>
+			<strong> <spring:message code="actor.brotherhood.members" />:
+			</strong> <a href="enrolment/listMember.do?brotherhoodId=${actor.id}"><spring:message
+					code="actor.brotherhood.members" /></a>
+		</p>
+
+		<p>
+			<strong> <spring:message
+					code="actor.brotherhood.processions" />:
+			</strong> <a href="procession/list.do?brotherhoodId=${actor.id}"><spring:message
+					code="actor.brotherhood.processions" /></a>
+		</p>
+
+		<p>
+			<strong> <spring:message code="actor.brotherhood.floats" />:
+			</strong> <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message
+					code="actor.brotherhood.floats" /></a>
+		</p>
+
+		<p>
+			<strong> <spring:message code="actor.brotherhood.area" />
+			</strong> <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out
+					value="${actor.area.name}" /></a>
+			
+			<jstl:if test="${actor.area == null && isActorLogged}">
+
+				<a href="brotherhood/brotherhood/selectArea.do"><spring:message
+						code="select.area" /></a>
+
+			</jstl:if>
+			</p>
+	</fieldset>
+</jstl:if>
+
 
 <fieldset>
 	<legend><spring:message code="userAccount.legend"/></legend>
