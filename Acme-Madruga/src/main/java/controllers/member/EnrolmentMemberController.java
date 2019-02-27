@@ -62,7 +62,7 @@ public class EnrolmentMemberController extends AbstractController {
 		Enrolment enrolment;
 
 		try {
-			enrolment = this.enrolmentService.findByBrotherhoodId(brotherhoodId);
+			enrolment = this.enrolmentService.findActiveByBrotherhoodId(brotherhoodId);
 			this.enrolmentService.dropOut(enrolment);
 		} catch (final Throwable oops) {
 			redir.addFlashAttribute("messageCode", "actor.commit.error");

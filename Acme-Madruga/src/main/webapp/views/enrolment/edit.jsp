@@ -25,7 +25,6 @@
 			<spring:message code="enrolment.position"/>:
 		</form:label>
 		<form:select path="position" multiple="false" size="1">
-			<form:option label="----" value="0"/>
 			<jstl:forEach var="positionId" items="${positions.keySet()}">
 				<form:option label="${positions.get(positionId)}" value="${positionId}"/>
 			</jstl:forEach>

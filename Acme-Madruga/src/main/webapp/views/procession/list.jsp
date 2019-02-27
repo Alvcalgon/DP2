@@ -12,6 +12,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
@@ -20,6 +21,8 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
+<spring:message code="procession.formatDate" var="dateFormat"/>
+
 <jstl:if test="${finder ne null}">
 	<fieldset>
 		<legend><spring:message code="procession.finder.parameters"/></legend>
@@ -27,10 +30,22 @@
 		<p style="color:blue;"><spring:message code="procession.finder.warning"/><jstl:out value="${numberOfResults}"/></p>
 		
 		<ul>
-			<li><strong><spring:message code="procession.finder.keyword"/>:</strong> <jstl:out value="${finder.keyword}"/></li>
-			<li><strong><spring:message code="procession.finder.area"/>:</strong> <jstl:out value="${finder.area}"/></li>
-			<li><strong><spring:message code="procession.finder.minimum.date"/>:</strong> <jstl:out value="${finder.minimumDate}"/></li>
-			<li><strong><spring:message code="procession.finder.maximum.date"/>:</strong> <jstl:out value="${finder.maximumDate}"/></li>
+			<li>
+				<strong><spring:message code="procession.finder.keyword"/>: </strong>
+				<jstl:out value="${finder.keyword}"/>
+			</li>
+			<li>
+				<strong><spring:message code="procession.finder.area"/>: </strong>
+				<jstl:out value="${finder.area}"/>
+			</li>
+			<li>
+				<strong><spring:message code="procession.finder.minimum.date"/>: </strong>
+				<fmt:formatDate value="${finder.minimumDate}" pattern="${dateFormat}"/>
+			</li>
+			<li>
+				<strong><spring:message code="procession.finder.maximum.date"/>: </strong>
+				<fmt:formatDate value="${finder.maximumDate}" pattern="${dateFormat}"/>
+			</li>
 		</ul>
 		<div>
 			<a href="finder/member/edit.do"><spring:message code="procession.finder.edit"/></a>
@@ -69,23 +84,6 @@
 
 		<display:column property="isFinalMode" titleKey="procession.finalMode" />
 	</jstl:if>
-
-	<security:authorize access="hasRole('MEMBER')">
-		<display:column>
-			<jstl:if test="${row.isFinalMode}">
-				<jstl:if test="${memberAutorize==true}">
-					<jstl:if test="${dateNow<row.moment}">
-						<jstl:if test="${isRequest==true}">
-							<jstl:forEach items="${requestsMember}" var="request">
-								
-								
-							</jstl:forEach>
-						</jstl:if>
-					</jstl:if>
-				</jstl:if>
-			</jstl:if>
-		</display:column>
-	</security:authorize>
 
 	<display:column property="title" titleKey="procession.title" />
 

@@ -188,13 +188,14 @@ public class ProcessionService {
 		return result;
 	}
 
-	protected Page<Procession> searchProcessionFinder(final Finder finder, final Pageable pageable) {
-		Page<Procession> result;
+	protected void searchProcessionFinder(final Finder finder, final Pageable pageable) {
+		Page<Procession> processions;
 
-		result = this.processionRepository.searchProcessionFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
-		Assert.notNull(result);
+		processions = this.processionRepository.searchProcessionFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
+		Assert.notNull(processions);
 
-		return result;
+		finder.setProcessions(processions.getContent());
+		finder.setUpdatedMoment(this.utilityService.current_moment());
 	}
 
 	// Other business methods ---------------------

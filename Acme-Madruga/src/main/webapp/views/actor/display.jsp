@@ -121,10 +121,12 @@
 		<jstl:if test="${isEnrolled}">
 			<a href="enrolment/member/dropOut.do?brotherhoodId=${actor.id}" onclick="return confirm('<spring:message code="enrolment.confirm.drop.out"/>')"><spring:message code="actor.drop.out"/></a>
 		</jstl:if>
-		<jstl:if test="${!isEnrolled && !existEnrolmentRequest}">
+		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && hasSelectedArea}">
 			<a href="enrolment/member/requestEnrolment.do?brotherhoodId=${actor.id}"><spring:message code="actor.request.enrolment"/></a>
 		</jstl:if>
-		&nbsp;
+		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && !hasSelectedArea}">
+			<p style="color:blue;"><spring:message code="actor.request.enrolment.warning"/></p>
+		</jstl:if>
 	</jstl:if>
 </security:authorize>
 
