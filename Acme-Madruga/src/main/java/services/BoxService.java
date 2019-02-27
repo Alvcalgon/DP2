@@ -167,12 +167,18 @@ public class BoxService {
 
 
 	public Box reconstruct(final Box box, final BindingResult binding) {
-		Box result;
+		Box result, storedBox;
 
+		storedBox = this.findOne(box.getId());
 		if (box.getId() == 0)
 			result = this.create();
-		else
-			result = this.findOne(box.getId());
+		else {
+			result = new Box();
+			result.setId(storedBox.getId());
+			result.setVersion(storedBox.getVersion());
+			result.setActor(storedBox.getActor());
+			result.setMessages(storedBox.getMessages());
+		}
 
 		result.setName(box.getName());
 		result.setParent(box.getParent());

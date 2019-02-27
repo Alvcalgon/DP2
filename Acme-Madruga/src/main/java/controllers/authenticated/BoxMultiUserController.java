@@ -113,7 +113,7 @@ public class BoxMultiUserController extends AbstractController {
 				this.boxService.save(boxRec);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(box, "box.commit.error");
+				result = this.createEditModelAndView(boxRec, "box.commit.error");
 			}
 
 		return result;
