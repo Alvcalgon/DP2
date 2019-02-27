@@ -95,6 +95,15 @@ public class MemberService {
 
 	// Other business methods ---------------------
 
+	public Member findByEnrolmentId(final int enrolmentId) {
+		Member result;
+
+		result = this.memberRepository.findByEnrolmentId(enrolmentId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Double[] findDataNumberMembersPerBrotherhood() {
 		Double[] result;
 

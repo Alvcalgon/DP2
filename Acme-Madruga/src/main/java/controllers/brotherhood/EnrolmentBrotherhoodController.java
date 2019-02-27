@@ -27,10 +27,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
 import services.EnrolmentService;
+import services.MemberService;
 import services.PositionService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Enrolment;
+import domain.Member;
 import domain.Position;
 
 @Controller
@@ -41,6 +43,9 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private EnrolmentService	enrolmentService;
+
+	@Autowired
+	private MemberService		memberService;
 
 	@Autowired
 	private PositionService		positionService;
@@ -106,12 +111,12 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(Enrolment enrolment, final BindingResult binding, final Locale locale, final HttpServletRequest request) {
+	public ModelAndView edit(final Enrolment enrolment, final BindingResult binding, final Locale locale, final HttpServletRequest request) {
 		ModelAndView result;
-		Enrolment saved;
+		Enrolment saved, enrolmentRec;
 		boolean isEnrolling;
 
-		enrolment = this.enrolmentService.reconstruct(enrolment, binding);
+		enrolmentRec = this.enrolmentService.reconstruct(enrolment, binding);
 		isEnrolling = this.stringToBoolean(request.getParameter("isEnrolling"));
 		// TODO: pasar la transformacion string-boolean a createEditModelAndView?
 		if (binding.hasErrors())
@@ -119,14 +124,14 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 		else
 			try {
 				if (!isEnrolling) {
-					saved = this.enrolmentService.saveToEditPosition(enrolment);
+					saved = this.enrolmentService.saveToEditPosition(enrolmentRec);
 					result = new ModelAndView("redirect:/enrolment/listMember.do?brotherhoodId=" + saved.getBrotherhood().getId());
 				} else {
-					saved = this.enrolmentService.enrol(enrolment);
+					saved = this.enrolmentService.enrol(enrolmentRec);
 					result = new ModelAndView("redirect:/enrolment/brotherhood/listMemberRequest.do");
 				}
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(enrolment, isEnrolling, locale, "enrolment.commit.error");
+				result = this.createEditModelAndView(enrolmentRec, isEnrolling, locale, "enrolment.commit.error");
 			}
 
 		return result;
@@ -201,15 +206,18 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Enrolment enrolment, final Locale locale, final String messageCode) {
 		ModelAndView result;
+		Member member;
 		SortedMap<Integer, String> positionMap;
 		Collection<Position> positions;
 
 		positions = this.positionService.findAll();
 		positionMap = this.positionService.positionsByLanguages(positions, locale.getLanguage());
+		member = this.memberService.findByEnrolmentId(enrolment.getId());
+		// We need this query because Enrolment is a pruned object and, in some cases, enrolment.getMember() == null
 
 		result = new ModelAndView("enrolment/edit");
 		result.addObject("enrolment", enrolment);
-		result.addObject("memberName", enrolment.getMember().getFullname());
+		result.addObject("memberName", member.getFullname());
 		result.addObject("positions", positionMap);
 		result.addObject("messageCode", messageCode);
 

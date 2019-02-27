@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.AreaService;
 import services.FinderService;
@@ -71,20 +70,20 @@ public class FinderMemberController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Finder finder, final BindingResult binding, final RedirectAttributes redir) {
+	public ModelAndView save(final Finder finder, final BindingResult binding) {
 		ModelAndView result;
+		Finder finderRec;
 
-		finder = this.finderService.reconstruct(finder, binding);
+		finderRec = this.finderService.reconstruct(finder, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(finder);
 		else
 			try {
-				this.finderService.save(finder);
+				this.finderService.save(finderRec);
+				result = new ModelAndView("redirect:/procession/member/listFinder.do");
 			} catch (final Throwable oops) {
-				redir.addFlashAttribute("messageCode", "finder.commit.error");
+				result = this.createEditModelAndView(finderRec, "finder.commit.error");
 			}
-
-		result = new ModelAndView("redirect:/procession/member/listFinder.do");
 
 		return result;
 	}
