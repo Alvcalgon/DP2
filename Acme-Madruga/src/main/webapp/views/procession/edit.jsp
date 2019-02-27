@@ -28,12 +28,25 @@
 	
 	<acme:textarea code="procession.description" path="description" />
 	
+	
+	<jstl:if test="${procession.isFinalMode}">
+	<form:label path="moment" >
+		<spring:message code="procession.moment" />:
+	</form:label>
+	<form:input path="moment"  readonly="true" placeholder="dd/MM/yyyy hh:mm"/>
+	<form:errors cssClass="error" path="moment" />
+	<p/>
+	</jstl:if>
+	
+		
+	<jstl:if test="${!procession.isFinalMode}">
 	<form:label path="moment" >
 		<spring:message code="procession.moment" />:
 	</form:label>
 	<form:input path="moment"  placeholder="dd/MM/yyyy hh:mm"/>
 	<form:errors cssClass="error" path="moment" />
 	<p/>
+	</jstl:if>
 	
 	<form:label path="floats">
 		<spring:message code="procession.floats"/>:
