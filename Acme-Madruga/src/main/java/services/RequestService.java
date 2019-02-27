@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import security.LoginService;
@@ -15,6 +17,7 @@ import domain.Brotherhood;
 import domain.Member;
 import domain.Procession;
 import domain.Request;
+import forms.RequestForm;
 
 @Service
 @Transactional
@@ -34,6 +37,9 @@ public class RequestService {
 
 	@Autowired
 	private ProcessionService	processionService;
+
+	@Autowired
+	private Validator			validator;
 
 
 	// Constructors -------------------------------
@@ -110,6 +116,8 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
+		if (request.getStatus().equals("APPROVED"))
+			this.checkPositionIsFree(request);
 		final Request result;
 
 		result = this.requestRepository.save(request);
@@ -145,12 +153,11 @@ public class RequestService {
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.isTrue(!(request.getStatus().equals("APPROVED")));
 		final Request result;
 
 		request.setStatus("REJECTED");
 		result = this.requestRepository.save(request);
-
 		return result;
 	}
 
@@ -174,6 +181,40 @@ public class RequestService {
 		this.requestRepository.delete(request);
 	}
 
+	public RequestForm createRequestForm(final Request request) {
+		RequestForm result;
+
+		result = new RequestForm();
+		result.setColumnProcession(request.getColumnProcession());
+		result.setId(request.getId());
+		result.setRowProcession(request.getRowProcession());
+		result.setReasonWhy(request.getReasonWhy());
+		result.setStatus(request.getStatus());
+		result.setProcession(request.getProcession());
+		result.setMember(request.getMember());
+
+		return result;
+	}
+
+	public Request reconstruct(final RequestForm requestForm, final BindingResult binding) {
+		final Request result, requestStored;
+
+		result = new Request();
+		requestStored = this.findOneToBrotherhood(requestForm.getId());
+
+		result.setRowProcession(requestForm.getRowProcession());
+		result.setColumnProcession(requestForm.getColumnProcession());
+		result.setReasonWhy(requestForm.getReasonWhy());
+
+		result.setStatus(requestStored.getStatus());
+		result.setProcession(requestStored.getProcession());
+		result.setId(requestStored.getId());
+		result.setMember(requestStored.getMember());
+		result.setVersion(requestStored.getVersion());
+
+		//this.validator.validate(result, binding);
+		return result;
+	}
 	// Other business methods ---------------------
 
 	// Private methods ---------------------------
@@ -238,6 +279,18 @@ public class RequestService {
 		brotherhoodPrincipal = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(brotherhoodRequest.equals(brotherhoodPrincipal));
+	}
+
+	private void checkPositionIsFree(final Request request) {
+
+		Integer row, column;
+		Integer[][] matrizProcession;
+
+		row = request.getRowProcession() - 1;
+		column = request.getColumnProcession() - 1;
+		matrizProcession = request.getProcession().getMatrizProcession();
+
+		Assert.isTrue(matrizProcession[row][column].equals(0));
 	}
 
 	public Collection<Request> findPendingRequestByMember() {
@@ -319,6 +372,16 @@ public class RequestService {
 
 		result = this.requestRepository.findRequestByMemberId(memberId);
 		Assert.notNull(result);
+
+		return result;
+	}
+
+	public String validateReasonWhy(final RequestForm requestForm, final BindingResult binding) {
+		String result;
+
+		result = requestForm.getReasonWhy();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("reasonWhy", "request.error.blank", "Must not be blank");
 
 		return result;
 	}

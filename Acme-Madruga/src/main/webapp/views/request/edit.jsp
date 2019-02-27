@@ -19,15 +19,28 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="request/brotherhood/edit.do" modelAttribute="request">
+<form:form action="request/brotherhood/edit.do"
+	modelAttribute="requestForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
 	<form:hidden path="status" />
 	<form:hidden path="member" />
 	<form:hidden path="procession" />
 
-	<jstl:if test="${request.status=='APPROVED'}">
+	<jstl:if test="${requestForm.status=='APPROVED'}">
+		<%-- 	<form:label path="rowProcession">
+			<spring:message code="request.rowProcession" />:
+		</form:label>
+		<form:select path="rowProcession" multiple="false" size="1">
+			<jstl:forEach var="rowProcession" items="${positions.keySet()}">
+				<form:option label="${positions.get(positionId)[0]}"
+					value="${positionId}" />
+			</jstl:forEach>
+		</form:select>
+		<form:errors cssClass="error" path="category" />
+		<br /> --%>
+
 		<form:label path="rowProcession">
 			<spring:message code="request.rowProcession" />
 		</form:label>
@@ -42,23 +55,21 @@
 		<form:errors cssClass="error" path="columnProcession" />
 		<br />
 	</jstl:if>
-	
-	<jstl:if test="${request.status=='REJECTED'}">
-		<form:label path="reasonWhy">
-			<spring:message code="request.reasonWhyText" />
-		</form:label>
-		<form:input path="reasonWhy" />
-		<form:errors cssClass="error" path="reasonWhy" />
+
+	<jstl:if test="${requestForm.status!='APPROVED'}">
+
+		<acme:textarea code="request.reasonWhyText" path="reasonWhy" />
+
+		<div>
+			<acme:submit name="saveReject" code="request.save" />
+			&nbsp;
+			<acme:cancel code="request.cancel" url="request/brotherhood/list.do" />
+		</div>
 	</jstl:if>
 	<br />
 
 	<!-- Buttons -->
 
-	<input type="submit" name="save"
-		value="<spring:message code="request.save"/>" />
 
-	<input type="button" name="cancel"
-		value="<spring:message code="request.cancel" />"
-		onclick="javascript: relativeRedir('request/brotherhood/list.do');" />
 
 </form:form>

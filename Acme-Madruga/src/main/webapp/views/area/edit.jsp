@@ -27,7 +27,7 @@
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		
-<acme:textbox code="area.name" path="name"/>
+		<acme:textbox code="area.name" path="name"/>
 
 		<acme:textarea code="area.pictures" path="pictures" />
 

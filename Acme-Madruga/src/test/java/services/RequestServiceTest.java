@@ -1,17 +1,13 @@
 
 package services;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
-import domain.Procession;
-import domain.Request;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -27,20 +23,24 @@ public class RequestServiceTest extends AbstractTest {
 	@Autowired
 	private ProcessionService	processionService;
 
-
 	//Test ------------------------------------------------
 
-	@Test
-	public void testCreate() {
-		super.authenticate("member12");
-		final Request request;
-		Procession procession;
-		procession = this.processionService.findOne(super.getEntityId("procession1"));
-		request = this.requestService.create(procession);
+	//	@Test
+	//	public void testCreate() {
+	//		super.authenticate("member12");
+	//		final Integer[] rowFree;
+	//		final Integer[] columnFree;
+	//		Procession procession;
+	//
+	//		procession = this.processionService.findOne(super.getEntityId("procession1"));
+	//		rowFree = this.processionService.rowFree(procession);
+	//		columnFree = this.processionService.columnFree(procession);
+	//
+	//		System.out.println(rowFree);
+	//		System.out.println(columnFree);
+	//		super.unauthenticate();
+	//	}
 
-		Assert.notNull(request);
-		super.unauthenticate();
-	}
 	//
 	//	@Test
 	//	public void testCreate5() {

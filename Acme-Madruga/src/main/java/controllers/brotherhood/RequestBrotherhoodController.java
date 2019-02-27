@@ -2,6 +2,8 @@
 package controllers.brotherhood;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.SortedMap;
 
 import javax.validation.Valid;
 
@@ -15,24 +17,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.CustomisationService;
+import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Request;
+import forms.RequestForm;
 
 @Controller
 @RequestMapping(value = "/request/brotherhood")
 public class RequestBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private RequestService			requestService;
+	private RequestService		requestService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private CustomisationService	customisationService;
+	private ProcessionService	processionService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -74,12 +77,9 @@ public class RequestBrotherhoodController extends AbstractController {
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
 
-			try {
-				this.requestService.saveEditRejected(request);
-				result = new ModelAndView("redirect:edit.do?requestId=" + requestId);
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(request, "request.commit.error");
-			}
+			//this.requestService.saveEditRejected(request);
+			result = new ModelAndView("redirect:edit.do?requestId=" + requestId);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -94,13 +94,9 @@ public class RequestBrotherhoodController extends AbstractController {
 
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
+			this.requestService.saveEditApproved(request);
+			result = new ModelAndView("redirect:list.do");
 
-			try {
-				this.requestService.saveEditApproved(request);
-				result = new ModelAndView("redirect:list.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(request, "request.commit.error");
-			}
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -117,6 +113,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
 			Assert.notNull(request);
+
 			result = this.createEditModelAndView(request);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -126,22 +123,58 @@ public class RequestBrotherhoodController extends AbstractController {
 	}
 
 	//Save
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Request request, final BindingResult binding) {
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveReject")
+	public ModelAndView saveReject(@Valid final RequestForm requestForm, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
+		Request request;
+
+		request = this.requestService.reconstruct(requestForm, binding);
+		this.requestService.validateReasonWhy(requestForm, binding);
 
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
 
 			if (binding.hasErrors())
-				result = this.createEditModelAndView(request);
+				result = this.createEditModelAndView(requestForm);
 			else
 				try {
-					this.requestService.saveEdit(request);
+					this.requestService.saveEditRejected(request);
+
 					result = new ModelAndView("redirect:../../request/brotherhood/list.do");
 				} catch (final Throwable oops) {
-					result = this.createEditModelAndView(request, "request.commit.error");
+					result = this.createEditModelAndView(requestForm, "request.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	//Save
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final RequestForm requestForm, final BindingResult binding) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+		Request request;
+
+		request = this.requestService.reconstruct(requestForm, binding);
+		//this.requestService.validateReasonWhy(requestForm, binding);
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(requestForm);
+			else
+				try {
+
+					this.requestService.saveEdit(request);
+
+					result = new ModelAndView("redirect:../../request/brotherhood/list.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(requestForm, "request.commit.error");
 				}
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -154,22 +187,35 @@ public class RequestBrotherhoodController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Request request) {
 		ModelAndView result;
+		RequestForm requestForm;
 
-		result = this.createEditModelAndView(request, null);
+		requestForm = this.requestService.createRequestForm(request);
+		result = this.createEditModelAndView(requestForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Request request, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final RequestForm requestForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(requestForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final RequestForm requestForm, final String messageCode) {
 		ModelAndView result;
 		int brotherhoodId;
+		SortedMap<Integer, List<Integer>> positionsMap;
 
 		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+		positionsMap = this.processionService.positionsFree(requestForm.getProcession());
 
 		result = new ModelAndView("request/edit");
-		result.addObject("request", request);
+		result.addObject("requestForm", requestForm);
 		result.addObject("messageCode", messageCode);
 		result.addObject("brotherhoodId", brotherhoodId);
+		result.addObject("positions", positionsMap);
 
 		return result;
 

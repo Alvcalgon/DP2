@@ -1,10 +1,14 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -274,6 +278,32 @@ public class ProcessionService {
 		Assert.isTrue(owner.equals(principal));
 
 		procession.setIsFinalMode(true);
+	}
+
+	public SortedMap<Integer, List<Integer>> positionsFree(final Procession procession) {
+		SortedMap<Integer, List<Integer>> results;
+		Integer numPosition;
+		Integer row, column = 0;
+		List<Integer> ls;
+		final Integer[][] matrizProcession;
+
+		results = new TreeMap<>();
+		matrizProcession = procession.getMatrizProcession();
+		numPosition = 1;
+		for (int i = 0; i < matrizProcession.length; i++)
+			for (int j = 0; j < matrizProcession[0].length; j++)
+				if (matrizProcession[i][j] == 0) {
+					ls = new ArrayList<Integer>();
+					row = i + 1;
+					column = j + 1;
+					ls.add(row);
+					ls.add(column);
+					results.put(numPosition, ls);
+					numPosition++;
+				}
+
+		return results;
+
 	}
 
 }
