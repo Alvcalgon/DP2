@@ -30,6 +30,7 @@
 		<value>/views/brotherhood/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/customisation/messages</value>
+		<value>/views/dashboard/messages</value>
 		<value>/views/enrolment/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/profile/messages</value>

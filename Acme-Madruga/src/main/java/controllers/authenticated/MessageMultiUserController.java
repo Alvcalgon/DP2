@@ -115,8 +115,6 @@ public class MessageMultiUserController extends AbstractController {
 				result = this.moveModelAndView(messageForm, "message.commit.error");
 			}
 
-		result = this.moveModelAndView(messageForm);
-
 		return result;
 	}
 
@@ -135,7 +133,6 @@ public class MessageMultiUserController extends AbstractController {
 			}
 
 		return result;
-
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
@@ -155,7 +152,6 @@ public class MessageMultiUserController extends AbstractController {
 		}
 
 		return result;
-
 	}
 
 	// Ancillary methods ----------------------------------
@@ -190,7 +186,6 @@ public class MessageMultiUserController extends AbstractController {
 		result.addObject("messageCode", messageCode);
 
 		return result;
-
 	}
 
 	protected ModelAndView moveModelAndView(final MessageForm messageForm) {

@@ -71,9 +71,19 @@ public class ProcessionService {
 
 		final Procession result;
 		Brotherhood brotherhood;
+		Date fechaActual;
 
 		brotherhood = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(brotherhood.getArea() != null);
+
+		if (!procession.getIsFinalMode())
+			try {
+				fechaActual = this.utilityService.current_moment();
+				Assert.isTrue(procession.getMoment().after(fechaActual));
+
+			} catch (final Exception e) {
+				throw new IllegalArgumentException("Invalid moment, must be in the future");
+			}
 
 		if (procession.getId() == 0) {
 			procession.setTicker(this.utilityService.generateValidTicker(procession.getMoment()));

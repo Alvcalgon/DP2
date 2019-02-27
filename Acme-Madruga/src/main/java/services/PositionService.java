@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 
@@ -113,7 +113,6 @@ public class PositionService {
 		return result;
 	}
 
-	@Transactional(propagation = Propagation.NEVER)
 	public Position reconstruct(final PositionForm positionForm) {
 		Position result;
 		List<TranslationPosition> translationPositions;
@@ -151,12 +150,15 @@ public class PositionService {
 		return result;
 	}
 
-	public String validateName(final String nameAttribute, final String valueAttribute, final BindingResult binding) {
+	public String validateName(final String language, final String nameAttribute, final String valueAttribute, final BindingResult binding) {
 		String result;
 
 		result = valueAttribute;
 		if (result.equals("") || result.equals(null))
-			binding.rejectValue(nameAttribute, "category.error.blank", "Must not be blank");
+			if (language.equals("en"))
+				binding.rejectValue(nameAttribute, "category.error.blank", "Must not be blank");
+			else
+				binding.rejectValue(nameAttribute, "category.error.blank", "No debe ser blanco");
 
 		return result;
 	}
@@ -165,6 +167,14 @@ public class PositionService {
 		Collection<Integer> results;
 
 		results = this.positionRepository.findHistogramValues();
+
+		return results;
+	}
+
+	public Collection<String> findHistogramLabels(final String language) {
+		Collection<String> results;
+
+		results = this.positionRepository.findHistogramLabels(language);
 
 		return results;
 	}

@@ -110,27 +110,40 @@ public class FloatService {
 	}
 
 	public Float reconstruct(final FloatForm floatForm, final BindingResult binding) {
-		final Float result;
+		final Float result, floatStore;
 
-		if (floatForm.getId() == 0) {
+		result = new Float();
 
-			result = this.create();
-			result.setTitle(floatForm.getTitle());
-			result.setId(floatForm.getId());
-			result.setPictures(floatForm.getPictures());
-			result.setDescription(floatForm.getDescription());
-		} else {
-			result = this.findOneToEdit(floatForm.getId());
-			result.setTitle(floatForm.getTitle());
-			result.setPictures(floatForm.getPictures());
-			result.setDescription(floatForm.getDescription());
-			result.setId(floatForm.getId());
-			this.utilityService.checkPicture(result.getPictures());
+		if (floatForm.getId() == 0)
+			result.setBrotherhood(this.brotherhoodService.findByPrincipal());
+		else {
+			floatStore = this.findOne(floatForm.getId());//TODO: sino usar findOne normal
+			result.setBrotherhood(floatStore.getBrotherhood());
+
 		}
+
+		result.setId(floatForm.getId());
+		result.setPictures(floatForm.getPictures());
+		result.setTitle(floatForm.getTitle());
+		result.setDescription(floatForm.getDescription());
 
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+
+	public FloatForm createForm(final Float floatt) {
+		FloatForm floatForm;
+
+		floatForm = new FloatForm();
+
+		floatForm.setDescription(floatt.getDescription());
+		floatForm.setId(floatt.getId());
+		floatForm.setPictures(floatt.getPictures());
+		floatForm.setTitle(floatt.getTitle());
+
+		return floatForm;
+
 	}
 	// Other business methods ---------------------
 	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {

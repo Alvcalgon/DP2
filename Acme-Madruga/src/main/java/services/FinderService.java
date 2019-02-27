@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -116,16 +115,21 @@ public class FinderService {
 		}
 	}
 
-	@Transactional(propagation = Propagation.NEVER)
 	public Finder reconstruct(final Finder finder, final BindingResult binding) {
-		Finder result;
+		Finder result, finderStored;
 
-		result = this.finderRepository.findOne(finder.getId());
+		result = new Finder();
+		finderStored = this.finderRepository.findOne(finder.getId());
 
+		result.setId(finder.getId());
 		result.setKeyword(finder.getKeyword().trim());
 		result.setArea(finder.getArea().trim());
 		result.setMinimumDate(finder.getMinimumDate());
 		result.setMaximumDate(finder.getMaximumDate());
+		result.setMember(finderStored.getMember());
+		result.setProcessions(finderStored.getProcessions());
+		result.setUpdatedMoment(finderStored.getUpdatedMoment());
+		result.setVersion(finderStored.getVersion());
 
 		this.validator.validate(result, binding);
 

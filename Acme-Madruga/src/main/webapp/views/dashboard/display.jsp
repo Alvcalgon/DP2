@@ -19,133 +19,75 @@
 		<th> <spring:message code="dashboard.deviation" /> </th>
 	</tr>
 	<tr>
-		<td> <jstl:out value="${dataFixUpTaskPerUser[0]}" /> </td>
-		<td> <jstl:out value="${dataFixUpTaskPerUser[1]}" /> </td>
-		<td> <jstl:out value="${dataFixUpTaskPerUser[2]}" /> </td>
-		<td> <jstl:out value="${dataFixUpTaskPerUser[3]}" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.two" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataApplicationPerTask[0]}" /> </td>
-		<td> <jstl:out value="${dataApplicationPerTask[1]}" /> </td>
-		<td> <jstl:out value="${dataApplicationPerTask[2]}" /> </td>
-		<td> <jstl:out value="${dataApplicationPerTask[3]}" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.three" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataMaximumPrice[0]}" /> </td>
-		<td> <jstl:out value="${dataMaximumPrice[1]}" /> </td>
-		<td> <jstl:out value="${dataMaximumPrice[2]}" /> </td>
-		<td> <jstl:out value="${dataMaximumPrice[3]}" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.four" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataOfApplicationPrice[0]}" /> </td>
-		<td> <jstl:out value="${dataOfApplicationPrice[1]}" /> </td>
-		<td> <jstl:out value="${dataOfApplicationPrice[2]}" /> </td>
-		<td> <jstl:out value="${dataOfApplicationPrice[3]}" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.eleven" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataComplaintsPerTask[0]}" /> </td>
-		<td> <jstl:out value="${dataComplaintsPerTask[1]}" /> </td>
-		<td> <jstl:out value="${dataComplaintsPerTask[2]}" /> </td>
-		<td> <jstl:out value="${dataComplaintsPerTask[3]}" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.twelve" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataNotesPerReport[0]}" /> </td>
-		<td> <jstl:out value="${dataNotesPerReport[1]}" /> </td>
-		<td> <jstl:out value="${dataNotesPerReport[2]}" /> </td>
-		<td> <jstl:out value="${dataNotesPerReport[3]}" /> </td>
+		<td> <jstl:out value="${dataMembersPerBrotherhood[0]}" /> </td>
+		<td> <jstl:out value="${dataMembersPerBrotherhood[1]}" /> </td>
+		<td> <jstl:out value="${dataMembersPerBrotherhood[2]}" /> </td>
+		<td> <jstl:out value="${dataMembersPerBrotherhood[3]}" /> </td>
 	</tr>
 </table>
 
 <p>
-	<strong> <spring:message code="dashboard.five" /> </strong>:
-	<jstl:out value="${ratPendingApp}" />
+	<strong> <spring:message code="dashboard.two" />: </strong>
+	<jstl:out value="${largestBrotherhoods}" />
 </p>
+
 <p>
-	<strong> <spring:message code="dashboard.six" /> </strong>:
-	<jstl:out value="${ratAcceptedApp}" />
+	<strong> <spring:message code="dashboard.three" />: </strong>
+	<jstl:out value="${largestBrotherhoods}" />
 </p>
+
 <p>
-	<strong> <spring:message code="dashboard.seven" /> </strong>:
-	<jstl:out value="${ratRejectedApp}" />
+	<strong> <spring:message code="dashboard.four" />: </strong>
+	<jstl:out value="ratio" />
 </p>
-<p>
-	<strong> <spring:message code="dashboard.eight" /> </strong>:
-	<jstl:out value="${ratPendingPeriodApp}" />
-</p>
-<p>
-	<strong> <spring:message code="dashboard.thirteen" /> </strong>:
-	<jstl:out value="${ratTaskWithComplaints}" />
-</p>
+
+<p> <strong> <spring:message code="dashboard.five" />: </strong> </p>
+<display:table name="processions" id="row" requestURI="dashboard/administrator/processions" pagesize="5" class="displaytag">
+	<display:column property="ticker" titleKey="procession.ticker" />
+	<display:column property="title" titleKey="procession.title" />
+</display:table>
+
+<p> <strong> <spring:message code="dashboard.six" />: </strong> </p>
+<p> <strong> <spring:message code="dashboard.seven" />: </strong> </p>
+
+<p> <strong> <spring:message code="dashboard.eight" />: </strong> </p>
 
 <p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
-<display:table name="customers" id="row" requestURI="dashboard/administrator/listCustomers" pagesize="5" class="displaytag">
-	<display:column property="fullname" titleKey="actor.fullname" />
-</display:table>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="1.0" /> </td>
+		<td> <jstl:out value="2.0" /> </td>
+		<td> <jstl:out value="3.0" /> </td>
+		<td> <jstl:out value="4.0" /> </td>
+	</tr>
+</table>
 
 <p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
-<display:table name="handyWorkers" id="row" requestURI="dashboard/administrator/listHandyWorkers" pagesize="5" class="displaytag">
-	<display:column property="fullname" titleKey="actor.fullname" />
-</display:table>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataResultsPerFinder[0]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[1]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[2]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[3]}" /> </td>
+	</tr>
+</table>
 
-<p> <strong> <spring:message code="dashboard.fourteen" />: </strong> </p>
-<display:table name="topThreeC" id="row" requestURI="dashboard/administrator/listCustomers" pagesize="5" class="displaytag">
-	<display:column property="fullname" titleKey="actor.fullname" />
-</display:table>
-
-<p> <strong> <spring:message code="dashboard.fifteen" />: </strong> </p>
-<display:table name="topThreeHW" id="row" requestURI="dashboard/administrator/listHandyWorkers" pagesize="5" class="displaytag">
-	<display:column property="fullname" titleKey="actor.fullname" />
-</display:table>
+<p>
+	<strong> <spring:message code="dashboard.eleven" /> </strong>:
+	<jstl:out value="${ratioEmptyVsNonEmpty}" />
+</p>
 
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>

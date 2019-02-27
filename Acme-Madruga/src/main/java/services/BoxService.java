@@ -6,10 +6,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -166,14 +166,19 @@ public class BoxService {
 	private Validator	validator;
 
 
-	@Transactional(propagation = Propagation.NEVER)
 	public Box reconstruct(final Box box, final BindingResult binding) {
-		Box result;
+		Box result, storedBox;
 
+		storedBox = this.findOne(box.getId());
 		if (box.getId() == 0)
 			result = this.create();
-		else
-			result = this.findOne(box.getId());
+		else {
+			result = new Box();
+			result.setId(storedBox.getId());
+			result.setVersion(storedBox.getVersion());
+			result.setActor(storedBox.getActor());
+			result.setMessages(storedBox.getMessages());
+		}
 
 		result.setName(box.getName());
 		result.setParent(box.getParent());
