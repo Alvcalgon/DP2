@@ -55,7 +55,7 @@
 	<jstl:out value="${messageToDisplay.sender.fullname}" />
 </p>
 
-<strong> <spring:message code="message.display.recipients"/> </strong>
+<strong> <spring:message code="message.display.recipients"/>: </strong>
 <display:table name="${messageToDisplay.recipients}" id="row" requestURI="message/administrator,brotherhood,member/display.do?messageId=${messageToDisplay.id}&boxId=${boxId}" pagesize="5" class="displaytag">
 
 	<display:column property="fullname" titleKey="message.recipient.name"/>

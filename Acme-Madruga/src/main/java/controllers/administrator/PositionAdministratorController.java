@@ -37,15 +37,19 @@ public class PositionAdministratorController extends AbstractController {
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int positionId, final Locale locale) {
-		final ModelAndView result;
+		ModelAndView result;
 		TranslationPosition translationPosition;
 		final String name;
 
-		translationPosition = this.translationPositionService.findByLanguagePosition(positionId, locale.getLanguage());
-		name = translationPosition.getName();
+		try {
+			translationPosition = this.translationPositionService.findByLanguagePosition(positionId, locale.getLanguage());
+			name = translationPosition.getName();
 
-		result = new ModelAndView("position/display");
-		result.addObject("name", name);
+			result = new ModelAndView("position/display");
+			result.addObject("name", name);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
 
 		return result;
 	}

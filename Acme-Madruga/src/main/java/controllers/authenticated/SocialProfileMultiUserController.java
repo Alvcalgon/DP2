@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +17,6 @@ import services.SocialProfileService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.SocialProfile;
-import forms.SocialProfileForm;
 
 @Controller
 @RequestMapping(value = "/socialProfile/administrator,brotherhood,member")
@@ -39,12 +39,12 @@ public class SocialProfileMultiUserController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		SocialProfileForm socialProfileForm;
+		SocialProfile socialProfile;
 
 		try {
-			socialProfileForm = new SocialProfileForm();
+			socialProfile = this.socialProfileService.create();
 
-			result = this.createEditModelAndView(socialProfileForm);
+			result = this.createEditModelAndView(socialProfile);
 
 			return result;
 		} catch (final Exception e) {
@@ -59,18 +59,13 @@ public class SocialProfileMultiUserController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int socialProfileId) {
 		ModelAndView result;
-		SocialProfileForm socialProfileForm;
 		SocialProfile socialProfile;
 
 		try {
 			socialProfile = this.socialProfileService.findOneToEdit(socialProfileId);
+			Assert.notNull(socialProfile);
+			result = this.createEditModelAndView(socialProfile);
 
-			socialProfileForm = new SocialProfileForm();
-			socialProfileForm.setId(socialProfileId);
-			socialProfileForm.setLinkProfile(socialProfile.getLinkProfile());
-			socialProfileForm.setNick(socialProfile.getNick());
-			socialProfileForm.setSocialNetwork(socialProfile.getSocialNetwork());
-			result = this.createEditModelAndView(socialProfileForm);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -79,27 +74,23 @@ public class SocialProfileMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final SocialProfileForm socialProfileForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final SocialProfile socialProfile, final BindingResult binding) {
 		ModelAndView result;
 		Actor actor;
-		SocialProfile socialProfile;
 
-		this.socialProfileService.validateLinkProfile(socialProfileForm, binding);
-		this.socialProfileService.validateLinkProfileUnique(socialProfileForm, binding);
-		this.socialProfileService.validateNick(socialProfileForm, binding);
-		this.socialProfileService.validateSocialNetwork(socialProfileForm, binding);
 		try {
 			actor = this.actorService.findPrincipal();
 
 			if (binding.hasErrors())
-				result = this.createEditModelAndView(socialProfileForm);
+				result = this.createEditModelAndView(socialProfile);
 			else
 				try {
-					socialProfile = this.socialProfileService.reconstruct(socialProfileForm, binding);
 					this.socialProfileService.save(socialProfile);
 					result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
+				} catch (final IllegalArgumentException oops) {
+					result = this.createEditModelAndView(socialProfile, "socialProfile.linkProfile.unique");
 				} catch (final Throwable oops) {
-					result = this.createEditModelAndView(socialProfileForm, "socialProfile.commit.error");
+					result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
 				}
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -122,7 +113,6 @@ public class SocialProfileMultiUserController extends AbstractController {
 				this.socialProfileService.delete(socialProfile);
 				result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
 			} catch (final Throwable oops) {
-				//	result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");
 				result = new ModelAndView("redirect:../../error.do");
 			}
 		} catch (final Exception e) {
@@ -134,15 +124,15 @@ public class SocialProfileMultiUserController extends AbstractController {
 
 	// Arcillary methods --------------------------
 
-	protected ModelAndView createEditModelAndView(final SocialProfileForm socialProfileForm) {
+	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(socialProfileForm, null);
+		result = this.createEditModelAndView(socialProfile, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final SocialProfileForm socialProfileForm, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final SocialProfile socialProfile, final String messageCode) {
 		ModelAndView result;
 		Actor principal;
 		int actorId;
@@ -151,7 +141,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 		actorId = principal.getId();
 
 		result = new ModelAndView("socialProfile/edit");
-		result.addObject("socialProfileForm", socialProfileForm);
+		result.addObject("socialProfile", socialProfile);
 		result.addObject("messageCode", messageCode);
 		result.addObject("actorId", actorId);
 
