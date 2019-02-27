@@ -107,8 +107,8 @@ public class PositionAdministratorController extends AbstractController {
 		ModelAndView result;
 		Position position;
 
-		this.positionService.validateName("en_name", positionForm.getEn_name(), binding);
-		this.positionService.validateName("es_name", positionForm.getEs_name(), binding);
+		this.positionService.validateName(locale.getLanguage(), "en_name", positionForm.getEn_name(), binding);
+		this.positionService.validateName(locale.getLanguage(), "es_name", positionForm.getEs_name(), binding);
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(positionForm, locale);

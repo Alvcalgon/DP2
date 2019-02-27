@@ -19,45 +19,52 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="request/brotherhood/edit.do" modelAttribute="request">
+<form:form action="request/brotherhood/edit.do"
+	modelAttribute="requestForm">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
 	<form:hidden path="status" />
 	<form:hidden path="member" />
 	<form:hidden path="procession" />
+	<form:hidden path="rowProcession" />
+	<form:hidden path="columnProcession" />
 
-	<jstl:if test="${request.status=='APPROVED'}">
-		<form:label path="rowProcession">
-			<spring:message code="request.rowProcession" />
+	<jstl:if test="${requestForm.status=='APPROVED'}">
+		<form:label path="positionProcession">
+			<spring:message code="request.positionProcession" />:
 		</form:label>
-		<form:input path="rowProcession" />
-		<form:errors cssClass="error" path="rowProcession" />
-		<br />
+		<form:select path="positionProcession" multiple="false" size="1">
+			<jstl:forEach var="position" items="${positions.keySet()}">
+				<form:option label="${positions.get(position)[0]}, ${positions.get(position)[1]}"
+					value="${position}" />
+			</jstl:forEach>
+		</form:select>
+		<form:errors cssClass="error" path="positionProcession" />
 
-		<form:label path="columnProcession">
-			<spring:message code="request.columnProcession" />
-		</form:label>
-		<form:input path="columnProcession" />
-		<form:errors cssClass="error" path="columnProcession" />
 		<br />
+		
+		<div>
+			<acme:submit name="save" code="request.save" />
+			&nbsp;
+			<acme:cancel code="request.cancel" url="request/brotherhood/list.do" />
+		</div>
 	</jstl:if>
-	<jstl:if test="${request.status=='REJECTED'}">
-		<form:label path="reasonWhy">
-			<spring:message code="request.reasonWhy" />
-		</form:label>
-		<form:input path="reasonWhy" />
-		<form:errors cssClass="error" path="reasonWhy" />
+
+	<jstl:if test="${requestForm.status!='APPROVED'}">
+
+		<acme:textarea code="request.reasonWhyText" path="reasonWhy" />
+
+		<div>
+			<acme:submit name="saveReject" code="request.save" />
+			&nbsp;
+			<acme:cancel code="request.cancel" url="request/brotherhood/list.do" />
+		</div>
 	</jstl:if>
 	<br />
 
 	<!-- Buttons -->
 
-	<input type="submit" name="save"
-		value="<spring:message code="request.save"/>" />
 
-	<input type="button" name="cancel"
-		value="<spring:message code="request.cancel" />"
-		onclick="javascript: relativeRedir('socialProfile/list.do');" />
 
 </form:form>
