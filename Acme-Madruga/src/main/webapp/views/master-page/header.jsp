@@ -25,6 +25,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="customisation/administrator/display.do"> <spring:message code="master.page.customisation" /> </a></li>
+					<li><a href="dashboard/administrator/display.do"> <spring:message code="master.page.dashboard" /> </a></li>
 					<li><a href="position/administrator/list.do"> <spring:message code="master.page.position" /> </a></li>					
 					<li><a href="actor/registerAdministrator.do"><spring:message code="master.page.administrator.create" /></a></li>
 					<li><a href="actor/administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>

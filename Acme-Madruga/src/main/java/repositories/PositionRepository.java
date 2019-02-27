@@ -20,4 +20,7 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
 	// que no son ocupados por ningun miembro.
 	@Query("select count(e) from Enrolment e where e.position is not null group by e.position")
 	Collection<Integer> findHistogramValues();
+
+	@Query("select tp.name from Position p join p.translationPositions tp where tp.language=?1")
+	Collection<String> findHistogramLabels(String language);
 }

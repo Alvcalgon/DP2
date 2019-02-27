@@ -226,13 +226,14 @@ public class MessageService {
 
 		recipients = result.getRecipients();
 		isSpam = this.messageIsSpam(result);
-		if (isSpam)
+		if (isSpam) {
+			result.setIsSpam(true);
 			for (final Actor a : recipients) {
 				spamBoxRecipient = this.boxService.findSpamBoxFromActor(a.getId());
 
 				this.boxService.addMessage(spamBoxRecipient, result);
 			}
-		else
+		} else
 			for (final Actor a : recipients) {
 				notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
 

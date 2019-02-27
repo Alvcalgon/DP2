@@ -31,6 +31,7 @@
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/customisation/tiles.xml</value>
+		<value>/views/dashboard/tiles.xml</value>
 		<value>/views/enrolment/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>

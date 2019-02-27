@@ -169,6 +169,14 @@ public class PositionService {
 		return results;
 	}
 
+	public Collection<String> findHistogramLabels(final String language) {
+		Collection<String> results;
+
+		results = this.positionRepository.findHistogramLabels(language);
+
+		return results;
+	}
+
 	// Protected methods -------------------------
 
 	// Private methods ---------------------------
