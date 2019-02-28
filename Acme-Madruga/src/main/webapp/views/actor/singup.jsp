@@ -70,7 +70,7 @@
 			<acme:textbox code="actor.brotherhood.establishmentDate.requested" path="establishmentDate"/>
 			<br />
 			
-			<acme:textbox code="actor.brotherhood.pictures" path="pictures"/>
+			<acme:textarea code="actor.brotherhood.pictures" path="pictures"/>
 			<br />
 	
 			<acme:select items="${areas}" itemLabel="name" code="actor.brotherhood.area" path="area"/>
@@ -120,7 +120,7 @@
 			
 		</jstl:if>
 		
-		<jstl:if test="${role == 'Member'}">
+		<jstl:if test="${rol == 'Member'}">
 		
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="MEMBER"/>
 		

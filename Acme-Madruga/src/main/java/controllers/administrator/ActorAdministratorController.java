@@ -137,6 +137,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
+				result.addObject("rol", "Administrator");
 			}
 
 		return result;
@@ -169,6 +170,7 @@ public class ActorAdministratorController extends ActorAbstractController {
 		result = new ModelAndView("actor/singup");
 		result.addObject("registrationForm", registrationForm);
 		result.addObject("messageCode", messageCode);
+		result.addObject("urlAdmin", "administrator/");
 
 		return result;
 	}

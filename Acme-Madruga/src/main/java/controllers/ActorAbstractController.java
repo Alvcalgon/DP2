@@ -68,8 +68,10 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("existEnrolmentRequest", existEnrolmentRequest);
 		}
 
-		if (principal != null && actor != null && principal == actor)
+		if (principal != null && actor != null && principal == actor) {
 			result.addObject("isActorLogged", true);
+			result.addObject("isAuthorized", true);
+		}
 
 		result.addObject("actor", actor);
 
