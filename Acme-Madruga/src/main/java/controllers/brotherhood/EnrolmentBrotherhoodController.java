@@ -81,7 +81,7 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 			enrolment = this.enrolmentService.findOneToEdit(enrolmentId);
 			result = this.createEditModelAndView(enrolment, locale);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("/error.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;

@@ -59,7 +59,7 @@ public class ActorAbstractController extends AbstractController {
 
 		if (principal != null && actor != null && principal instanceof Member && actor instanceof Brotherhood) {
 			isEnrolled = this.enrolmentService.findIsEnrolledIn(principal.getId(), actorId);
-			existEnrolmentRequest = this.enrolmentService.findExistEnrolmentRequestOf(principal.getId(), actorId);
+			existEnrolmentRequest = this.enrolmentService.findExistRequestEnrolment(principal.getId(), actorId);
 			brotherhood = (Brotherhood) actor;
 			hasSelectedArea = brotherhood.getArea() != null;
 

@@ -37,8 +37,12 @@ public class EnrolmentMemberController extends AbstractController {
 	public ModelAndView requestEnrolment(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
 
-		this.enrolmentService.requestEnrolment(brotherhoodId);
-		result = new ModelAndView("redirect:/actor/display.do?actorId=" + brotherhoodId);
+		try {
+			this.enrolmentService.requestEnrolment(brotherhoodId);
+			result = new ModelAndView("redirect:/actor/display.do?actorId=" + brotherhoodId);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
 
 		return result;
 	}
@@ -59,11 +63,9 @@ public class EnrolmentMemberController extends AbstractController {
 	@RequestMapping(value = "/dropOut", method = RequestMethod.GET)
 	public ModelAndView dropOut(@RequestParam final int brotherhoodId, final RedirectAttributes redir) {
 		ModelAndView result;
-		Enrolment enrolment;
 
 		try {
-			enrolment = this.enrolmentService.findActiveByBrotherhoodId(brotherhoodId);
-			this.enrolmentService.dropOut(enrolment);
+			this.enrolmentService.dropOut(brotherhoodId);
 		} catch (final Throwable oops) {
 			redir.addFlashAttribute("messageCode", "actor.commit.error");
 		}

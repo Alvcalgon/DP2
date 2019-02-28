@@ -109,14 +109,17 @@ public class EnrolmentService {
 	public void remove(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
 		this.checkOwnerBrotherhood(enrolment);
+		this.checkIsActive(enrolment);
 
 		this.manageExitOfMember(enrolment);
 	}
 
-	public void dropOut(final Enrolment enrolment) {
-		Assert.notNull(enrolment);
-		this.checkOwnerMember(enrolment);
+	public void dropOut(final int brotherhoodId) {
+		Enrolment enrolment;
 
+		enrolment = this.findActiveByBrotherhoodId(brotherhoodId);
+
+		this.checkOwnerMember(enrolment);
 		this.manageExitOfMember(enrolment);
 	}
 
@@ -135,7 +138,7 @@ public class EnrolmentService {
 
 		this.checkIsRequest(enrolment);
 
-		inactive = this.findInactiveByBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
+		inactive = this.enrolmentRepository.findInactiveEnrolment(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
 		if (inactive != null)
 			this.enrolmentRepository.delete(inactive);
 
@@ -147,10 +150,49 @@ public class EnrolmentService {
 
 	public void requestEnrolment(final int brotherhoodId) {
 		Enrolment enrolment;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+
+		Assert.isTrue(!this.findExistActiveEnrolment(member.getId(), brotherhoodId));
+		Assert.isTrue(!this.findExistRequestEnrolment(member.getId(), brotherhoodId));
 
 		enrolment = this.create(brotherhoodId);
 		this.enrolmentRepository.save(enrolment);
 	}
+
+	public Collection<Enrolment> findRequestEnrolments() {
+		Collection<Enrolment> result;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+		result = this.enrolmentRepository.findRequestEnrolments(brotherhood.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Enrolment> findAllEnrolmentsByPrincipal() {
+		Collection<Enrolment> result;
+		Member member;
+
+		member = this.memberService.findByPrincipal();
+		result = this.enrolmentRepository.findAllEnrolmentsByMemberId(member.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Enrolment> findEnroledMembers(final int brotherhoodId) {
+		Collection<Enrolment> result;
+
+		result = this.enrolmentRepository.findEnroledMembers(brotherhoodId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	// Ancillary methods ----------------------------------
 
 	public Enrolment reconstruct(final Enrolment enrolment, final BindingResult binding) {
 		Enrolment result, enrolmentStored;
@@ -179,7 +221,7 @@ public class EnrolmentService {
 		return result;
 	}
 
-	public boolean findExistEnrolmentRequestOf(final int memberId, final int brotherhoodId) {
+	public boolean findExistRequestEnrolment(final int memberId, final int brotherhoodId) {
 		boolean result;
 
 		result = this.enrolmentRepository.findRequestEnrolment(memberId, brotherhoodId) != null;
@@ -187,52 +229,21 @@ public class EnrolmentService {
 		return result;
 	}
 
-	public Collection<Enrolment> findAllEnrolmentsByPrincipal() {
-		Collection<Enrolment> result;
-		Member member;
+	private boolean findExistActiveEnrolment(final int memberId, final int brotherhoodId) {
+		boolean result;
 
-		member = this.memberService.findByPrincipal();
-		result = this.enrolmentRepository.findAllEnrolmentsByMemberId(member.getId());
-		Assert.notNull(result);
+		result = this.enrolmentRepository.findActiveEnrolment(memberId, brotherhoodId) != null;
 
 		return result;
 	}
 
-	public Enrolment findActiveByBrotherhoodId(final int brotherhoodId) {
+	private Enrolment findActiveByBrotherhoodId(final int brotherhoodId) {
 		Enrolment result;
 		Member principal;
 
 		principal = this.memberService.findByPrincipal();
 		result = this.enrolmentRepository.findActiveEnrolment(principal.getId(), brotherhoodId);
 		Assert.notNull(result);
-
-		return result;
-	}
-
-	public Collection<Enrolment> findEnroledMembers(final int brotherhoodId) {
-		Collection<Enrolment> result;
-
-		result = this.enrolmentRepository.findEnroledMembers(brotherhoodId);
-		Assert.notNull(result);
-
-		return result;
-	}
-
-	public Collection<Enrolment> findRequestEnrolments() {
-		Collection<Enrolment> result;
-		Brotherhood brotherhood;
-
-		brotherhood = this.brotherhoodService.findByPrincipal();
-		result = this.enrolmentRepository.findRequestEnrolments(brotherhood.getId());
-		Assert.notNull(result);
-
-		return result;
-	}
-
-	private Enrolment findInactiveByBrotherhoodId(final int memberId, final int brotherhoodId) {
-		Enrolment result;
-
-		result = this.enrolmentRepository.findInactiveEnrolment(memberId, brotherhoodId);
 
 		return result;
 	}
