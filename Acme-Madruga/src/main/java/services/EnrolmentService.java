@@ -133,12 +133,11 @@ public class EnrolmentService {
 	public Enrolment enrol(final Enrolment enrolment) {
 		Enrolment saved, inactive;
 
-		inactive = this.findInactiveByBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
+		this.checkIsRequest(enrolment);
 
+		inactive = this.findInactiveByBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
 		if (inactive != null)
 			this.enrolmentRepository.delete(inactive);
-
-		this.checkIsRequest(enrolment);
 
 		enrolment.setRegisteredMoment(this.utilityService.current_moment());
 		saved = this.save(enrolment);
