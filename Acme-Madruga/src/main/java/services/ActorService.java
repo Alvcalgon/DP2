@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Brotherhood;
 import domain.Message;
 
 @Service
@@ -53,6 +54,9 @@ public class ActorService {
 	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
 		this.utilityService.checkEmailActors(actor);
+		this.utilityService.checkPicture(actor.getPhoto());
+		if (actor instanceof Brotherhood)
+			this.utilityService.checkPicture(((Brotherhood) actor).getPictures());
 
 		final Actor result;
 		boolean isUpdating;

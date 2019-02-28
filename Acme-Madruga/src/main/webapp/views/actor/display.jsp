@@ -48,7 +48,7 @@
 				<fmt:formatDate value="${actor.establishmentDate}" pattern="${formatMoment}"/>
 		</p>
 		
-		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong>  <jstl:out value="${actor.pictures}" /></p>
+		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong> <img alt="Picture" src="<jstl:out value="${actor.pictures}" />"> </p>
 		
 		
 		
