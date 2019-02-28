@@ -30,9 +30,6 @@
 			</jstl:forEach>
 		</ul>
 	</jstl:if>
-
-
-	
 	<!-- Links -->	
 
 <security:authorize access="hasRole('ADMIN')">
