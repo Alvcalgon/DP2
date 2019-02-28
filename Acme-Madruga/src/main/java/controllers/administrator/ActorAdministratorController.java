@@ -5,14 +5,18 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AdministratorService;
 import controllers.ActorAbstractController;
 import domain.Actor;
+import domain.Administrator;
+import forms.RegistrationForm;
 
 @Controller
 @RequestMapping(value = "/actor/administrator")
@@ -21,7 +25,10 @@ public class ActorAdministratorController extends ActorAbstractController {
 	// Services
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Constructors
@@ -95,6 +102,73 @@ public class ActorAdministratorController extends ActorAbstractController {
 		}
 
 		result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerAdministrator", method = RequestMethod.GET)
+	public ModelAndView createAdministrator() {
+		ModelAndView result;
+		String rol;
+		final Administrator administrator;
+
+		rol = "Administrator";
+		administrator = new Administrator();
+		result = this.createModelAndView(administrator);
+		result.addObject("rol", rol);
+		result.addObject("urlAdmin", "administrator/");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerAdministrator", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveAdministrator(final RegistrationForm registrationForm, final BindingResult binding) {
+		ModelAndView result;
+		Administrator administrator;
+
+		administrator = this.administratorService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Administrator");
+		} else
+			try {
+				this.administratorService.save(administrator);
+				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.registration.error");
+			}
+
+		return result;
+	}
+
+	// Ancillary Methods
+
+	protected ModelAndView createModelAndView(final Administrator administrator) {
+		ModelAndView result;
+		RegistrationForm registrationForm;
+
+		registrationForm = this.administratorService.createForm(administrator);
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final RegistrationForm registrationForm) {
+		ModelAndView result;
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final RegistrationForm registrationForm, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("actor/singup");
+		result.addObject("registrationForm", registrationForm);
+		result.addObject("messageCode", messageCode);
 
 		return result;
 	}

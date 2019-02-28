@@ -116,7 +116,7 @@ public class AdministratorService {
 	}
 
 	public Administrator reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
-		Administrator result;
+		Administrator result, administratorStored;
 		UserAccount userAccount;
 
 		if (registrationForm.getId() == 0) {
@@ -137,7 +137,9 @@ public class AdministratorService {
 
 			this.validateRegistration(result, registrationForm, binding);
 		} else {
-			result = this.findOneToDisplayEdit(registrationForm.getId());
+			result = new Administrator();
+			administratorStored = this.findOneToDisplayEdit(registrationForm.getId());
+
 			result.setName(registrationForm.getName());
 			result.setSurname(registrationForm.getSurname());
 			result.setEmail(registrationForm.getEmail());
@@ -145,8 +147,11 @@ public class AdministratorService {
 			result.setMiddleName(registrationForm.getMiddleName());
 			result.setPhoto(registrationForm.getPhoto());
 			result.setAddress(registrationForm.getAddress());
-			result.setIsSpammer(registrationForm.getIsSpammer());
-			result.setScore(registrationForm.getScore());
+			result.setIsSpammer(administratorStored.getIsSpammer());
+			result.setScore(administratorStored.getScore());
+			result.setId(administratorStored.getId());
+			result.setVersion(administratorStored.getVersion());
+			result.setUserAccount(administratorStored.getUserAccount());
 
 		}
 		this.validator.validate(result, binding);
@@ -174,37 +179,21 @@ public class AdministratorService {
 
 	}
 
-	public String validateName(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
+	public RegistrationForm createForm(final Administrator administrator) {
+		RegistrationForm registrationForm;
 
-		result = registrationForm.getName();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("name", "name.error.blank", "Must not be blank");
+		registrationForm = new RegistrationForm();
 
-		return result;
+		registrationForm.setName(administrator.getName());
+		registrationForm.setMiddleName(administrator.getMiddleName());
+		registrationForm.setSurname(administrator.getSurname());
+		registrationForm.setEmail(administrator.getEmail());
+		registrationForm.setId(administrator.getId());
+		registrationForm.setPhoto(administrator.getPhoto());
+		registrationForm.setPhoneNumber(administrator.getPhoneNumber());
+		registrationForm.setAddress(administrator.getAddress());
 
-	}
-
-	public String validateSurname(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getSurname();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("surname", "surname.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateEmail(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getEmail();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("email", "email.error.blank", "Must not be blank");
-
-		return result;
-
+		return registrationForm;
 	}
 
 }

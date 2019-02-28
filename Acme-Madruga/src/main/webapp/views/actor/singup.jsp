@@ -11,7 +11,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/register${rol}.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
+<form:form action="actor/${urlAdmin}register${rol}.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
 		
 	<form:hidden path="id"/>
 	

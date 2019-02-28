@@ -16,7 +16,6 @@ import services.AdministratorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.MemberService;
-import domain.Administrator;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Member;
@@ -69,27 +68,14 @@ public class ActorController extends ActorAbstractController {
 	@RequestMapping(value = "/registerBrotherhood", method = RequestMethod.GET)
 	public ModelAndView createBrotherhood() {
 		ModelAndView result;
-		BrotherhoodRegistrationForm brotherhoodRegistrationForm;
 		String rol;
+		Brotherhood brotherhood;
 
 		rol = "Brotherhood";
-		brotherhoodRegistrationForm = new BrotherhoodRegistrationForm();
-		result = this.createModelAndView(brotherhoodRegistrationForm);
+		brotherhood = new Brotherhood();
+		result = this.createModelAndView(brotherhood);
 		result.addObject("rol", rol);
-
-		return result;
-	}
-
-	@RequestMapping(value = "/registerMember", method = RequestMethod.GET)
-	public ModelAndView createMember() {
-		ModelAndView result;
-		RegistrationForm registrationForm;
-		String rol;
-
-		rol = "Member";
-		registrationForm = new RegistrationForm();
-		result = this.createModelAndView(registrationForm);
-		result.addObject("rol", rol);
+		result.addObject("urlAdmin", "");
 
 		return result;
 	}
@@ -115,6 +101,21 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/registerMember", method = RequestMethod.GET)
+	public ModelAndView createMember() {
+		ModelAndView result;
+		String rol;
+		Member member;
+
+		rol = "Member";
+		member = new Member();
+		result = this.createModelAndView(member);
+		result.addObject("rol", rol);
+		result.addObject("urlAdmin", "");
+
+		return result;
+	}
+
 	@RequestMapping(value = "/registerMember", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveMember(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
@@ -136,44 +137,29 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
-	// Creation
+	// Ancillary methods ------------------------------------------------------
 
-	@RequestMapping(value = "/registerAdministrator", method = RequestMethod.GET)
-	public ModelAndView createAdministrator() {
+	protected ModelAndView createModelAndView(final Member member) {
 		ModelAndView result;
 		RegistrationForm registrationForm;
-		String rol;
 
-		rol = "Administrator";
-		registrationForm = new RegistrationForm();
-		result = this.createModelAndView(registrationForm);
-		result.addObject("rol", rol);
+		registrationForm = this.memberService.createForm(member);
+
+		result = this.createModelAndView(registrationForm, null);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/registerAdministrator", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveAdministrator(final RegistrationForm registrationForm, final BindingResult binding) {
+	protected ModelAndView createModelAndView(final Brotherhood brotherhood) {
 		ModelAndView result;
-		Administrator administrator;
+		BrotherhoodRegistrationForm brotherhoodRegistrationForm;
 
-		administrator = this.administratorService.reconstruct(registrationForm, binding);
+		brotherhoodRegistrationForm = this.brotherhoodService.createForm(brotherhood);
 
-		if (binding.hasErrors()) {
-			result = this.createModelAndView(registrationForm);
-			result.addObject("rol", "Administrator");
-		} else
-			try {
-				this.administratorService.save(administrator);
-				result = new ModelAndView("redirect:/welcome/index.do");
-			} catch (final Throwable oops) {
-				result = this.createModelAndView(registrationForm, "actor.registration.error");
-			}
+		result = this.createModelAndView(brotherhoodRegistrationForm, null);
 
 		return result;
 	}
-
-	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createModelAndView(final RegistrationForm registrationForm) {
 		ModelAndView result;

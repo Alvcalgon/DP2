@@ -48,7 +48,6 @@
 		
 		<security:intercept-url pattern="/actor/administrator,brotherhood,member/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/registerAdministrator.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/display.do**" access="permitAll" />  
 		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" /> 
 		

@@ -155,7 +155,7 @@ public class BrotherhoodService {
 	}
 
 	public Brotherhood reconstruct(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		Brotherhood result;
+		Brotherhood result, brotherhoodStored;
 		UserAccount userAccount;
 
 		if (registrationForm.getId() == 0) {
@@ -180,8 +180,9 @@ public class BrotherhoodService {
 
 			this.validateRegistration(result, registrationForm, binding);
 		} else {
+			result = new Brotherhood();
+			brotherhoodStored = this.findOneToDisplayEdit(registrationForm.getId());
 
-			result = this.findOneToDisplayEdit(registrationForm.getId());
 			result.setName(registrationForm.getName());
 			result.setSurname(registrationForm.getSurname());
 			result.setEmail(registrationForm.getEmail());
@@ -189,11 +190,15 @@ public class BrotherhoodService {
 			result.setMiddleName(registrationForm.getMiddleName());
 			result.setPhoto(registrationForm.getPhoto());
 			result.setAddress(registrationForm.getAddress());
-			result.setIsSpammer(registrationForm.getIsSpammer());
-			result.setScore(registrationForm.getScore());
 			result.setTitle(registrationForm.getTitle());
 			result.setEstablishmentDate(registrationForm.getEstablishmentDate());
 			result.setPictures(registrationForm.getPictures());
+			result.setIsSpammer(brotherhoodStored.getIsSpammer());
+			result.setScore(brotherhoodStored.getScore());
+			result.setId(brotherhoodStored.getId());
+			result.setVersion(brotherhoodStored.getVersion());
+			result.setUserAccount(brotherhoodStored.getUserAccount());
+			result.setArea(brotherhoodStored.getArea());
 
 		}
 		this.validator.validate(result, binding);
@@ -219,60 +224,6 @@ public class BrotherhoodService {
 		else if (username.length() < 5 || username.length() > 32)
 			binding.rejectValue("username", "actor.username.size", "Username must have between 5 and 32 characters.");
 
-	}
-
-	public String validateName(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getName();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("name", "name.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateSurname(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getSurname();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("surname", "surname.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateEmail(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getEmail();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("email", "email.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateTitle(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getSurname();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("title", "title.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateEstablishmentDate(final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getEmail();
-		if (result.equals(null))
-			binding.rejectValue("establishmentDate", "establishmentDate.error.blank", "Must not be blank");
-
-		return result;
 	}
 
 	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
@@ -310,23 +261,23 @@ public class BrotherhoodService {
 
 	}
 
-	public BrotherhoodRegistrationForm createBrotherhoodRegistrationForm(final Brotherhood brotherhood) {
-		BrotherhoodRegistrationForm result;
+	public BrotherhoodRegistrationForm createForm(final Brotherhood brotherhood) {
+		BrotherhoodRegistrationForm brotherhoodRegistrationForm;
 
-		result = new BrotherhoodRegistrationForm();
+		brotherhoodRegistrationForm = new BrotherhoodRegistrationForm();
 
-		result.setId(brotherhood.getId());
-		result.setName(brotherhood.getName());
-		result.setSurname(brotherhood.getSurname());
-		result.setAddress(brotherhood.getAddress());
-		result.setEmail(brotherhood.getEmail());
-		result.setMiddleName(brotherhood.getMiddleName());
-		result.setPhoto(brotherhood.getPhoto());
-		result.setTitle(brotherhood.getTitle());
-		result.setEstablishmentDate(brotherhood.getEstablishmentDate());
-		result.setPictures(brotherhood.getPictures());
+		brotherhoodRegistrationForm.setId(brotherhood.getId());
+		brotherhoodRegistrationForm.setName(brotherhood.getName());
+		brotherhoodRegistrationForm.setSurname(brotherhood.getSurname());
+		brotherhoodRegistrationForm.setAddress(brotherhood.getAddress());
+		brotherhoodRegistrationForm.setEmail(brotherhood.getEmail());
+		brotherhoodRegistrationForm.setMiddleName(brotherhood.getMiddleName());
+		brotherhoodRegistrationForm.setPhoto(brotherhood.getPhoto());
+		brotherhoodRegistrationForm.setTitle(brotherhood.getTitle());
+		brotherhoodRegistrationForm.setEstablishmentDate(brotherhood.getEstablishmentDate());
+		brotherhoodRegistrationForm.setPictures(brotherhood.getPictures());
 
-		return result;
+		return brotherhoodRegistrationForm;
 
 	}
 

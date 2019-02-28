@@ -54,43 +54,23 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Actor actor;
 		final Brotherhood brotherhood;
-		final RegistrationForm registrationForm;
-		final BrotherhoodRegistrationForm brotherhoodRegistrationForm;
+		Administrator administrator;
+		Member member;
 
 		try {
 			actor = this.actorService.findOneToDisplayEdit(actorId);
-			if (actor instanceof Member || actor instanceof Administrator) {
-				registrationForm = new RegistrationForm();
-				registrationForm.setId(actor.getId());
-				registrationForm.setName(actor.getName());
-				registrationForm.setMiddleName(actor.getMiddleName());
-				registrationForm.setSurname(actor.getSurname());
-				registrationForm.setPhoto(actor.getPhoto());
-				registrationForm.setEmail(actor.getEmail());
-				registrationForm.setPhoneNumber(actor.getPhoneNumber());
-				registrationForm.setAddress(actor.getAddress());
+			if (actor instanceof Member) {
+				member = this.memberService.findOneToDisplayEdit(actorId);
+				result = this.createModelAndView(member);
+				result.addObject("rol", "Member");
 
-				result = this.createModelAndView(registrationForm);
-				if (actor instanceof Member)
-					result.addObject("rol", "Member");
-				else
-					result.addObject("rol", "Administrator");
+			} else if (actor instanceof Administrator) {
+				administrator = this.administratorService.findOneToDisplayEdit(actorId);
+				result = this.createModelAndView(administrator);
+				result.addObject("rol", "Administrator");
 			} else {
 				brotherhood = this.brotherhoodService.findOneToDisplayEdit(actorId);
-				brotherhoodRegistrationForm = new BrotherhoodRegistrationForm();
-				brotherhoodRegistrationForm.setId(brotherhood.getId());
-				brotherhoodRegistrationForm.setName(brotherhood.getName());
-				brotherhoodRegistrationForm.setMiddleName(brotherhood.getMiddleName());
-				brotherhoodRegistrationForm.setSurname(brotherhood.getSurname());
-				brotherhoodRegistrationForm.setPhoto(brotherhood.getPhoto());
-				brotherhoodRegistrationForm.setEmail(brotherhood.getEmail());
-				brotherhoodRegistrationForm.setPhoneNumber(brotherhood.getPhoneNumber());
-				brotherhoodRegistrationForm.setAddress(brotherhood.getAddress());
-				brotherhoodRegistrationForm.setTitle(brotherhood.getTitle());
-				brotherhoodRegistrationForm.setEstablishmentDate(brotherhood.getEstablishmentDate());
-				brotherhoodRegistrationForm.setPictures(brotherhood.getPictures());
-
-				result = this.createModelAndView(brotherhoodRegistrationForm);
+				result = this.createModelAndView(brotherhood);
 				result.addObject("rol", "Brotherhood");
 			}
 
@@ -105,14 +85,8 @@ public class ActorMultiUserController extends ActorAbstractController {
 	public ModelAndView saveAdministrator(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Administrator administrator;
-		administrator = null;
 
-		this.administratorService.validateName(registrationForm, binding);
-		this.administratorService.validateSurname(registrationForm, binding);
-		this.administratorService.validateEmail(registrationForm, binding);
-
-		if (!binding.hasErrors())
-			administrator = this.administratorService.reconstruct(registrationForm, binding);
+		administrator = this.administratorService.reconstruct(registrationForm, binding);
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(registrationForm);
@@ -131,16 +105,8 @@ public class ActorMultiUserController extends ActorAbstractController {
 	public ModelAndView saveBrotherhood(@ModelAttribute("registrationForm") final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
-		brotherhood = null;
 
-		this.brotherhoodService.validateName(brotherhoodRegistrationForm, binding);
-		this.brotherhoodService.validateSurname(brotherhoodRegistrationForm, binding);
-		this.brotherhoodService.validateEmail(brotherhoodRegistrationForm, binding);
-		this.brotherhoodService.validateTitle(brotherhoodRegistrationForm, binding);
-		this.brotherhoodService.validateTitle(brotherhoodRegistrationForm, binding);
-
-		if (!binding.hasErrors())
-			brotherhood = this.brotherhoodService.reconstruct(brotherhoodRegistrationForm, binding);
+		brotherhood = this.brotherhoodService.reconstruct(brotherhoodRegistrationForm, binding);
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(brotherhoodRegistrationForm);
@@ -160,14 +126,8 @@ public class ActorMultiUserController extends ActorAbstractController {
 	public ModelAndView saveMember(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
 		Member member;
-		member = null;
 
-		this.memberService.validateName(registrationForm, binding);
-		this.memberService.validateSurname(registrationForm, binding);
-		this.memberService.validateEmail(registrationForm, binding);
-
-		if (!binding.hasErrors())
-			member = this.memberService.reconstruct(registrationForm, binding);
+		member = this.memberService.reconstruct(registrationForm, binding);
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(registrationForm);
@@ -184,6 +144,39 @@ public class ActorMultiUserController extends ActorAbstractController {
 	}
 
 	// Ancillary methods
+
+	protected ModelAndView createModelAndView(final Administrator administrator) {
+		ModelAndView result;
+		RegistrationForm registrationForm;
+
+		registrationForm = this.administratorService.createForm(administrator);
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final Member member) {
+		ModelAndView result;
+		RegistrationForm registrationForm;
+
+		registrationForm = this.memberService.createForm(member);
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final Brotherhood brotherhood) {
+		ModelAndView result;
+		BrotherhoodRegistrationForm brotherhoodRegistrationForm;
+
+		brotherhoodRegistrationForm = this.brotherhoodService.createForm(brotherhood);
+
+		result = this.createModelAndView(brotherhoodRegistrationForm, null);
+
+		return result;
+	}
 
 	protected ModelAndView createModelAndView(final RegistrationForm registrationForm) {
 		ModelAndView result;

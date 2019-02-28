@@ -143,7 +143,7 @@ public class MemberService {
 	}
 
 	public Member reconstruct(final RegistrationForm registrationForm, final BindingResult binding) {
-		Member result;
+		Member result, memberStored;
 		UserAccount userAccount;
 
 		if (registrationForm.getId() == 0) {
@@ -165,7 +165,9 @@ public class MemberService {
 
 			this.validateRegistration(result, registrationForm, binding);
 		} else {
-			result = this.findOneToDisplayEdit(registrationForm.getId());
+			result = new Member();
+			memberStored = this.findOneToDisplayEdit(registrationForm.getId());
+
 			result.setName(registrationForm.getName());
 			result.setSurname(registrationForm.getSurname());
 			result.setEmail(registrationForm.getEmail());
@@ -173,8 +175,11 @@ public class MemberService {
 			result.setMiddleName(registrationForm.getMiddleName());
 			result.setPhoto(registrationForm.getPhoto());
 			result.setAddress(registrationForm.getAddress());
-			result.setIsSpammer(registrationForm.getIsSpammer());
-			result.setScore(registrationForm.getScore());
+			result.setIsSpammer(memberStored.getIsSpammer());
+			result.setScore(memberStored.getScore());
+			result.setId(memberStored.getId());
+			result.setVersion(memberStored.getVersion());
+			result.setUserAccount(memberStored.getUserAccount());
 
 		}
 		this.validator.validate(result, binding);
@@ -202,37 +207,21 @@ public class MemberService {
 
 	}
 
-	public String validateName(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
+	public RegistrationForm createForm(final Member member) {
+		RegistrationForm registrationForm;
 
-		result = registrationForm.getName();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("name", "name.error.blank", "Must not be blank");
+		registrationForm = new RegistrationForm();
 
-		return result;
+		registrationForm.setName(member.getName());
+		registrationForm.setMiddleName(member.getMiddleName());
+		registrationForm.setSurname(member.getSurname());
+		registrationForm.setEmail(member.getEmail());
+		registrationForm.setId(member.getId());
+		registrationForm.setPhoto(member.getPhoto());
+		registrationForm.setPhoneNumber(member.getPhoneNumber());
+		registrationForm.setAddress(member.getAddress());
 
-	}
-
-	public String validateSurname(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getSurname();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("surname", "surname.error.blank", "Must not be blank");
-
-		return result;
-
-	}
-
-	public String validateEmail(final RegistrationForm registrationForm, final BindingResult binding) {
-		String result;
-
-		result = registrationForm.getEmail();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("email", "email.error.blank", "Must not be blank");
-
-		return result;
-
+		return registrationForm;
 	}
 
 }
