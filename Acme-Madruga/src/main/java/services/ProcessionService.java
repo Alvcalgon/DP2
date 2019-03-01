@@ -157,7 +157,7 @@ public class ProcessionService {
 		result = this.processionRepository.findOne(processionId);
 
 		Assert.notNull(result);
-		Assert.isTrue(result.getIsFinalMode() == true);
+		Assert.isTrue(result.getIsFinalMode());
 
 		return result;
 	}
