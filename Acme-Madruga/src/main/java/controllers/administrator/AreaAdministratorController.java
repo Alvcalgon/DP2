@@ -36,7 +36,7 @@ public class AreaAdministratorController extends AbstractController {
 		super();
 	}
 
-	// Request List -----------------------------------------------------------
+	// Area List -----------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
