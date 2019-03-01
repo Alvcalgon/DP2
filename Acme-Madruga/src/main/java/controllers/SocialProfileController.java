@@ -32,32 +32,36 @@ public class SocialProfileController extends AbstractController {
 	}
 
 	// List
-	//TODO limitar que el display de los admin solo lo puedan ver ellos
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int actorId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
-		final ModelAndView result;
+		ModelAndView result;
 		Integer actorAuthenticateId = null;
 		Collection<SocialProfile> socialProfiles;
 
-		socialProfiles = this.socialProfileService.findSocialProfilesByActor(actorId);
-
 		try {
-			actorAuthenticateId = this.actorService.findPrincipal().getId();
-		} catch (final Throwable ups) {
+			socialProfiles = this.socialProfileService.findSocialProfilesByActor(actorId);
+
+			try {
+				actorAuthenticateId = this.actorService.findPrincipal().getId();
+			} catch (final Throwable ups) {
+			}
+
+			result = new ModelAndView("socialProfile/list");
+			result.addObject("socialProfiles", socialProfiles);
+			result.addObject("actorId", actorId);
+
+			result.addObject("requestURI", "socialProfile/list.do?actorId=" + actorId);
+			if (actorAuthenticateId != null) {
+				if (actorAuthenticateId == actorId)
+					result.addObject("isAuthorized", true);
+				else
+					result.addObject("isAuthorized", false);
+			} else
+				result.addObject("isAuthorized", false);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../error.do");
 		}
 
-		result = new ModelAndView("socialProfile/list");
-		result.addObject("socialProfiles", socialProfiles);
-		result.addObject("actorId", actorId);
-
-		result.addObject("requestURI", "socialProfile/list.do?actorId=" + actorId);
-		if (actorAuthenticateId != null) {
-			if (actorAuthenticateId == actorId)
-				result.addObject("isAuthorized", true);
-			else
-				result.addObject("isAuthorized", false);
-		} else
-			result.addObject("isAuthorized", false);
 		return result;
 	}
 
@@ -68,13 +72,13 @@ public class SocialProfileController extends AbstractController {
 
 		try {
 			result = new ModelAndView("socialProfile/display");
-			socialProfile = this.socialProfileService.findOne(socialProfileId);
+			socialProfile = this.socialProfileService.findOneDisplay(socialProfileId);
 
 			result.addObject("socialProfile", socialProfile);
 			result.addObject("actorId", socialProfile.getActor().getId());
 
 		} catch (final Exception e) {
-			result = new ModelAndView("redirect:../../error.do");
+			result = new ModelAndView("redirect:../error.do");
 		}
 
 		return result;

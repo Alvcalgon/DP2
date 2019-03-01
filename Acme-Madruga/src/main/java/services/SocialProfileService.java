@@ -59,6 +59,24 @@ public class SocialProfileService {
 		return result;
 	}
 
+	public SocialProfile findOneDisplay(final int socialProfileId) {
+		Assert.isTrue(socialProfileId != 0);
+		SocialProfile result;
+		Actor actor;
+
+		actor = this.socialProfileRepository.findOne(socialProfileId).getActor();
+
+		if (actor.getUserAccount().getAuthorities().toString().equals("[ADMIN]")) {
+			final Actor principal;
+			principal = this.actorService.findPrincipal();
+			Assert.isTrue(principal.getId() == actor.getId());
+		}
+
+		result = this.socialProfileRepository.findOne(socialProfileId);
+		Assert.notNull(result);
+
+		return result;
+	}
 	public SocialProfile findOneToEdit(final int socialProfileId) {
 		Assert.isTrue(socialProfileId != 0);
 		SocialProfile result;
@@ -110,6 +128,15 @@ public class SocialProfileService {
 	public Collection<SocialProfile> findSocialProfilesByActor(final int actorId) {
 		Collection<SocialProfile> result;
 
+		Actor actor;
+
+		actor = this.actorService.findOne(actorId);
+
+		if (actor.getUserAccount().getAuthorities().toString().equals("[ADMIN]")) {
+			final Actor principal;
+			principal = this.actorService.findPrincipal();
+			Assert.isTrue(principal.getId() == actor.getId());
+		}
 		result = this.socialProfileRepository.findSocialProfilesByActor(actorId);
 
 		return result;
