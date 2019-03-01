@@ -437,6 +437,22 @@ public class MessageService {
 	}
 
 	// Protected methods ------------------------------------
+	protected Double numberMessagesSentByActor(final int actorId) {
+		Double result;
+
+		result = this.messageRepository.numberMessagesSentByActor(actorId);
+
+		return result;
+	}
+
+	protected Double numberSpamMessagesSentByActor(final int actorId) {
+		Double result;
+
+		result = this.messageRepository.numberSpamMessagesSentByActor(actorId);
+
+		return result;
+	}
+
 	protected Collection<Message> findMessagesSentByActor(final int actorId) {
 		Collection<Message> result;
 

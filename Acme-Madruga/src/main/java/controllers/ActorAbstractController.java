@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.CustomisationService;
 import services.EnrolmentService;
 import domain.Actor;
 import domain.Administrator;
@@ -18,10 +19,13 @@ public class ActorAbstractController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private EnrolmentService	enrolmentService;
+	private EnrolmentService		enrolmentService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Main methods -----------------------------------------------------------
@@ -74,6 +78,7 @@ public class ActorAbstractController extends AbstractController {
 		}
 
 		result.addObject("actor", actor);
+		result.addObject("thresholdScore", this.customisationService.find().getThresholdScore());
 
 		return result;
 	}

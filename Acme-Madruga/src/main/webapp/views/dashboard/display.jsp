@@ -26,15 +26,19 @@
 	</tr>
 </table>
 
-<p>
-	<strong> <spring:message code="dashboard.two" />: </strong>
-	<jstl:out value="${largestBrotherhoods}" />
-</p>
+<p><strong> <spring:message code="dashboard.two" />: </strong></p>
+<display:table name="largestBrotherhoods" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" />
+</display:table>
 
-<p>
-	<strong> <spring:message code="dashboard.three" />: </strong>
-	<jstl:out value="${largestBrotherhoods}" />
-</p>
+<p><strong> <spring:message code="dashboard.three" />: </strong></p>
+<display:table name="smallestBrotherhoods" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" />
+</display:table>
 
 <p>
 	<strong> <spring:message code="dashboard.four" />: </strong>
@@ -42,15 +46,22 @@
 </p>
 
 <p> <strong> <spring:message code="dashboard.five" />: </strong> </p>
-<display:table name="processions" id="row" requestURI="dashboard/administrator/processions" pagesize="5" class="displaytag">
+<display:table name="processions" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column property="ticker" titleKey="procession.ticker" />
 	<display:column property="title" titleKey="procession.title" />
 </display:table>
 
-<p> <strong> <spring:message code="dashboard.six" />: </strong> </p>
-<p> <strong> <spring:message code="dashboard.seven" />: </strong> </p>
+<p>
+ 	<strong> <spring:message code="dashboard.six" />: </strong>
+	<jstl:out value="Ratio" /> 	
+</p>
 
-<p> <strong> <spring:message code="dashboard.eight" />: </strong> </p>
+<!--
+<p> <strong> <spring:message code="dashboard.seven" />: </strong> </p>
+<display:table name="members" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+</display:table>
+-->
 
 <p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
 <table>
@@ -69,28 +80,47 @@
 </table>
 
 <p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataResultsPerFinder[0]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[1]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[2]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[3]}" /> </td>
+	</tr>
+</table>
 
+<p>
+	<strong> <spring:message code="dashboard.eleven" /> </strong>:
+	<jstl:out value="${ratioEmptyVsNonEmpty}" />
+</p>
+
+
+<p> <strong> <spring:message code="dashboard.eight" />: </strong> </p>
 <jstl:set var="hLabels" value="${histogramLabels}" />
 <jstl:set var="hValues" value="${histogramValues}" />
-<jstl:set var="n" value="${tam}" />
-
-<jstl:out value="${hLabels}" />
-<jstl:out value="${hValues}" />
 
 <div id="container" style="width:800px; height:600px;">
 	<canvas id="myChart"></canvas>
 </div>
 <script>
 window.onload = function() {
-	var w_labels = "<jstl:out value='${hLabels}' />";
-	var w_values = "<jstl:out value='${hValues}' />";
-
-	var filas = [];
-	var columnas = [];
-	for (var i in w_labels) {
-		columnas.push(w_labels[i]);
-		filas.push(w_values[i]);
-	}	
+	var columnas = new Array();
+	<jstl:forEach var="w_label" items="${hLabels}">
+		var etiqueta = '${w_label}';
+		columnas.push(etiqueta);
+	</jstl:forEach>
+	
+	var filas = new Array();
+	<jstl:forEach var="w_value" items="${hValues}">
+		var val = '${w_value}';
+		filas.push(val);
+	</jstl:forEach>	
 	
 	var myChart = document.getElementById("myChart").getContext("2d");
 	var massPopChart = new Chart(myChart, {
@@ -117,26 +147,6 @@ window.onload = function() {
 	});
 };
 </script>
-
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataResultsPerFinder[0]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[1]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[2]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[3]}" /> </td>
-	</tr>
-</table>
-
-<p>
-	<strong> <spring:message code="dashboard.eleven" /> </strong>:
-	<jstl:out value="${ratioEmptyVsNonEmpty}" />
-</p>
 
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>
