@@ -86,22 +86,6 @@ public class AreaService {
 		return result;
 	}
 
-	public Area save(final Area area, final int brotherhoodId) {
-		Assert.notNull(brotherhoodId);
-
-		Area result;
-		final Brotherhood brotherhood;
-
-		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
-
-		result = this.areaRepository.save(area);
-
-		brotherhood.setArea(result);
-
-		return result;
-
-	}
-
 	public Area save(final Area area) {
 		Assert.notNull(area);
 		this.checkPrincipalIsAdministrator();
@@ -113,6 +97,20 @@ public class AreaService {
 		return result;
 	}
 
+	public Area save(final Area area, final int brotherhoodId) {
+		Assert.notNull(brotherhoodId);
+
+		Area result;
+		final Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+
+		result = this.areaRepository.save(area);
+		brotherhood.setArea(result);
+
+		return result;
+	}
+
 	public void delete(final Area area) {
 		Assert.notNull(area);
 		this.checkUnusedArea(area);
@@ -120,7 +118,6 @@ public class AreaService {
 		Assert.isTrue(this.areaRepository.exists(area.getId()));
 
 		this.areaRepository.delete(area);
-
 	}
 
 	public void findOneToEditBrotherhood(final int brotherhoodId) {
@@ -129,15 +126,6 @@ public class AreaService {
 		principal = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(principal.getId() == brotherhoodId);
-	}
-
-	// Protected methods --------------------------
-	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
-		Collection<Brotherhood> result;
-
-		result = this.areaRepository.findBrotherhoodFromArea(area.getId());
-
-		return result;
 	}
 
 	// Private methods ---------------------------
@@ -158,6 +146,16 @@ public class AreaService {
 		Assert.isTrue(brotherhood.getArea() == null);
 	}
 
+	// Other methods --------------------------
+
+	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
+		Collection<Brotherhood> result;
+
+		result = this.areaRepository.findBrotherhoodFromArea(area.getId());
+
+		return result;
+	}
+
 	public Collection<String> findAllAreaNames() {
 		Collection<String> result;
 
@@ -166,5 +164,4 @@ public class AreaService {
 
 		return result;
 	}
-
 }

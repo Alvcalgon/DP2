@@ -36,7 +36,7 @@
 		<!-- Buttons -->
 
 		<acme:submit name="save" code="area.save"/>	
-
+		
 		<input type="button" name="cancel"
 			value="<spring:message code="area.cancel" />"
 			onclick="javascript: relativeRedir('area/administrator/list.do');" />
