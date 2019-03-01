@@ -348,4 +348,14 @@ public class BrotherhoodService {
 
 	}
 
+	//Req 22.2.1 (The ratio, the count, the minimum, the maximum, the average, and the standard deviation of the number of brotherhoods per area.)
+	public Double[] findDataNumberBrotherhoodPerArea() {
+		Double[] result;
+
+		result = this.brotherhoodRepository.findDataNumberBrotherhoodPerArea();
+		Assert.notNull(result);
+
+		return result;
+	}
+
 }

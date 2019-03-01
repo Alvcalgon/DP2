@@ -24,4 +24,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	@Query("select e.member from Enrolment e where e.id = ?1")
 	Member findByEnrolmentId(int enrolmentId);
 
+	//Req 12.3.7 (The listing of members who have got at least 10% the maximum number of request to march accepted.)
+	@Query("select r.member from Request r where r.status = 'APPROVED' group by r.member having count(r) >= 1.1*((select count(r) from Request r where r.status = 'APPROVED')/(select count(m) from Member m))")
+	Collection<Member> memberRequestsAcceptedleast10();
 }
