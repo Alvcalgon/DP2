@@ -54,6 +54,7 @@ public class SocialProfile extends DomainEntity {
 	@NotBlank
 	@URL
 	@Column(unique = true)
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getLinkProfile() {
 		return this.linkProfile;
 	}
