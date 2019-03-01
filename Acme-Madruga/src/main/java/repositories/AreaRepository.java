@@ -8,13 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Area;
-import domain.Brotherhood;
 
 @Repository
 public interface AreaRepository extends JpaRepository<Area, Integer> {
 
-	@Query("select b from Brotherhood b where b.area.id=?1")
-	Collection<Brotherhood> findBrotherhoodFromArea(int i);
+	@Query("select count (b) from Brotherhood b where b.area.id=?1")
+	Integer findBrotherhoodFromArea(int i);
 
 	@Query("select a.name from Area a")
 	Collection<String> findAllAreaNames();

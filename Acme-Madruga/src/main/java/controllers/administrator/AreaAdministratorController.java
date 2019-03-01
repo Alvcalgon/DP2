@@ -19,7 +19,6 @@ import services.AreaService;
 import controllers.AbstractController;
 import domain.Administrator;
 import domain.Area;
-import domain.Brotherhood;
 
 @Controller
 @RequestMapping("/area/administrator")
@@ -74,11 +73,11 @@ public class AreaAdministratorController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int areaId) {
 		ModelAndView result;
 		Area area;
-		Collection<Brotherhood> brotherhoods;
+		Integer brotherhoods;
 
 		try {
 
-			area = this.areaService.findOneToEditAdministrator(areaId);
+			area = this.areaService.findOne(areaId);
 			brotherhoods = this.areaService.findBrotherhoodFromArea(area);
 
 			Assert.notNull(area);
@@ -86,10 +85,8 @@ public class AreaAdministratorController extends AbstractController {
 			result = this.createEditModelAndView(area);
 			result.addObject("areaId", areaId);
 
-			if (brotherhoods.isEmpty())
+			if (brotherhoods == 0)
 				result.addObject("isEmpty", true);
-			else
-				result.addObject("isEmpty", false);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}

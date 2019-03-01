@@ -106,7 +106,7 @@
 
 	<jstl:if test="${areaSelected == false}">
 
-		<a href="area/brotherhood/create.do?brotherhoodId=${brotherhoodId}"><spring:message
+		<a href="brotherhood/brotherhood/selectArea.do"><spring:message
 				code="select.area.procession" /></a>
 
 	</jstl:if>

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.AreaRepository;
-import domain.Administrator;
 import domain.Area;
 import domain.Brotherhood;
 
@@ -20,18 +19,15 @@ public class AreaService {
 
 	// Managed repository --------------------------
 	@Autowired
-	private AreaRepository			areaRepository;
+	private AreaRepository		areaRepository;
 
 	// Other supporting services -------------------
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
-	private UtilityService			utilityService;
+	private UtilityService		utilityService;
 
 
 	// Constructors -------------------------------
@@ -67,17 +63,6 @@ public class AreaService {
 		return areas;
 	}
 
-	public Area findOneToEditAdministrator(final int areaId) {
-		Area result;
-
-		result = this.areaRepository.findOne(areaId);
-
-		this.checkPrincipalIsAdministrator();
-		Assert.notNull(result);
-
-		return result;
-	}
-
 	public Area create() {
 		Area result;
 
@@ -88,7 +73,6 @@ public class AreaService {
 
 	public Area save(final Area area) {
 		Assert.notNull(area);
-		this.checkPrincipalIsAdministrator();
 
 		Area result;
 		this.utilityService.checkPicture(area.getPictures());
@@ -113,7 +97,7 @@ public class AreaService {
 
 	public void delete(final Area area) {
 		Assert.notNull(area);
-		this.checkUnusedArea(area);
+		Assert.isTrue(this.findBrotherhoodFromArea(area) == 0);
 
 		Assert.isTrue(this.areaRepository.exists(area.getId()));
 
@@ -129,27 +113,14 @@ public class AreaService {
 	}
 
 	// Private methods ---------------------------
-
-	private void checkUnusedArea(final Area area) {
-
-		Assert.isTrue(this.findBrotherhoodFromArea(area).isEmpty());
-	}
-
-	private void checkPrincipalIsAdministrator() {
-		Administrator admin;
-		admin = this.administratorService.findByPrincipal();
-
-		Assert.notNull(admin);
-	}
-
 	private void checkNotArea(final Brotherhood brotherhood) {
 		Assert.isTrue(brotherhood.getArea() == null);
 	}
 
 	// Other methods --------------------------
 
-	public Collection<Brotherhood> findBrotherhoodFromArea(final Area area) {
-		Collection<Brotherhood> result;
+	public Integer findBrotherhoodFromArea(final Area area) {
+		Integer result;
 
 		result = this.areaRepository.findBrotherhoodFromArea(area.getId());
 
