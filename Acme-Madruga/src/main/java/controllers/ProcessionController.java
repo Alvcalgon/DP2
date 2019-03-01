@@ -35,10 +35,10 @@ public class ProcessionController extends AbstractController {
 	private MemberService		memberService;
 
 	@Autowired
-	private RequestService		requestService;
+	private UtilityService		utilityService;
 
 	@Autowired
-	private UtilityService		utilityService;
+	private RequestService		requestService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -136,9 +136,9 @@ public class ProcessionController extends AbstractController {
 		members = this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId());
 		dateNow = this.utilityService.current_moment();
 
-		if (members.contains(this.memberService.findByPrincipal()) && dateNow.before(this.processionService.findOne(procession.getId()).getMoment()))
-			;
-		result.addObject("memberAutorize", true);
-
+		if (members.contains(this.memberService.findByPrincipal()))
+			if (this.requestService.findRequestMemberProcession(this.memberService.findByPrincipal().getId(), procession.getId()).isEmpty())
+				if (dateNow.before(this.processionService.findOne(procession.getId()).getMoment()))
+					result.addObject("memberAutorize", true);
 	}
 }
