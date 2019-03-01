@@ -129,7 +129,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		Brotherhood brotherhood;
 		Request request;
 
-		request = this.requestService.reconstruct(requestForm, binding);
+		request = this.requestService.reconstructReject(requestForm, binding);
 		this.requestService.validateReasonWhy(requestForm, binding);
 
 		try {

@@ -226,6 +226,26 @@ public class RequestService {
 		//this.validator.validate(result, binding);
 		return result;
 	}
+
+	public Request reconstructReject(final RequestForm requestForm, final BindingResult binding) {
+		final Request result, requestStored;
+
+		result = new Request();
+		requestStored = this.findOneToBrotherhood(requestForm.getId());
+
+		result.setRowProcession(requestStored.getRowProcession());
+		result.setColumnProcession(requestStored.getColumnProcession());
+		result.setReasonWhy(requestForm.getReasonWhy());
+
+		result.setStatus(requestStored.getStatus());
+		result.setProcession(requestStored.getProcession());
+		result.setId(requestStored.getId());
+		result.setMember(requestStored.getMember());
+		result.setVersion(requestStored.getVersion());
+
+		//this.validator.validate(result, binding);
+		return result;
+	}
 	// Other business methods ---------------------
 
 	// Private methods ---------------------------

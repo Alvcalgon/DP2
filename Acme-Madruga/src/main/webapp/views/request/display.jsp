@@ -11,6 +11,7 @@
 		<jstl:out value="${request.status}"/>
 	<br/>
 	
+	<jstl:if test="${request.status=='APPROVED'}">
 	<strong><spring:message code="request.rowProcession"/>:</strong>
 		<jstl:out value="${request.rowProcession}"/>
 	<br/>
@@ -18,10 +19,13 @@
 	<strong><spring:message code="request.columnProcession"/>:</strong>
 		<jstl:out value="${request.columnProcession}"/>
 	<br/>
+	</jstl:if>
 	
+	<jstl:if test="${request.status=='REJECTED'}">
 	<strong><spring:message code="request.reasonWhy"/>:</strong>
 		<jstl:out value="${request.reasonWhy}"/>
 	<br/>
+	</jstl:if>
 	
 	<strong><spring:message code="request.member"/>:</strong>
 		<jstl:out value="${request.member.name}"/>
