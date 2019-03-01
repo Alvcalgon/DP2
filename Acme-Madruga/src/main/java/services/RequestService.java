@@ -397,4 +397,60 @@ public class RequestService {
 		return result;
 	}
 
+	//Queries
+
+	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('PENDING'))
+	public Double findRatioPendingRequestsProcession(final int processionId) {
+		Double result;
+
+		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+
+		return result;
+	}
+
+	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('APPROVED'))
+	public Double findRatioAprovedRequestsProcession(final int processionId) {
+		Double result;
+
+		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+
+		return result;
+	}
+
+	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('REJECTED'))
+	public Double findRatioRejectedRequetsProcession(final int processionId) {
+		Double result;
+
+		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+
+		return result;
+	}
+
+	//Req 12.3.6 (The ratio of requests to march grouped by status: ('PENDING'))
+	public Double findRatioPendingRequests() {
+		Double result;
+
+		result = this.requestRepository.findRatioPendingRequests();
+
+		return result;
+	}
+
+	//Req 12.3.6 (The ratio of requests to march grouped by status: ('APPROVED'))
+	public Double findRatioAprovedRequests() {
+		Double result;
+
+		result = this.requestRepository.findRatioAprovedRequests();
+
+		return result;
+	}
+
+	//Req 12.3.6 (The ratio of requests to march grouped by status: ('REJECTED'))
+	public Double findRatioRejectedRequets() {
+		Double result;
+
+		result = this.requestRepository.findRatioRejectedRequets();
+
+		return result;
+	}
+
 }

@@ -224,4 +224,13 @@ public class MemberService {
 		return registrationForm;
 	}
 
+	//Req 12.3.7 (The listing of members who have got at least 10% the maximum number of request to march accepted.)
+	public Collection<Member> memberRequestsAcceptedleast10() {
+		Collection<Member> result;
+
+		result = this.memberRepository.memberRequestsAcceptedleast10();
+
+		return result;
+	}
+
 }
