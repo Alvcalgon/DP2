@@ -74,7 +74,7 @@
 			<p> <strong> <spring:message code="actor.score" /> </strong>  <jstl:out value="${actor.score}" /></p>
 		</jstl:if>	
 		
-		<jstl:if test="${actor.isSpammer == true || actor.score < -0.5}">
+		<jstl:if test="${actor.isSpammer == true || actor.score < thresholdScore}">
 			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.ban"/></a>
 		</jstl:if>
 		
