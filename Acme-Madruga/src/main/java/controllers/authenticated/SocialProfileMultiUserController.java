@@ -4,6 +4,7 @@ package controllers.authenticated;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -87,7 +88,7 @@ public class SocialProfileMultiUserController extends AbstractController {
 				try {
 					this.socialProfileService.save(socialProfile);
 					result = new ModelAndView("redirect:../../socialProfile/list.do?actorId=" + actor.getId());
-				} catch (final IllegalArgumentException oops) {
+				} catch (final DataIntegrityViolationException oops) {
 					result = this.createEditModelAndView(socialProfile, "socialProfile.linkProfile.unique");
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(socialProfile, "socialProfile.commit.error");

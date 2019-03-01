@@ -82,7 +82,6 @@ public class SocialProfileService {
 	public SocialProfile save(final SocialProfile socialProfile) {
 		Assert.notNull(socialProfile);
 		this.checkByPrincipal(socialProfile);
-		this.checkUniqueLinkProfile(socialProfile);
 
 		SocialProfile result;
 
@@ -112,20 +111,6 @@ public class SocialProfileService {
 		Collection<SocialProfile> result;
 
 		result = this.socialProfileRepository.findSocialProfilesByActor(actorId);
-
-		return result;
-	}
-
-	public String checkUniqueLinkProfile(final SocialProfile socialProfile) {
-		String result;
-		Collection<SocialProfile> socialProfiles;
-
-		result = socialProfile.getLinkProfile();
-		if (result != null) {
-			socialProfiles = this.socialProfileRepository.findLinkSocialProfile(socialProfile.getLinkProfile());
-			if (!socialProfiles.isEmpty())
-				throw new IllegalArgumentException("Must be unique");
-		}
 
 		return result;
 	}
