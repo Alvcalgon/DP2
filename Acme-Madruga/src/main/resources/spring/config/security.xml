@@ -40,6 +40,7 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
+		<security:intercept-url pattern="/welcome/terms.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/error.do" access="permitAll" /> 
 		
