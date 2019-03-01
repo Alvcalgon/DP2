@@ -199,15 +199,15 @@ public class ActorServiceTest extends AbstractTest {
 		Collection<Message> messagesSent;
 		List<Integer> ls;
 
-		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId()); //2
 		ls = new ArrayList<>(this.positiveNegativeWordNumbers(messagesSent));
-		p = ls.get(0);
-		n = ls.get(1);
+		p = ls.get(0); //3
+		n = ls.get(1); // 0
 
-		maximo = this.max(p, n);
+		maximo = this.max(p, n); //3
 
 		if (maximo != 0)
-			score = (p - n) / maximo;
+			score = (p - n) / maximo; // 1
 		else
 			score = 0.0;
 

@@ -79,21 +79,21 @@
 		
 		</jstl:if>
 	</fieldset>
- <!-- 
+ 
 	<fieldset>
 		<legend><spring:message code="userAccount.legend"/></legend>
 	
-		<acme:textbox path="username" code="userAccount.username.requested" />
+		<acme:textbox path="username" code="userAccount.username" />
 		<br>
 
-		<acme:password path="password" code="userAccount.password.requested" id="passwordId" />
+		<acme:password path="password" code="userAccount.password" id="passwordId" />
 		<br>
 
-		<acme:password path="confirmPassword" code="userAccount.confirmPassword.requested" id="confirmPasswordId"/>
+		<acme:password path="confirmPassword" code="userAccount.confirmPassword" id="confirmPasswordId"/>
 		<br>
 		
 	</fieldset>
- -->	
+	
  
  
  	<jstl:choose>

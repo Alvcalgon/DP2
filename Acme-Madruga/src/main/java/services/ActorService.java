@@ -181,32 +181,12 @@ public class ActorService {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() != 0);
 
-		Collection<Message> messagesSent;
-		String spamWords_str;
-		List<String> spamWords;
-		String subject, body, tags = "";
-		Double counter = 0.;
-		Integer numberMessagesSent;
+		Double messagesSent, numberSpamMessages;
 
-		spamWords_str = this.customisationService.find().getSpamWords();
-		spamWords = this.utilityService.ListByString(spamWords_str);
+		messagesSent = this.messageService.numberMessagesSentByActor(actor.getId());
+		numberSpamMessages = this.messageService.numberSpamMessagesSentByActor(actor.getId());
 
-		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
-		numberMessagesSent = messagesSent.size();
-
-		for (final Message m : messagesSent) {
-			subject = m.getSubject().toLowerCase();
-			body = m.getBody().toLowerCase();
-			tags = m.getTags().toLowerCase();
-
-			for (final String spamWord : spamWords)
-				if (subject.contains(spamWord) || body.contains(spamWord) || tags.contains(spamWord)) {
-					counter++;
-					break;
-				}
-
-		}
-		if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
+		if ((numberSpamMessages / (messagesSent)) >= 0.1)
 			this.markAsSpammer(actor, true);
 		else
 			this.markAsSpammer(actor, false);
