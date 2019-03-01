@@ -19,7 +19,6 @@ import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
-import domain.Member;
 import domain.Procession;
 
 @Controller
@@ -55,26 +54,38 @@ public class DashboardAdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(final Locale locale) {
 		ModelAndView result;
-		ArrayList<String> histogramLabels;
-		ArrayList<Integer> histogramValues;
-		final Double ratioRequest;
-		Double ratioEmptyVsNonEmpty;
-		Double[] dataMembersPerBrotherhood, dataResultsPerFinder;
-		Collection<Brotherhood> largestBrotherhoods, smallestBrotherhoods;
-		Collection<Procession> processions;
-		final Collection<Member> members;
 
 		// LEVEL C -----------------------------------------
+		Double[] dataMembersPerBrotherhood;
 		dataMembersPerBrotherhood = this.memberService.findDataNumberMembersPerBrotherhood();
+
+		Collection<Brotherhood> largestBrotherhoods;
 		largestBrotherhoods = this.brotherhoodService.findLargest();
+
+		Collection<Brotherhood> smallestBrotherhoods;
 		smallestBrotherhoods = this.brotherhoodService.findSmallest();
-		//TODO: queries de Julia
+
+		//TODO:final Double ratioRequest;
+		//TODO:ratioRequest = this.requestService.ratioRequest();
+
+		Collection<Procession> processions;
 		processions = this.processionService.findProcessionLess30days();
+
+		ArrayList<String> histogramLabels;
+		ArrayList<Integer> histogramValues;
 		histogramValues = new ArrayList<Integer>(this.positionService.findHistogramValues());
 		histogramLabels = new ArrayList<String>(this.positionService.findHistogramLabels(locale.getLanguage()));
 
+		//TODO:Collection<Member> members;
+
 		// LEVEL B --------------------------------------
+		final Double[] dataBrotherhoodPerArea;
+		//TODO:this.brotherhoodService.
+
+		Double[] dataResultsPerFinder;
 		dataResultsPerFinder = this.processionService.findDataNumberResultsPerFinder();
+
+		Double ratioEmptyVsNonEmpty;
 		ratioEmptyVsNonEmpty = this.finderService.findRatioEmptyVsNonEmpty();
 
 		result = new ModelAndView("dashboard/display");
