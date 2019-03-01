@@ -69,6 +69,55 @@
 </table>
 
 <p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
+
+<jstl:set var="hLabels" value="${histogramLabels}" />
+<jstl:set var="hValues" value="${histogramValues}" />
+<jstl:set var="n" value="${tam}" />
+
+<jstl:out value="${hLabels}" />
+<jstl:out value="${hValues}" />
+
+<div id="container" style="width:800px; height:600px;">
+	<canvas id="myChart"></canvas>
+</div>
+<script>
+window.onload = function() {
+	var w_labels = "<jstl:out value='${hLabels}' />";
+	var w_values = "<jstl:out value='${hValues}' />";
+
+	var filas = [];
+	var columnas = [];
+	for (var i in w_labels) {
+		columnas.push(w_labels[i]);
+		filas.push(w_values[i]);
+	}	
+	
+	var myChart = document.getElementById("myChart").getContext("2d");
+	var massPopChart = new Chart(myChart, {
+		type: 'bar',
+		data: {
+			labels: columnas,
+			datasets:[{
+				label: 'Histogram',
+				data: filas,
+				backgroundColor: 'green',
+				borderColor: 'green',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			}
+		}
+	});
+};
+</script>
+
 <table>
 	<tr>
 		<th> <spring:message code="dashboard.average" /> </th>

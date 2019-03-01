@@ -54,25 +54,57 @@
 	<jstl:out value="${customisation.columnLimit}" />
 </p>
 
-<display:table name="customisation.priorities" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+<p>
+	<strong> <spring:message code="customisation.threshold" />: </strong>
+	<jstl:out value="${customisation.thresholdScore}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.priorities" />: </strong>
+	<jstl:out value="${customisation.priorities}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.languages" />: </strong>
+	<jstl:out value="${customisation.languages}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.spamWords" />: </strong>
+	<jstl:out value="${customisation.spamWords}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.positiveWords" />: </strong>
+	<jstl:out value="${customisation.positiveWords}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.negativeWords" />: </strong>
+	<jstl:out value="${customisation.negativeWords}" />
+</p>
+
+<!--
+<display:table name="${priorities}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.priorities" />
 </display:table>
 
-<display:table name="customisation.positiveWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+<display:table name="${positiveWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.positiveWords"/>
 </display:table>
 
-<display:table name="customisation.negativeWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+<display:table name="${negativeWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.negativeWords"/>
 </display:table>
 
-<display:table name="customisation.spamWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+<display:table name="${spamWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.spamWords"/>
 </display:table>
 
-<display:table name="customisation.languages" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+<display:table name="${languages}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.languages"/>
 </display:table>
+-->
 
 <a href="customisation/administrator/edit.do">
 	<spring:message code="customisation.edit" />

@@ -494,66 +494,15 @@
 			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
-		<property name="maxNumberResults" value="10" />
+		<property name="maxNumberResults" value="3" />
 		<property name="rowLimit" value="3" />
 		<property name="columnLimit" value="10000" />
-		<property name="priorities">
-			<list>
-				<value>HIGH</value>
-				<value>NEUTRAL</value>
-				<value>LOW</value>
-			</list>
-		</property>
-		<property name="spamWords">
-			<list>
-				<value>sex</value>
-				<value>viagra</value>
-				<value>cialis</value>
-				<value>one million</value>
-				<value>you´ve been selected</value>
-				<value>Nigeria</value>
-				<value>sexo</value>
-				<value>un millon</value>
-				<value>ha sido seleccionado</value>
-			</list>
-		</property>
-		<property name="positiveWords">
-			<list>
-				<value>good</value>
-				<value>fantastic</value>
-				<value>excellent</value>
-				<value>great</value>
-				<value>amazing</value>
-				<value>terrific</value>
-				<value>beautiful</value>
-				<value>bien</value>
-				<value>fantastico</value>
-				<value>excelente</value>
-				<value>genial</value>
-				<value>increible</value>
-				<value>terrorifico</value>
-				<value>hermosos</value>
-			</list>
-		</property>
-		<property name="negativeWords">
-			<list>
-				<value>not</value>
-				<value>bad</value>
-				<value>horrible</value>
-				<value>average</value>
-				<value>disaster</value>
-				<value>no</value>
-				<value>mal</value>
-				<value>mediocre</value>
-				<value>desastre</value>
-			</list>
-		</property>
-		<property name="languages">
-			<list>
-				<value>es</value>
-				<value>en</value>
-			</list>
-		</property>
+		<property name="thresholdScore" value="-0.5" />
+		<property name="priorities" value="HIGH,NEUTRAL,LOW" />
+		<property name="spamWords" value="sex,viagra,cialis,one million,you've been selected,Nigeria,sexo,un millon,ha sido seleccionado" />
+		<property name="positiveWords" value="good,fantastic,excellent,great,amazing,terrific,beautiful,bien,fantastico,excelente,genial,increible,terrorifico,hermosos" />
+		<property name="negativeWords" value="not,bad,horrible,average,disaster,no,mal,mediocre,desastre" />
+		<property name="languages" value="es,en" />
 	</bean>
 
 	<!-- Finder -->

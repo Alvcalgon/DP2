@@ -123,6 +123,23 @@ public class UtilityService {
 
 		return result;
 	}
+
+	public List<String> ListByString(final String cadena) {
+		List<String> result;
+		String[] campos;
+		String word;
+
+		campos = cadena.split(",");
+
+		result = new ArrayList<String>();
+		for (final String s : campos) {
+			word = s.trim();
+			result.add(word);
+		}
+
+		return result;
+	}
+
 	// Private methods ---------------------------------------------------------
 
 	private String createRandomLetters() {
