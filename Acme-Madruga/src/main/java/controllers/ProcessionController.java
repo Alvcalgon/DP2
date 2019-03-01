@@ -60,11 +60,11 @@ public class ProcessionController extends AbstractController {
 		Date dateNow;
 
 		result = new ModelAndView("procession/display");
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
-		members = this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId());
-		dateNow = this.utilityService.current_moment();
 
 		try {
+			brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+			members = this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId());
+			dateNow = this.utilityService.current_moment();
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
 
 				principal = this.brotherhoodService.findByPrincipal();
@@ -93,6 +93,7 @@ public class ProcessionController extends AbstractController {
 			try {
 				procession = this.processionService.findOneToDisplay(processionId);
 				floats = procession.getFloats();
+				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
 
 				result.addObject("procession", procession);
 				result.addObject("floats", floats);
