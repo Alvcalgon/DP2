@@ -55,6 +55,7 @@ public class Customisation extends DomainEntity {
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getBanner() {
 		return this.banner;
 	}
