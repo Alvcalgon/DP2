@@ -21,17 +21,21 @@
 
 <display:table name="socialProfiles" id="row" requestURI="${requestURI }"  class="displaytag" pagesize="5">
 	
-	<display:column>
-		<jstl:if test="${isAuthorized == true}">
-		<a href="socialProfile/administrator,brotherhood,member/edit.do?socialProfileId=${row.id}"><spring:message code="socialProfile.edit"/></a>
-		</jstl:if>
-	</display:column>
 	
-	<display:column>
 		<jstl:if test="${isAuthorized == true}">
-		<a href="socialProfile/administrator,brotherhood,member/delete.do?socialProfileId=${row.id}"><spring:message code="socialProfile.delete"/></a>
+		<display:column>
+		<a href="socialProfile/administrator,brotherhood,member/edit.do?socialProfileId=${row.id}"><spring:message code="socialProfile.edit"/></a>
+		</display:column>
 		</jstl:if>
-	</display:column>
+	
+	
+	
+		<jstl:if test="${isAuthorized == true}">
+		<display:column>
+		<a href="socialProfile/administrator,brotherhood,member/delete.do?socialProfileId=${row.id}"><spring:message code="socialProfile.delete"/></a>
+			</display:column>
+		</jstl:if>
+
 	
 	<display:column>
 			<a href="socialProfile/display.do?socialProfileId=${row.id}"><spring:message
@@ -49,8 +53,3 @@
 	<jstl:if test="${isAuthorized == true}">
 	<a href="socialProfile/administrator,brotherhood,member/create.do"><spring:message code="socialProfile.new"/></a>
 	</jstl:if>
-	
-	<br><br>
-
- <input type="button" name="return" value="<spring:message code="socialProfile.return" />" 
-				onclick="javascript: relativeRedir('actor/display.do?actorId=${actorId}');" />
