@@ -232,8 +232,9 @@ public class ActorService {
 		Assert.isTrue(messagesSent != null);
 
 		final List<Integer> results = new ArrayList<Integer>();
-		String subject, body, tags = "", positiveWords_str, negativeWords_str;
+		String body, positiveWords_str, negativeWords_str;
 		Integer positive = 0, negative = 0;
+		String[] words = {};
 
 		positiveWords_str = this.customisationService.find().getPositiveWords();
 		negativeWords_str = this.customisationService.find().getNegativeWords();
@@ -242,17 +243,14 @@ public class ActorService {
 		final List<String> negative_ls = new ArrayList<>(this.utilityService.ListByString(negativeWords_str));
 
 		for (final Message m : messagesSent) {
-			subject = m.getSubject().toLowerCase();
 			body = m.getBody().toLowerCase();
-			tags = m.getTags().toLowerCase();
+			words = body.split(" ");
 
-			for (final String pw : positive_ls)
-				if (subject.contains(pw) || body.contains(pw) || tags.contains(pw))
+			for (final String word : words)
+				if (positive_ls.contains(word))
 					positive++;
-			for (final String nw : negative_ls)
-				if (subject.contains(nw) || body.contains(nw) || tags.contains(nw))
+				else if (negative_ls.contains(word))
 					negative++;
-
 		}
 
 		results.add(positive);

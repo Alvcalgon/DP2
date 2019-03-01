@@ -121,74 +121,6 @@ public class ActorServiceTest extends AbstractTest {
 	}
 
 	@Test
-	public void testSpammerProcess() {
-		super.authenticate("admin1");
-
-		Actor actor;
-
-		actor = this.actorService.findOne(super.getEntityId("brotherhood1"));
-
-		this.actorService.launchSpammerProcess(actor);
-
-	}
-
-	@Test
-	public void launchSpammerProcess() {
-		super.authenticate("admin1");
-		final Actor actor = this.actorService.findOne(super.getEntityId("brotherhood2"));
-
-		Collection<Message> messagesSent;
-		final String spamWords_str = this.customisationService.find().getSpamWords();
-		final List<String> spamWords = new ArrayList<>(this.utilityService.ListByString(spamWords_str));
-		String subject, body, tags = "";
-		Double counter = 0.;
-		Integer numberMessagesSent;
-
-		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
-		numberMessagesSent = messagesSent.size();
-		System.out.println(numberMessagesSent);
-
-		for (final Message m : messagesSent) {
-			subject = m.getSubject().toLowerCase();
-			body = m.getBody().toLowerCase();
-			tags = m.getTags().toLowerCase();
-			System.out.println("Subject: " + subject);
-			System.out.println("Body:" + body);
-			System.out.println("Tags: " + tags);
-
-			for (final String spamWord : spamWords)
-				if (subject.contains(spamWord) || body.contains(spamWord) || tags.contains(spamWord)) {
-					counter++;
-					break;
-				}
-
-		}
-		System.out.println("Counter final: " + counter);
-		System.out.println((counter / (numberMessagesSent * 1.0)));
-		if ((counter / (numberMessagesSent * 1.0)) >= 0.1)
-			this.actorService.markAsSpammer(actor, true);
-		else
-			this.actorService.markAsSpammer(actor, false);
-
-		Assert.isTrue(actor.getIsSpammer() == false);
-
-		super.unauthenticate();
-	}
-
-	@Test
-	public void markAsSpammer() {
-		super.authenticate("admin1");
-
-		final Actor actor = this.actorService.findOne(super.getEntityId("brotherhood1"));
-		System.out.println(actor);
-		Assert.isTrue(actor.getIsSpammer() == null);
-		this.actorService.markAsSpammer(actor, true);
-		Assert.isTrue(actor.getIsSpammer());
-
-		super.unauthenticate();
-	}
-
-	@Test
 	public void launchScoreProcess() {
 		super.authenticate("admin1");
 
@@ -197,17 +129,20 @@ public class ActorServiceTest extends AbstractTest {
 		final Integer p, n;
 		final Double maximo;
 		Collection<Message> messagesSent;
-		List<Integer> ls;
+		final List<Integer> ls;
 
 		messagesSent = this.messageService.findMessagesSentByActor(actor.getId()); //2
+		System.out.println("mensajes enviados" + messagesSent);
 		ls = new ArrayList<>(this.positiveNegativeWordNumbers(messagesSent));
-		p = ls.get(0); //3
-		n = ls.get(1); // 0
+		p = ls.get(0); //2
+		System.out.println("p" + p);
+		n = ls.get(1); // 1
+		System.out.println("n" + n);
 
-		maximo = this.max(p, n); //3
+		maximo = this.max(p, n); //2
 
 		if (maximo != 0)
-			score = (p - n) / maximo; // 1
+			score = (p - n) / maximo; // 0.5
 		else
 			score = 0.0;
 
@@ -218,11 +153,15 @@ public class ActorServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	private List<Integer> positiveNegativeWordNumbers(final Collection<Message> messagesSent) {
-		Assert.isTrue(messagesSent != null);
-
+	@Test
+	public void positiveNegativeWordNumbers() {
+		final Actor actor = this.actorService.findOne(super.getEntityId("brotherhood1"));
+		Collection<Message> messagesSent;
+		messagesSent = this.messageService.findMessagesSentByActor(actor.getId()); //2
+		System.out.println("mensajes enviados:" + messagesSent.size());
 		final List<Integer> results = new ArrayList<Integer>();
-		String subject, body, tags = "";
+		String body;
+		String[] words = {};
 		Integer positive = 0, negative = 0;
 
 		final String pos = this.customisationService.find().getPositiveWords();
@@ -232,26 +171,24 @@ public class ActorServiceTest extends AbstractTest {
 		final List<String> negative_ls = new ArrayList<>(this.utilityService.ListByString(neg));
 
 		for (final Message m : messagesSent) {
-			subject = m.getSubject().toLowerCase();
 			body = m.getBody().toLowerCase();
-			tags = m.getTags().toLowerCase();
+			words = body.split(" ");
+			System.out.println("cuerpo:" + words);
 
-			for (final String pw : positive_ls)
-				if (subject.contains(pw) || body.contains(pw) || tags.contains(pw))
+			for (final String word : words)
+				if (positive_ls.contains(word))
 					positive++;
-			for (final String nw : negative_ls)
-				if (subject.contains(nw) || body.contains(nw) || tags.contains(nw))
+				else if (negative_ls.contains(word))
 					negative++;
-
+			System.out.println("Palabras positivas: " + positive);
+			System.out.println("Palabras negativas: " + negative);
 		}
 
-		results.add(positive);
-		results.add(negative);
-
-		return results;
+		results.add(positive); //2
+		results.add(negative);	// 1
+		System.out.println("results: " + results);
 
 	}
-
 	private Double max(final Integer n, final Integer p) {
 		Double result;
 
@@ -261,6 +198,39 @@ public class ActorServiceTest extends AbstractTest {
 			result = p * 1.0;
 
 		return result;
+	}
+
+	private List<Integer> positiveNegativeWordNumbers(final Collection<Message> messagesSent) {
+		Assert.isTrue(messagesSent != null);
+
+		final List<Integer> results = new ArrayList<Integer>();
+		String body;
+		String positiveWords_str, negativeWords_str;
+		Integer positive = 0, negative = 0;
+		String[] words = {};
+
+		positiveWords_str = this.customisationService.find().getPositiveWords();
+		negativeWords_str = this.customisationService.find().getNegativeWords();
+
+		final List<String> positive_ls = new ArrayList<>(this.utilityService.ListByString(positiveWords_str));
+		final List<String> negative_ls = new ArrayList<>(this.utilityService.ListByString(negativeWords_str));
+
+		for (final Message m : messagesSent) {
+			body = m.getBody().toLowerCase();
+			words = body.split(" ");
+
+			for (final String word : words)
+				if (positive_ls.contains(word))
+					positive++;
+				else if (negative_ls.contains(word))
+					negative++;
+		}
+
+		results.add(positive);
+		results.add(negative);
+
+		return results;
+
 	}
 
 }

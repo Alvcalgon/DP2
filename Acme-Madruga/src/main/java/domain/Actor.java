@@ -89,6 +89,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@URL
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getPhoto() {
 		return this.photo;
 	}
