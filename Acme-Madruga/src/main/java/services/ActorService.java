@@ -182,10 +182,14 @@ public class ActorService {
 		Assert.isTrue(actor.getId() != 0);
 
 		Collection<Message> messagesSent;
-		final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
+		String spamWords_str;
+		List<String> spamWords;
 		String subject, body, tags = "";
 		Double counter = 0.;
 		Integer numberMessagesSent;
+
+		spamWords_str = this.customisationService.find().getSpamWords();
+		spamWords = this.utilityService.ListByString(spamWords_str);
 
 		messagesSent = this.messageService.findMessagesSentByActor(actor.getId());
 		numberMessagesSent = messagesSent.size();
@@ -248,11 +252,14 @@ public class ActorService {
 		Assert.isTrue(messagesSent != null);
 
 		final List<Integer> results = new ArrayList<Integer>();
-		String subject, body, tags = "";
+		String subject, body, tags = "", positiveWords_str, negativeWords_str;
 		Integer positive = 0, negative = 0;
 
-		final List<String> positive_ls = new ArrayList<>(this.customisationService.find().getPositiveWords());
-		final List<String> negative_ls = new ArrayList<>(this.customisationService.find().getNegativeWords());
+		positiveWords_str = this.customisationService.find().getPositiveWords();
+		negativeWords_str = this.customisationService.find().getNegativeWords();
+
+		final List<String> positive_ls = new ArrayList<>(this.utilityService.ListByString(positiveWords_str));
+		final List<String> negative_ls = new ArrayList<>(this.utilityService.ListByString(negativeWords_str));
 
 		for (final Message m : messagesSent) {
 			subject = m.getSubject().toLowerCase();

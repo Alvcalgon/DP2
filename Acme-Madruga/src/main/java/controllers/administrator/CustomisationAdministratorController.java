@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomisationService;
+import services.UtilityService;
 import controllers.AbstractController;
 import domain.Customisation;
 
@@ -20,6 +21,9 @@ public class CustomisationAdministratorController extends AbstractController {
 
 	@Autowired
 	private CustomisationService	customisationService;
+
+	@Autowired
+	private UtilityService			utilityService;
 
 
 	public CustomisationAdministratorController() {
@@ -35,6 +39,11 @@ public class CustomisationAdministratorController extends AbstractController {
 
 		result = new ModelAndView("customisation/display");
 		result.addObject("customisation", customisation);
+		result.addObject("languages", this.utilityService.ListByString(customisation.getLanguages()));
+		result.addObject("priorities", this.utilityService.ListByString(customisation.getPriorities()));
+		result.addObject("spamWords", this.utilityService.ListByString(customisation.getSpamWords()));
+		result.addObject("positiveWords", this.utilityService.ListByString(customisation.getPositiveWords()));
+		result.addObject("negativeWords", this.utilityService.ListByString(customisation.getNegativeWords()));
 
 		return result;
 	}

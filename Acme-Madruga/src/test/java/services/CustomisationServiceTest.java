@@ -1,9 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -58,14 +55,8 @@ public class CustomisationServiceTest extends AbstractTest {
 		super.authenticate("admin1");
 
 		Customisation customisation, saved;
-		final List<String> languages = new ArrayList<String>();
-		final List<String> priorities = new ArrayList<String>();
-
-		languages.add("en");
-		languages.add("es");
-
-		priorities.add("LOW");
-		priorities.add("MEDIUM");
+		final String languages = "en,es";
+		final String priorities = "LOW,MEDIUM";
 
 		customisation = new Customisation();
 		customisation.setName("Acme Testing");

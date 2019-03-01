@@ -2,6 +2,7 @@
 package controllers.authenticated;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -18,6 +19,7 @@ import services.AdministratorService;
 import services.BoxService;
 import services.CustomisationService;
 import services.MessageService;
+import services.UtilityService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Box;
@@ -43,6 +45,9 @@ public class MessageMultiUserController extends AbstractController {
 
 	@Autowired
 	private AdministratorService	administratorService;
+
+	@Autowired
+	private UtilityService			utilityService;
 
 
 	public MessageMultiUserController() {
@@ -168,8 +173,13 @@ public class MessageMultiUserController extends AbstractController {
 		Collection<Actor> actors;
 		Actor principal, system;
 		Customisation customisation;
+		String priorities_str;
+		List<String> priorities;
 
 		customisation = this.customisationService.find();
+
+		priorities_str = customisation.getPriorities();
+		priorities = this.utilityService.ListByString(priorities_str);
 
 		system = this.administratorService.findSystem();
 		principal = this.actorService.findPrincipal();
@@ -180,7 +190,7 @@ public class MessageMultiUserController extends AbstractController {
 		result = new ModelAndView("message/send");
 		result.addObject("message", message);
 		result.addObject("actors", actors);
-		result.addObject("priorities", customisation.getPriorities());
+		result.addObject("priorities", priorities);
 		result.addObject("isBroadcastMessage", false);
 		result.addObject("actionURI", "message/administrator,brotherhood,member/send.do");
 		result.addObject("messageCode", messageCode);

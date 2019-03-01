@@ -3,7 +3,6 @@ package controllers.administrator;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +55,8 @@ public class DashboardAdministratorController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(final Locale locale) {
 		ModelAndView result;
-		List<String> histogramLabels;
-		final List<Integer> histogramValues;
+		ArrayList<String> histogramLabels;
+		ArrayList<Integer> histogramValues;
 		final Double ratioRequest;
 		Double ratioEmptyVsNonEmpty;
 		Double[] dataMembersPerBrotherhood, dataResultsPerFinder;

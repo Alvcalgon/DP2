@@ -36,6 +36,9 @@ public class ActorServiceTest extends AbstractTest {
 	@Autowired
 	private MessageService			messageService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Tests ----------------------------------------------
 
@@ -135,7 +138,8 @@ public class ActorServiceTest extends AbstractTest {
 		final Actor actor = this.actorService.findOne(super.getEntityId("brotherhood2"));
 
 		Collection<Message> messagesSent;
-		final List<String> spamWords = new ArrayList<>(this.customisationService.find().getSpamWords());
+		final String spamWords_str = this.customisationService.find().getSpamWords();
+		final List<String> spamWords = new ArrayList<>(this.utilityService.ListByString(spamWords_str));
 		String subject, body, tags = "";
 		Double counter = 0.;
 		Integer numberMessagesSent;
@@ -221,8 +225,11 @@ public class ActorServiceTest extends AbstractTest {
 		String subject, body, tags = "";
 		Integer positive = 0, negative = 0;
 
-		final List<String> positive_ls = new ArrayList<>(this.customisationService.find().getPositiveWords());
-		final List<String> negative_ls = new ArrayList<>(this.customisationService.find().getNegativeWords());
+		final String pos = this.customisationService.find().getPositiveWords();
+		final String neg = this.customisationService.find().getNegativeWords();
+
+		final List<String> positive_ls = new ArrayList<>(this.utilityService.ListByString(pos));
+		final List<String> negative_ls = new ArrayList<>(this.utilityService.ListByString(neg));
 
 		for (final Message m : messagesSent) {
 			subject = m.getSubject().toLowerCase();

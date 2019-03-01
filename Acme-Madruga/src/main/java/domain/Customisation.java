@@ -1,18 +1,14 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
@@ -30,20 +26,21 @@ public class Customisation extends DomainEntity {
 
 	// Attributes
 
-	private String				name;
-	private String				banner;
-	private String				spanishWelcomeMessage;
-	private String				englishWelcomeMessage;
-	private String				countryCode;
-	private Collection<String>	languages;
-	private int					timeCachedResults;
-	private int					maxNumberResults;
-	private Collection<String>	priorities;
-	private Collection<String>	spamWords;
-	private Collection<String>	positiveWords;
-	private Collection<String>	negativeWords;
-	private int					rowLimit;
-	private int					columnLimit;
+	private String	name;
+	private String	banner;
+	private String	spanishWelcomeMessage;
+	private String	englishWelcomeMessage;
+	private String	countryCode;
+	private String	languages;
+	private int		timeCachedResults;
+	private int		maxNumberResults;
+	private String	priorities;
+	private String	spamWords;
+	private String	positiveWords;
+	private String	negativeWords;
+	private int		rowLimit;
+	private int		columnLimit;
+	private double	thresholdScore;
 
 
 	@NotBlank
@@ -96,14 +93,13 @@ public class Customisation extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@NotNull
-	@NotEmpty
-	@ElementCollection
-	public Collection<String> getLanguages() {
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getLanguages() {
 		return this.languages;
 	}
 
-	public void setLanguages(final Collection<String> languages) {
+	public void setLanguages(final String languages) {
 		this.languages = languages;
 	}
 
@@ -125,44 +121,43 @@ public class Customisation extends DomainEntity {
 		this.maxNumberResults = maxNumberResults;
 	}
 
-	@NotNull
-	@NotEmpty
-	@ElementCollection
-	public Collection<String> getPriorities() {
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getPriorities() {
 		return this.priorities;
 	}
 
-	public void setPriorities(final Collection<String> priorities) {
+	public void setPriorities(final String priorities) {
 		this.priorities = priorities;
 	}
 
-	@NotNull
-	@ElementCollection
-	public Collection<String> getSpamWords() {
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getSpamWords() {
 		return this.spamWords;
 	}
 
-	public void setSpamWords(final Collection<String> spamWords) {
+	public void setSpamWords(final String spamWords) {
 		this.spamWords = spamWords;
 	}
 
-	@NotNull
-	@ElementCollection
-	public Collection<String> getPositiveWords() {
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getPositiveWords() {
 		return this.positiveWords;
 	}
 
-	public void setPositiveWords(final Collection<String> positiveWords) {
+	public void setPositiveWords(final String positiveWords) {
 		this.positiveWords = positiveWords;
 	}
 
-	@NotNull
-	@ElementCollection
-	public Collection<String> getNegativeWords() {
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getNegativeWords() {
 		return this.negativeWords;
 	}
 
-	public void setNegativeWords(final Collection<String> negativeWords) {
+	public void setNegativeWords(final String negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 
@@ -182,6 +177,16 @@ public class Customisation extends DomainEntity {
 
 	public void setColumnLimit(final int columnLimit) {
 		this.columnLimit = columnLimit;
+	}
+
+	@Range(min = -1, max = 0)
+	@Digits(integer = 3, fraction = 2)
+	public double getThresholdScore() {
+		return this.thresholdScore;
+	}
+
+	public void setThresholdScore(final double thresholdScore) {
+		this.thresholdScore = thresholdScore;
 	}
 
 }
