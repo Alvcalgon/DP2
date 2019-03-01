@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AdministratorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.MemberService;
@@ -29,16 +28,13 @@ public class ActorController extends ActorAbstractController {
 	// Services
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private MemberService			memberService;
+	private MemberService		memberService;
 
 	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
-	private AreaService				areaService;
+	private AreaService			areaService;
 
 
 	// Constructor
@@ -94,8 +90,13 @@ public class ActorController extends ActorAbstractController {
 			try {
 				this.brotherhoodService.save(brotherhood);
 				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final IllegalArgumentException oops) {
+				result = this.createModelAndView(registrationForm, "actor.brotherhood.picture.error");
+				result.addObject("rol", "Brotherhood");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
+				result.addObject("rol", "Brotherhood");
+
 			}
 
 		return result;
@@ -132,6 +133,7 @@ public class ActorController extends ActorAbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
+				result.addObject("rol", "Member");
 			}
 
 		return result;

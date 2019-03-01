@@ -38,7 +38,20 @@
 	<display:column property="parent" titleKey="box.parent"/>
 </display:table>
 
+<!-- LINKS -->
 <a href="box/administrator,brotherhood,member/create.do">
 	<spring:message code="box.create" />
 </a>
+<br />
+
+<a href="message/administrator,brotherhood,member/send.do">
+	<spring:message code="message.send"/>
+</a>
+<br />
+
+<security:authorize access="hasRole('ADMIN')">
+	<a href="message/administrator/broadcast.do">
+		<spring:message code="message.broadcast" />
+	</a>
+</security:authorize>
 	

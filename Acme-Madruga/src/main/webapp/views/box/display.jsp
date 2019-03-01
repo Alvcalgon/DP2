@@ -87,17 +87,6 @@
 </jstl:if>
 
 <!-- LINKS -->
-<a href="message/administrator,brotherhood,member/send.do">
-	<spring:message code="message.send"/>
-</a>
-<br />
-
-<security:authorize access="hasRole('ADMIN')">
-	<a href="message/administrator/broadcast.do">
-		<spring:message code="message.broadcast" />
-	</a>
-</security:authorize>
-<br />
 
 <a href="box/administrator,brotherhood,member/list.do">
 	<spring:message code="box.return" />

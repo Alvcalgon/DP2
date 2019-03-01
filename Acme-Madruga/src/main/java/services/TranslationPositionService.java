@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -23,6 +24,9 @@ public class TranslationPositionService {
 	// Other supporting services --------------
 	@Autowired
 	private CustomisationService			customisationService;
+
+	@Autowired
+	private UtilityService					utilityService;
 
 
 	// Constructors ---------------------------
@@ -59,9 +63,11 @@ public class TranslationPositionService {
 		Assert.notNull(translationPosition);
 
 		TranslationPosition result;
-		Collection<String> languages;
+		List<String> languages;
+		String languages_str;
 
-		languages = this.customisationService.find().getLanguages();
+		languages_str = this.customisationService.find().getLanguages();
+		languages = this.utilityService.ListByString(languages_str);
 
 		Assert.isTrue(languages.contains(translationPosition.getLanguage()));
 

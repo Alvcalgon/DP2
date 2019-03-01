@@ -37,6 +37,9 @@ public class PositionService {
 	@Autowired
 	private TranslationPositionService	translationPositionService;
 
+	@Autowired
+	private UtilityService				utilityService;
+
 
 	// Constructors ------------------------------
 	public PositionService() {
@@ -163,16 +166,16 @@ public class PositionService {
 		return result;
 	}
 
-	public Collection<Integer> findHistogramValues() {
-		Collection<Integer> results;
+	public List<Integer> findHistogramValues() {
+		List<Integer> results;
 
 		results = this.positionRepository.findHistogramValues();
 
 		return results;
 	}
 
-	public Collection<String> findHistogramLabels(final String language) {
-		Collection<String> results;
+	public List<String> findHistogramLabels(final String language) {
+		List<String> results;
 
 		results = this.positionRepository.findHistogramLabels(language);
 
@@ -194,17 +197,20 @@ public class PositionService {
 		boolean result;
 		Map<String, Integer> map;
 		Collection<TranslationPosition> translationPositions;
-		Collection<String> languages;
 		Integer valor;
+		String languages_str;
+		List<String> languages;
 
-		map = new HashMap<String, Integer>();
-		languages = this.customisationService.find().getLanguages();
+		languages_str = this.customisationService.find().getLanguages();
+		languages = this.utilityService.ListByString(languages_str);
+
 		translationPositions = position.getTranslationPositions();
 		valor = 0;
 		result = true;
 
 		Assert.isTrue(translationPositions.size() == languages.size());
 
+		map = new HashMap<String, Integer>();
 		for (final String s : languages)
 			map.put(s, 0);
 

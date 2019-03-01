@@ -464,18 +464,22 @@ public class MessageService {
 	}
 
 	private boolean messageIsSpam(final Message message) {
+		String spam_words;
 		List<String> spamWords;
 		Customisation customisation;
 		String text;
 		boolean result;
 
 		customisation = this.customisationService.find();
-		spamWords = new ArrayList<String>(customisation.getSpamWords());
+
+		spam_words = customisation.getSpamWords();
+		spamWords = this.utilityService.ListByString(spam_words);
+
 		text = message.getSubject() + " " + message.getBody();
 
 		result = false;
-		for (final String spam : spamWords)
-			if (text.toLowerCase().contains(spam.toLowerCase())) {
+		for (final String s : spamWords)
+			if (text.toLowerCase().contains(s.toLowerCase())) {
 				result = true;
 				break;
 			}
