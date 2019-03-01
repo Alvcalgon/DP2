@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -171,11 +172,11 @@ public class FinderService {
 
 	private boolean isFinderOutdated(final Date updatedUpdate, final int timeCache) {
 		final Boolean result;
-		Long time, diff;
+		Long diff, milisTimeCache;
 
-		time = this.utilityService.current_moment().getTime() - updatedUpdate.getTime();
-		diff = time / (1000 * 60 * 60);
-		result = diff > timeCache;
+		diff = this.utilityService.current_moment().getTime() - updatedUpdate.getTime();
+		milisTimeCache = TimeUnit.HOURS.toMillis(timeCache);
+		result = diff >= milisTimeCache;
 
 		return result;
 	}
