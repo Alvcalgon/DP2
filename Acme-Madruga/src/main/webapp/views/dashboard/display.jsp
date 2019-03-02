@@ -40,10 +40,23 @@
 	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" />
 </display:table>
 
-<p>
-	<strong> <spring:message code="dashboard.four" />: </strong>
-	<jstl:out value="ratio" />
-</p>
+<p> <strong> <spring:message code="dashboard.four" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="procession.ticker" /> </th>
+		<th> <spring:message code="request.pending" /> </th>
+		<th> <spring:message code="request.approved" /> </th>
+		<th> <spring:message code="request.rejected" /> </th>
+	</tr>
+	<jstl:forEach var="fila" items="${mapa.keySet()}">
+		<tr>
+			<td> <jstl:out value="${fila}" /> </td>
+			<td> <jstl:out value="${mapa.get(fila)[0]}" /> </td>
+			<td> <jstl:out value="${mapa.get(fila)[1]}" /> </td>
+			<td> <jstl:out value="${mapa.get(fila)[2]}" /> </td>
+		</tr>
+	</jstl:forEach>
+</table>
 
 <p> <strong> <spring:message code="dashboard.five" />: </strong> </p>
 <display:table name="processions" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
@@ -51,55 +64,27 @@
 	<display:column property="title" titleKey="procession.title" />
 </display:table>
 
-<p>
- 	<strong> <spring:message code="dashboard.six" />: </strong>
-	<jstl:out value="Ratio" /> 	
-</p>
-
-<!--
+<p> <strong> <spring:message code="dashboard.six" />: </strong> </p>
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="request.approved" />: </strong>
+		<jstl:out value="${pendingRatio}" />
+	</p>
+	
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="request.approved" />: </strong>
+		<jstl:out value="${approvedRatio}" />
+	</p>
+	
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="request.rejected" />: </strong>
+		<jstl:out value="${rejectedRatio}" />
+	</p>
+	
 <p> <strong> <spring:message code="dashboard.seven" />: </strong> </p>
+
 <display:table name="members" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column property="fullname" titleKey="actor.fullname" />
 </display:table>
--->
-
-<p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="1.0" /> </td>
-		<td> <jstl:out value="2.0" /> </td>
-		<td> <jstl:out value="3.0" /> </td>
-		<td> <jstl:out value="4.0" /> </td>
-	</tr>
-</table>
-
-<p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
-<table>
-	<tr>
-		<th> <spring:message code="dashboard.average" /> </th>
-		<th> <spring:message code="dashboard.min" /> </th>
-		<th> <spring:message code="dashboard.max" /> </th>
-		<th> <spring:message code="dashboard.deviation" /> </th>
-	</tr>
-	<tr>
-		<td> <jstl:out value="${dataResultsPerFinder[0]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[1]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[2]}" /> </td>
-		<td> <jstl:out value="${dataResultsPerFinder[3]}" /> </td>
-	</tr>
-</table>
-
-<p>
-	<strong> <spring:message code="dashboard.eleven" /> </strong>:
-	<jstl:out value="${ratioEmptyVsNonEmpty}" />
-</p>
-
 
 <p> <strong> <spring:message code="dashboard.eight" />: </strong> </p>
 <jstl:set var="hLabels" value="${histogramLabels}" />
@@ -147,6 +132,43 @@ window.onload = function() {
 	});
 };
 </script>
+
+<p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataBrotherhoodPerArea[0]}" /> </td>
+		<td> <jstl:out value="${dataBrotherhoodPerArea[1]}" /> </td>
+		<td> <jstl:out value="${dataBrotherhoodPerArea[2]}" /> </td>
+		<td> <jstl:out value="${dataBrotherhoodPerArea[3]}" /> </td>
+	</tr>
+</table>
+
+<p> <strong> <spring:message code="dashboard.ten" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataResultsPerFinder[0]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[1]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[2]}" /> </td>
+		<td> <jstl:out value="${dataResultsPerFinder[3]}" /> </td>
+	</tr>
+</table>
+
+<p>
+	<strong> <spring:message code="dashboard.eleven" /> </strong>:
+	<jstl:out value="${ratioEmptyVsNonEmpty}" />
+</p>
 
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>

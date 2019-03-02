@@ -182,10 +182,7 @@ public class PositionService {
 		return results;
 	}
 
-	// Protected methods -------------------------
-
-	// Private methods ---------------------------
-	private Integer isUsedPosition(final int positionId) {
+	public Integer isUsedPosition(final int positionId) {
 		Integer result;
 
 		result = this.positionRepository.isUsedPosition(positionId);
@@ -193,6 +190,9 @@ public class PositionService {
 		return result;
 	}
 
+	// Protected methods -------------------------
+
+	// Private methods ---------------------------
 	private boolean validLanguages(final Position position) {
 		boolean result;
 		Map<String, Integer> map;

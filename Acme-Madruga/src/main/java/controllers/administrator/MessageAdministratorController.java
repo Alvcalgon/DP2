@@ -1,6 +1,8 @@
 
 package controllers.administrator;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomisationService;
 import services.MessageService;
+import services.UtilityService;
 import controllers.AbstractController;
 import domain.Customisation;
 import domain.Message;
@@ -25,6 +28,9 @@ public class MessageAdministratorController extends AbstractController {
 
 	@Autowired
 	private CustomisationService	customisationService;
+
+	@Autowired
+	private UtilityService			utilityService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -78,12 +84,16 @@ public class MessageAdministratorController extends AbstractController {
 	protected ModelAndView broadcastModelAndView(final Message broadcast, final String messageCode) {
 		ModelAndView result;
 		Customisation customisation;
+		String priorities_str;
+		List<String> priorities;
 
 		customisation = this.customisationService.find();
+		priorities_str = customisation.getPriorities();
+		priorities = this.utilityService.ListByString(priorities_str);
 
 		result = new ModelAndView("message/send");
 		result.addObject("message", broadcast);
-		result.addObject("priorities", customisation.getPriorities());
+		result.addObject("priorities", priorities);
 		result.addObject("isBroadcastMessage", true);
 		result.addObject("actionURI", "message/administrator/broadcast.do");
 		result.addObject("messageCode", messageCode);

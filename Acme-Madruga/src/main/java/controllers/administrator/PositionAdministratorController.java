@@ -152,9 +152,16 @@ public class PositionAdministratorController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final PositionForm positionForm, final Locale locale, final String messageCode) {
 		ModelAndView result;
+		Boolean canBeDeleted;
+
+		if (positionForm.getId() == 0)
+			canBeDeleted = false;
+		else
+			canBeDeleted = this.positionService.isUsedPosition(positionForm.getId()) == 0;
 
 		result = new ModelAndView("position/edit");
 		result.addObject("positionForm", positionForm);
+		result.addObject("canBeDeleted", canBeDeleted);
 		result.addObject("messageCode", messageCode);
 
 		return result;

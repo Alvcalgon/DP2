@@ -30,10 +30,12 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select distinct p from Procession p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true")
 	Collection<Procession> findProcessionFinalByBrotherhood(int id);
 
-	@Query("select min(f.processions.size), max(f.processions.size), avg(f.processions.size), stddev(f.processions.size) from Finder f")
+	@Query("select avg(f.processions.size), min(f.processions.size), max(f.processions.size), stddev(f.processions.size) from Finder f")
 	Double[] findDataNumberResultsPerFinder();
 
 	@Query("select distinct p from Procession p join p.floats f where (p.isFinalMode = true) and ((p.ticker like concat('%', concat(?1, '%'))) or (p.title like concat('%', concat(?1, '%'))) or (p.description like concat('%', concat(?1, '%')))) and (f.brotherhood.area.name = ?2 or ?2 = '') and (p.moment >= ?3 or ?3 = NULL) and (p.moment <= ?4 or ?4 = NULL)")
 	Page<Procession> searchProcessionFinder(String keyword, String area, Date minimumDate, Date maximumDate, Pageable pageable);
 
+	@Query("select p from Procession p where p.isFinalMode=true")
+	Collection<Procession> findPublishedProcession();
 }
