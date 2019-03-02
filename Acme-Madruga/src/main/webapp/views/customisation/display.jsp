@@ -16,7 +16,7 @@
 
 <div class="banner" >
 	<p> <strong> <spring:message code="customisation.banner" />: </strong> </p>
-	<img src="${customisation.banner}" alt="Banner" width="500" height="200" />
+	<img src="${customisation.banner}" alt="Banner" width="475" height="300" />
 </div>
 
 <p>
@@ -84,28 +84,7 @@
 	<jstl:out value="${customisation.negativeWords}" />
 </p>
 
-<!--
-<display:table name="${priorities}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.priorities" />
-</display:table>
-
-<display:table name="${positiveWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.positiveWords"/>
-</display:table>
-
-<display:table name="${negativeWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.negativeWords"/>
-</display:table>
-
-<display:table name="${spamWords}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.spamWords"/>
-</display:table>
-
-<display:table name="${languages}" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.languages"/>
-</display:table>
--->
-
+<!-- LINKS -->
 <a href="customisation/administrator/edit.do">
 	<spring:message code="customisation.edit" />
 </a>
