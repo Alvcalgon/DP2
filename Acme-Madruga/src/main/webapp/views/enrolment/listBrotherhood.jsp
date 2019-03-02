@@ -14,7 +14,7 @@
 	</display:column>
 	
 	<display:column property="brotherhood.title" titleKey="enrolment.brotherhood.title" sortable="true"/>
-	<display:column property="brotherhood.area.name" titleKey="area.name" sortable="true"/>
+	<display:column property="brotherhood.area.name" titleKey="enrolment.area" sortable="true"/>
 	
 	<display:column titleKey="brotherhood.currently.enroled" sortable="true">
 		<jstl:choose>
