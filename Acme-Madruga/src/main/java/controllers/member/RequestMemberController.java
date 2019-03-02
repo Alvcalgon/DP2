@@ -94,7 +94,7 @@ public class RequestMemberController extends AbstractController {
 
 		try {
 
-			request = this.requestService.findOneToMember(requestId);
+			request = this.requestService.findOneDeleteToMember(requestId);
 
 			try {
 				this.requestService.deleteCancel(request);

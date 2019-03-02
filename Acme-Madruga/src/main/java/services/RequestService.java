@@ -76,11 +76,12 @@ public class RequestService {
 		return result;
 	}
 
-	public Request findOneToMember(final int requestId) {
+	public Request findOneDeleteToMember(final int requestId) {
 		Request result;
 		result = this.requestRepository.findOne(requestId);
 
 		Assert.notNull(result);
+		Assert.isTrue(result.getStatus().equals("PENDING"));
 		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
 		this.checkPrincipalIsMemberOfRequest(result);
 
