@@ -41,7 +41,7 @@
 		<security:authorize access="hasRole('MEMBER')">
 		<display:column style="background-color:${colorValue }">
 			<a href="request/member/delete.do?requestId=${row.id}"><spring:message
-					code="request.cancel" /></a>
+					code="request.member.cancel" /></a>
 		</display:column>
 		</security:authorize>
 		
