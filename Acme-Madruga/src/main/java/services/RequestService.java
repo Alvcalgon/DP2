@@ -76,6 +76,17 @@ public class RequestService {
 		return result;
 	}
 
+	public Request findOneToMember(final int requestId) {
+		Request result;
+		result = this.requestRepository.findOne(requestId);
+
+		Assert.notNull(result);
+		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
+		this.checkPrincipalIsMemberOfRequest(result);
+
+		return result;
+	}
+
 	public Request findOneDeleteToMember(final int requestId) {
 		Request result;
 		result = this.requestRepository.findOne(requestId);
