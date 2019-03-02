@@ -97,6 +97,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Administrator");
 			}
 
 		return result;
@@ -117,6 +118,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(brotherhoodRegistrationForm, "actor.commit.error");
+				result.addObject("rol", "Brotherhood");
 			}
 
 		return result;
@@ -138,6 +140,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 				result = new ModelAndView("redirect:/actor/display.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Member");
 			}
 
 		return result;

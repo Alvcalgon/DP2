@@ -23,20 +23,37 @@
 
 <fieldset>
 	<legend><spring:message code="actor.legend"/></legend>
-	<p> <strong> <spring:message code="actor.name" /> </strong>  <jstl:out value="${actor.name}" /></p>
-	
-	<p> <strong> <spring:message code="actor.middlename" /> </strong>  <jstl:out value="${actor.middleName}" /></p>
-	
-	<p> <strong> <spring:message code="actor.surname" /> </strong>  <jstl:out value="${actor.surname}" /></p>
+	<p> <strong> <spring:message code="actor.fullname" /> </strong>  <jstl:out value="${actor.fullname}" /></p>
 
-	<p> <strong> <spring:message code="actor.photo" /> </strong> <img alt="Photo" src="<jstl:out value="${actor.photo}" />"></p>
-	
+	<jstl:if test="${actor.photo != null }">
+		<p>
+			<strong> <spring:message code="actor.photo" />
+			</strong> <img alt="Photo" src="<jstl:out value="${actor.photo}" />"
+				height="200px" width="200px">
+		</p>
+
+	</jstl:if>
+
+
 	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
-	
-	<p> <strong> <spring:message code="actor.phoneNumber" /> </strong>  <jstl:out value="${actor.phoneNumber}" /></p>
 
-	<p> <strong> <spring:message code="actor.address" /> </strong>  <jstl:out value="${actor.address}" /></p>
-	
+	<jstl:if test="${actor.phoneNumber != null }">
+		<p>
+			<strong> <spring:message code="actor.phoneNumber" />
+			</strong>
+			<jstl:out value="${actor.phoneNumber}" />
+		</p>
+	</jstl:if>
+
+	<jstl:if test="${actor.address != null }">
+		<p>
+			<strong> <spring:message code="actor.address" />
+			</strong>
+			<jstl:out value="${actor.address}" />
+		</p>
+	</jstl:if>
+
+
 	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
 		
 		<p> <strong> <spring:message code="actor.brotherhood.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
@@ -48,12 +65,19 @@
 				<fmt:formatDate value="${actor.establishmentDate}" pattern="${formatMoment}"/>
 		</p>
 		
-		<p> <strong> <spring:message code="actor.brotherhood.pictures" /> </strong> <img alt="Picture" src="<jstl:out value="${actor.pictures}" />"> </p>
-		
-		
-		
-		
-		
+
+		<jstl:if test="${not empty pictures}">
+			<strong><spring:message code="actor.brotherhood.pictures" /></strong>
+			<br>
+			<ul>
+				<jstl:forEach var="picture" items="${pictures}">
+					<img src="${picture}" alt="picture" height="200px" width="200px">
+				</jstl:forEach>
+			</ul>
+		</jstl:if>
+
+
+
 	</jstl:if>
 	
 	<security:authorize access="hasRole('ADMIN')">
@@ -112,7 +136,8 @@
 			</strong> <a href="float/list.do?brotherhoodId=${actor.id}"><spring:message
 					code="actor.brotherhood.floats" /></a>
 		</p>
-
+	
+		<jstl:if test="${ isActorLogged || actor.area != null}">
 		<p>
 			<strong> <spring:message code="actor.brotherhood.area" />
 			</strong> <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out
@@ -125,6 +150,7 @@
 
 			</jstl:if>
 			</p>
+		</jstl:if>
 	</fieldset>
 </jstl:if>
 

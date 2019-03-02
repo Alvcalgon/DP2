@@ -67,7 +67,7 @@
 			<acme:textbox code="actor.brotherhood.title.requested" path="title"/>
 			<br /> 
 			
-			<acme:textbox code="actor.brotherhood.establishmentDate.requested" path="establishmentDate"/>
+			<acme:textbox code="actor.brotherhood.establishmentDate.requested" path="establishmentDate" placeholder="dd/MM/yyyy"/>
 			<br />
 			
 			<acme:textarea code="actor.brotherhood.pictures" path="pictures"/>
@@ -129,7 +129,15 @@
 		</security:authorize>
 		
 	</fieldset>
-	
+	<br>
+
+	<div>
+		<form:checkbox path="checkBoxAccepted" />
+		<spring:message code="actor.checkBox" />
+		<a href="welcome/terms.do"><spring:message code="actor.terms"/></a>
+	</div>
+	<br>
+
 	<acme:submit name="save" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 	<acme:cancel url="welcome/index.do" code="actor.cancel"/>
 	

@@ -74,7 +74,7 @@
 			<acme:textbox code="actor.brotherhood.establishmentDate" path="establishmentDate"/>
 			<br />
 			
-			<acme:textbox code="actor.brotherhood.pictures" path="pictures"/>
+			<acme:textarea code="actor.brotherhood.pictures" path="pictures"/>
 			<br />
 		
 		</jstl:if>

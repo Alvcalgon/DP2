@@ -192,20 +192,28 @@ public class AdministratorService {
 
 	private void validateRegistration(final Administrator administrator, final RegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
+		boolean checkBox;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
+		checkBox = registrationForm.getCheckBoxAccepted();
 
+		if (password.equals("d41d8cd98f00b204e9800998ecf8427e") && confirmPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) {
+			binding.rejectValue("password", "password.empty", "Must entry a password");
+			binding.rejectValue("confirmPassword", "confirmPassword.empty", "Must entry a confirm password");
+		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		else if (this.userAccountService.existUsername(username))
+		if (checkBox == false)
+			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
+		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
-		else if (this.actorService.existEmail(administrator.getEmail()))
+		if (this.actorService.existEmail(administrator.getEmail()))
 			binding.rejectValue("email", "actor.email.used", "Email already in use");
-		else if (password.length() < 5 || password.length() > 32)
+		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
-		else if (username.length() < 5 || username.length() > 32)
+		if (username.length() < 5 || username.length() > 32)
 			binding.rejectValue("username", "actor.username.size", "Username must have between 5 and 32 characters.");
 
 	}
@@ -259,6 +267,7 @@ public class AdministratorService {
 		registrationForm.setPhoto(administrator.getPhoto());
 		registrationForm.setPhoneNumber(administrator.getPhoneNumber());
 		registrationForm.setAddress(administrator.getAddress());
+		registrationForm.setCheckBoxAccepted(false);
 
 		return registrationForm;
 	}
