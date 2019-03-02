@@ -21,6 +21,20 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
+<security:authorize access="hasRole('MEMBER')">
+	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
+		<jstl:if test="${isEnrolled}">
+			<h2><a href="enrolment/member/dropOut.do?brotherhoodId=${actor.id}" onclick="return confirm('<spring:message code="enrolment.confirm.drop.out"/>')"><spring:message code="actor.drop.out"/></a></h2>
+		</jstl:if>
+		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && hasSelectedArea}">
+			<h2><a href="enrolment/member/requestEnrolment.do?brotherhoodId=${actor.id}"><spring:message code="actor.request.enrolment"/></a></h2>
+		</jstl:if>
+		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && !hasSelectedArea}">
+			<p style="color:blue;"><spring:message code="actor.request.enrolment.warning"/></p>
+		</jstl:if>
+	</jstl:if>
+</security:authorize>
+
 <fieldset>
 	<legend><spring:message code="actor.legend"/></legend>
 	<p> <strong> <spring:message code="actor.fullname" /> </strong>  <jstl:out value="${actor.fullname}" /></p>
@@ -168,20 +182,6 @@
 	<p> <strong> <spring:message code="actor.socialProfiles" />: </strong>  <a href="socialProfile/list.do?actorId=${actor.id}"><spring:message code="actor.socialProfiles"/></a></p>
 
 </fieldset>
-
-<security:authorize access="hasRole('MEMBER')">
-	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
-		<jstl:if test="${isEnrolled}">
-			<a href="enrolment/member/dropOut.do?brotherhoodId=${actor.id}" onclick="return confirm('<spring:message code="enrolment.confirm.drop.out"/>')"><spring:message code="actor.drop.out"/></a>
-		</jstl:if>
-		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && hasSelectedArea}">
-			<a href="enrolment/member/requestEnrolment.do?brotherhoodId=${actor.id}"><spring:message code="actor.request.enrolment"/></a>
-		</jstl:if>
-		<jstl:if test="${!isEnrolled && !existEnrolmentRequest && !hasSelectedArea}">
-			<p style="color:blue;"><spring:message code="actor.request.enrolment.warning"/></p>
-		</jstl:if>
-	</jstl:if>
-</security:authorize>
 
  <security:authorize access="isAnonymous()"> 	
  	<a href="brotherhood/list.do"><spring:message code="actor.return"/></a>
