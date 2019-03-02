@@ -203,6 +203,13 @@ public class ProcessionService {
 	}
 
 	// Other business methods ---------------------
+	public Collection<Procession> findPublishedProcession() {
+		Collection<Procession> result;
+
+		result = this.processionRepository.findPublishedProcession();
+
+		return result;
+	}
 
 	public Double[] findDataNumberResultsPerFinder() {
 		Double[] result;

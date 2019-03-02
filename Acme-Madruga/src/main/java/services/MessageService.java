@@ -215,8 +215,16 @@ public class MessageService {
 
 		Message result;
 		boolean isSpam;
+		Actor principal;
 		Collection<Actor> recipients;
 		Box outBoxSender, notificationBoxRecipient, spamBoxRecipient;
+
+		principal = this.actorService.findPrincipal();
+
+		recipients = this.actorService.findAll();
+		recipients.remove(principal);
+
+		message.setRecipients(recipients);
 
 		result = this.messageRepository.save(message);
 

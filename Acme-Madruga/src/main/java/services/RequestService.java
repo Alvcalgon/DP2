@@ -1,8 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedMap;
 
 import javax.transaction.Transactional;
@@ -259,6 +262,30 @@ public class RequestService {
 		return result;
 	}
 	// Other business methods ---------------------
+	public Map<String, List<Double>> findRatioRequestByProcession() {
+		Map<String, List<Double>> result;
+		Collection<Procession> publishedProcessions;
+		Double pendingRatio, approvedRatio, rejectedRatio;
+
+		result = new HashMap<String, List<Double>>();
+		publishedProcessions = this.processionService.findPublishedProcession();
+
+		for (final Procession p : publishedProcessions) {
+			final List<Double> ld = new ArrayList<>();
+
+			pendingRatio = this.findRatioPendingRequestsProcession(p.getId());
+			approvedRatio = this.findRatioAprovedRequestsProcession(p.getId());
+			rejectedRatio = this.findRatioRejectedRequetsProcession(p.getId());
+
+			ld.add(pendingRatio);
+			ld.add(approvedRatio);
+			ld.add(rejectedRatio);
+
+			result.put(p.getTicker(), ld);
+		}
+
+		return result;
+	}
 
 	// Private methods ---------------------------
 	private void checkNoExistRequestMemberProcession(final Procession procession) {

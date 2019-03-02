@@ -3,7 +3,9 @@ package controllers.administrator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import services.ProcessionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
+import domain.Member;
 import domain.Procession;
 
 @Controller
@@ -56,35 +59,54 @@ public class DashboardAdministratorController extends AbstractController {
 		ModelAndView result;
 
 		// LEVEL C -----------------------------------------
+
+		// Req 12.3.1
 		Double[] dataMembersPerBrotherhood;
 		dataMembersPerBrotherhood = this.memberService.findDataNumberMembersPerBrotherhood();
 
+		//Req 12.3.2
 		Collection<Brotherhood> largestBrotherhoods;
 		largestBrotherhoods = this.brotherhoodService.findLargest();
 
+		// Req 12.3.3
 		Collection<Brotherhood> smallestBrotherhoods;
 		smallestBrotherhoods = this.brotherhoodService.findSmallest();
 
-		//TODO:final Double ratioRequest;
-		//TODO:ratioRequest = this.requestService.ratioRequest();
+		// Req 12.3.4
+		Map<String, List<Double>> ratioRequestByProcession;
+		ratioRequestByProcession = this.requestService.findRatioRequestByProcession();
 
+		// Req 12.3.5
 		Collection<Procession> processions;
 		processions = this.processionService.findProcessionLess30days();
 
+		// Req 12.3.6
+		Double pendingRatio, approvedRatio, rejectedRatio;
+		pendingRatio = this.requestService.findRatioPendingRequests();
+		approvedRatio = this.requestService.findRatioAprovedRequests();
+		rejectedRatio = this.requestService.findRatioRejectedRequets();
+
+		// Req 12.3.7
+		Collection<Member> members;
+		members = this.memberService.memberRequestsAcceptedleast10();
+
+		// Req 12.3.8
 		ArrayList<String> histogramLabels;
 		ArrayList<Integer> histogramValues;
 		histogramValues = new ArrayList<Integer>(this.positionService.findHistogramValues());
 		histogramLabels = new ArrayList<String>(this.positionService.findHistogramLabels(locale.getLanguage()));
 
-		//TODO:Collection<Member> members;
-
 		// LEVEL B --------------------------------------
-		final Double[] dataBrotherhoodPerArea;
-		//TODO:this.brotherhoodService.
 
+		// Req 22.2.1
+		final Double[] dataBrotherhoodPerArea;
+		dataBrotherhoodPerArea = this.brotherhoodService.findDataNumberBrotherhoodPerArea();
+
+		// Req 22.2.2
 		Double[] dataResultsPerFinder;
 		dataResultsPerFinder = this.processionService.findDataNumberResultsPerFinder();
 
+		// Req 22.2.3
 		Double ratioEmptyVsNonEmpty;
 		ratioEmptyVsNonEmpty = this.finderService.findRatioEmptyVsNonEmpty();
 
@@ -97,10 +119,16 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("processions", processions);
 		result.addObject("histogramValues", histogramValues);
 		result.addObject("histogramLabels", histogramLabels);
+		result.addObject("pendingRatio", pendingRatio);
+		result.addObject("approvedRatio", approvedRatio);
+		result.addObject("rejectedRatio", rejectedRatio);
+		result.addObject("members", members);
+		result.addObject("mapa", ratioRequestByProcession);
 
 		// LEVEL B
 		result.addObject("dataResultsPerFinder", dataResultsPerFinder);
 		result.addObject("ratioEmptyVsNonEmpty", ratioEmptyVsNonEmpty);
+		result.addObject("dataBrotherhoodPerArea", dataBrotherhoodPerArea);
 
 		return result;
 	}
