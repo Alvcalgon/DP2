@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.SortedMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -118,6 +119,8 @@ public class PositionAdministratorController extends AbstractController {
 				this.positionService.save(position);
 
 				result = new ModelAndView("redirect:list.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createEditModelAndView(positionForm, locale, "position.name.unique");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(positionForm, locale, "position.commit.error");
 			}
