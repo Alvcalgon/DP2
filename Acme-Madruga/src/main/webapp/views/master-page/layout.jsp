@@ -73,8 +73,15 @@
 	}
 	
 	function calcMD5(){
-		document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
-		document.getElementById('confirmPasswordId').value = hex_md5(document.getElementById('confirmPasswordId').value) ;
+		
+		
+	if (document.getElementById('passwordId').value.trim() == "" && document.getElementById('confirmPasswordId').value.trim() == "") {
+
+		} else {
+
+			document.getElementById('passwordId').value = hex_md5(document.getElementById('passwordId').value);
+			document.getElementById('confirmPasswordId').value = hex_md5(document.getElementById('confirmPasswordId').value);
+		}
 	}
 </script>
 

@@ -90,9 +90,6 @@ public class ActorController extends ActorAbstractController {
 			try {
 				this.brotherhoodService.save(brotherhood);
 				result = new ModelAndView("redirect:/welcome/index.do");
-			} catch (final IllegalArgumentException oops) {
-				result = this.createModelAndView(registrationForm, "actor.brotherhood.picture.error");
-				result.addObject("rol", "Brotherhood");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
 				result.addObject("rol", "Brotherhood");

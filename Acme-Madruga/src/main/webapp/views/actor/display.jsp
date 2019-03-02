@@ -51,21 +51,69 @@
 
 	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
 
-	<jstl:if test="${actor.phoneNumber != null }">
-		<p>
-			<strong> <spring:message code="actor.phoneNumber" />
-			</strong>
-			<jstl:out value="${actor.phoneNumber}" />
-		</p>
-	</jstl:if>
+	<security:authorize access="hasRole('ADMIN')">
+		<jstl:if test="${actor.phoneNumber != null }">
+			<p>
+				<strong> <spring:message code="actor.phoneNumber" />
+				</strong>
+				<jstl:out value="${actor.phoneNumber}" />
+			</p>
+		</jstl:if>
 
-	<jstl:if test="${actor.address != null }">
-		<p>
-			<strong> <spring:message code="actor.address" />
-			</strong>
-			<jstl:out value="${actor.address}" />
-		</p>
-	</jstl:if>
+		<jstl:if test="${actor.address != null }">
+			<p>
+				<strong> <spring:message code="actor.address" />
+				</strong>
+				<jstl:out value="${actor.address}" />
+			</p>
+		</jstl:if>
+
+	</security:authorize>
+	
+	
+	<security:authorize access="hasRole('BROTHERHOOD')">
+		<jstl:if
+			test="${ actor.userAccount.authorities=='[MEMBER]' && memberEnrolled}">
+			<jstl:if test="${actor.phoneNumber != null }">
+				<p>
+					<strong> <spring:message code="actor.phoneNumber" />
+					</strong>
+					<jstl:out value="${actor.phoneNumber}" />
+				</p>
+			</jstl:if>
+
+			<jstl:if test="${actor.address != null }">
+				<p>
+					<strong> <spring:message code="actor.address" />
+					</strong>
+					<jstl:out value="${actor.address}" />
+				</p>
+			</jstl:if>
+		</jstl:if>
+
+	</security:authorize>
+	
+	<security:authorize access="hasRole('MEMBER')">
+		<jstl:if
+			test="${isActorLogged}">
+			<jstl:if test="${actor.phoneNumber != null }">
+				<p>
+					<strong> <spring:message code="actor.phoneNumber" />
+					</strong>
+					<jstl:out value="${actor.phoneNumber}" />
+				</p>
+			</jstl:if>
+
+			<jstl:if test="${actor.address != null }">
+				<p>
+					<strong> <spring:message code="actor.address" />
+					</strong>
+					<jstl:out value="${actor.address}" />
+				</p>
+			</jstl:if>
+		</jstl:if>
+
+	</security:authorize>
 
 
 	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">

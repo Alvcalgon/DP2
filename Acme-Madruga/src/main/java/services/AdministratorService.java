@@ -152,9 +152,9 @@ public class AdministratorService {
 			result.setId(administratorStored.getId());
 			result.setVersion(administratorStored.getVersion());
 
-			if (registrationForm.getUsername().isEmpty() && registrationForm.getPassword().equals("d41d8cd98f00b204e9800998ecf8427e") && registrationForm.getConfirmPassword().equals("d41d8cd98f00b204e9800998ecf8427e")) // No ha actualizado ningun atributo de user account
+			if (registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) // No ha actualizado ningun atributo de user account
 				result.setUserAccount(administratorStored.getUserAccount());
-			else if (!registrationForm.getUsername().isEmpty() && registrationForm.getPassword().equals("d41d8cd98f00b204e9800998ecf8427e") && registrationForm.getConfirmPassword().equals("d41d8cd98f00b204e9800998ecf8427e")) {// Modifica el username
+			else if (!registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) {// Modifica el username
 				this.validateUsernameEdition(registrationForm.getUsername(), binding);
 				if (binding.hasErrors()) {
 
@@ -163,7 +163,7 @@ public class AdministratorService {
 					userAccount.setUsername(registrationForm.getUsername());
 					result.setUserAccount(userAccount);
 				}
-			} else if (registrationForm.getUsername().isEmpty() && !registrationForm.getPassword().equals("d41d8cd98f00b204e9800998ecf8427e") && !registrationForm.getConfirmPassword().equals("d41d8cd98f00b204e9800998ecf8427e")) { // Modifica la password
+			} else if (registrationForm.getUsername().isEmpty() && !registrationForm.getPassword().isEmpty() && !registrationForm.getConfirmPassword().isEmpty()) { // Modifica la password
 				this.validatePasswordEdition(registrationForm.getPassword(), registrationForm.getConfirmPassword(), binding);
 				if (binding.hasErrors()) {
 
@@ -172,7 +172,7 @@ public class AdministratorService {
 					userAccount.setPassword(registrationForm.getPassword());
 					result.setUserAccount(userAccount);
 				}
-			} else if (!registrationForm.getUsername().isEmpty() && !registrationForm.getPassword().equals("d41d8cd98f00b204e9800998ecf8427e") && !registrationForm.getConfirmPassword().equals("d41d8cd98f00b204e9800998ecf8427e")) { // Modifica el username y la password
+			} else if (!registrationForm.getUsername().isEmpty() && !registrationForm.getPassword().isEmpty() && !registrationForm.getConfirmPassword().isEmpty()) { // Modifica el username y la password
 				this.validateUsernamePasswordEdition(registrationForm, binding);
 				if (binding.hasErrors()) {
 
@@ -189,7 +189,6 @@ public class AdministratorService {
 
 		return result;
 	}
-
 	private void validateRegistration(final Administrator administrator, final RegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
 		boolean checkBox;
@@ -199,7 +198,11 @@ public class AdministratorService {
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
 
-		if (password.equals("d41d8cd98f00b204e9800998ecf8427e") && confirmPassword.equals("d41d8cd98f00b204e9800998ecf8427e")) {
+		if (!administrator.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"))
+			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
+		if (username.trim().equals(""))
+			binding.rejectValue("username", "actor.username.blank", "Must entry a username.");
+		if (password.trim().equals("") && confirmPassword.trim().equals("")) {
 			binding.rejectValue("password", "password.empty", "Must entry a password");
 			binding.rejectValue("confirmPassword", "confirmPassword.empty", "Must entry a confirm password");
 		}
@@ -225,31 +228,43 @@ public class AdministratorService {
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 
+		if (password.trim().equals("") && confirmPassword.trim().equals("")) {
+			binding.rejectValue("password", "password.empty", "Must entry a password");
+			binding.rejectValue("confirmPassword", "confirmPassword.empty", "Must entry a confirm password");
+		}
+		if (username.trim().equals(""))
+			binding.rejectValue("username", "actor.username.blank", "Must entry a username.");
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		else if (this.userAccountService.existUsername(username))
+		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
-		else if (password.length() < 5 || password.length() > 32)
+		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
-		else if (username.length() < 5 || username.length() > 32)
+		if (username.length() < 5 || username.length() > 32)
 			binding.rejectValue("username", "actor.username.size", "Username must have between 5 and 32 characters.");
 
 	}
 
 	private void validateUsernameEdition(final String username, final BindingResult binding) {
 
+		if (username.trim().equals(""))
+			binding.rejectValue("username", "actor.username.blank", "Must entry a username.");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
-		else if (username.length() < 5 || username.length() > 32)
+		if (username.length() < 5 || username.length() > 32)
 			binding.rejectValue("username", "actor.username.size", "Username must have between 5 and 32 characters.");
 
 	}
 
 	private void validatePasswordEdition(final String password, final String confirmPassword, final BindingResult binding) {
 
+		if (password.trim().equals("") && confirmPassword.trim().equals("")) {
+			binding.rejectValue("password", "password.empty", "Must entry a password");
+			binding.rejectValue("confirmPassword", "confirmPassword.empty", "Must entry a confirm password");
+		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		else if (password.length() < 5 || password.length() > 32)
+		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
 
 	}

@@ -58,7 +58,7 @@
 		
 		<br />
 		
-		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 (111) 654654654"/>
+		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 (111) 654654654" id="phoneNumber"/>
 		
 		<br />
 		

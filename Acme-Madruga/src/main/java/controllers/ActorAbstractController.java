@@ -92,6 +92,14 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isAuthorized", true);
 		}
 
+		if (principal != null && actor != null && principal instanceof Brotherhood && actor instanceof Member) {
+			isEnrolled = this.enrolmentService.findIsEnrolledIn(actor.getId(), principal.getId());
+			if (isEnrolled == true)
+				result.addObject("memberEnrolled", isEnrolled);
+			else
+				result.addObject("memberEnrolled", isEnrolled);
+		}
+
 		result.addObject("actor", actor);
 		result.addObject("thresholdScore", this.customisationService.find().getThresholdScore());
 

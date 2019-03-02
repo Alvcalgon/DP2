@@ -54,7 +54,6 @@ public class ActorService {
 	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
 		this.utilityService.checkEmailActors(actor);
-		this.utilityService.checkPicture(actor.getPhoto());
 		if (actor instanceof Brotherhood)
 			this.utilityService.checkPicture(((Brotherhood) actor).getPictures());
 
@@ -67,6 +66,8 @@ public class ActorService {
 		result = this.actorRepository.save(actor);
 		if (actor.getAddress() != null)
 			result.setAddress(actor.getAddress().trim());
+		if (actor.getPhoto() != null)
+			result.setPhoto(actor.getPhoto().trim());
 		result.setPhoneNumber(this.utilityService.getValidPhone(actor.getPhoneNumber()));
 
 		if (!isUpdating)
