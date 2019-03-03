@@ -50,7 +50,7 @@ public class BoxMultiUserController extends AbstractController {
 			result.addObject("childBoxes", childBoxes);
 			result.addObject("messages", messages);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:/error.do");
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;

@@ -80,6 +80,20 @@ public class MessageService {
 		return result;
 	}
 
+	public Message findOneToMove(final int messageId, final int originBoxId) {
+		Message result;
+		Box origin;
+
+		result = this.messageRepository.findOne(messageId);
+		origin = this.boxService.findOne(originBoxId);
+
+		Assert.notNull(result);
+		this.checkSenderOrRecipient(result);
+		this.boxService.checkByPrincipal(origin);
+
+		return result;
+	}
+
 	public Message create() {
 		Message result;
 		Actor principal;
@@ -386,7 +400,6 @@ public class MessageService {
 
 		recipients = new ArrayList<Actor>();
 		recipients.add(brotherhood);
-		recipients.addAll(this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId()));
 
 		ticker = procession.getTicker();
 

@@ -14,6 +14,10 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
+	<p style="color:blue;">
+		<spring:message code="customisation.notice" />
+	</p>
+	
 	<acme:textbox code="customisation.systemName" path="name" />
 	<acme:textbox code="customisation.banner" path="banner" />
 	<acme:textbox code="customisation.englishWelcomeMessage" path="englishWelcomeMessage" />
