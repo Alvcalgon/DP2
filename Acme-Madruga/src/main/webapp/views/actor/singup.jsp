@@ -135,6 +135,7 @@
 		<form:checkbox path="checkBoxAccepted" />
 		<spring:message code="actor.checkBox" />
 		<a href="welcome/terms.do"><spring:message code="actor.terms"/></a>
+		<form:errors path="checkBoxAccepted" cssClass="error" />
 	</div>
 	<br>
 
