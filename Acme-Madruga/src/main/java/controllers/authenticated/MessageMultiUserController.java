@@ -66,7 +66,7 @@ public class MessageMultiUserController extends AbstractController {
 			result.addObject("boxId", boxId);
 			result.addObject("messageToDisplay", message);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:error.do");
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
@@ -90,11 +90,17 @@ public class MessageMultiUserController extends AbstractController {
 		ModelAndView result;
 		MessageForm messageForm;
 
-		messageForm = new MessageForm();
-		messageForm.setMessageId(messageId);
-		messageForm.setOriginBoxId(boxId);
+		try {
+			this.messageService.findOneToMove(messageId, boxId);
 
-		result = this.moveModelAndView(messageForm);
+			messageForm = new MessageForm();
+			messageForm.setMessageId(messageId);
+			messageForm.setOriginBoxId(boxId);
+
+			result = this.moveModelAndView(messageForm);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -153,7 +159,7 @@ public class MessageMultiUserController extends AbstractController {
 			this.messageService.delete(message, box);
 			result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(message, "message.commit.error");
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
