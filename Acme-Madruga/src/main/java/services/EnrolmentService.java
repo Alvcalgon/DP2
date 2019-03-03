@@ -51,13 +51,11 @@ public class EnrolmentService {
 
 	// Simple CRUD methods --------------------------------
 
-	protected Enrolment create(final int brotherhoodId) {
+	private Enrolment create(final Brotherhood brotherhood) {
 		Enrolment result;
-		Brotherhood brotherhood;
 		Member member;
 
 		result = new Enrolment();
-		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 		member = this.memberService.findByPrincipal();
 
 		result.setMember(member);
@@ -150,14 +148,17 @@ public class EnrolmentService {
 
 	public void requestEnrolment(final int brotherhoodId) {
 		Enrolment enrolment;
+		Brotherhood brotherhood;
 		Member member;
 
 		member = this.memberService.findByPrincipal();
+		brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 
 		Assert.isTrue(!this.findExistActiveEnrolment(member.getId(), brotherhoodId));
 		Assert.isTrue(!this.findExistRequestEnrolment(member.getId(), brotherhoodId));
+		Assert.isTrue(brotherhood.getArea() != null);
 
-		enrolment = this.create(brotherhoodId);
+		enrolment = this.create(brotherhood);
 		this.enrolmentRepository.save(enrolment);
 	}
 
