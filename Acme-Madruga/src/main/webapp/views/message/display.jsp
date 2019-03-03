@@ -20,9 +20,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<a href="box/administrator,brotherhood,member/display.do?boxId=${boxId}">
-	<spring:message code="message.button.return" />
-</a>
 
 <spring:message code="message.format.date" var="formatDate" />
 <p> 
@@ -63,4 +60,8 @@
 	<display:column property="email" titleKey="message.recipient.email"/>
 
 </display:table>	   
+
+<a href="box/administrator,brotherhood,member/display.do?boxId=${boxId}">
+	<spring:message code="message.button.return" />
+</a>
 	   
