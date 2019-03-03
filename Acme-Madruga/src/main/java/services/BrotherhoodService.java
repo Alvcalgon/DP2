@@ -1,6 +1,8 @@
 
 package services;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -202,6 +204,9 @@ public class BrotherhoodService {
 			result.setVersion(brotherhoodStored.getVersion());
 			result.setArea(brotherhoodStored.getArea());
 
+			this.validatePictures(registrationForm.getPictures(), binding);
+			this.validateEmail(registrationForm.getEmail(), binding);
+
 			if (registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) // No ha actualizado ningun atributo de user account
 				result.setUserAccount(brotherhoodStored.getUserAccount());
 			else if (!registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) {// Modifica el username
@@ -243,19 +248,14 @@ public class BrotherhoodService {
 	private void validateRegistration(final Brotherhood brotherhood, final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
 		boolean checkBox;
-		Collection<String> pictures;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
-		pictures = this.utilityService.getSplittedString(brotherhood.getPictures());
 
-		for (final String picture : pictures)
-			if (!picture.matches("^http(s*)://(?:[a-zA-Z0-9-]+[\\.\\:])+[a-zA-Z0-9/]+$"))
-				binding.rejectValue("pictures", "actor.picture.error", "Invalid URL");
-		if (!brotherhood.getEmail().matches("[A-Za-z_.]+[\\w]+[\\S]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
-			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
+		this.validatePictures(brotherhood.getPictures(), binding);
+		this.validateEmail(brotherhood.getEmail(), binding);
 		if (username.trim().equals(""))
 			binding.rejectValue("username", "actor.username.blank", "Must entry a username.");
 		if (password.trim().equals("") && confirmPassword.trim().equals("")) {
@@ -321,6 +321,25 @@ public class BrotherhoodService {
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
 		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
+
+	}
+
+	private void validatePictures(final String pictures, final BindingResult binding) {
+		Collection<String> picturesList;
+
+		picturesList = this.utilityService.getSplittedString(pictures);
+		for (final String at : picturesList)
+			try {
+				new URL(at);
+			} catch (final MalformedURLException e) {
+				binding.rejectValue("pictures", "actor.pictures.error", "Invalid URL");
+			}
+	}
+
+	private void validateEmail(final String email, final BindingResult binding) {
+
+		if (!email.matches("[A-Za-z_.]+[\\w]+[\\S]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
 
 	}
 

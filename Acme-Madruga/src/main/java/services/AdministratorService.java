@@ -152,6 +152,8 @@ public class AdministratorService {
 			result.setId(administratorStored.getId());
 			result.setVersion(administratorStored.getVersion());
 
+			this.validateEmail(registrationForm.getEmail(), binding);
+
 			if (registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) // No ha actualizado ningun atributo de user account
 				result.setUserAccount(administratorStored.getUserAccount());
 			else if (!registrationForm.getUsername().isEmpty() && registrationForm.getPassword().isEmpty() && registrationForm.getConfirmPassword().isEmpty()) {// Modifica el username
@@ -198,8 +200,7 @@ public class AdministratorService {
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
 
-		if (!administrator.getEmail().matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"))
-			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
+		this.validateEmail(administrator.getEmail(), binding);
 		if (username.trim().equals(""))
 			binding.rejectValue("username", "actor.username.blank", "Must entry a username.");
 		if (password.trim().equals("") && confirmPassword.trim().equals("")) {
@@ -266,6 +267,13 @@ public class AdministratorService {
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
 		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
+
+	}
+
+	private void validateEmail(final String email, final BindingResult binding) {
+
+		if (!email.matches("[A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]|[A-Za-z_.]+[\\w]+@|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@+[\\>]"))
+			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
 
 	}
 
