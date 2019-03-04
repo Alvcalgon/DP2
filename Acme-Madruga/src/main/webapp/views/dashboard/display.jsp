@@ -66,7 +66,7 @@
 
 <p> <strong> <spring:message code="dashboard.six" />: </strong> </p>
 	<p style="text-indent:10px;">
-		<strong> <spring:message code="request.approved" />: </strong>
+		<strong> <spring:message code="request.pending" />: </strong>
 		<jstl:out value="${pendingRatio}" />
 	</p>
 	
@@ -90,9 +90,12 @@
 <jstl:set var="hLabels" value="${histogramLabels}" />
 <jstl:set var="hValues" value="${histogramValues}" />
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
 <div id="container" style="width:800px; height:600px;">
 	<canvas id="myChart"></canvas>
 </div>
+
 <script>
 window.onload = function() {
 	var columnas = new Array();

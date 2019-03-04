@@ -14,10 +14,10 @@
 	<jstl:out value="${customisation.name}" />
 </p>
 
-<div class="banner" >
-	<p> <strong> <spring:message code="customisation.banner" />: </strong> </p>
-	<img src="${customisation.banner}" alt="Banner" width="475" height="300" />
-</div>
+<p> 
+	<strong> <spring:message code="customisation.banner" />: </strong>
+	<jstl:out value="${customisation.banner}" />		
+</p>
 
 <p>
 	<strong> <spring:message code="customisation.englishWelcomeMessage" />: </strong>
@@ -59,30 +59,31 @@
 	<jstl:out value="${customisation.thresholdScore}" />
 </p>
 
-<p>
-	<strong> <spring:message code="customisation.priorities" />: </strong>
-	<jstl:out value="${customisation.priorities}" />
-</p>
+<p> <strong> <spring:message code="customisation.priorities" />: </strong> </p>	
+<ul>
+	<jstl:forEach var="row" items="${priorities}">
+		<li> <jstl:out value="${row}" /> </li>
+	</jstl:forEach>
+</ul>
 
-<p>
-	<strong> <spring:message code="customisation.languages" />: </strong>
-	<jstl:out value="${customisation.languages}" />
-</p>
+<p> <strong> <spring:message code="customisation.languages" />: </strong> </p>
+<ul>
+	<jstl:forEach var="row" items="${languages}">
+		<li> <jstl:out value="${row}" /> </li>
+	</jstl:forEach>
+</ul>
 
-<p>
-	<strong> <spring:message code="customisation.spamWords" />: </strong>
-	<jstl:out value="${customisation.spamWords}" />
-</p>
+<display:table name="positiveWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.positiveWords"/>
+</display:table>
 
-<p>
-	<strong> <spring:message code="customisation.positiveWords" />: </strong>
-	<jstl:out value="${customisation.positiveWords}" />
-</p>
+<display:table name="negativeWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.negativeWords"/>
+</display:table>
 
-<p>
-	<strong> <spring:message code="customisation.negativeWords" />: </strong>
-	<jstl:out value="${customisation.negativeWords}" />
-</p>
+<display:table name="spamWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row}" titleKey="customisation.spamWords"/>
+</display:table>
 
 <!-- LINKS -->
 <a href="customisation/administrator/edit.do">
