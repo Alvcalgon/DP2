@@ -48,6 +48,9 @@ public class ProcessionService {
 	@Autowired
 	private FinderService			finderService;
 
+	@Autowired
+	private MessageService			messageService;
+
 
 	// Constructors -------------------------------
 
@@ -296,6 +299,7 @@ public class ProcessionService {
 		Assert.isTrue(owner.equals(principal));
 
 		procession.setIsFinalMode(true);
+		this.messageService.notificationPublishedProcession(procession);
 	}
 
 	public SortedMap<Integer, List<Integer>> positionsFree(final Procession procession) {

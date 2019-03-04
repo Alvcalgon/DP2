@@ -1,8 +1,6 @@
 
 package controllers.brotherhood;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -71,7 +69,7 @@ public class FloatBroherhoodController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final FloatForm floatForm, final BindingResult binding) {
+	public ModelAndView save(final FloatForm floatForm, final BindingResult binding) {
 		ModelAndView result;
 		Float floatt;
 

@@ -29,8 +29,8 @@
 
 	<acme:submit name="save" code="float.save"/>	
 	
-	<input type="button" name="cancel"	value="<spring:message code="float.cancel"/>" onclick="javascript: relativeRedir('float/list.do?brotherhoodId=${owner.id}');"/>
-
+	<acme:cancel url="float/list.do?brotherhoodId=${owner.id}" code="float.cancel"/>
+	
 	<jstl:if test="${floatForm.id != 0 && notProcession}">
 		<input type="submit" name="delete"
 			value="<spring:message code="float.delete" />"/>
