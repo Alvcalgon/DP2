@@ -51,9 +51,6 @@ public class MessageService {
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
 
-	@Autowired
-	private MemberService			memberService;
-
 
 	// Constructors -----------------------------------------
 	public MessageService() {
@@ -368,6 +365,46 @@ public class MessageService {
 
 		subject = "A drop out notification / Una notificación de abandono";
 		body = "The member " + fullname_member + " has dropped out the brotherhood " + fullname_brotherhood + ". / El miembro " + fullname_member + " ha abandonado la hermandad " + fullname_brotherhood;
+
+		message = this.createNotification(system, recipients, subject, body);
+		result = this.messageRepository.save(message);
+
+		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
+
+		this.boxService.addMessage(outBoxSystem, result);
+
+		for (final Actor a : recipients) {
+			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
+
+			this.boxService.addMessage(notificationBoxRecipient, result);
+		}
+
+		return result;
+	}
+
+	public Message notificationRemove(final Enrolment enrolment) {
+		Assert.notNull(enrolment);
+		Assert.isTrue(enrolment.getId() != 0);
+
+		Message message, result;
+		Box outBoxSystem, notificationBoxRecipient;
+		Actor member, brotherhood, system;
+		List<Actor> recipients;
+		String subject, body, fullname_brotherhood, fullname_member;
+
+		system = this.administratorService.findSystem();
+		brotherhood = enrolment.getBrotherhood();
+		member = enrolment.getMember();
+
+		recipients = new ArrayList<Actor>();
+		recipients.add(brotherhood);
+		recipients.add(member);
+
+		fullname_member = member.getFullname();
+		fullname_brotherhood = brotherhood.getFullname();
+
+		subject = "A expulsion notification / Una notificación de expulsión";
+		body = "The member " + fullname_member + " has been expelled from the brotherhood " + fullname_brotherhood + ". / El miembro " + fullname_member + " ha sido expulsado de la hermandad " + fullname_brotherhood;
 
 		message = this.createNotification(system, recipients, subject, body);
 		result = this.messageRepository.save(message);

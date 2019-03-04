@@ -208,7 +208,8 @@ public class PositionService {
 		valor = 0;
 		result = true;
 
-		Assert.isTrue(translationPositions.size() == languages.size());
+		// English and Spanish
+		Assert.isTrue(translationPositions.size() == 2);
 
 		map = new HashMap<String, Integer>();
 		for (final String s : languages)
