@@ -35,7 +35,6 @@
 		
 		<display:column property="userAccount.username" titleKey="table.username" />
 		
-		<display:column property="userAccount.authorities" titleKey="table.authority" />
 	
 	</security:authorize>
 	
