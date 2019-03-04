@@ -36,14 +36,13 @@
 	
 	<display:column property="title" titleKey="float.title" />	
 	
-	<display:column property="brotherhood.title" titleKey="float.brotherhood" />
 
 </display:table>
 <security:authorize access="hasRole('BROTHERHOOD')">
-	
+		<jstl:if test="${principal == row.brotherhood}">
 	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
+	</jstl:if>
 	</security:authorize>
 	<br>
-
 	<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
 			code="actor.return" /></a>

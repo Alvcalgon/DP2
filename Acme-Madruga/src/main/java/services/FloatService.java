@@ -61,8 +61,8 @@ public class FloatService {
 
 		Float result;
 
-		result = this.floatRepository.save(floatt);
 		this.utilityService.checkPicture(floatt.getPictures());
+		result = this.floatRepository.save(floatt);
 
 		return result;
 	}
@@ -117,7 +117,7 @@ public class FloatService {
 		if (floatForm.getId() == 0)
 			result.setBrotherhood(this.brotherhoodService.findByPrincipal());
 		else {
-			floatStore = this.findOne(floatForm.getId());//TODO: sino usar findOne normal
+			floatStore = this.findOne(floatForm.getId());
 			result.setBrotherhood(floatStore.getBrotherhood());
 
 		}
