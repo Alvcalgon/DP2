@@ -117,15 +117,17 @@ public class FloatService {
 		if (floatForm.getId() == 0)
 			result.setBrotherhood(this.brotherhoodService.findByPrincipal());
 		else {
-			floatStore = this.findOne(floatForm.getId());
+			floatStore = this.findOneToEdit(floatForm.getId());
 			result.setBrotherhood(floatStore.getBrotherhood());
+			result.setVersion(floatStore.getVersion());
 
 		}
-
 		result.setId(floatForm.getId());
 		result.setPictures(floatForm.getPictures());
 		result.setTitle(floatForm.getTitle());
 		result.setDescription(floatForm.getDescription());
+
+		this.utilityService.checkPicture(result.getPictures());
 
 		this.validator.validate(result, binding);
 

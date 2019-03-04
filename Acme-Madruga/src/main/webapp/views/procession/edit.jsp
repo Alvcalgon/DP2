@@ -22,7 +22,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="isFinalMode"/>
 	<form:hidden path = "ticker"/>
-	
+	<form:hidden path = "matrizProcession"/>
 	
 	<acme:textbox code="procession.title" path="title"/>
 	
@@ -48,20 +48,15 @@
 	<p/>
 	</jstl:if>
 	
-	<form:label path="floats">
-		<spring:message code="procession.floats"/>:
-	</form:label>
-	<form:select path="floats" multiple="true" size="5">
-		<form:options items="${floats}" itemLabel="title" itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="floats"/>
-	<br/>
 	
+	<acme:selectMandatory items="${floats}" multiple="true" 
+		 itemLabel="title" code="procession.floats" path="floats"/>
+		 
 
 	<input type="submit" name="save" value="<spring:message code="procession.save" />" />
 	<jstl:if test="${procession.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="procession.delete" />" onclick="return confirm('<spring:message code="procession.confirm.delete" />')" />
 	</jstl:if>
-	<input type="button" name="cancel"	value="<spring:message code="procession.cancel"/>" onclick="javascript: relativeRedir('procession/list.do?brotherhoodId=${owner.id}');" />
+	<acme:cancel url="procession/list.do?brotherhoodId=${owner.id}" code="procession.cancel"/>
 	<br />
 </form:form>
