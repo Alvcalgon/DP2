@@ -3,6 +3,7 @@ package controllers.authenticated;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -66,7 +67,7 @@ public class MessageMultiUserController extends AbstractController {
 			result.addObject("boxId", boxId);
 			result.addObject("messageToDisplay", message);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../../error.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;
@@ -99,14 +100,14 @@ public class MessageMultiUserController extends AbstractController {
 
 			result = this.moveModelAndView(messageForm);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../../error.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/move", method = RequestMethod.POST, params = "move")
-	public ModelAndView moveMessage(final MessageForm messageForm, final BindingResult binding) {
+	public ModelAndView moveMessage(final MessageForm messageForm, final BindingResult binding, final Locale locale) {
 		ModelAndView result;
 		Message target;
 		Box origin, destination;
@@ -115,7 +116,7 @@ public class MessageMultiUserController extends AbstractController {
 		origin = this.boxService.findOne(messageForm.getOriginBoxId());
 		destination = this.boxService.findOne(messageForm.getDestinationBoxId());
 
-		this.messageService.validateDestinationBox(messageForm, binding);
+		this.messageService.validateDestinationBox(messageForm, locale.getLanguage(), binding);
 		if (binding.hasErrors())
 			result = this.moveModelAndView(messageForm);
 		else
@@ -159,7 +160,7 @@ public class MessageMultiUserController extends AbstractController {
 			this.messageService.delete(message, box);
 			result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../../error.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;

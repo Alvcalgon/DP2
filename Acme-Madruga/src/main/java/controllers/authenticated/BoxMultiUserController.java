@@ -4,6 +4,7 @@ package controllers.authenticated;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,7 @@ public class BoxMultiUserController extends AbstractController {
 			result.addObject("childBoxes", childBoxes);
 			result.addObject("messages", messages);
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:../../error.do");
+			result = new ModelAndView("redirect:/error.do");
 		}
 
 		return result;
@@ -112,6 +113,8 @@ public class BoxMultiUserController extends AbstractController {
 			try {
 				this.boxService.save(boxRec);
 				result = new ModelAndView("redirect:list.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createEditModelAndView(boxRec, "box.name.unique");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(boxRec, "box.commit.error");
 			}

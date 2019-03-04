@@ -157,10 +157,6 @@ public class MessageService {
 		return result;
 	}
 
-	// Situacion: Box1 contiene el mensaje m1 y Box2 tambien contiene a m1.
-	// Box1 y Box2 son 2 carpetas personalizables. Borramos m1 de Box1, entonces
-	// la trash box del actor pasa a tener m1. Luego, borramos m1 de Box2,
-	// entonces, trash box tendra m1 duplicado??
 	public void delete(final Message message, final Box box) {
 		Assert.notNull(message);
 		Assert.notNull(box);
@@ -201,6 +197,7 @@ public class MessageService {
 		Assert.notNull(destination);
 		Assert.isTrue(origin.getId() != 0 && destination.getId() != 0 && this.messageRepository.exists(message.getId()));
 		Assert.isTrue(origin.getMessages().contains(message) && !destination.getMessages().contains(message));
+		this.checkByPrincipal(message);
 		this.boxService.checkByPrincipal(origin);
 		this.boxService.checkByPrincipal(destination);
 
@@ -208,13 +205,16 @@ public class MessageService {
 		this.boxService.removeMessage(origin, message);
 	}
 
-	public Integer validateDestinationBox(final MessageForm messageForm, final BindingResult binding) {
+	public Integer validateDestinationBox(final MessageForm messageForm, final String language, final BindingResult binding) {
 		Integer result;
 
 		result = messageForm.getDestinationBoxId();
 
 		if (result == null || result == 0)
-			binding.rejectValue("destinationBoxId", "message.error.null", "Must not be null");
+			if (language.equals("en"))
+				binding.rejectValue("destinationBoxId", "message.error.null", "Must not be null");
+			else
+				binding.rejectValue("destinationBoxId", "message.error.null", "No debe ser nulo");
 
 		return result;
 	}

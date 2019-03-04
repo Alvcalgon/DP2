@@ -62,7 +62,7 @@
 
 		<security:intercept-url pattern="/box/**" access="isAuthenticated()" /> 
 		
-		<security:intercept-url pattern="/message/administrator/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/message/administrator,brotherhood,member/**" access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/enrolment/brotherhood/**" access="hasRole('BROTHERHOOD')" />
