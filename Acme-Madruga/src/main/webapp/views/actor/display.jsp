@@ -161,7 +161,10 @@
 		</jstl:if>	
 		
 		<jstl:if test="${actor.isSpammer == true || actor.score < thresholdScore}">
-			<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message code="actor.ban"/></a>
+			<jstl:if test="${ actor.userAccount.isBanned == false}">
+				<a href="actor/administrator/changeBan.do?actorId=${actor.id}"><spring:message
+						code="actor.ban" /></a>
+			</jstl:if>
 		</jstl:if>
 		
 		<jstl:if test="${actor.userAccount.isBanned}">
