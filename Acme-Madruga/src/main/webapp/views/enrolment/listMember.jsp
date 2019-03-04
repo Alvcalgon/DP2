@@ -47,9 +47,7 @@
 		</display:column>
 	</jstl:if>
 	
-	<display:column property="member.name" titleKey="enrolment.member.name" sortable="true"/>
-	<display:column property="member.middleName" titleKey="enrolment.member.middleName" sortable="true"/>
-	<display:column property="member.surname" titleKey="enrolment.member.surname" sortable="true"/>
+	<display:column property="member.fullname" titleKey="enrolment.member.fullname" sortable="true"/>
 	<display:column property="member.email" titleKey="enrolment.member.email" sortable="true"/>
 	
 	<jstl:if test="${!isRequestList}">
