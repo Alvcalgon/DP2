@@ -71,6 +71,7 @@ public class FinderService {
 	public void save(final Finder finder) {
 		Assert.notNull(finder);
 		Assert.isTrue(this.validDates(finder));
+		this.checkOwner(finder);
 
 		Finder saved;
 		Pageable pageable;
@@ -99,6 +100,8 @@ public class FinderService {
 	}
 
 	public void clear(final Finder finder) {
+		this.checkOwner(finder);
+
 		finder.setKeyword("");
 		finder.setArea("");
 		finder.setMaximumDate(null);
@@ -190,5 +193,14 @@ public class FinderService {
 			result = true;
 
 		return result;
+	}
+
+	private void checkOwner(final Finder finder) {
+		Member principal;
+
+		if (finder.getId() != 0) {
+			principal = this.memberService.findByPrincipal();
+			Assert.isTrue(finder.getMember().equals(principal));
+		}
 	}
 }
