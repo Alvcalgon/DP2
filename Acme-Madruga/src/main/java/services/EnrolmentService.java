@@ -114,6 +114,7 @@ public class EnrolmentService {
 		this.checkIsActive(enrolment);
 
 		this.manageExitOfMember(enrolment);
+		this.messageService.notificationRemove(enrolment);
 	}
 
 	public void dropOut(final int brotherhoodId) {
