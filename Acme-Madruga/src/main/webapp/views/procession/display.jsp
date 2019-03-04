@@ -92,9 +92,6 @@
 
 	<p style="color:blue;"><spring:message code="procession.info"/></p>
 </jstl:if>		
-			
-	<a href="procession/list.do?brotherhoodId=${brotherhood.id}">
-		<spring:message	code="procession.back" />			
-	</a>
+
 	
 	
