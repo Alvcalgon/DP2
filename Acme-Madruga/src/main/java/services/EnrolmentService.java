@@ -40,6 +40,9 @@ public class EnrolmentService {
 	private UtilityService		utilityService;
 
 	@Autowired
+	private MessageService		messageService;
+
+	@Autowired
 	private Validator			validator;
 
 
@@ -98,6 +101,7 @@ public class EnrolmentService {
 
 	public void reject(final Enrolment enrolment) {
 		Assert.notNull(enrolment);
+		Assert.isTrue(this.enrolmentRepository.exists(enrolment.getId()));
 		this.checkOwnerBrotherhood(enrolment);
 		this.checkIsRequest(enrolment);
 
@@ -119,6 +123,7 @@ public class EnrolmentService {
 
 		this.checkOwnerMember(enrolment);
 		this.manageExitOfMember(enrolment);
+		this.messageService.notificationDropOut(enrolment);
 	}
 
 	public Enrolment saveToEditPosition(final Enrolment enrolment) {
@@ -142,6 +147,8 @@ public class EnrolmentService {
 
 		enrolment.setRegisteredMoment(this.utilityService.current_moment());
 		saved = this.save(enrolment);
+
+		this.messageService.notificationEnrolment(saved);
 
 		return saved;
 	}
