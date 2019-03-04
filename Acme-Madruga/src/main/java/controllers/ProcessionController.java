@@ -69,27 +69,39 @@ public class ProcessionController extends AbstractController {
 
 				result.addObject("isOwner", true);
 				result.addObject("principal", principal);
-
-			} else
+				result.addObject("procession", procession);
+				result.addObject("floats", procession.getFloats());
+			} else {
 				procession = this.processionService.findOneToDisplay(processionId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+				floats = procession.getFloats();
+				result.addObject("procession", procession);
+				result.addObject("floats", procession.getFloats());
 
-			brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
-			floats = procession.getFloats();
+				if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
+					this.isRequestable(procession, result);
+			}
 
-			result.addObject("procession", procession);
-			result.addObject("floats", floats);
 			result.addObject("brotherhood", brotherhood);
 
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
-				this.isRequestable(procession, result);
-
 		} catch (final Exception e1) {
-			result = new ModelAndView("redirect:../error.do");
+
+			try {
+				procession = this.processionService.findOneToDisplay(processionId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+				floats = procession.getFloats();
+
+				result.addObject("procession", procession);
+				result.addObject("floats", floats);
+				result.addObject("brotherhood", brotherhood);
+			} catch (final Exception e) {
+
+				result = new ModelAndView("redirect:../error.do");
+			}
 		}
 
 		return result;
 	}
-
 	// Procession list ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
