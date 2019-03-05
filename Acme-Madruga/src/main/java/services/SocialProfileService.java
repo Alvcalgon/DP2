@@ -103,6 +103,7 @@ public class SocialProfileService {
 
 		SocialProfile result;
 
+		socialProfile.setLinkProfile(socialProfile.getLinkProfile().trim());
 		result = this.socialProfileRepository.save(socialProfile);
 
 		return result;

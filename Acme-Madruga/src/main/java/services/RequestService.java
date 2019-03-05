@@ -256,7 +256,7 @@ public class RequestService {
 
 		result.setRowProcession(requestStored.getRowProcession());
 		result.setColumnProcession(requestStored.getColumnProcession());
-		result.setReasonWhy(requestForm.getReasonWhy());
+		result.setReasonWhy(requestForm.getReasonWhy().trim());
 
 		result.setStatus(requestStored.getStatus());
 		result.setProcession(requestStored.getProcession());
@@ -264,7 +264,7 @@ public class RequestService {
 		result.setMember(requestStored.getMember());
 		result.setVersion(requestStored.getVersion());
 
-		//this.validator.validate(result, binding);
+		this.validator.validate(result, binding);
 		return result;
 	}
 	// Other business methods ---------------------
@@ -443,7 +443,7 @@ public class RequestService {
 	public String validateReasonWhy(final RequestForm requestForm, final BindingResult binding) {
 		String result;
 
-		result = requestForm.getReasonWhy();
+		result = requestForm.getReasonWhy().trim();
 		if (result.equals("") || result.equals(null))
 			binding.rejectValue("reasonWhy", "request.error.blank", "Must not be blank");
 

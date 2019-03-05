@@ -155,14 +155,18 @@ public class AreaAdministratorController extends AbstractController {
 		ModelAndView result;
 		Administrator admin;
 		int actorId;
+		Integer brotherhoods;
 
 		admin = this.administratorService.findByPrincipal();
+		brotherhoods = this.areaService.findBrotherhoodFromArea(area);
 		actorId = admin.getId();
 
 		result = new ModelAndView("area/edit");
 		result.addObject("area", area);
 		result.addObject("messageCode", messageCode);
 		result.addObject("actorId", actorId);
+		if (brotherhoods == 0)
+			result.addObject("isEmpty", true);
 
 		return result;
 
