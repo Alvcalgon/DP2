@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Administrator;
 import domain.Brotherhood;
 import domain.Message;
 
@@ -41,6 +42,9 @@ public class ActorService {
 
 	@Autowired
 	private MessageService			messageService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Constructors -------------------------------
@@ -196,8 +200,11 @@ public class ActorService {
 
 	public void scoreProcess() {
 		Collection<Actor> all;
+		Administrator system;
 
-		all = this.findAll();
+		all = this.actorRepository.findSenders();
+		system = this.administratorService.findSystem();
+		all.remove(system);
 
 		for (final Actor a : all)
 			this.launchScoreProcess(a);
@@ -227,7 +234,7 @@ public class ActorService {
 
 		Assert.isTrue(score >= -1.00 && score <= 1.00);
 
-		actor.setScore(score);
+		actor.setScore(Math.round(score * 100d) / 100d);
 	}
 	private List<Integer> positiveNegativeWordNumbers(final Collection<Message> messagesSent) {
 		Assert.isTrue(messagesSent != null);
