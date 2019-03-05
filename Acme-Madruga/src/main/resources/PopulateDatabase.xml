@@ -2218,7 +2218,6 @@
 		<property name="email" value="joseantonioferreras@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 
@@ -2231,7 +2230,6 @@
 		<property name="email" value="mariafernanda@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Niebla 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
 
@@ -2244,7 +2242,6 @@
 		<property name="email" value="lolagarcia@gmail.com" />
 		<property name="phoneNumber" value="632512369" />
 		<property name="address" value="Calle Lola 6" />
-		<property name="score" value="0.8" />
 		<property name="userAccount" ref="userAccount6" />
 	</bean>
 
@@ -2257,7 +2254,6 @@
 		<property name="email" value="mariadolores@gmail.com" />
 		<property name="phoneNumber" value="654789321" />
 		<property name="address" value="Calle Dolores 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount8" />
 	</bean>
 
@@ -2270,7 +2266,6 @@
 		<property name="email" value="franciscojavier@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Javier 6" />
-		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount9" />
 	</bean>
 
@@ -2283,7 +2278,6 @@
 		<property name="email" value="martalobato@gmail.com" />
 		<property name="phoneNumber" value="789456123" />
 		<property name="address" value="Calle Marta 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount10" />
 	</bean>
 
@@ -2296,7 +2290,6 @@
 		<property name="email" value="angelatorres@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Torres 6" />
-		<property name="score" value="0.3" />
 		<property name="userAccount" ref="userAccount11" />
 	</bean>
 
@@ -2309,7 +2302,6 @@
 		<property name="email" value="antoniomoreno@gmail.com" />
 		<property name="phoneNumber" value="625987412" />
 		<property name="address" value="Calle Moreno 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount12" />
 	</bean>
 
@@ -2322,7 +2314,6 @@
 		<property name="email" value="jesussuarez@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sanz 6" />
-		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount13" />
 	</bean>
 
@@ -2335,7 +2326,6 @@
 		<property name="email" value="gabrielgallego-fdas@gmail.com" />
 		<property name="phoneNumber" value="741852963" />
 		<property name="address" value="Calle Molina 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount14" />
 	</bean>
 
@@ -2348,7 +2338,6 @@
 		<property name="email" value="anabelfuentes456@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount15" />
 	</bean>
 
@@ -2361,7 +2350,6 @@
 		<property name="email" value="alonso12@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Diaz 6" />
-		<property name="score" value="0.1" />
 		<property name="userAccount" ref="userAccount16" />
 	</bean>
 
@@ -2374,7 +2362,6 @@
 		<property name="email" value="francisco_lopez_ruiz@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount17" />
 	</bean>
 
@@ -2387,7 +2374,6 @@
 		<property name="email" value="victorpeña@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Victor 6" />
-		<property name="score" value="0.3" />
 		<property name="userAccount" ref="userAccount18" />
 	</bean>
 
@@ -2400,7 +2386,6 @@
 		<property name="email" value="lorenzogomez@gmail.com" />
 		<property name="phoneNumber" value="698741235" />
 		<property name="address" value="Calle Lorenzo 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount19" />
 	</bean>
 
@@ -2411,7 +2396,7 @@
 		<property name="body" value="sex to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="false" />
+		<property name="isSpam" value="true" />
 		<property name="sender" ref="brotherhood1" />
 		<property name="recipients">
 			<list>
@@ -2436,7 +2421,7 @@
 		<property name="body" value="good fantastic to our brotherhood" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="true" />
+		<property name="isSpam" value="false" />
 		<property name="sender" ref="brotherhood2" />
 		<property name="recipients">
 			<list>
@@ -2476,7 +2461,7 @@
 		<property name="body" value="Thanks for your reply" />
 		<property name="priority" value="LOW" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="true" />
+		<property name="isSpam" value="false" />
 		<property name="sender" ref="member2" />
 		<property name="recipients">
 			<list>
@@ -2507,7 +2492,7 @@
 			value="You've been selected to buy our viagra bracelets" />
 		<property name="priority" value="HIGH" />
 		<property name="tags" value="1" />
-		<property name="isSpam" value="false" />
+		<property name="isSpam" value="true" />
 		<property name="sender" ref="brotherhood1" />
 		<property name="recipients">
 			<list>
