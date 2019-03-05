@@ -39,6 +39,7 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	Collection<Integer> countBrotherhoodPerArea();
 
 	//Req 22.2.1 (c) (The count of the number of brotherhoods per area.)
-	Collection<Integer> ratioBrotherhoodPerArea();
+	@Query("select count(b)/(select count(bb) from Brotherhood bb)*1.0 from Brotherhood b group by b.area")
+	Collection<Double> ratioBrotherhoodPerArea();
 
 }

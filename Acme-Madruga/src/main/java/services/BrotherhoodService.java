@@ -420,8 +420,8 @@ public class BrotherhoodService {
 	}
 
 	//Req 22.2.1 (c) (The ratio of the number of brotherhoods per area.)
-	public Collection<Integer> ratioBrotherhoodPerArea() {
-		Collection<Integer> result;
+	public Collection<Double> ratioBrotherhoodPerArea() {
+		Collection<Double> result;
 
 		result = this.brotherhoodRepository.ratioBrotherhoodPerArea();
 		Assert.notNull(result);
