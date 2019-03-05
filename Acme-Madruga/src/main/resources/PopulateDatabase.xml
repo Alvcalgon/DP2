@@ -1803,7 +1803,7 @@
 			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
-		<property name="maxNumberResults" value="3" />
+		<property name="maxNumberResults" value="10" />
 		<property name="rowLimit" value="3" />
 		<property name="columnLimit" value="10000" />
 		<property name="thresholdScore" value="-0.5" />
@@ -2561,7 +2561,7 @@
 	<bean id="message9" class="domain.Message">
 		<property name="sentMoment" value="2018/09/07 15:24" />
 		<property name="subject" value="Important" />
-		<property name="body" value="Dear president, nice to meet you." />
+		<property name="body" value="Dear president, nice to meet you disaster." />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />
@@ -2577,7 +2577,7 @@
 	<bean id="message10" class="domain.Message">
 		<property name="sentMoment" value="2018/09/07 15:24" />
 		<property name="subject" value="Easter" />
-		<property name="body" value="The next easter is in April" />
+		<property name="body" value="The next easter excelent is in April" />
 		<property name="priority" value="NEUTRAL" />
 		<property name="tags" value="1" />
 		<property name="isSpam" value="false" />

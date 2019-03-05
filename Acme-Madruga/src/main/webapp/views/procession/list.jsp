@@ -96,15 +96,21 @@
 
 <security:authorize access="hasRole('BROTHERHOOD')">
 	 
-	<jstl:if test="${areaSelected == true}">
+	<jstl:if test="${areaSelected && not empty principal.floats }">
 
 		<a href="procession/brotherhood/create.do"><spring:message
 				code="procession.create" /></a>
 
 	</jstl:if>
+	
+	<jstl:if test="${empty principal.floats  }">
+		<spring:message
+				code="procession.info.notFloat" /><a href="float/brotherhood/create.do"><spring:message
+				code="procession.info.notFloat1" /></a>
+	</jstl:if>
 
 
-	<jstl:if test="${areaSelected == false}">
+	<jstl:if test="${!areaSelected}">
 
 		<a href="brotherhood/brotherhood/selectArea.do"><spring:message
 				code="select.area.procession" /></a>

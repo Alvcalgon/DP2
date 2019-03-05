@@ -11,7 +11,7 @@
 	">
 
 	<!-- User accounts -->
-	<bean id="userAccount1" class="security.UserAccount">
+			<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin1" />
 		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
 		<property name="authorities">
@@ -71,7 +71,7 @@
 		</property>
 	</bean>
 	
-	<bean id="userAccount6" class="security.UserAccount">
+	<bean id="userAccount20" class="security.UserAccount">
 		<property name="username" value="system" />
 		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
 		<property name="authorities">
@@ -83,9 +83,10 @@
 		</property>
 		<property name="isBanned" value="false" />
 	</bean>
-
+	
+	
 	<!-- Administrator -->
-	<bean id="administrator1" class="domain.Administrator">
+<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Fernando" />
 		<property name="middleName" value="" />
 		<property name="surname" value="Ruiz" />
@@ -94,7 +95,6 @@
 		<property name="email" value="fruiz@gmail.com" />
 		<property name="phoneNumber" value="63018754" />
 		<property name="address" value="Calle Palmera 4" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
@@ -105,7 +105,6 @@
 		<property name="email" value="system@" />
 		<property name="userAccount" ref="userAccount20" />
 	</bean>
-
 	<!-- Area -->
 	<bean id="area1" class="domain.Area">
 		<property name="name" value="area1" />
@@ -118,7 +117,6 @@
 		<property name="pictures"
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
 	</bean>
-
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -174,7 +172,6 @@
 		</property>
 		<property name="actor" ref="administrator1" />
 	</bean>
-
 	<bean id="box6" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
@@ -395,7 +392,7 @@
 		<property name="actor" ref="brotherhood2" />
 	</bean>
 
-	<bean id="box26" class="domain.Box">
+	<bean id="box96" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -406,18 +403,18 @@
 		<property name="actor" ref="system" />
 	</bean>
 
-	<bean id="box27" class="domain.Box">
+	<bean id="box97" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<ref bean="message10" />
+				<null></null>
 			</list>
 		</property>
 		<property name="actor" ref="system" />
 	</bean>
 
-	<bean id="box28" class="domain.Box">
+	<bean id="box98" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -428,7 +425,7 @@
 		<property name="actor" ref="system" />
 	</bean>
 
-	<bean id="box29" class="domain.Box">
+	<bean id="box99" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -439,7 +436,7 @@
 		<property name="actor" ref="system" />
 	</bean>
 
-	<bean id="box30" class="domain.Box">
+	<bean id="box100" class="domain.Box">
 		<property name="name" value="notification box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -449,6 +446,7 @@
 		</property>
 		<property name="actor" ref="system" />
 	</bean>
+
 
 	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
@@ -460,12 +458,12 @@
 		<property name="email" value="hermandadmaquinavirtual@gmail.com" />
 		<property name="phoneNumber" value="632014700" />
 		<property name="address" value="Calle María 2" />
-		<property name="isSpammer" value="false" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="title" value="Hermandad de la santísima" />
 		<property name="establishmentDate" value="2007/09/20" />
 		<property name="pictures"
 			value="https://cloud10.todocoleccion.online/antiguedades/tc/2014/04/27/13/43036847.jpg" />
+		<property name="area" ref="area1" />
 	</bean>
 
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -477,13 +475,14 @@
 		<property name="email" value="cristodemadera2@gmail.com" />
 		<property name="phoneNumber" value="698523658" />
 		<property name="address" value="Calle Cristo 2" />
-		<property name="isSpammer" value="false" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="title" value="Hermandad del Cristo" />
 		<property name="establishmentDate" value="2001/07/20" />
 		<property name="pictures"
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
+		<property name="area" ref="area2" />
 	</bean>
+
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
 		<property name="name" value="Acme Madrugá" />
@@ -494,7 +493,7 @@
 			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
-		<property name="maxNumberResults" value="3" />
+		<property name="maxNumberResults" value="10" />
 		<property name="rowLimit" value="3" />
 		<property name="columnLimit" value="10000" />
 		<property name="thresholdScore" value="-0.5" />
@@ -506,7 +505,7 @@
 	</bean>
 
 	<!-- Finder -->
-	<bean id="finder1" class="domain.Finder">
+<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="area" />
 		<property name="minimumDate" value="2018/10/05" />
@@ -544,7 +543,6 @@
 		<property name="email" value="joseantonioferreras@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
@@ -558,7 +556,6 @@
 		<property name="email" value="mariafernanda@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Niebla 6" />
-		<property name="isSpammer" value="false" />
 		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
@@ -626,7 +623,6 @@
 			</list>
 		</property>
 	</bean>
-
 
 	<!-- Translation position -->
 	<bean id="translationPosition1" class="domain.TranslationPosition">
@@ -698,6 +694,5 @@
 		<property name="name" value="Vocal" />
 		<property name="language" value="es" />
 	</bean>
-
 
 </beans>
