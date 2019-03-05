@@ -80,11 +80,6 @@
 		<display:column property="brotherhood.title" titleKey="procession.brotherhood" />
 	
 	</display:table>
-	<security:authorize access="hasRole('BROTHERHOOD')">		
-	<jstl:if test="${principal == row.brotherhood}">	 
-	<a href="float/brotherhood/create.do"><spring:message code="float.create"/></a>
-	</jstl:if>
-		</security:authorize>
 	
 	</fieldset>
 			</jstl:if>
