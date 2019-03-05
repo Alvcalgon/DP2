@@ -26,7 +26,7 @@
 		<br>
 		<ul>
 			<jstl:forEach var="picture" items="${pictures}">
-				<img src="${picture}" alt="picture" >				
+				<img src="${picture}" alt="picture" height="300px" width="500px">				
 			</jstl:forEach>
 		</ul>
 	</jstl:if>
