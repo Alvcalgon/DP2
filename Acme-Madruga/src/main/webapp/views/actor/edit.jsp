@@ -74,6 +74,7 @@
 			<acme:textbox code="actor.brotherhood.establishmentDate" path="establishmentDate"/>
 			<br />
 			
+			<p style="color:blue;"><spring:message code="brotherhood.info.pictures"/></p>
 			<acme:textarea code="actor.brotherhood.pictures" path="pictures"/>
 			<br />
 		

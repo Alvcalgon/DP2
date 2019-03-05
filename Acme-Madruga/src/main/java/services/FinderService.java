@@ -117,10 +117,14 @@ public class FinderService {
 
 		for (final Finder f : finders) {
 			processions = f.getProcessions();
-			for (final Procession p : processions)
-				if (p.equals(procession))
-					this.finderRepository.delete(f);
+
+			if (processions.contains(procession)) {
+				processions.remove(procession);
+				f.setProcessions(processions);
+			}
+
 		}
+
 	}
 
 	public Finder reconstruct(final Finder finder, final BindingResult binding) {

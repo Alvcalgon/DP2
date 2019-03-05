@@ -58,7 +58,7 @@
 	
 	function checkTelephone(msg) {
 		var telephone = document.getElementById("phoneNumber").value;
-		var regExp = /^((\+[0-9]{1,3}\ )?([0-9]{1,3}\ )?([0-9]+)?)$/;
+		var regExp = /^((\+[0-9]{1,3}\ )?([0-9]{1,3}\ )?([0-9]{4,})?)$/;
 		
 		if (regExp.test(telephone)) {
 			return true;

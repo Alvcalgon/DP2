@@ -54,7 +54,7 @@
 		
 		<br />
 		
-		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 (111) 654654654" id="phoneNumber"/>
+		<acme:textbox code="actor.phoneNumber" path="phoneNumber" placeholder="+34 111 654654654" id="phoneNumber"/>
 		
 		<br />
 		
@@ -70,6 +70,7 @@
 			<acme:textbox code="actor.brotherhood.establishmentDate.requested" path="establishmentDate" placeholder="dd/MM/yyyy"/>
 			<br />
 			
+			<p style="color:blue;"><spring:message code="brotherhood.info.pictures"/></p>
 			<acme:textarea code="actor.brotherhood.pictures" path="pictures"/>
 			<br />
 	
