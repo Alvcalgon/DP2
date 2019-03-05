@@ -25,6 +25,7 @@
 		
 	<acme:textarea code="float.description" path="description" />
 	
+	<p style="color:blue;"><spring:message code="float.info.pictures"/></p>
 	<acme:textarea code="float.pictures" path="pictures" />
 
 	<acme:submit name="save" code="float.save"/>	

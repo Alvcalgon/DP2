@@ -28,7 +28,7 @@
 		<form:hidden path="version" />
 		
 		<acme:textbox code="area.name" path="name"/>
-
+	<p style="color:blue;"><spring:message code="area.info.pictures"/></p>
 		<acme:textarea code="area.pictures" path="pictures" />
 
 		<br />
