@@ -44,9 +44,9 @@
 <table>
 	<tr>
 		<th> <spring:message code="procession.ticker" /> </th>
-		<th> <spring:message code="request.pending" /> </th>
-		<th> <spring:message code="request.approved" /> </th>
-		<th> <spring:message code="request.rejected" /> </th>
+		<th> <spring:message code="dashboard.request.pending" /> </th>
+		<th> <spring:message code="dashboard.request.approved" /> </th>
+		<th> <spring:message code="dashboard.request.rejected" /> </th>
 	</tr>
 	<jstl:forEach var="fila" items="${mapa.keySet()}">
 		<tr>
@@ -66,17 +66,17 @@
 
 <p> <strong> <spring:message code="dashboard.six" />: </strong> </p>
 	<p style="text-indent:10px;">
-		<strong> <spring:message code="request.pending" />: </strong>
+		<strong> <spring:message code="dashboard.request.pending" />: </strong>
 		<jstl:out value="${pendingRatio}" />
 	</p>
 	
 	<p style="text-indent:10px;">
-		<strong> <spring:message code="request.approved" />: </strong>
+		<strong> <spring:message code="dashboard.request.approved" />: </strong>
 		<jstl:out value="${approvedRatio}" />
 	</p>
 	
 	<p style="text-indent:10px;">
-		<strong> <spring:message code="request.rejected" />: </strong>
+		<strong> <spring:message code="dashboard.request.rejected" />: </strong>
 		<jstl:out value="${rejectedRatio}" />
 	</p>
 	

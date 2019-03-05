@@ -46,6 +46,9 @@ public class RequestService {
 	@Autowired
 	private Validator			validator;
 
+	@Autowired
+	private MessageService		messageService;
+
 
 	// Constructors -------------------------------
 	public RequestService() {
@@ -161,6 +164,7 @@ public class RequestService {
 		this.processionService.addToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
+		this.messageService.notificationChangeStatus(result);
 
 		return result;
 	}
@@ -174,6 +178,8 @@ public class RequestService {
 
 		request.setStatus("REJECTED");
 		result = this.requestRepository.save(request);
+		this.messageService.notificationChangeStatus(result);
+
 		return result;
 	}
 
@@ -331,16 +337,6 @@ public class RequestService {
 
 	}
 
-	private void checkPrincipalIsMemberOfRequest(final Request request) {
-		Member memberRequest;
-		Member memberPrincipal;
-
-		memberRequest = request.getMember();
-		memberPrincipal = this.memberService.findByPrincipal();
-
-		Assert.isTrue(memberRequest.equals(memberPrincipal));
-	}
-
 	private void checkPrincipalIsBrotherhoodOfRequest(final Request request) {
 		Brotherhood brotherhoodRequest;
 		Brotherhood brotherhoodPrincipal;
@@ -351,16 +347,14 @@ public class RequestService {
 		Assert.isTrue(brotherhoodRequest.equals(brotherhoodPrincipal));
 	}
 
-	private void checkPositionIsFree(final Request request) {
+	private void checkPrincipalIsMemberOfRequest(final Request request) {
+		Member memberRequest;
+		Member memberPrincipal;
 
-		Integer row, column;
-		Integer[][] matrizProcession;
+		memberRequest = request.getMember();
+		memberPrincipal = this.memberService.findByPrincipal();
 
-		row = request.getRowProcession() - 1;
-		column = request.getColumnProcession() - 1;
-		matrizProcession = request.getProcession().getMatrizProcession();
-
-		Assert.isTrue(matrizProcession[row][column].equals(0));
+		Assert.isTrue(memberRequest.equals(memberPrincipal));
 	}
 
 	public Collection<Request> findPendingRequestByMember() {
@@ -471,7 +465,7 @@ public class RequestService {
 	public Double findRatioAprovedRequestsProcession(final int processionId) {
 		Double result;
 
-		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+		result = this.requestRepository.findRatioAprovedRequestsProcession(processionId);
 
 		return result;
 	}
@@ -480,7 +474,7 @@ public class RequestService {
 	public Double findRatioRejectedRequetsProcession(final int processionId) {
 		Double result;
 
-		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+		result = this.requestRepository.findRatioRejectedRequetsProcession(processionId);
 
 		return result;
 	}

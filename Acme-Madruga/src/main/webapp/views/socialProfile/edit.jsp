@@ -18,6 +18,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <form:form action="socialProfile/administrator,brotherhood,member/edit.do" modelAttribute="socialProfile" >
 	<form:hidden path="id"/>
@@ -46,10 +47,9 @@
 	<br />
 	
 	<!-- Buttons -->
-	
-	<input type="submit" name="save" value="<spring:message code="socialProfile.save"/>" />
-	
-	<input type="button" name="cancel" value="<spring:message code="socialProfile.cancel" />" 
-			onclick="javascript: relativeRedir('socialProfile/list.do?actorId=${actorId}');" />
+
+	<acme:submit name="save" code="socialProfile.save"/>	
+		
+	<acme:cancel url="socialProfile/list.do?actorId=${actorId}" code="socialProfile.cancel"/>
 
 </form:form>

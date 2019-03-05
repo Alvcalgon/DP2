@@ -37,14 +37,11 @@
 
 		<acme:submit name="save" code="area.save"/>	
 		
-		<input type="button" name="cancel"
-			value="<spring:message code="area.cancel" />"
-			onclick="javascript: relativeRedir('area/administrator/list.do');" />
+		<acme:cancel url="area/administrator/list.do" code="area.cancel"/>
 			
-		<jstl:if test="${isEmpty==true}">	
-		<input type="submit" name="delete"
-			value="<spring:message code="area.delete" />" />
-		</jstl:if>
+		<jstl:if test="${isEmpty==true}">
+		<acme:submit name="delete" code="area.delete" />
+	</jstl:if>
 		
 	</form:form>
 

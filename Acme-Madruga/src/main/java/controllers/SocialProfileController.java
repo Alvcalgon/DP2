@@ -33,7 +33,7 @@ public class SocialProfileController extends AbstractController {
 
 	// List
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int actorId, @RequestParam(defaultValue = "1", required = false) final int page, @RequestParam(required = false) final String sort, @RequestParam(required = false) final String dir) {
+	public ModelAndView list(@RequestParam final int actorId) {
 		ModelAndView result;
 		Integer actorAuthenticateId = null;
 		Collection<SocialProfile> socialProfiles;
