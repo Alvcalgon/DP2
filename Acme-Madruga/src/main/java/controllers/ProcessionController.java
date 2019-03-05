@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.FloatService;
 import services.MemberService;
 import services.ProcessionService;
 import services.RequestService;
@@ -39,6 +40,9 @@ public class ProcessionController extends AbstractController {
 
 	@Autowired
 	private RequestService		requestService;
+
+	@Autowired
+	private FloatService		floatService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -108,6 +112,7 @@ public class ProcessionController extends AbstractController {
 		ModelAndView result;
 		Collection<Procession> processions;
 		Brotherhood principal;
+		Boolean hasFloats;
 
 		result = new ModelAndView("procession/list");
 		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
@@ -115,21 +120,25 @@ public class ProcessionController extends AbstractController {
 		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"))
+			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]")) {
+
+				principal = this.brotherhoodService.findByPrincipal();
+				hasFloats = this.floatService.findFloatByBrotherhood(principal.getId()).isEmpty();
+				if (principal.getArea() != null)
+					result.addObject("areaSelected", true);
+				result.addObject("hasFloats", hasFloats);
+				result.addObject("brotherhoodId", principal.getId());
+				result.addObject("principal", principal);
+
 				if (brotherhoodId == this.brotherhoodService.findByPrincipal().getId()) {
 
-					principal = this.brotherhoodService.findByPrincipal();
 					processions = this.processionService.findProcessionByBrotherhood(principal.getId());
 
-					result.addObject("principal", principal);
 					result.addObject("isOwner", true);
 					result.addObject("processions", processions);
-					result.addObject("brotherhoodId", principal.getId());
-					if (principal.getArea() == null)
-						result.addObject("areaSelected", false);
-					else
-						result.addObject("areaSelected", true);
+
 				}
+			}
 		} catch (final Exception e) {
 		}
 
