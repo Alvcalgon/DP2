@@ -543,7 +543,6 @@
 		<property name="email" value="joseantonioferreras@gmail.com" />
 		<property name="phoneNumber" value="632014785" />
 		<property name="address" value="Calle Sexta 6" />
-		<property name="score" value="0.4" />
 		<property name="userAccount" ref="userAccount2" />
 	</bean>
 
@@ -556,7 +555,6 @@
 		<property name="email" value="mariafernanda@gmail.com" />
 		<property name="phoneNumber" value="698745214" />
 		<property name="address" value="Calle Niebla 6" />
-		<property name="score" value="0.7" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
 

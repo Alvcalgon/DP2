@@ -80,11 +80,10 @@ public class ActorAdministratorController extends ActorAbstractController {
 
 		try {
 			this.actorService.scoreProcess();
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/error.do");
 		}
-
-		result = new ModelAndView("redirect:list.do");
 
 		return result;
 	}
