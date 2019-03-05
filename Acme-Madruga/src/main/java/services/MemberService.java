@@ -301,7 +301,7 @@ public class MemberService {
 
 	private void validateEmail(final String email, final BindingResult binding) {
 
-		if (!email.matches("[A-Za-z_.]+[\\w]+[\\S]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z_.]+[\\w]+@[a-zA-Z0-9.-]+[\\>]"))
+		if (!email.matches("[A-Za-z0-9]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z0-9]+@[a-zA-Z0-9.-]+[\\>]"))
 			binding.rejectValue("email", "actor.email.error", "Invalid email pattern");
 
 	}
