@@ -127,11 +127,11 @@ public class PositionService {
 
 			en_position = this.translationPositionService.create();
 			en_position.setLanguage("en");
-			en_position.setName(positionForm.getEn_name());
+			en_position.setName(positionForm.getEn_name().trim());
 
 			es_position = this.translationPositionService.create();
 			es_position.setLanguage("es");
-			es_position.setName(positionForm.getEs_name());
+			es_position.setName(positionForm.getEs_name().trim());
 
 			en_saved = this.translationPositionService.save(en_position);
 			es_saved = this.translationPositionService.save(es_position);
@@ -144,10 +144,10 @@ public class PositionService {
 			result = this.findOne(positionForm.getId());
 
 			en_saved = this.translationPositionService.findByLanguagePosition(positionForm.getId(), "en");
-			en_saved.setName(positionForm.getEn_name());
+			en_saved.setName(positionForm.getEn_name().trim());
 
 			es_saved = this.translationPositionService.findByLanguagePosition(positionForm.getId(), "es");
-			es_saved.setName(positionForm.getEs_name());
+			es_saved.setName(positionForm.getEs_name().trim());
 		}
 
 		return result;

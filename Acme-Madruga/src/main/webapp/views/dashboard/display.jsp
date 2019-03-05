@@ -26,18 +26,20 @@
 	</tr>
 </table>
 
+<spring:message code="brotherhood.date.format" var="dateFormat"/>
+
 <p><strong> <spring:message code="dashboard.two" />: </strong></p>
 <display:table name="largestBrotherhoods" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column property="fullname" titleKey="actor.fullname" />
 	<display:column property="title" titleKey="brotherhood.title" />
-	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
 </display:table>
 
 <p><strong> <spring:message code="dashboard.three" />: </strong></p>
 <display:table name="smallestBrotherhoods" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column property="fullname" titleKey="actor.fullname" />
 	<display:column property="title" titleKey="brotherhood.title" />
-	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
 </display:table>
 
 <p> <strong> <spring:message code="dashboard.four" />: </strong> </p>
