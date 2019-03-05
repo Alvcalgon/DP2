@@ -85,7 +85,7 @@ public class ProcessionService {
 				Assert.isTrue(procession.getMoment().after(fechaActual));
 
 			} catch (final Exception e) {
-				throw new IllegalArgumentException("Invalid moment, must be in the future");
+				throw new IllegalArgumentException("Invalid moment");
 			}
 
 		if (procession.getId() == 0) {
