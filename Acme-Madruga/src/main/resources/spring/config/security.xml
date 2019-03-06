@@ -34,23 +34,23 @@
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
-		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" requires-channel="https"/> 
 
-		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
+		<security:intercept-url pattern="/security/login.do" access="permitAll" requires-channel="https"/> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
 
-		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
-		<security:intercept-url pattern="/welcome/terms.do" access="permitAll" /> 
+		<security:intercept-url pattern="/welcome/index.do" access="permitAll" requires-channel="https"/> 
+		<security:intercept-url pattern="/welcome/terms.do" access="permitAll" requires-channel="https"/> 
 		
-		<security:intercept-url pattern="/error.do" access="permitAll" /> 
+		<security:intercept-url pattern="/error.do" access="permitAll" requires-channel="https"/> 
 		
-		<security:intercept-url pattern="/actor/registerBrotherhood.do" access="isAnonymous()" />
-		<security:intercept-url pattern="/actor/registerMember.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/actor/registerBrotherhood.do" access="isAnonymous()" requires-channel="https"/>
+		<security:intercept-url pattern="/actor/registerMember.do" access="isAnonymous()" requires-channel="https"/>
 		
 		<security:intercept-url pattern="/actor/administrator,brotherhood,member/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/display.do**" access="permitAll" />  
-		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" /> 
+		<security:intercept-url pattern="/actor/display.do**" access="permitAll" requires-channel="https"/>  
+		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" requires-channel="https"/> 
 		
 		<security:intercept-url pattern="/area/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/area/display.do**" access="permitAll" /> 
