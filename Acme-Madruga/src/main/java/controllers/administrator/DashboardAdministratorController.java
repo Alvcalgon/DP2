@@ -102,6 +102,12 @@ public class DashboardAdministratorController extends AbstractController {
 		final Double[] dataBrotherhoodPerArea;
 		dataBrotherhoodPerArea = this.brotherhoodService.findDataNumberBrotherhoodPerArea();
 
+		Map<String, Double> ratioBrotherhoodsPerArea;
+		Map<String, Long> countBrotherhoodsPerArea;
+
+		countBrotherhoodsPerArea = this.brotherhoodService.countBrotherhoodPerArea();
+		ratioBrotherhoodsPerArea = this.brotherhoodService.ratioBrotherhoodPerArea();
+
 		// Req 22.2.2
 		Double[] dataResultsPerFinder;
 		dataResultsPerFinder = this.processionService.findDataNumberResultsPerFinder();
@@ -129,6 +135,8 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("dataResultsPerFinder", dataResultsPerFinder);
 		result.addObject("ratioEmptyVsNonEmpty", ratioEmptyVsNonEmpty);
 		result.addObject("dataBrotherhoodPerArea", dataBrotherhoodPerArea);
+		result.addObject("countBrotherhoodsPerArea", countBrotherhoodsPerArea);
+		result.addObject("ratioBrotherhoodsPerArea", ratioBrotherhoodsPerArea);
 
 		return result;
 	}
