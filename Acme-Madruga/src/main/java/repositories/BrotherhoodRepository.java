@@ -30,8 +30,16 @@ public interface BrotherhoodRepository extends JpaRepository<Brotherhood, Intege
 	@Query("select b from Brotherhood b where b.area.id=?1")
 	Collection<Brotherhood> findBrotherhoodFromArea(int areaId);
 
-	//Req 22.2.1 (The ratio, the count, the minimum, the maximum, the average, and the standard deviation of the number of brotherhoods per area.)
+	//Req 22.2.1 (a) (The minimum, the maximum, the average, and the standard deviation of the number of brotherhoods per area.)
 	@Query("select avg(1.0 * (select count(b) from Brotherhood b where b.area.id = a.id)), min(1.0 * (select count(b) from Brotherhood b where b.area.id = a.id)), max(1.0 * (select count(b) from Brotherhood b where b.area.id = a.id)), stddev(1.0 * (select count(b) from Brotherhood b where b.area.id = a.id group by b.area)) from Area a)")
 	Double[] findDataNumberBrotherhoodPerArea();
+
+	//Req 22.2.1 (b) (The count of the number of brotherhoods per area.)
+	@Query("select ((select count(b) from Brotherhood b where b.area.id = a.id)) from Area a)")
+	Collection<Integer> countBrotherhoodPerArea();
+
+	//Req 22.2.1 (c) (The count of the number of brotherhoods per area.)
+	@Query("select count(b)/(select count(bb) from Brotherhood bb)*1.0 from Brotherhood b group by b.area")
+	Collection<Double> ratioBrotherhoodPerArea();
 
 }
