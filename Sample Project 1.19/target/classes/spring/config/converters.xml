@@ -36,10 +36,6 @@
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
 
-
-
-
-
 	</util:list>
 
 </beans>

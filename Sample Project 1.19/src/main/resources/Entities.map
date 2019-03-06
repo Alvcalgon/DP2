@@ -1,18 +1,17 @@
 #./src/main/resources/Entities.map
-#Wed Mar 06 10:26:21 CET 2019
-socialProfile1=32
-box5=25
-box005=30
-box4=24
-box004=29
-box3=23
-box003=28
-box2=22
-box002=27
-administrator2=20
-box1=21
-box001=26
-userAccount01=18
-administrator1=19
-customisation1=31
-userAccount1=17
+#Wed Mar 06 19:18:09 CET 2019
+system=19
+userAccount20=17
+box99=28
+box98=27
+box97=26
+box96=25
+box5=24
+box4=23
+box3=22
+box2=21
+box1=20
+administrator1=18
+customisation1=30
+userAccount1=16
+box100=29
