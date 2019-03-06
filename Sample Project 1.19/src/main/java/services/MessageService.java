@@ -18,10 +18,7 @@ import repositories.MessageRepository;
 import domain.Actor;
 import domain.Box;
 import domain.Customisation;
-import domain.Enrolment;
 import domain.Message;
-import domain.Procession;
-import domain.Request;
 import forms.MessageForm;
 
 @Service
@@ -44,12 +41,6 @@ public class MessageService {
 
 	@Autowired
 	private CustomisationService	customisationService;
-
-	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
-	private BrotherhoodService		brotherhoodService;
 
 
 	// Constructors -----------------------------------------
@@ -262,203 +253,6 @@ public class MessageService {
 		return result;
 	}
 
-	public Message notificationChangeStatus(final Request request) {
-		Assert.notNull(request);
-		Assert.isTrue(request.getId() != 0);
-
-		Message message, result;
-		Actor system, member, brotherhood;
-		Box outBoxSystem, notificationBoxRecipient;
-		List<Actor> recipients;
-		String subject, body, fullname_brotherhood, fullname_member;
-
-		system = this.administratorService.findSystem();
-		member = request.getMember();
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
-
-		recipients = new ArrayList<Actor>();
-		recipients.add(member);
-		recipients.add(brotherhood);
-
-		fullname_brotherhood = brotherhood.getFullname();
-		fullname_member = member.getFullname();
-
-		subject = "request notification / Notificación de solicitud.";
-		body = "The status of the request related with the brotherhood " + fullname_brotherhood + " and the member " + fullname_member + " has changed / El estado de la solicitud relacionada con la hermandad " + fullname_brotherhood + " y el miembro "
-			+ fullname_member + " ha cambiado: " + request.getStatus();
-
-		message = this.createNotification(system, recipients, subject, body);
-		result = this.messageRepository.save(message);
-
-		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-		this.boxService.addMessage(outBoxSystem, result);
-
-		for (final Actor a : recipients) {
-			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-
-			this.boxService.addMessage(notificationBoxRecipient, result);
-		}
-
-		return result;
-	}
-
-	public Message notificationEnrolment(final Enrolment enrolment) {
-		Assert.notNull(enrolment);
-		Assert.isTrue(enrolment.getId() != 0);
-
-		Message message, result;
-		Box outBoxSystem, notificationBoxRecipient;
-		Actor member, brotherhood, system;
-		List<Actor> recipients;
-		String subject, body, fullname_brotherhood, fullname_member;
-
-		system = this.administratorService.findSystem();
-		brotherhood = enrolment.getBrotherhood();
-		member = enrolment.getMember();
-
-		recipients = new ArrayList<Actor>();
-		recipients.add(brotherhood);
-		recipients.add(member);
-
-		fullname_member = member.getFullname();
-		fullname_brotherhood = brotherhood.getFullname();
-
-		subject = "A enrolment notification / Una notificación de inscripción";
-		body = "The member " + fullname_member + " has joined to the brotherhood " + fullname_brotherhood + ". / El miembro " + fullname_member + " se ha unido a la hermandad " + fullname_brotherhood;
-
-		message = this.createNotification(system, recipients, subject, body);
-		result = this.messageRepository.save(message);
-
-		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-
-		this.boxService.addMessage(outBoxSystem, result);
-
-		for (final Actor a : recipients) {
-			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-
-			this.boxService.addMessage(notificationBoxRecipient, result);
-		}
-
-		return result;
-	}
-
-	public Message notificationDropOut(final Enrolment enrolment) {
-		Assert.notNull(enrolment);
-		Assert.isTrue(enrolment.getId() != 0);
-
-		Message message, result;
-		Box outBoxSystem, notificationBoxRecipient;
-		Actor member, brotherhood, system;
-		List<Actor> recipients;
-		String subject, body, fullname_brotherhood, fullname_member;
-
-		system = this.administratorService.findSystem();
-		brotherhood = enrolment.getBrotherhood();
-		member = enrolment.getMember();
-
-		recipients = new ArrayList<Actor>();
-		recipients.add(brotherhood);
-		recipients.add(member);
-
-		fullname_member = member.getFullname();
-		fullname_brotherhood = brotherhood.getFullname();
-
-		subject = "A drop out notification / Una notificación de abandono";
-		body = "The member " + fullname_member + " has dropped out the brotherhood " + fullname_brotherhood + ". / El miembro " + fullname_member + " ha abandonado la hermandad " + fullname_brotherhood;
-
-		message = this.createNotification(system, recipients, subject, body);
-		result = this.messageRepository.save(message);
-
-		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-
-		this.boxService.addMessage(outBoxSystem, result);
-
-		for (final Actor a : recipients) {
-			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-
-			this.boxService.addMessage(notificationBoxRecipient, result);
-		}
-
-		return result;
-	}
-
-	public Message notificationRemove(final Enrolment enrolment) {
-		Assert.notNull(enrolment);
-		Assert.isTrue(enrolment.getId() != 0);
-
-		Message message, result;
-		Box outBoxSystem, notificationBoxRecipient;
-		Actor member, brotherhood, system;
-		List<Actor> recipients;
-		String subject, body, fullname_brotherhood, fullname_member;
-
-		system = this.administratorService.findSystem();
-		brotherhood = enrolment.getBrotherhood();
-		member = enrolment.getMember();
-
-		recipients = new ArrayList<Actor>();
-		recipients.add(brotherhood);
-		recipients.add(member);
-
-		fullname_member = member.getFullname();
-		fullname_brotherhood = brotherhood.getFullname();
-
-		subject = "A expulsion notification / Una notificación de expulsión";
-		body = "The member " + fullname_member + " has been expelled from the brotherhood " + fullname_brotherhood + ". / El miembro " + fullname_member + " ha sido expulsado de la hermandad " + fullname_brotherhood;
-
-		message = this.createNotification(system, recipients, subject, body);
-		result = this.messageRepository.save(message);
-
-		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-
-		this.boxService.addMessage(outBoxSystem, result);
-
-		for (final Actor a : recipients) {
-			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-
-			this.boxService.addMessage(notificationBoxRecipient, result);
-		}
-
-		return result;
-	}
-
-	public Message notificationPublishedProcession(final Procession procession) {
-		Assert.notNull(procession);
-		Assert.isTrue(procession.getId() != 0 && procession.getIsFinalMode());
-
-		Message message, result;
-		Box outBoxSystem, notificationBoxRecipient;
-		Actor brotherhood, system;
-		List<Actor> recipients;
-		String subject, body, ticker;
-
-		system = this.administratorService.findSystem();
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
-
-		recipients = new ArrayList<Actor>();
-		recipients.add(brotherhood);
-
-		ticker = procession.getTicker();
-
-		subject = "A publication notification / Una notificación de publicación";
-		body = "The procession whose ticker is " + ticker + " has been published / La procesión cuyo ticker es " + ticker + " ha sido publicada";
-
-		message = this.createNotification(system, recipients, subject, body);
-		result = this.messageRepository.save(message);
-
-		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
-
-		this.boxService.addMessage(outBoxSystem, result);
-
-		for (final Actor a : recipients) {
-			notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(a.getId());
-
-			this.boxService.addMessage(notificationBoxRecipient, result);
-		}
-
-		return result;
-	}
-
 	public Message breachNotification() {
 		Message message, result;
 		List<Actor> recipients;
@@ -568,22 +362,4 @@ public class MessageService {
 
 		Assert.isTrue(customisation.getPriorities().contains(message.getPriority()));
 	}
-
-	private Message createNotification(final Actor sender, final Collection<Actor> recipients, final String subject, final String body) {
-		Message result;
-		Date current_moment;
-
-		current_moment = this.utilityService.current_moment();
-
-		result = new Message();
-		result.setSender(sender);
-		result.setRecipients(recipients);
-		result.setSentMoment(current_moment);
-		result.setPriority("NEUTRAL");
-		result.setBody(body);
-		result.setSubject(subject);
-
-		return result;
-	}
-
 }

@@ -18,7 +18,7 @@
 
 <hr />
 
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme-Madruga, Inc.</b>
+<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> SampleProject, Inc.</b>
 <br>
 <a href="welcome/terms.do"><spring:message code="master.page.terminos"/></a>
 

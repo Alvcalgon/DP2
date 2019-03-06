@@ -3,15 +3,12 @@ package services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -29,9 +26,6 @@ public class UtilityService {
 
 	@Autowired
 	private CustomisationService	customisationService;
-
-	@Autowired
-	private ProcessionService		processionService;
 
 
 	// Constructors ------------------------
@@ -68,28 +62,6 @@ public class UtilityService {
 				result = phone;
 		} else
 			result = null;
-
-		return result;
-	}
-
-	public String generateValidTicker(final Date organisedMoment) {
-		String numbers, result;
-		int day, month, year;
-		Integer counter;
-		LocalDate localdate;
-
-		localdate = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(organisedMoment));
-		year = localdate.getYear() % 100;
-		month = localdate.getMonthOfYear();
-		day = localdate.getDayOfMonth();
-
-		numbers = String.format("%02d", year) + "" + String.format("%02d", month) + "" + String.format("%02d", day) + "-";
-		counter = 0;
-
-		do {
-			result = numbers + this.createRandomLetters();
-			counter++;
-		} while (!(this.processionService.existTicker(result) == null) && counter < 650000);
 
 		return result;
 	}
@@ -139,21 +111,4 @@ public class UtilityService {
 
 		return result;
 	}
-
-	// Private methods ---------------------------------------------------------
-
-	private String createRandomLetters() {
-		String result, characters;
-		Random randomNumber;
-
-		result = "";
-		randomNumber = new Random();
-		characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-		for (int i = 0; i <= 4; i++)
-			result += characters.charAt(randomNumber.nextInt(characters.length()));
-
-		return result;
-	}
-
 }
