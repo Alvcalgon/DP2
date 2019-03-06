@@ -1772,7 +1772,7 @@
 		<property name="title" value="Hermandad del Cristo" />
 		<property name="establishmentDate" value="2001/07/20" />
 		<property name="pictures"
-			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
+			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg" />
 		<property name="area" ref="area2" />
 	</bean>
 
@@ -1805,7 +1805,7 @@
 		<property name="timeCachedResults" value="1" />
 		<property name="maxNumberResults" value="10" />
 		<property name="rowLimit" value="3" />
-		<property name="columnLimit" value="10000" />
+		<property name="columnLimit" value="2000" />
 		<property name="thresholdScore" value="-0.5" />
 		<property name="priorities" value="HIGH,NEUTRAL,LOW" />
 		<property name="spamWords" value="sex,viagra,cialis,one million,you've been selected,Nigeria,sexo,un millon,ha sido seleccionado" />
