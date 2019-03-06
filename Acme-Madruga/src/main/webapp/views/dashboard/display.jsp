@@ -138,7 +138,35 @@ window.onload = function() {
 };
 </script>
 
-<p> <strong> <spring:message code="dashboard.nine" />: </strong> </p>
+<p> <strong> <spring:message code="dashboard.nine.a" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="area.name" /> </th>
+		<th> <spring:message code="area.ratio" /> </th>
+	</tr>
+		<jstl:forEach var="row" items="${ratioBrotherhoodsPerArea.keySet()}">
+			<tr>
+				<td> <jstl:out value="${row}" /> </td>
+				<td> <jstl:out value="${ratioBrotherhoodsPerArea.get(row)}" /> </td>
+			</tr>
+		</jstl:forEach>
+</table>
+
+<p> <strong> <spring:message code="dashboard.nine.b" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="area.name" /> </th>
+		<th> <spring:message code="area.count" /> </th>
+	</tr>
+		<jstl:forEach var="row" items="${countBrotherhoodsPerArea.keySet()}">
+			<tr>
+				<td> <jstl:out value="${row}" /> </td>
+				<td> <jstl:out value="${countBrotherhoodsPerArea.get(row)}" /> </td>
+			</tr>
+		</jstl:forEach>
+</table>
+
+<p> <strong> <spring:message code="dashboard.nine.c" />: </strong> </p>
 <table>
 	<tr>
 		<th> <spring:message code="dashboard.average" /> </th>

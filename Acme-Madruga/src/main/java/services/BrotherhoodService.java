@@ -4,6 +4,9 @@ package services;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -410,21 +413,37 @@ public class BrotherhoodService {
 	}
 
 	//Req 22.2.1 (b) (The count of the number of brotherhoods per area.)
-	public Collection<Integer> countBrotherhoodPerArea() {
-		Collection<Integer> result;
+	public Map<String, Long> countBrotherhoodPerArea() {
+		Map<String, Long> result;
+		final List<Object[]> list = this.brotherhoodRepository.countBrotherhoodPerArea();
+		String key;
+		Long value;
 
-		result = this.brotherhoodRepository.countBrotherhoodPerArea();
-		Assert.notNull(result);
+		result = new HashMap<>();
+		for (final Object[] ob : list) {
+			key = (String) ob[0];
+			value = (Long) ob[1];
+
+			result.put(key, value);
+		}
 
 		return result;
 	}
 
 	//Req 22.2.1 (c) (The ratio of the number of brotherhoods per area.)
-	public Collection<Double> ratioBrotherhoodPerArea() {
-		Collection<Double> result;
+	public Map<String, Double> ratioBrotherhoodPerArea() {
+		Map<String, Double> result;
+		final List<Object[]> list = this.brotherhoodRepository.ratioBrotherhoodPerArea();
+		String key;
+		Double value;
 
-		result = this.brotherhoodRepository.ratioBrotherhoodPerArea();
-		Assert.notNull(result);
+		result = new HashMap<>();
+		for (final Object[] ob : list) {
+			key = (String) ob[0];
+			value = (Double) ob[1];
+
+			result.put(key, value);
+		}
 
 		return result;
 	}
