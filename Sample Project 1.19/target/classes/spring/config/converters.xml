@@ -18,44 +18,17 @@
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
 
-		<bean class="converters.AreaToStringConverter" />
-		<bean class="converters.StringToAreaConverter" />
-		
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
 
 		<bean class="converters.BoxToStringConverter" />
 		<bean class="converters.StringToBoxConverter" />
 
-		<bean class="converters.BrotherhoodToStringConverter" />
-		<bean class="converters.StringToBrotherhoodConverter" />
-
 		<bean class="converters.CustomisationToStringConverter" />
 		<bean class="converters.StringToCustomisationConverter" />
 
-		<bean class="converters.EnrolmentToStringConverter" />
-		<bean class="converters.StringToEnrolmentConverter" />
-
-		<bean class="converters.FinderToStringConverter" />
-		<bean class="converters.StringToFinderConverter" />
-
-		<bean class="converters.FloatToStringConverter" />
-		<bean class="converters.StringToFloatConverter" />
-
-		<bean class="converters.BrotherhoodToStringConverter" />
-		<bean class="converters.StringToBrotherhoodConverter" />
-
-		<bean class="converters.MemberToStringConverter" />
-		<bean class="converters.StringToMemberConverter" />
-
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
-
-		<bean class="converters.ProcessionToStringConverter" />
-		<bean class="converters.StringToProcessionConverter" />
-
-		<bean class="converters.RequestToStringConverter" />
-		<bean class="converters.StringToRequestConverter" />
 
 		<bean class="converters.SocialProfileToStringConverter" />
 		<bean class="converters.StringToSocialProfileConverter" />
@@ -63,59 +36,10 @@
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
 
-		<bean class="converters.StringToActorConverter" />
-		<bean class="converters.ActorToStringConverter" />
 
-		<bean class="converters.StringToAdministratorConverter" />
-		<bean class="converters.AdministratorToStringConverter" />
 
-		<bean class="converters.StringToAreaConverter" />
-		<bean class="converters.AreaToStringConverter" />
-		
-		<bean class="converters.StringToAuthorityConverter" />
-		<bean class="converters.AuthorityToStringConverter" />
 
-		<bean class="converters.StringToBoxConverter" />
-		<bean class="converters.BoxToStringConverter" />
 
-		<bean class="converters.StringToBrotherhoodConverter" />
-		<bean class="converters.BrotherhoodToStringConverter" />
-
-		<bean class="converters.StringToCustomisationConverter" />
-		<bean class="converters.CustomisationToStringConverter" />
-
-		<bean class="converters.StringToEnrolmentConverter" />
-		<bean class="converters.EnrolmentToStringConverter" />
-
-		<bean class="converters.StringToFinderConverter" />
-		<bean class="converters.FinderToStringConverter" />
-
-		<bean class="converters.StringToFloatConverter" />
-		<bean class="converters.FloatToStringConverter" />
-
-		<bean class="converters.StringToMemberConverter" />
-		<bean class="converters.MemberToStringConverter" />
-
-		<bean class="converters.StringToMessageConverter" />
-		<bean class="converters.MessageToStringConverter" />
-
-		<bean class="converters.StringToProcessionConverter" />
-		<bean class="converters.ProcessionToStringConverter" />
-
-		<bean class="converters.StringToRequestConverter" />
-		<bean class="converters.RequestToStringConverter" />
-
-		<bean class="converters.StringToSocialProfileConverter" />
-		<bean class="converters.SocialProfileToStringConverter" />
-
-		<bean class="converters.StringToUserAccountConverter" />
-		<bean class="converters.UserAccountToStringConverter" />
-		
-		<bean class="converters.PositionToStringConverter" />
-		<bean class="converters.StringToPositionConverter" />
-		
-		<bean class="converters.TranslationPositionToStringConverter" />
-		<bean class="converters.StringToTranslationPositionConverter" />
 	</util:list>
 
 </beans>
