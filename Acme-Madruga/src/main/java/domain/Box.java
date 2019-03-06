@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,7 +19,9 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {
+@Table(indexes = {
+	@Index(columnList = "name, isSystemBox")
+}, uniqueConstraints = @UniqueConstraint(columnNames = {
 	"name", "parent"
 }))
 public class Box extends DomainEntity {
