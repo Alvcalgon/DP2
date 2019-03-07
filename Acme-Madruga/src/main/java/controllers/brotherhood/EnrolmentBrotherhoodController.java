@@ -91,7 +91,6 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 	public ModelAndView enrol(@RequestParam final int enrolmentId, final RedirectAttributes redir) {
 		ModelAndView result;
 
-		// TODO: comprobar si al llamar enrol, el idioma se sigue manteniendo (inglés y español)
 		redir.addFlashAttribute("isEnrolling", true);
 		result = new ModelAndView("redirect:edit.do?enrolmentId=" + enrolmentId);
 
@@ -106,7 +105,7 @@ public class EnrolmentBrotherhoodController extends AbstractController {
 
 		enrolmentRec = this.enrolmentService.reconstruct(enrolment, binding);
 		isEnrolling = this.stringToBoolean(request.getParameter("isEnrolling"));
-		// TODO: pasar la transformacion string-boolean a createEditModelAndView?
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(enrolment, isEnrolling, locale);
 		else
