@@ -11,3 +11,5 @@ In this file we will describe the decisions we have made in case of we consider 
 	- All users can display all attributes of a Member except the address and the phone number.
 	- Brotherhoods can display the address and the phone number of a Member in the case of the Member is enrolled in said Brotherhood.
 	- Personal data of administrators only can be displayed by the own administrator.
+
+- We have to implement https in our system in order to obey the GDPR. However, this implementation involves modifying tomcat server configuration files (server.xml), which is outside the Acme-Madruga project. Following the "On you deliverables" document, we must provide the folder with our project, not our entire workspace. Because of that, we have decided to deliver the project without any https implementation, but a pdf document where we detail the steps in order to get https works in our system.
