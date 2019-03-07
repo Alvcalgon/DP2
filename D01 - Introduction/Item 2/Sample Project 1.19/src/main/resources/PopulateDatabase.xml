@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin1" />
+		<property name="password" value="e00cf25ad42683b3df678c61f42c6bda" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount01" class="security.UserAccount">
+		<property name="username" value="admin2" />
+		<property name="password" value="c84258e9c39059a89ab77d846ddab909" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Administrator -->
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Fernando" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ruiz" />
+		<property name="photo"
+			value="https://previews.123rf.com/images/jemastock/jemastock1705/jemastock170509790/78457359-cara-hombre-arte-pop-estilo-imagen-vector-ilustraci%C3%B3n.jpg" />
+		<property name="email" value="fruiz@gmail.com" />
+		<property name="phoneNumber" value="63018754" />
+		<property name="address" value="Calle Palmera 4" />
+		<property name="score" value="0.2" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="Daniela" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Reina" />
+		<property name="photo"
+			value="https://previews.123rf.com/images/jemastock/jemastock1705/jemastock170509790/78457359-cara-hombre-arte-pop-estilo-imagen-vector-ilustraci%C3%B3n.jpg" />
+		<property name="email" value="danielareina@gmail.com" />
+		<property name="phoneNumber" value="63015521" />
+		<property name="address" value="Calle Daniela 4" />
+		<property name="score" value="0.4" />
+		<property name="userAccount" ref="userAccount01" />
+	</bean>
+	
+	<!-- Box -->
+	<bean id="box1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="box2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="box3" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="box4" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="box5" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator1" />
+	</bean>
+
+	<bean id="box001" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box002" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box003" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box004" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<bean id="box005" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="administrator2" />
+	</bean>
+
+	<!-- Customisation -->
+	<bean id="customisation1" class="domain.Customisation">
+		<property name="name" value="Acme Madrugá" />
+		<property name="banner" value="https://image.ibb.co/iuaDgV/Untitled.png" />
+		<property name="englishWelcomeMessage"
+			value="Welcome to Acme Madrugá! the site to organise your processions." />
+		<property name="spanishWelcomeMessage"
+			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
+		<property name="countryCode" value="+34" />
+		<property name="timeCachedResults" value="1" />
+		<property name="maxNumberResults" value="10" />
+		<property name="rowLimit" value="3" />
+		<property name="columnLimit" value="10000" />
+		<property name="thresholdScore" value="-0.5" />
+		<property name="priorities" value="HIGH,NEUTRAL,LOW" />
+		<property name="spamWords" value="sex,viagra,cialis,one million,you've been selected,Nigeria,sexo,un millon,ha sido seleccionado" />
+		<property name="positiveWords" value="good,fantastic,excellent,great,amazing,terrific,beautiful,bien,fantastico,excelente,genial,increible,terrorifico,hermosos" />
+		<property name="negativeWords" value="not,bad,horrible,average,disaster,no,mal,mediocre,desastre" />
+		<property name="languages" value="es,en" />
+	</bean>
+
+	<!-- SocialProfile -->
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="nick1" />
+		<property name="socialNetwork" value="Twitter" />
+		<property name="linkProfile" value="http://www.twitter.com/nick1" />
+		<property name="actor" ref="administrator1" />
+	</bean>
+</beans>

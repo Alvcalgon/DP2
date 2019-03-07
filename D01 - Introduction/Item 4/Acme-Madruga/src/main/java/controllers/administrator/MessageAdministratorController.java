@@ -71,6 +71,20 @@ public class MessageAdministratorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "breachNotification", method = RequestMethod.GET)
+	public ModelAndView breach() {
+		ModelAndView result;
+
+		try {
+			this.messageService.breachNotification();
+			result = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView broadcastModelAndView(final Message broadcast) {
