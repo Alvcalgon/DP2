@@ -3,7 +3,6 @@ package services;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -405,44 +404,10 @@ public class BrotherhoodService {
 
 	//Req 22.2.1 (a) (The ratio, the count, the minimum, the maximum, the average, and the standard deviation of the number of brotherhoods per area.)
 	public Double[] findDataNumberBrotherhoodPerArea() {
-		final Double[] result = new Double[4];
-		Double[] data;
-		final Double std = this.devStd();
+		Double[] result;
 
-		data = this.brotherhoodRepository.findDataNumberBrotherhoodPerArea();
-
-		int i = 0;
-		while (i < data.length) {
-			result[i] = data[i];
-
-			i++;
-		}
-
-		result[3] = std;
-
-		return result;
-	}
-
-	private Double devStd() {
-		final List<Long> sumElements = new ArrayList<>(this.brotherhoodRepository.findElementSum());
-		final Long tam = this.brotherhoodRepository.findTamArea();
-		Double w_avg = this.brotherhoodRepository.average();
-		Double result;
-		Long sum;
-
-		if (sumElements != null && sumElements.size() > 0) {
-			sum = 0l;
-			for (final Long i : sumElements)
-				sum += i;
-
-			if (tam != 0) {
-				w_avg = w_avg * w_avg;
-
-				result = Math.sqrt((sum * 1.0 / tam * 1.0) - w_avg);
-			} else
-				result = null;
-		} else
-			result = null;
+		result = this.brotherhoodRepository.findDataNumberBrotherhoodPerArea();
+		Assert.notNull(result);
 
 		return result;
 	}
