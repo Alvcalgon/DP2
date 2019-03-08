@@ -43,6 +43,8 @@ public class Parade extends DomainEntity {
 	private Date		moment;
 	private boolean		isFinalMode;
 	private Integer[][]	matrizParade;
+	private String		status;
+	private String		reasonWhy;
 
 
 	@NotBlank
@@ -102,6 +104,25 @@ public class Parade extends DomainEntity {
 
 	public void setMatrizParade(final Integer[][] matrizParade) {
 		this.matrizParade = matrizParade;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "^submitted|accepted|rejected$")
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(final String status) {
+		this.status = status;
+	}
+
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getReasonWhy() {
+		return this.reasonWhy;
+	}
+
+	public void setReasonWhy(final String reasonWhy) {
+		this.reasonWhy = reasonWhy;
 	}
 
 

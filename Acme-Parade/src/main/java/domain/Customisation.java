@@ -41,6 +41,9 @@ public class Customisation extends DomainEntity {
 	private int		rowLimit;
 	private int		columnLimit;
 	private double	thresholdScore;
+	private String	creditCardMakes;
+	private Double	vatPercentage;
+	private Double	fare;
 
 
 	@NotBlank
@@ -188,6 +191,36 @@ public class Customisation extends DomainEntity {
 
 	public void setThresholdScore(final double thresholdScore) {
 		this.thresholdScore = thresholdScore;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getCreditCardMakes() {
+		return this.creditCardMakes;
+	}
+
+	public void setCreditCardMakes(final String creditCardMakes) {
+		this.creditCardMakes = creditCardMakes;
+	}
+
+	@Range(min = 0, max = 1)
+	@Digits(integer = 3, fraction = 2)
+	public Double getVatPercentage() {
+		return this.vatPercentage;
+	}
+
+	public void setVatPercentage(final Double vatPercentage) {
+		this.vatPercentage = vatPercentage;
+	}
+
+	@Digits(integer = 9, fraction = 2)
+	@Min(0)
+	public Double getFare() {
+		return this.fare;
+	}
+
+	public void setFare(final Double fare) {
+		this.fare = fare;
 	}
 
 }
