@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.FloatService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Float;
@@ -28,7 +28,7 @@ public class FloatBroherhoodController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -133,15 +133,15 @@ public class FloatBroherhoodController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final FloatForm floatForm, final String messageCode) {
 		ModelAndView result;
 		Brotherhood owner;
-		Boolean notProcession;
+		Boolean notParade;
 
-		notProcession = this.processionService.floatBelongtToProcession(floatForm.getId());
+		notParade = this.paradeService.floatBelongtToParade(floatForm.getId());
 		owner = this.brotherhoodService.findByPrincipal();
 		result = new ModelAndView("float/edit");
 		result.addObject("floatForm", floatForm);
 		result.addObject("messageCode", messageCode);
 		result.addObject("owner", owner);
-		result.addObject("notProcession", notProcession);
+		result.addObject("notParade", notParade);
 
 		return result;
 

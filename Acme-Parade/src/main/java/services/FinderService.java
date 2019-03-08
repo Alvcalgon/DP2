@@ -19,7 +19,7 @@ import repositories.FinderRepository;
 import domain.Customisation;
 import domain.Finder;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 
 @Service
 @Transactional
@@ -34,7 +34,7 @@ public class FinderService {
 	private MemberService			memberService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private UtilityService			utilityService;
@@ -63,7 +63,7 @@ public class FinderService {
 		result.setKeyword("");
 		result.setArea("");
 		result.setUpdatedMoment(new Date(Integer.MIN_VALUE));
-		result.setProcessions(Collections.<Procession> emptySet());
+		result.setParades(Collections.<Parade> emptySet());
 
 		return result;
 	}
@@ -81,7 +81,7 @@ public class FinderService {
 		pageable = new PageRequest(0, customisation.getMaxNumberResults());
 
 		saved = this.finderRepository.save(finder);
-		this.processionService.searchProcessionFinder(saved, pageable);
+		this.paradeService.searchParadeFinder(saved, pageable);
 	}
 
 	// Other business methods -----------------------------
@@ -94,7 +94,7 @@ public class FinderService {
 		pageable = new PageRequest(0, customisation.getMaxNumberResults());
 
 		if (this.isFinderOutdated(finder.getUpdatedMoment(), customisation.getTimeCachedResults()))
-			this.processionService.searchProcessionFinder(finder, pageable);
+			this.paradeService.searchParadeFinder(finder, pageable);
 
 		return finder;
 	}
@@ -109,18 +109,18 @@ public class FinderService {
 		finder.setUpdatedMoment(new Date(Integer.MIN_VALUE));
 	}
 
-	public void removeProcessionToFinder(final Procession procession) {
+	public void removeParadeToFinder(final Parade parade) {
 		Collection<Finder> finders;
-		Collection<Procession> processions;
+		Collection<Parade> parades;
 
-		finders = this.finderRepository.findFinderByProcession(procession.getId());
+		finders = this.finderRepository.findFinderByParade(parade.getId());
 
 		for (final Finder f : finders) {
-			processions = f.getProcessions();
+			parades = f.getParades();
 
-			if (processions.contains(procession)) {
-				processions.remove(procession);
-				f.setProcessions(processions);
+			if (parades.contains(parade)) {
+				parades.remove(parade);
+				f.setParades(parades);
 			}
 
 		}
@@ -139,7 +139,7 @@ public class FinderService {
 		result.setMinimumDate(finder.getMinimumDate());
 		result.setMaximumDate(finder.getMaximumDate());
 		result.setMember(finderStored.getMember());
-		result.setProcessions(finderStored.getProcessions());
+		result.setParades(finderStored.getParades());
 		result.setUpdatedMoment(finderStored.getUpdatedMoment());
 		result.setVersion(finderStored.getVersion());
 

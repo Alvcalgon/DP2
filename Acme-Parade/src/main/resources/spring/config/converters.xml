@@ -51,8 +51,8 @@
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
 
-		<bean class="converters.ProcessionToStringConverter" />
-		<bean class="converters.StringToProcessionConverter" />
+		<bean class="converters.ParadeToStringConverter" />
+		<bean class="converters.StringToParadeConverter" />
 
 		<bean class="converters.RequestToStringConverter" />
 		<bean class="converters.StringToRequestConverter" />
@@ -99,8 +99,8 @@
 		<bean class="converters.StringToMessageConverter" />
 		<bean class="converters.MessageToStringConverter" />
 
-		<bean class="converters.StringToProcessionConverter" />
-		<bean class="converters.ProcessionToStringConverter" />
+		<bean class="converters.StringToParadeConverter" />
+		<bean class="converters.ParadeToStringConverter" />
 
 		<bean class="converters.StringToRequestConverter" />
 		<bean class="converters.RequestToStringConverter" />

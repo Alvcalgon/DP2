@@ -14,8 +14,8 @@ import domain.Customisation;
 import domain.Finder;
 
 @Controller
-@RequestMapping("procession/member/")
-public class ProcessionMemberController extends AbstractController {
+@RequestMapping("parade/member/")
+public class ParadeMemberController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 
@@ -28,7 +28,7 @@ public class ProcessionMemberController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public ProcessionMemberController() {
+	public ParadeMemberController() {
 		super();
 	}
 
@@ -46,10 +46,10 @@ public class ProcessionMemberController extends AbstractController {
 		finder = this.finderService.findByMemberPrincipal();
 		finder = this.finderService.evaluateSearch(finder);
 
-		result = new ModelAndView("procession/listFinder");
-		result.addObject("requestURI", "procession/member/listFinder.do");
+		result = new ModelAndView("parade/listFinder");
+		result.addObject("requestURI", "parade/member/listFinder.do");
 		result.addObject("finder", finder);
-		result.addObject("processions", finder.getProcessions());
+		result.addObject("parades", finder.getParades());
 		result.addObject("numberOfResults", numberOfResults);
 
 		return result;

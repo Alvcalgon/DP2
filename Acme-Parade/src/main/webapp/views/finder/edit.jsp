@@ -34,7 +34,7 @@
 		&nbsp;
 		<acme:cancel code="finder.clear" url="finder/member/clear.do"/>
 		&nbsp;
-		<acme:cancel code="finder.cancel" url="procession/member/listFinder.do"/>
+		<acme:cancel code="finder.cancel" url="parade/member/listFinder.do"/>
 	</div>
 
 </form:form>

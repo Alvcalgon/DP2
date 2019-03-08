@@ -17,12 +17,12 @@ import services.BrotherhoodService;
 import services.FinderService;
 import services.MemberService;
 import services.PositionService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
 @RequestMapping("dashboard/administrator")
@@ -39,7 +39,7 @@ public class DashboardAdministratorController extends AbstractController {
 	private RequestService		requestService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	@Autowired
 	private PositionService		positionService;
@@ -73,12 +73,12 @@ public class DashboardAdministratorController extends AbstractController {
 		smallestBrotherhoods = this.brotherhoodService.findSmallest();
 
 		// Req 12.3.4
-		Map<String, List<Double>> ratioRequestByProcession;
-		ratioRequestByProcession = this.requestService.findRatioRequestByProcession();
+		Map<String, List<Double>> ratioRequestByParade;
+		ratioRequestByParade = this.requestService.findRatioRequestByParade();
 
 		// Req 12.3.5
-		Collection<Procession> processions;
-		processions = this.processionService.findProcessionLess30days();
+		Collection<Parade> parades;
+		parades = this.paradeService.findParadeLess30days();
 
 		// Req 12.3.6
 		Double pendingRatio, approvedRatio, rejectedRatio;
@@ -110,7 +110,7 @@ public class DashboardAdministratorController extends AbstractController {
 
 		// Req 22.2.2
 		Double[] dataResultsPerFinder;
-		dataResultsPerFinder = this.processionService.findDataNumberResultsPerFinder();
+		dataResultsPerFinder = this.paradeService.findDataNumberResultsPerFinder();
 
 		// Req 22.2.3
 		Double ratioEmptyVsNonEmpty;
@@ -122,14 +122,14 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("dataMembersPerBrotherhood", dataMembersPerBrotherhood);
 		result.addObject("largestBrotherhoods", largestBrotherhoods);
 		result.addObject("smallestBrotherhoods", smallestBrotherhoods);
-		result.addObject("processions", processions);
+		result.addObject("parades", parades);
 		result.addObject("histogramValues", histogramValues);
 		result.addObject("histogramLabels", histogramLabels);
 		result.addObject("pendingRatio", pendingRatio);
 		result.addObject("approvedRatio", approvedRatio);
 		result.addObject("rejectedRatio", rejectedRatio);
 		result.addObject("members", members);
-		result.addObject("mapa", ratioRequestByProcession);
+		result.addObject("mapa", ratioRequestByParade);
 
 		// LEVEL B
 		result.addObject("dataResultsPerFinder", dataResultsPerFinder);

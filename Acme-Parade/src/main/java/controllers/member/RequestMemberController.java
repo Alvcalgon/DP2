@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
-import domain.Procession;
+import domain.Parade;
 import domain.Request;
 
 @Controller
@@ -25,7 +25,7 @@ public class RequestMemberController extends AbstractController {
 	private RequestService		requestService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	@Autowired
 	private MemberService		memberService;
@@ -64,16 +64,16 @@ public class RequestMemberController extends AbstractController {
 
 	// Request create -----------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int processionId) {
+	public ModelAndView create(@RequestParam final int paradeId) {
 		ModelAndView result;
 		final Request request;
 
 		try {
 			try {
-				final Procession procession;
+				final Parade parade;
 
-				procession = this.processionService.findOne(processionId);
-				request = this.requestService.create(procession);
+				parade = this.paradeService.findOne(paradeId);
+				request = this.requestService.create(parade);
 				this.requestService.saveNew(request);
 				result = new ModelAndView("redirect:/request/member/list.do");
 			} catch (final Throwable oops) {

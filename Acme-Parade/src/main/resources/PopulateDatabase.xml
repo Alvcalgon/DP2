@@ -1798,7 +1798,7 @@
 		<property name="name" value="Acme Madrugá" />
 		<property name="banner" value="https://image.ibb.co/iuaDgV/Untitled.png" />
 		<property name="englishWelcomeMessage"
-			value="Welcome to Acme Madrugá! the site to organise your processions." />
+			value="Welcome to Acme Madrugá! the site to organise your parades." />
 		<property name="spanishWelcomeMessage"
 			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
 		<property name="countryCode" value="+34" />
@@ -1965,13 +1965,13 @@
 		<property name="maximumDate" value="2020/10/05" />
 		<property name="updatedMoment" value="2019/01/01 10:10" />
 		<property name="member" ref="member1" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -1983,10 +1983,10 @@
 		<property name="maximumDate" value="2022/10/05" />
 		<property name="updatedMoment" value="2018/05/08 21:47" />
 		<property name="member" ref="member2" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -1998,10 +1998,10 @@
 		<property name="maximumDate" value="2019/11/05" />
 		<property name="updatedMoment" value="2018/07/25 16:44" />
 		<property name="member" ref="member3" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2013,7 +2013,7 @@
 		<property name="maximumDate" value="2020/10/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member4" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 				<null></null>
 			</list>
@@ -2027,7 +2027,7 @@
 		<property name="maximumDate" value="2020/10/05" />
 		<property name="updatedMoment" value="2019/01/18 17:45" />
 		<property name="member" ref="member5" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 				<null></null>
 			</list>
@@ -2041,13 +2041,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member6" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2059,13 +2059,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member7" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2076,13 +2076,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member8" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2094,13 +2094,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member9" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2111,13 +2111,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member10" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2129,13 +2129,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member11" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2146,13 +2146,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member12" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2163,13 +2163,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member13" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2180,13 +2180,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member14" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2197,13 +2197,13 @@
 		<property name="maximumDate" value="2029/01/05" />
 		<property name="updatedMoment" value="2019/01/05 10:10" />
 		<property name="member" ref="member15" />
-		<property name="processions">
+		<property name="parades">
 			<list>
-				<ref bean="procession1" />
-				<ref bean="procession2" />
-				<ref bean="procession3" />
-				<ref bean="procession4" />
-				<ref bean="procession5" />
+				<ref bean="parade1" />
+				<ref bean="parade2" />
+				<ref bean="parade3" />
+				<ref bean="parade4" />
+				<ref bean="parade5" />
 			</list>
 		</property>
 	</bean>
@@ -2691,14 +2691,14 @@
 		</property>
 	</bean>
 
-	<!-- Procession -->
-	<bean id="procession1" class="domain.Procession">
+	<!-- Parade -->
+	<bean id="parade1" class="domain.Parade">
 		<property name="ticker" value="120718-ASDFG" />
 		<property name="title" value="Procesion de primavera" />
 		<property name="description" value="Esta es la procesion que sale en primavera" />
 		<property name="moment" value="2019/05/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="matrizProcession">
+		<property name="matrizParade">
 			<list>
 				<list>
 					<value>1</value>
@@ -2724,13 +2724,13 @@
 		</property>
 	</bean>
 
-	<bean id="procession2" class="domain.Procession">
+	<bean id="parade2" class="domain.Parade">
 		<property name="ticker" value="120717-IOKNH" />
 		<property name="title" value="Procesion de invierno" />
 		<property name="description" value="Esta es la procesion que sale en invierno" />
 		<property name="moment" value="2019/11/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="matrizProcession">
+		<property name="matrizParade">
 			<list>
 				<list>
 					<value>0</value>
@@ -2757,13 +2757,13 @@
 		</property>
 	</bean>
 
-	<bean id="procession3" class="domain.Procession">
+	<bean id="parade3" class="domain.Parade">
 		<property name="ticker" value="120716-ASDPG" />
 		<property name="title" value="Procesion de verano" />
 		<property name="description" value="Esta es la procesion que sale en verano" />
 		<property name="moment" value="2019/08/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="matrizProcession">
+		<property name="matrizParade">
 			<list>
 				<list>
 					<value>1</value>
@@ -2790,14 +2790,14 @@
 		</property>
 	</bean>
 
-	<bean id="procession4" class="domain.Procession">
+	<bean id="parade4" class="domain.Parade">
 		<property name="ticker" value="120715-ASSFG" />
 		<property name="title" value="Procesion del jueves santo" />
 		<property name="description"
 			value="Esta es la procesion que sale el jueves santo" />
 		<property name="moment" value="2019/03/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="matrizProcession">
+		<property name="matrizParade">
 			<list>
 				<list>
 					<value>1</value>
@@ -2823,13 +2823,13 @@
 		</property>
 	</bean>
 
-	<bean id="procession5" class="domain.Procession">
+	<bean id="parade5" class="domain.Parade">
 		<property name="ticker" value="120714-ADDFG" />
 		<property name="title" value="Procesion de navidad" />
 		<property name="description" value="Esta es la procesion que sale en navidad" />
 		<property name="moment" value="2019/12/27 10:15" />
 		<property name="isFinalMode" value="true" />
-		<property name="matrizProcession">
+		<property name="matrizParade">
 			<list>
 				<list>
 					<value>0</value>
@@ -2858,110 +2858,110 @@
 	<!-- Request -->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="1" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="1" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession1" />
+		<property name="parade" ref="parade1" />
 	</bean>
 
 	<bean id="request01" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession2" />
+		<property name="parade" ref="parade2" />
 	</bean>
 
 	<bean id="request001" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<bean id="request0001" class="domain.Request">
 		<property name="status" value="REJECTED" />
 		<property name="reasonWhy" value="Porque eres demasiado joven" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="request00001" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member1" />
-		<property name="procession" ref="procession5" />
+		<property name="parade" ref="parade5" />
 	</bean>
 
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="1" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="1" />
 		<property name="member" ref="member2" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="request3" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="2" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="2" />
 		<property name="member" ref="member3" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<bean id="request4" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="2" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="2" />
 		<property name="member" ref="member3" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="request5" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="1" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="1" />
 		<property name="member" ref="member5" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<bean id="request05" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member5" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="3" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="3" />
 		<property name="member" ref="member7" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<bean id="request7" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="1" />
-		<property name="columnProcession" value="2" />
+		<property name="rowParade" value="1" />
+		<property name="columnParade" value="2" />
 		<property name="member" ref="member10" />
-		<property name="procession" ref="procession5" />
+		<property name="parade" ref="parade5" />
 	</bean>
 
 	<bean id="request8" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowProcession" value="2" />
-		<property name="columnProcession" value="1" />
+		<property name="rowParade" value="2" />
+		<property name="columnParade" value="1" />
 		<property name="member" ref="member12" />
-		<property name="procession" ref="procession2" />
+		<property name="parade" ref="parade2" />
 	</bean>
 
 	<bean id="request9" class="domain.Request">
 		<property name="status" value="REJECTED" />
 		<property name="member" ref="member11" />
 		<property name="reasonWhy" value="Porque eres demasiado joven" />
-		<property name="procession" ref="procession3" />
+		<property name="parade" ref="parade3" />
 	</bean>
 
 	<bean id="request10" class="domain.Request">
 		<property name="status" value="PENDING" />
 		<property name="member" ref="member6" />
-		<property name="procession" ref="procession4" />
+		<property name="parade" ref="parade4" />
 	</bean>
 
 	<!-- SocialProfile -->

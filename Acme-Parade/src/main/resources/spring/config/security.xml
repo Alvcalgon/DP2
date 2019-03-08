@@ -88,10 +88,10 @@
 		
 		<security:intercept-url pattern="/member/list.do**" access="permitAll" /> 
 		
-		<security:intercept-url pattern="/procession/display.do" access="permitAll" /> 
-		<security:intercept-url pattern="/procession/list.do" access="permitAll" /> 	
-		<security:intercept-url pattern="/procession/brotherhood/**"  access="hasRole('BROTHERHOOD')"/> 	
-		<security:intercept-url pattern="/procession/member/**"  access="hasRole('MEMBER')"/>
+		<security:intercept-url pattern="/parade/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/parade/list.do" access="permitAll" /> 	
+		<security:intercept-url pattern="/parade/brotherhood/**"  access="hasRole('BROTHERHOOD')"/> 	
+		<security:intercept-url pattern="/parade/member/**"  access="hasRole('MEMBER')"/>
 		
 		
 		

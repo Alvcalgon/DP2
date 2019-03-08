@@ -20,7 +20,7 @@ import domain.Box;
 import domain.Customisation;
 import domain.Enrolment;
 import domain.Message;
-import domain.Procession;
+import domain.Parade;
 import domain.Request;
 import forms.MessageForm;
 
@@ -274,7 +274,7 @@ public class MessageService {
 
 		system = this.administratorService.findSystem();
 		member = request.getMember();
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		brotherhood = this.brotherhoodService.findBrotherhoodByParade(request.getParade().getId());
 
 		recipients = new ArrayList<Actor>();
 		recipients.add(member);
@@ -422,9 +422,9 @@ public class MessageService {
 		return result;
 	}
 
-	public Message notificationPublishedProcession(final Procession procession) {
-		Assert.notNull(procession);
-		Assert.isTrue(procession.getId() != 0 && procession.getIsFinalMode());
+	public Message notificationPublishedParade(final Parade parade) {
+		Assert.notNull(parade);
+		Assert.isTrue(parade.getId() != 0 && parade.getIsFinalMode());
 
 		Message message, result;
 		Box outBoxSystem, notificationBoxRecipient;
@@ -433,15 +433,15 @@ public class MessageService {
 		String subject, body, ticker;
 
 		system = this.administratorService.findSystem();
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
+		brotherhood = this.brotherhoodService.findBrotherhoodByParade(parade.getId());
 
 		recipients = new ArrayList<Actor>();
 		recipients.add(brotherhood);
 
-		ticker = procession.getTicker();
+		ticker = parade.getTicker();
 
 		subject = "A publication notification / Una notificación de publicación";
-		body = "The procession whose ticker is " + ticker + " has been published / La procesión cuyo ticker es " + ticker + " ha sido publicada";
+		body = "The parade whose ticker is " + ticker + " has been published / La procesión cuyo ticker es " + ticker + " ha sido publicada";
 
 		message = this.createNotification(system, recipients, subject, body);
 		result = this.messageRepository.save(message);

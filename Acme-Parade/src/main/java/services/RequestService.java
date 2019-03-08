@@ -20,7 +20,7 @@ import repositories.RequestRepository;
 import security.LoginService;
 import domain.Brotherhood;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 import domain.Request;
 import forms.RequestForm;
 
@@ -41,7 +41,7 @@ public class RequestService {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	@Autowired
 	private Validator			validator;
@@ -77,7 +77,7 @@ public class RequestService {
 		result = this.requestRepository.findOne(requestId);
 
 		Assert.notNull(result);
-		this.checkPrincipalIsBrotherhoodOfProcession(requestId);
+		this.checkPrincipalIsBrotherhoodOfParade(requestId);
 
 		return result;
 	}
@@ -87,7 +87,7 @@ public class RequestService {
 		result = this.requestRepository.findOne(requestId);
 
 		Assert.notNull(result);
-		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
+		this.checkPrincipalIsMemberOfBrotherhoodOfParade(result.getParade());
 		this.checkPrincipalIsMemberOfRequest(result);
 
 		return result;
@@ -99,16 +99,16 @@ public class RequestService {
 
 		Assert.notNull(result);
 		Assert.isTrue(result.getStatus().equals("PENDING"));
-		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(result.getProcession());
+		this.checkPrincipalIsMemberOfBrotherhoodOfParade(result.getParade());
 		this.checkPrincipalIsMemberOfRequest(result);
 
 		return result;
 	}
 
-	public Request create(final Procession procession) {
-		Assert.notNull(procession);
-		this.checkNoExistRequestMemberProcession(procession);
-		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(procession);
+	public Request create(final Parade parade) {
+		Assert.notNull(parade);
+		this.checkNoExistRequestMemberParade(parade);
+		this.checkPrincipalIsMemberOfBrotherhoodOfParade(parade);
 		Request result;
 		Member member;
 
@@ -116,7 +116,7 @@ public class RequestService {
 
 		result = new Request();
 		result.setMember(member);
-		result.setProcession(procession);
+		result.setParade(parade);
 		result.setStatus("PENDING");
 
 		return result;
@@ -151,17 +151,17 @@ public class RequestService {
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
-		Integer[][] matrizProcession;
+		Integer[][] matrizParade;
 
-		matrizProcession = request.getProcession().getMatrizProcession();
-		compare: for (int i = 0; i < matrizProcession.length; i++)
-			for (int j = 0; j < matrizProcession[0].length; j++)
-				if (matrizProcession[i][j] == 0) {
-					request.setRowProcession(i + 1);
-					request.setColumnProcession(j + 1);
+		matrizParade = request.getParade().getMatrizParade();
+		compare: for (int i = 0; i < matrizParade.length; i++)
+			for (int j = 0; j < matrizParade[0].length; j++)
+				if (matrizParade[i][j] == 0) {
+					request.setRowParade(i + 1);
+					request.setColumnParade(j + 1);
 					break compare;
 				}
-		this.processionService.addToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
+		this.paradeService.addToMatriz(request.getParade(), request.getRowParade(), request.getColumnParade());
 		request.setStatus("APPROVED");
 		result = this.requestRepository.save(request);
 		this.messageService.notificationChangeStatus(result);
@@ -187,7 +187,7 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
 		Assert.isTrue(request.getStatus().equals("PENDING"));
-		this.checkPrincipalIsMemberOfBrotherhoodOfProcession(request.getProcession());
+		this.checkPrincipalIsMemberOfBrotherhoodOfParade(request.getParade());
 		this.checkPrincipalIsMemberOfRequest(request);
 
 		this.requestRepository.delete(request);
@@ -199,7 +199,7 @@ public class RequestService {
 
 	public void deleteDropOut(final Request request) {
 		if (request.getStatus().equals("APPROVED"))
-			this.processionService.removeToMatriz(request.getProcession(), request.getRowProcession(), request.getColumnProcession());
+			this.paradeService.removeToMatriz(request.getParade(), request.getRowParade(), request.getColumnParade());
 		this.requestRepository.delete(request);
 	}
 
@@ -207,12 +207,12 @@ public class RequestService {
 		RequestForm result;
 
 		result = new RequestForm();
-		result.setColumnProcession(request.getColumnProcession());
+		result.setColumnParade(request.getColumnParade());
 		result.setId(request.getId());
-		result.setRowProcession(request.getRowProcession());
+		result.setRowParade(request.getRowParade());
 		result.setReasonWhy(request.getReasonWhy());
 		result.setStatus(request.getStatus());
-		result.setProcession(request.getProcession());
+		result.setParade(request.getParade());
 		result.setMember(request.getMember());
 
 		return result;
@@ -226,20 +226,20 @@ public class RequestService {
 
 		result = new Request();
 		requestStored = this.findOneToBrotherhood(requestForm.getId());
-		position = requestForm.getPositionProcession();
-		positionsMap = this.processionService.positionsFree(requestForm.getProcession());
+		position = requestForm.getPositionParade();
+		positionsMap = this.paradeService.positionsFree(requestForm.getParade());
 		row = positionsMap.get(position).get(0);
 		column = positionsMap.get(position).get(1);
 
-		this.processionService.addToMatriz(requestStored.getProcession(), row, column);
-		this.processionService.removeToMatriz(requestStored.getProcession(), requestStored.getRowProcession(), requestStored.getColumnProcession());
+		this.paradeService.addToMatriz(requestStored.getParade(), row, column);
+		this.paradeService.removeToMatriz(requestStored.getParade(), requestStored.getRowParade(), requestStored.getColumnParade());
 
-		result.setRowProcession(row);
-		result.setColumnProcession(column);
+		result.setRowParade(row);
+		result.setColumnParade(column);
 		result.setReasonWhy(requestForm.getReasonWhy());
 
 		result.setStatus(requestStored.getStatus());
-		result.setProcession(requestStored.getProcession());
+		result.setParade(requestStored.getParade());
 		result.setId(requestStored.getId());
 		result.setMember(requestStored.getMember());
 		result.setVersion(requestStored.getVersion());
@@ -254,12 +254,12 @@ public class RequestService {
 		result = new Request();
 		requestStored = this.findOneToBrotherhood(requestForm.getId());
 
-		result.setRowProcession(requestStored.getRowProcession());
-		result.setColumnProcession(requestStored.getColumnProcession());
+		result.setRowParade(requestStored.getRowParade());
+		result.setColumnParade(requestStored.getColumnParade());
 		result.setReasonWhy(requestForm.getReasonWhy().trim());
 
 		result.setStatus(requestStored.getStatus());
-		result.setProcession(requestStored.getProcession());
+		result.setParade(requestStored.getParade());
 		result.setId(requestStored.getId());
 		result.setMember(requestStored.getMember());
 		result.setVersion(requestStored.getVersion());
@@ -268,20 +268,20 @@ public class RequestService {
 		return result;
 	}
 	// Other business methods ---------------------
-	public Map<String, List<Double>> findRatioRequestByProcession() {
+	public Map<String, List<Double>> findRatioRequestByParade() {
 		Map<String, List<Double>> result;
-		Collection<Procession> publishedProcessions;
+		Collection<Parade> publishedParades;
 		Double pendingRatio, approvedRatio, rejectedRatio;
 
 		result = new HashMap<String, List<Double>>();
-		publishedProcessions = this.processionService.findPublishedProcession();
+		publishedParades = this.paradeService.findPublishedParade();
 
-		for (final Procession p : publishedProcessions) {
+		for (final Parade p : publishedParades) {
 			final List<Double> ld = new ArrayList<>();
 
-			pendingRatio = this.findRatioPendingRequestsProcession(p.getId());
-			approvedRatio = this.findRatioAprovedRequestsProcession(p.getId());
-			rejectedRatio = this.findRatioRejectedRequetsProcession(p.getId());
+			pendingRatio = this.findRatioPendingRequestsParade(p.getId());
+			approvedRatio = this.findRatioAprovedRequestsParade(p.getId());
+			rejectedRatio = this.findRatioRejectedRequetsParade(p.getId());
 
 			ld.add(pendingRatio);
 			ld.add(approvedRatio);
@@ -294,46 +294,46 @@ public class RequestService {
 	}
 
 	// Private methods ---------------------------
-	private void checkNoExistRequestMemberProcession(final Procession procession) {
+	private void checkNoExistRequestMemberParade(final Parade parade) {
 		Member member;
 		Collection<Request> requests;
 
 		member = this.memberService.findByPrincipal();
-		requests = this.findRequestMemberProcession(member.getId(), procession.getId());
+		requests = this.findRequestMemberParade(member.getId(), parade.getId());
 
 		Assert.isTrue(requests.isEmpty());
 	}
 
-	public Collection<Request> findRequestMemberProcession(final int memberId, final int processionId) {
+	public Collection<Request> findRequestMemberParade(final int memberId, final int paradeId) {
 		Collection<Request> requests;
 
-		requests = this.requestRepository.findRequestByMemberProcession(memberId, processionId);
+		requests = this.requestRepository.findRequestByMemberParade(memberId, paradeId);
 
 		return requests;
 	}
 
-	private void checkPrincipalIsMemberOfBrotherhoodOfProcession(final Procession procession) {
+	private void checkPrincipalIsMemberOfBrotherhoodOfParade(final Parade parade) {
 		Member member;
 		final Collection<Brotherhood> brotherhoodsMember;
-		final Brotherhood brotherhoodProcession;
+		final Brotherhood brotherhoodParade;
 
 		member = this.memberService.findByPrincipal();
 		brotherhoodsMember = this.brotherhoodService.findByMemberId(member.getId());
-		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
+		brotherhoodParade = this.brotherhoodService.findBrotherhoodByParade(parade.getId());
 
-		Assert.isTrue(brotherhoodsMember.contains(brotherhoodProcession));
+		Assert.isTrue(brotherhoodsMember.contains(brotherhoodParade));
 	}
 
-	private void checkPrincipalIsBrotherhoodOfProcession(final int requestId) {
-		Brotherhood brotherhoodProcession;
+	private void checkPrincipalIsBrotherhoodOfParade(final int requestId) {
+		Brotherhood brotherhoodParade;
 		Brotherhood brotherhoodAuthenticate;
 		Request request;
 
 		request = this.requestRepository.findOne(requestId);
-		brotherhoodProcession = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		brotherhoodParade = this.brotherhoodService.findBrotherhoodByParade(request.getParade().getId());
 		brotherhoodAuthenticate = this.brotherhoodService.findByPrincipal();
 
-		Assert.isTrue(brotherhoodProcession.getId() == brotherhoodAuthenticate.getId());
+		Assert.isTrue(brotherhoodParade.getId() == brotherhoodAuthenticate.getId());
 
 	}
 
@@ -341,7 +341,7 @@ public class RequestService {
 		Brotherhood brotherhoodRequest;
 		Brotherhood brotherhoodPrincipal;
 
-		brotherhoodRequest = this.brotherhoodService.findBrotherhoodByProcession(request.getProcession().getId());
+		brotherhoodRequest = this.brotherhoodService.findBrotherhoodByParade(request.getParade().getId());
 		brotherhoodPrincipal = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(brotherhoodRequest.equals(brotherhoodPrincipal));
@@ -423,10 +423,10 @@ public class RequestService {
 
 	}
 
-	public Collection<Request> findRequestByProcession(final int processionId) {
+	public Collection<Request> findRequestByParade(final int paradeId) {
 		Collection<Request> requests;
 
-		requests = this.requestRepository.findRequestByProcession(processionId);
+		requests = this.requestRepository.findRequestByParade(paradeId);
 
 		return requests;
 	}
@@ -452,29 +452,29 @@ public class RequestService {
 
 	//Queries
 
-	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('PENDING'))
-	public Double findRatioPendingRequestsProcession(final int processionId) {
+	//Req 12.3.4 (The ratio of requests to march in a parade, grouped by status: ('PENDING'))
+	public Double findRatioPendingRequestsParade(final int paradeId) {
 		Double result;
 
-		result = this.requestRepository.findRatioPendingRequestsProcession(processionId);
+		result = this.requestRepository.findRatioPendingRequestsParade(paradeId);
 
 		return result;
 	}
 
-	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('APPROVED'))
-	public Double findRatioAprovedRequestsProcession(final int processionId) {
+	//Req 12.3.4 (The ratio of requests to march in a parade, grouped by status: ('APPROVED'))
+	public Double findRatioAprovedRequestsParade(final int paradeId) {
 		Double result;
 
-		result = this.requestRepository.findRatioAprovedRequestsProcession(processionId);
+		result = this.requestRepository.findRatioAprovedRequestsParade(paradeId);
 
 		return result;
 	}
 
-	//Req 12.3.4 (The ratio of requests to march in a procession, grouped by status: ('REJECTED'))
-	public Double findRatioRejectedRequetsProcession(final int processionId) {
+	//Req 12.3.4 (The ratio of requests to march in a parade, grouped by status: ('REJECTED'))
+	public Double findRatioRejectedRequetsParade(final int paradeId) {
 		Double result;
 
-		result = this.requestRepository.findRatioRejectedRequetsProcession(processionId);
+		result = this.requestRepository.findRatioRejectedRequetsParade(paradeId);
 
 		return result;
 	}

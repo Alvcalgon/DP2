@@ -21,7 +21,7 @@ public class RequestServiceTest extends AbstractTest {
 	private RequestService		requestService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	//Test ------------------------------------------------
 
@@ -30,11 +30,11 @@ public class RequestServiceTest extends AbstractTest {
 	//		super.authenticate("member12");
 	//		final Integer[] rowFree;
 	//		final Integer[] columnFree;
-	//		Procession procession;
+	//		Parade parade;
 	//
-	//		procession = this.processionService.findOne(super.getEntityId("procession1"));
-	//		rowFree = this.processionService.rowFree(procession);
-	//		columnFree = this.processionService.columnFree(procession);
+	//		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+	//		rowFree = this.paradeService.rowFree(parade);
+	//		columnFree = this.paradeService.columnFree(parade);
 	//
 	//		System.out.println(rowFree);
 	//		System.out.println(columnFree);
@@ -46,9 +46,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate5() {
 	//		super.authenticate("member2");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession3"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade3"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();
@@ -58,9 +58,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate6() {
 	//		super.authenticate("member3");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession1"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();
@@ -70,9 +70,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate7() {
 	//		super.authenticate("member2");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession5"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade5"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();
@@ -85,9 +85,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate2() {
 	//		super.authenticate("member3");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession5"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade5"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();
@@ -100,9 +100,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate3() {
 	//		super.authenticate("member3");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession1"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();
@@ -115,9 +115,9 @@ public class RequestServiceTest extends AbstractTest {
 	//	public void testCreate4() {
 	//		super.authenticate("member3");
 	//		final Request request;
-	//		Procession procession;
-	//		procession = this.processionService.findOne(super.getEntityId("procession3"));
-	//		request = this.requestService.create(procession);
+	//		Parade parade;
+	//		parade = this.paradeService.findOne(super.getEntityId("parade3"));
+	//		request = this.requestService.create(parade);
 	//		Assert.isTrue(request.getStatus().equals("PENDING"));
 	//		Assert.notNull(request);
 	//		super.unauthenticate();

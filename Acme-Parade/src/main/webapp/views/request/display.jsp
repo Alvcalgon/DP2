@@ -12,12 +12,12 @@
 	<br/>
 	
 	<jstl:if test="${request.status=='APPROVED'}">
-	<strong><spring:message code="request.rowProcession"/>:</strong>
-		<jstl:out value="${request.rowProcession}"/>
+	<strong><spring:message code="request.rowParade"/>:</strong>
+		<jstl:out value="${request.rowParade}"/>
 	<br/>
 
-	<strong><spring:message code="request.columnProcession"/>:</strong>
-		<jstl:out value="${request.columnProcession}"/>
+	<strong><spring:message code="request.columnParade"/>:</strong>
+		<jstl:out value="${request.columnParade}"/>
 	<br/>
 	</jstl:if>
 	
@@ -31,8 +31,8 @@
 		<jstl:out value="${request.member.name}"/>
 	<br/>
 	
-	<strong><spring:message code="request.procession"/>:</strong>
-		<jstl:out value="${request.procession.title}"/>
+	<strong><spring:message code="request.parade"/>:</strong>
+		<jstl:out value="${request.parade.title}"/>
 	<br/>
 	
 	<!-- Links -->	

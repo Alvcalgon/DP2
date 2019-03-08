@@ -15,19 +15,19 @@ import security.LoginService;
 import services.BrotherhoodService;
 import services.FloatService;
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import services.UtilityService;
 import domain.Brotherhood;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping(value = "/procession")
-public class ProcessionController extends AbstractController {
+@RequestMapping(value = "/parade")
+public class ParadeController extends AbstractController {
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -47,43 +47,43 @@ public class ProcessionController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public ProcessionController() {
+	public ParadeController() {
 		super();
 	}
 
-	// Procession display ---------------------------------------------------------------		
+	// Parade display ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int processionId) {
+	public ModelAndView display(@RequestParam final int paradeId) {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 		Brotherhood brotherhood;
 		Brotherhood principal;
 		Collection<domain.Float> floats;
 
-		result = new ModelAndView("procession/display");
+		result = new ModelAndView("parade/display");
 
 		try {
-			brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
+			brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 
 			//Está registrado como hermandad y además es el dueño de la procesión
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
 				principal = this.brotherhoodService.findByPrincipal();
-				procession = this.processionService.findOne(processionId);
+				parade = this.paradeService.findOne(paradeId);
 
 				result.addObject("isOwner", true);
 				result.addObject("principal", principal);
-				result.addObject("procession", procession);
-				result.addObject("floats", procession.getFloats());
+				result.addObject("parade", parade);
+				result.addObject("floats", parade.getFloats());
 			} else {
-				procession = this.processionService.findOneToDisplay(processionId);
-				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
-				floats = procession.getFloats();
-				result.addObject("procession", procession);
-				result.addObject("floats", procession.getFloats());
+				parade = this.paradeService.findOneToDisplay(paradeId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
+				floats = parade.getFloats();
+				result.addObject("parade", parade);
+				result.addObject("floats", parade.getFloats());
 
 				if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
-					this.isRequestable(procession, result);
+					this.isRequestable(parade, result);
 			}
 
 			result.addObject("brotherhood", brotherhood);
@@ -91,11 +91,11 @@ public class ProcessionController extends AbstractController {
 		} catch (final Exception e1) {
 
 			try {
-				procession = this.processionService.findOneToDisplay(processionId);
-				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(processionId);
-				floats = procession.getFloats();
+				parade = this.paradeService.findOneToDisplay(paradeId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
+				floats = parade.getFloats();
 
-				result.addObject("procession", procession);
+				result.addObject("parade", parade);
 				result.addObject("floats", floats);
 				result.addObject("brotherhood", brotherhood);
 			} catch (final Exception e) {
@@ -106,17 +106,17 @@ public class ProcessionController extends AbstractController {
 
 		return result;
 	}
-	// Procession list ---------------------------------------------------------------
+	// Parade list ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
-		Collection<Procession> processions;
+		Collection<Parade> parades;
 		Brotherhood principal;
 		Boolean hasFloats;
 
-		result = new ModelAndView("procession/list");
-		processions = this.processionService.findProcessionFinalByBrotherhood(brotherhoodId);
-		result.addObject("processions", processions);
+		result = new ModelAndView("parade/list");
+		parades = this.paradeService.findParadeFinalByBrotherhood(brotherhoodId);
+		result.addObject("parades", parades);
 		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
@@ -132,34 +132,34 @@ public class ProcessionController extends AbstractController {
 
 				if (brotherhoodId == this.brotherhoodService.findByPrincipal().getId()) {
 
-					processions = this.processionService.findProcessionByBrotherhood(principal.getId());
+					parades = this.paradeService.findParadeByBrotherhood(principal.getId());
 
 					result.addObject("isOwner", true);
-					result.addObject("processions", processions);
+					result.addObject("parades", parades);
 
 				}
 			}
 		} catch (final Exception e) {
 		}
 
-		result.addObject("requestURI", "procession/list.do?brotherhoodId=" + brotherhoodId);
+		result.addObject("requestURI", "parade/list.do?brotherhoodId=" + brotherhoodId);
 		return result;
 
 	}
 
 	//Este método se usa en caso de que si es un miembro para que pueda solicitar salir en la procesion
-	private void isRequestable(final Procession procession, final ModelAndView result) {
+	private void isRequestable(final Parade parade, final ModelAndView result) {
 		Collection<Member> members;
 		Brotherhood brotherhood;
 		Date dateNow;
 
-		brotherhood = this.brotherhoodService.findBrotherhoodByProcession(procession.getId());
+		brotherhood = this.brotherhoodService.findBrotherhoodByParade(parade.getId());
 		members = this.memberService.findEnroledMemberByBrotherhood(brotherhood.getId());
 		dateNow = this.utilityService.current_moment();
 
 		if (members.contains(this.memberService.findByPrincipal()))
-			if (this.requestService.findRequestMemberProcession(this.memberService.findByPrincipal().getId(), procession.getId()).isEmpty())
-				if (dateNow.before(this.processionService.findOne(procession.getId()).getMoment()))
+			if (this.requestService.findRequestMemberParade(this.memberService.findByPrincipal().getId(), parade.getId()).isEmpty())
+				if (dateNow.before(this.paradeService.findOne(parade.getId()).getMoment()))
 					result.addObject("memberAutorize", true);
 	}
 }

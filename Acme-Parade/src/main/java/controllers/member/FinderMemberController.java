@@ -55,7 +55,7 @@ public class FinderMemberController extends AbstractController {
 		finder = this.finderService.findByMemberPrincipal();
 		this.finderService.clear(finder);
 
-		result = new ModelAndView("redirect:/procession/member/listFinder.do");
+		result = new ModelAndView("redirect:/parade/member/listFinder.do");
 
 		return result;
 	}
@@ -71,7 +71,7 @@ public class FinderMemberController extends AbstractController {
 		else
 			try {
 				this.finderService.save(finderRec);
-				result = new ModelAndView("redirect:/procession/member/listFinder.do");
+				result = new ModelAndView("redirect:/parade/member/listFinder.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(finderRec, "finder.commit.error");
 			}

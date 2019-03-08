@@ -32,7 +32,7 @@
 	
 	<acme:cancel url="float/list.do?brotherhoodId=${owner.id}" code="float.cancel"/>
 	
-	<jstl:if test="${floatForm.id != 0 && notProcession}">
+	<jstl:if test="${floatForm.id != 0 && notParade}">
 		<acme:submit name="delete"
 		 			 code="float.delete" />
 	</jstl:if>

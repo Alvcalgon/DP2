@@ -31,7 +31,7 @@ public class UtilityService {
 	private CustomisationService	customisationService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 
 	// Constructors ------------------------
@@ -89,7 +89,7 @@ public class UtilityService {
 		do {
 			result = numbers + this.createRandomLetters();
 			counter++;
-		} while (!(this.processionService.existTicker(result) == null) && counter < 650000);
+		} while (!(this.paradeService.existTicker(result) == null) && counter < 650000);
 
 		return result;
 	}
