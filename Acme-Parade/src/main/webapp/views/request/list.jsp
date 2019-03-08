@@ -60,7 +60,7 @@
 		</security:authorize>
 
 		<display:column style="background-color:${colorValue }"
-			property="procession.title" titleKey="request.procession" />
+			property="parade.title" titleKey="request.parade" />
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<display:column style="background-color:${colorValue }"
@@ -94,13 +94,13 @@
 		</security:authorize>
 
 		<display:column style="background-color:${colorValue }"
-			property="procession.title" titleKey="request.procession" />
+			property="parade.title" titleKey="request.parade" />
 
 		<display:column style="background-color:${colorValue }"
-			property="rowProcession" titleKey="request.rowProcession" />
+			property="rowParade" titleKey="request.rowParade" />
 
 		<display:column style="background-color:${colorValue }"
-			property="columnProcession" titleKey="request.columnProcession" />
+			property="columnParade" titleKey="request.columnParade" />
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<display:column style="background-color:${colorValue }"
@@ -135,7 +135,7 @@
 		</security:authorize>
 
 		<display:column style="background-color:${colorValue }"
-			property="procession.title" titleKey="request.procession" />
+			property="parade.title" titleKey="request.parade" />
 
 		<display:column style="background-color:${colorValue }"
 			property="reasonWhy" titleKey="request.reasonWhy" />

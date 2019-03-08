@@ -45,7 +45,7 @@
 <p> <strong> <spring:message code="dashboard.four" />: </strong> </p>
 <table>
 	<tr>
-		<th> <spring:message code="procession.ticker" /> </th>
+		<th> <spring:message code="parade.ticker" /> </th>
 		<th> <spring:message code="dashboard.request.pending" /> </th>
 		<th> <spring:message code="dashboard.request.approved" /> </th>
 		<th> <spring:message code="dashboard.request.rejected" /> </th>
@@ -61,9 +61,9 @@
 </table>
 
 <p> <strong> <spring:message code="dashboard.five" />: </strong> </p>
-<display:table name="processions" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column property="ticker" titleKey="procession.ticker" />
-	<display:column property="title" titleKey="procession.title" />
+<display:table name="parades" id="row" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="ticker" titleKey="parade.ticker" />
+	<display:column property="title" titleKey="parade.title" />
 </display:table>
 
 <p> <strong> <spring:message code="dashboard.six" />: </strong> </p>

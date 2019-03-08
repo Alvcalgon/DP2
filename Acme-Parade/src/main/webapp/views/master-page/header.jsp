@@ -49,7 +49,7 @@
 				</ul>
 			</li>
 			
-			<li><a class="fNiv" href="procession/member/listFinder.do"><spring:message code="master.page.finder.procession" /></a></li>
+			<li><a class="fNiv" href="parade/member/listFinder.do"><spring:message code="master.page.finder.parade" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">

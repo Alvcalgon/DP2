@@ -26,21 +26,21 @@
 	<form:hidden path="id" />
 	<form:hidden path="status" />
 	<form:hidden path="member" />
-	<form:hidden path="procession" />
-	<form:hidden path="rowProcession" />
-	<form:hidden path="columnProcession" />
+	<form:hidden path="parade" />
+	<form:hidden path="rowParade" />
+	<form:hidden path="columnParade" />
 
 	<jstl:if test="${requestForm.status=='APPROVED'}">
-		<form:label path="positionProcession">
-			<spring:message code="request.positionProcession" />:
+		<form:label path="positionParade">
+			<spring:message code="request.positionParade" />:
 		</form:label>
-		<form:select path="positionProcession" multiple="false" size="1">
+		<form:select path="positionParade" multiple="false" size="1">
 			<jstl:forEach var="position" items="${positions.keySet()}">
 				<form:option label="${positions.get(position)[0]}, ${positions.get(position)[1]}"
 					value="${position}" />
 			</jstl:forEach>
 		</form:select>
-		<form:errors cssClass="error" path="positionProcession" />
+		<form:errors cssClass="error" path="positionParade" />
 
 		<br />
 		

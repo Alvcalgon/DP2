@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
@@ -35,7 +35,7 @@ public class RequestBrotherhoodController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService	paradeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -208,7 +208,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		SortedMap<Integer, List<Integer>> positionsMap;
 
 		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
-		positionsMap = this.processionService.positionsFree(requestForm.getProcession());
+		positionsMap = this.paradeService.positionsFree(requestForm.getParade());
 
 		result = new ModelAndView("request/edit");
 		result.addObject("requestForm", requestForm);

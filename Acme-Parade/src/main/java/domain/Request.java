@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 	@Index(columnList = "status")
 }, uniqueConstraints = {
 	@UniqueConstraint(columnNames = {
-		"procession", "member"
+		"parade", "member"
 	})
 })
 public class Request extends DomainEntity {
@@ -37,8 +37,8 @@ public class Request extends DomainEntity {
 	// Attributes
 
 	private String	status;
-	private Integer	rowProcession;
-	private Integer	columnProcession;
+	private Integer	rowParade;
+	private Integer	columnParade;
 	private String	reasonWhy;
 
 
@@ -53,21 +53,21 @@ public class Request extends DomainEntity {
 	}
 
 	@Min(1)
-	public Integer getRowProcession() {
-		return this.rowProcession;
+	public Integer getRowParade() {
+		return this.rowParade;
 	}
 
-	public void setRowProcession(final Integer rowProcession) {
-		this.rowProcession = rowProcession;
+	public void setRowParade(final Integer rowParade) {
+		this.rowParade = rowParade;
 	}
 
 	@Min(1)
-	public Integer getColumnProcession() {
-		return this.columnProcession;
+	public Integer getColumnParade() {
+		return this.columnParade;
 	}
 
-	public void setColumnProcession(final Integer columnProcession) {
-		this.columnProcession = columnProcession;
+	public void setColumnParade(final Integer columnParade) {
+		this.columnParade = columnParade;
 	}
 
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
@@ -83,7 +83,7 @@ public class Request extends DomainEntity {
 	//Relationships ----------------------------------------------------
 
 	private Member		member;
-	private Procession	procession;
+	private Parade	parade;
 
 
 	@Valid
@@ -100,12 +100,12 @@ public class Request extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 }

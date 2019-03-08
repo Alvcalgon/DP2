@@ -17,18 +17,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import services.BrotherhoodService;
 import services.CustomisationService;
 import services.FloatService;
-import services.ProcessionService;
+import services.ParadeService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Float;
-import domain.Procession;
+import domain.Parade;
 
 @Controller
-@RequestMapping(value = "/procession/brotherhood")
-public class ProcessionBroherhoodController extends AbstractController {
+@RequestMapping(value = "/parade/brotherhood")
+public class ParadeBroherhoodController extends AbstractController {
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
@@ -42,7 +42,7 @@ public class ProcessionBroherhoodController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public ProcessionBroherhoodController() {
+	public ParadeBroherhoodController() {
 		super();
 	}
 
@@ -50,11 +50,11 @@ public class ProcessionBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 
-		procession = this.processionService.create();
+		parade = this.paradeService.create();
 
-		result = this.createEditModelAndView(procession);
+		result = this.createEditModelAndView(parade);
 
 		return result;
 	}
@@ -62,14 +62,14 @@ public class ProcessionBroherhoodController extends AbstractController {
 	// Edit
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int processionId) {
+	public ModelAndView edit(@RequestParam final int paradeId) {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 
 		try {
-			procession = this.processionService.findOneToEdit(processionId);
+			parade = this.paradeService.findOneToEdit(paradeId);
 
-			result = this.createEditModelAndView(procession);
+			result = this.createEditModelAndView(parade);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -78,80 +78,80 @@ public class ProcessionBroherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Procession procession, final BindingResult binding) {
+	public ModelAndView save(@Valid final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
-		Procession saved;
+		Parade saved;
 		int rowLimit;
 		int columnLimit;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(procession);
+			result = this.createEditModelAndView(parade);
 		else
 			try {
 				rowLimit = this.customisationService.find().getRowLimit();
 				columnLimit = this.customisationService.find().getColumnLimit();
-				saved = this.processionService.save(procession, rowLimit, columnLimit);
-				brotherhood = this.brotherhoodService.findBrotherhoodByProcession(saved.getId());
+				saved = this.paradeService.save(parade, rowLimit, columnLimit);
+				brotherhood = this.brotherhoodService.findBrotherhoodByParade(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
 			} catch (final IllegalArgumentException invalidMoment) {
 				if (invalidMoment.getMessage().equals("Invalid moment"))
-					result = this.createEditModelAndView(procession, "procession.invalid.moment");
+					result = this.createEditModelAndView(parade, "parade.invalid.moment");
 				else
-					result = this.createEditModelAndView(procession, "procession.commit.error");
+					result = this.createEditModelAndView(parade, "parade.commit.error");
 			}
 
 			catch (final Throwable oops) {
-				result = this.createEditModelAndView(procession, "procession.commit.error");
+				result = this.createEditModelAndView(parade, "parade.commit.error");
 			}
 
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Procession procession, final BindingResult binding) {
+	public ModelAndView delete(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 		int brotherhoodId;
 
 		try {
-			brotherhoodId = this.brotherhoodService.findBrotherhoodByProcession(procession.getId()).getId();
-			this.processionService.delete(procession);
-			result = new ModelAndView("redirect:../../procession/list.do?brotherhoodId=" + brotherhoodId);
+			brotherhoodId = this.brotherhoodService.findBrotherhoodByParade(parade.getId()).getId();
+			this.paradeService.delete(parade);
+			result = new ModelAndView("redirect:../../parade/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(procession, "procession.delete.error");
+			result = this.createEditModelAndView(parade, "parade.delete.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/makeFinal", method = RequestMethod.GET)
-	public ModelAndView makeFinal(@RequestParam final int processionId, final RedirectAttributes redir) {
+	public ModelAndView makeFinal(@RequestParam final int paradeId, final RedirectAttributes redir) {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 
-		procession = this.processionService.findOne(processionId);
+		parade = this.paradeService.findOne(paradeId);
 
 		try {
-			this.processionService.makeFinal(procession);
+			this.paradeService.makeFinal(parade);
 		} catch (final Throwable oops) {
-			redir.addFlashAttribute("messageCode", "procession.make.final.error");
+			redir.addFlashAttribute("messageCode", "parade.make.final.error");
 		}
 
-		result = new ModelAndView("redirect:/procession/display.do?processionId=" + processionId);
+		result = new ModelAndView("redirect:/parade/display.do?paradeId=" + paradeId);
 
 		return result;
 	}
 
 	// Arcillary methods --------------------------
 
-	protected ModelAndView createEditModelAndView(final Procession procession) {
+	protected ModelAndView createEditModelAndView(final Parade parade) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(procession, null);
+		result = this.createEditModelAndView(parade, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Procession procession, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final Parade parade, final String messageCode) {
 		ModelAndView result;
 		Brotherhood owner;
 		Collection<Float> floats;
@@ -159,8 +159,8 @@ public class ProcessionBroherhoodController extends AbstractController {
 		owner = this.brotherhoodService.findByPrincipal();
 		floats = this.floatService.findFloatByBrotherhood(owner.getId());
 
-		result = new ModelAndView("procession/edit");
-		result.addObject("procession", procession);
+		result = new ModelAndView("parade/edit");
+		result.addObject("parade", parade);
 		result.addObject("messageCode", messageCode);
 		result.addObject("owner", owner);
 		result.addObject("floats", floats);

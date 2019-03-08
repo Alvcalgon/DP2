@@ -191,9 +191,9 @@
 
 		<p>
 			<strong> <spring:message
-					code="actor.brotherhood.processions" />:
-			</strong> <a href="procession/list.do?brotherhoodId=${actor.id}"><spring:message
-					code="actor.brotherhood.processions" /></a>
+					code="actor.brotherhood.parades" />:
+			</strong> <a href="parade/list.do?brotherhoodId=${actor.id}"><spring:message
+					code="actor.brotherhood.parades" /></a>
 		</p>
 
 		<p>

@@ -488,9 +488,9 @@
 		<property name="name" value="Acme Madrugá" />
 		<property name="banner" value="https://image.ibb.co/iuaDgV/Untitled.png" />
 		<property name="englishWelcomeMessage"
-			value="Welcome to Acme Madrugá! the site to organise your processions." />
+			value="Welcome to Acme Madrugá! the site to organise your parades." />
 		<property name="spanishWelcomeMessage"
-			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
+			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar desfiles. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
 		<property name="maxNumberResults" value="10" />
@@ -512,7 +512,7 @@
 		<property name="maximumDate" value="2020/10/05" />
 		<property name="updatedMoment" value="2019/01/01 10:10" />
 		<property name="member" ref="member1" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 				<null></null>
 			</list>
@@ -526,7 +526,7 @@
 		<property name="maximumDate" value="2022/10/05" />
 		<property name="updatedMoment" value="2018/05/08 21:47" />
 		<property name="member" ref="member2" />
-		<property name="processions">
+		<property name="parades">
 			<list>
 				<null></null>
 			</list>

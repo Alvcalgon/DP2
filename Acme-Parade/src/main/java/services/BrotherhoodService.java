@@ -144,10 +144,10 @@ public class BrotherhoodService {
 		return result;
 	}
 
-	public Brotherhood findBrotherhoodByProcession(final int processionId) {
+	public Brotherhood findBrotherhoodByParade(final int paradeId) {
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodRepository.findBrotherhoodByProcession(processionId);
+		brotherhood = this.brotherhoodRepository.findBrotherhoodByParade(paradeId);
 
 		return brotherhood;
 

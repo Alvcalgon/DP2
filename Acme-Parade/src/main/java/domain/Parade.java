@@ -26,11 +26,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(indexes = {
 	@Index(columnList = "isFinalMode, ticker, title, description, moment")
 })
-public class Procession extends DomainEntity {
+public class Parade extends DomainEntity {
 
 	// Constructor
 
-	public Procession() {
+	public Parade() {
 		super();
 	}
 
@@ -42,7 +42,7 @@ public class Procession extends DomainEntity {
 	private String		description;
 	private Date		moment;
 	private boolean		isFinalMode;
-	private Integer[][]	matrizProcession;
+	private Integer[][]	matrizParade;
 
 
 	@NotBlank
@@ -96,12 +96,12 @@ public class Procession extends DomainEntity {
 	}
 
 	@Column(length = 400000000)
-	public Integer[][] getMatrizProcession() {
-		return this.matrizProcession;
+	public Integer[][] getMatrizParade() {
+		return this.matrizParade;
 	}
 
-	public void setMatrizProcession(final Integer[][] matrizProcession) {
-		this.matrizProcession = matrizProcession;
+	public void setMatrizParade(final Integer[][] matrizParade) {
+		this.matrizParade = matrizParade;
 	}
 
 

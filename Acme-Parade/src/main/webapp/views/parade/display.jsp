@@ -19,34 +19,34 @@
 
 	<security:authorize access="hasRole('MEMBER')">
 	<jstl:if test="${memberAutorize == true}">
-	<h2><a href="request/member/create.do?processionId=${procession.id}"><spring:message code="procession.request" /></a></h2> 
+	<h2><a href="request/member/create.do?paradeId=${parade.id}"><spring:message code="parade.request" /></a></h2> 
 	</jstl:if>
 	</security:authorize>
 	
 
-	<strong><spring:message code="procession.brotherhood"/>:</strong>
+	<strong><spring:message code="parade.brotherhood"/>:</strong>
 		<jstl:out value="${brotherhood.title}"/>
 	<br/>
 	
 
-	<strong><spring:message code="procession.title"/>:</strong>
-		<jstl:out value="${procession.title}"/>
+	<strong><spring:message code="parade.title"/>:</strong>
+		<jstl:out value="${parade.title}"/>
 	<br/>
 	
-	<strong><spring:message code="procession.description"/>:</strong>
-		<jstl:out value="${procession.description}"/>
+	<strong><spring:message code="parade.description"/>:</strong>
+		<jstl:out value="${parade.description}"/>
 	<br/>
 	
-		<strong> <spring:message code="procession.moment" />: </strong>
+		<strong> <spring:message code="parade.moment" />: </strong>
 	
-	<spring:message code="procession.formatMoment1" var="formatMoment"/>
-		<fmt:formatDate value="${procession.moment}" pattern="${formatMoment}"/>
+	<spring:message code="parade.formatMoment1" var="formatMoment"/>
+		<fmt:formatDate value="${parade.moment}" pattern="${formatMoment}"/>
 	
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">		
  	<jstl:if test="${owner}">
- 		<strong><spring:message code="procession.finalMode"/>:</strong>
-			<jstl:out value="${procession.isFinalMode}"/>
+ 		<strong><spring:message code="parade.finalMode"/>:</strong>
+			<jstl:out value="${parade.isFinalMode}"/>
 		<br/>
  	
  	</jstl:if>
@@ -56,12 +56,12 @@
  	<br/><br/>
 <jstl:if test="${ not empty floats}">	
 <fieldset name="">
-<strong><spring:message	code="procession.floats" /></strong>
-	<display:table pagesize="5" class="displaytag" name="procession.floats" requestURI="${requestURI}" id="row">
+<strong><spring:message	code="parade.floats" /></strong>
+	<display:table pagesize="5" class="displaytag" name="parade.floats" requestURI="${requestURI}" id="row">
 
 		<display:column>	
 			<a href="float/display.do?floatId=${row.id}">
-				<spring:message	code="procession.display" />			
+				<spring:message	code="parade.display" />			
 			</a>
 		</display:column>
 		
@@ -69,23 +69,23 @@
 	<jstl:if test="${principal == row.brotherhood}">	 
 		<display:column >
 			<a href="float/brotherhood/edit.do?floatId=${row.id}">
-				<spring:message	code="procession.edit" />
+				<spring:message	code="parade.edit" />
 			</a>
 		</display:column>
 	</jstl:if>
 		</security:authorize>
 	
-		<display:column property="title" titleKey="procession.title" />	
+		<display:column property="title" titleKey="parade.title" />	
 		
-		<display:column property="brotherhood.title" titleKey="procession.brotherhood" />
+		<display:column property="brotherhood.title" titleKey="parade.brotherhood" />
 	
 	</display:table>
 	
 	</fieldset>
 			</jstl:if>
-		<jstl:if test="${brotherhood==principal && !procession.isFinalMode }">
+		<jstl:if test="${brotherhood==principal && !parade.isFinalMode }">
 
-	<p style="color:blue;"><spring:message code="procession.info"/></p>
+	<p style="color:blue;"><spring:message code="parade.info"/></p>
 </jstl:if>		
 
 	

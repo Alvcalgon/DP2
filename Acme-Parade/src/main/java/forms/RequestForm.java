@@ -2,18 +2,18 @@
 package forms;
 
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
 
 public class RequestForm {
 
 	private int			id;
-	private Integer		rowProcession;
-	private Integer		columnProcession;
+	private Integer		rowParade;
+	private Integer		columnParade;
 	private String		reasonWhy;
-	private Procession	procession;
+	private Parade	parade;
 	private String		status;
 	private Member		member;
-	private Integer		positionProcession;
+	private Integer		positionParade;
 
 
 	public int getId() {
@@ -24,17 +24,17 @@ public class RequestForm {
 		this.id = id;
 	}
 
-	public Integer getRowProcession() {
-		return this.rowProcession;
+	public Integer getRowParade() {
+		return this.rowParade;
 	}
-	public void setRowProcession(final Integer rowProcession) {
-		this.rowProcession = rowProcession;
+	public void setRowParade(final Integer rowParade) {
+		this.rowParade = rowParade;
 	}
-	public Integer getColumnProcession() {
-		return this.columnProcession;
+	public Integer getColumnParade() {
+		return this.columnParade;
 	}
-	public void setColumnProcession(final Integer columnProcession) {
-		this.columnProcession = columnProcession;
+	public void setColumnParade(final Integer columnParade) {
+		this.columnParade = columnParade;
 	}
 	public String getReasonWhy() {
 		return this.reasonWhy;
@@ -43,12 +43,12 @@ public class RequestForm {
 		this.reasonWhy = reasonWhy;
 	}
 
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 	public String getStatus() {
@@ -67,12 +67,12 @@ public class RequestForm {
 		this.member = member;
 	}
 
-	public Integer getPositionProcession() {
-		return this.positionProcession;
+	public Integer getPositionParade() {
+		return this.positionParade;
 	}
 
-	public void setPositionProcession(final Integer positionProcession) {
-		this.positionProcession = positionProcession;
+	public void setPositionParade(final Integer positionParade) {
+		this.positionParade = positionParade;
 	}
 
 }
