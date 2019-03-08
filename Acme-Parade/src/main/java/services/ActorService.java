@@ -57,7 +57,6 @@ public class ActorService {
 
 	public Actor save(final Actor actor) {
 		Assert.notNull(actor);
-		this.utilityService.checkEmailActors(actor);
 		if (actor instanceof Brotherhood)
 			this.utilityService.checkPicture(((Brotherhood) actor).getPictures());
 
