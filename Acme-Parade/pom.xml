@@ -12,7 +12,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>Design-and-Testing</groupId>
-	<artifactId>Acme-Madruga</artifactId>
+	<artifactId>Acme-Parade</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -22,7 +22,7 @@
 
 	<!-- Indexing information -->
 
-	<name>Acme-Madruga</name>
+	<name>Acme-Parade</name>
 	<url>http://www.acme.com</url>
 
 	<!-- Build commands -->
@@ -323,5 +323,4 @@
 
 	</dependencies>
 
-	<description>This system allows people share their favourite Shouts.</description>
 </project> 

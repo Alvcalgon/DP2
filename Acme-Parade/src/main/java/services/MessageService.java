@@ -441,7 +441,7 @@ public class MessageService {
 		ticker = parade.getTicker();
 
 		subject = "A publication notification / Una notificación de publicación";
-		body = "The parade whose ticker is " + ticker + " has been published / La procesión cuyo ticker es " + ticker + " ha sido publicada";
+		body = "The parade whose ticker is " + ticker + " has been published / La desfile cuyo ticker es " + ticker + " ha sido publicada";
 
 		message = this.createNotification(system, recipients, subject, body);
 		result = this.messageRepository.save(message);

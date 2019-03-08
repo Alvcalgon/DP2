@@ -490,7 +490,7 @@
 		<property name="englishWelcomeMessage"
 			value="Welcome to Acme Madrugá! the site to organise your parades." />
 		<property name="spanishWelcomeMessage"
-			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar procesiones. " />
+			value="¡Bienvenidos a Acme Madrugá! Tu sitio para organizar desfiles. " />
 		<property name="countryCode" value="+34" />
 		<property name="timeCachedResults" value="1" />
 		<property name="maxNumberResults" value="10" />
