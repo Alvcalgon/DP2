@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -77,6 +78,7 @@ public class CreditCard {
 	}
 
 	@Range(min = 100, max = 999)
+	@NotNull
 	public Integer getCvvCode() {
 		return this.cvvCode;
 	}

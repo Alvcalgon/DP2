@@ -6,10 +6,12 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -129,6 +131,7 @@ public class Parade extends DomainEntity {
 	//Relationships ----------------------------------------------------
 
 	private Collection<Float>	floats;
+	private Collection<Segment>	segments;
 
 
 	@NotNull
@@ -140,5 +143,15 @@ public class Parade extends DomainEntity {
 
 	public void setFloats(final Collection<Float> floats) {
 		this.floats = floats;
+	}
+
+	@NotNull
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Segment> getSegments() {
+		return this.segments;
+	}
+
+	public void setSegments(final Collection<Segment> segments) {
+		this.segments = segments;
 	}
 }

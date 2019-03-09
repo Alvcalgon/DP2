@@ -6,6 +6,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -195,6 +196,7 @@ public class Customisation extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@NotNull
 	public String getCreditCardMakes() {
 		return this.creditCardMakes;
 	}
@@ -205,6 +207,7 @@ public class Customisation extends DomainEntity {
 
 	@Range(min = 0, max = 1)
 	@Digits(integer = 3, fraction = 2)
+	@NotNull
 	public Double getVatPercentage() {
 		return this.vatPercentage;
 	}
@@ -215,6 +218,7 @@ public class Customisation extends DomainEntity {
 
 	@Digits(integer = 9, fraction = 2)
 	@Min(0)
+	@NotNull
 	public Double getFare() {
 		return this.fare;
 	}

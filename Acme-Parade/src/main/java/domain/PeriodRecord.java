@@ -4,9 +4,9 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
@@ -22,26 +22,26 @@ public class PeriodRecord extends Record {
 
 	// Attributes
 
-	private int		startYear;
-	private int		endYear;
+	private Integer	startYear;
+	private Integer	endYear;
 	private String	photos;
 
 
-	@Range(min = 0, max = 9999)
-	public int getStartYear() {
+	@Min(1)
+	public Integer getStartYear() {
 		return this.startYear;
 	}
 
-	public void setStartYear(final int startYear) {
+	public void setStartYear(final Integer startYear) {
 		this.startYear = startYear;
 	}
 
-	@Range(min = 0, max = 9999)
-	public int getEndYear() {
+	@Min(1)
+	public Integer getEndYear() {
 		return this.endYear;
 	}
 
-	public void setEndYear(final int endYear) {
+	public void setEndYear(final Integer endYear) {
 		this.endYear = endYear;
 	}
 
