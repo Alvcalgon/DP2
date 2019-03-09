@@ -25,7 +25,6 @@ public class Chapter extends Actor {
 	// Attributes
 
 	private String	title;
-	private Area	area;
 
 
 	@NotBlank
@@ -37,6 +36,12 @@ public class Chapter extends Actor {
 	public void setTitle(final String title) {
 		this.title = title;
 	}
+
+
+	// Relationships
+
+	private Area	area;
+
 
 	@Valid
 	@NotNull

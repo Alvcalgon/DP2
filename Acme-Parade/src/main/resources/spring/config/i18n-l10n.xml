@@ -48,6 +48,7 @@
 		<value>/views/request/messages</value>
 		<value>/views/segment/messages</value>
 		<value>/views/socialProfile/messages</value>
+		<value>/views/sponsorship/messages</value>
 	</util:list>
 
 </beans>

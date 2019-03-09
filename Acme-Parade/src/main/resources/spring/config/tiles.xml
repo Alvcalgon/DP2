@@ -48,6 +48,7 @@
 		<value>/views/request/tiles.xml</value>
 		<value>/views/segment/tiles.xml</value>
 		<value>/views/socialProfile/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
 	</util:list>
 
 </beans>

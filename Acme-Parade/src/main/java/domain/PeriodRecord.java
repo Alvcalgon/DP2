@@ -22,26 +22,26 @@ public class PeriodRecord extends Record {
 
 	// Attributes
 
-	private Integer	startYear;
-	private Integer	endYear;
+	private int		startYear;
+	private int		endYear;
 	private String	photos;
 
 
 	@Min(1)
-	public Integer getStartYear() {
+	public int getStartYear() {
 		return this.startYear;
 	}
 
-	public void setStartYear(final Integer startYear) {
+	public void setStartYear(final int startYear) {
 		this.startYear = startYear;
 	}
 
 	@Min(1)
-	public Integer getEndYear() {
+	public int getEndYear() {
 		return this.endYear;
 	}
 
-	public void setEndYear(final Integer endYear) {
+	public void setEndYear(final int endYear) {
 		this.endYear = endYear;
 	}
 

@@ -54,6 +54,7 @@ public class Sponsorship extends DomainEntity {
 	}
 
 	@Valid
+	@NotNull
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}

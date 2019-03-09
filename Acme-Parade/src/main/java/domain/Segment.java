@@ -33,6 +33,7 @@ public class Segment extends DomainEntity {
 
 
 	@Valid
+	@NotNull
 	public GPSCoordinates getOrigin() {
 		return this.origin;
 	}
@@ -42,6 +43,7 @@ public class Segment extends DomainEntity {
 	}
 
 	@Valid
+	@NotNull
 	public GPSCoordinates getDestination() {
 		return this.destination;
 	}
