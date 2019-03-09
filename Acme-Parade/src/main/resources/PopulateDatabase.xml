@@ -264,6 +264,62 @@
 		</property>
 		<property name="isBanned" value="false" />
 	</bean>
+	
+	<bean id="userAccount21" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount22" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount23" class="security.UserAccount">
+		<property name="username" value="chapter1" />
+		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount24" class="security.UserAccount">
+		<property name="username" value="chapter2" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
 
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
@@ -1496,6 +1552,229 @@
 		</property>
 		<property name="actor" ref="system" />
 	</bean>
+	
+		<bean id="box101" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box102" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message10" />
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box103" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box104" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box105" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+		
+		<bean id="box106" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box107" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message10" />
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box108" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box109" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box110" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+		<bean id="box111" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box112" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message10" />
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box113" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box114" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box115" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+	
+		<bean id="box116" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box117" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message10" />
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box118" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box119" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box120" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+		
+
+		
 
 	<bean id="box01" class="domain.Box">
 		<property name="name" value="favorite box" />
@@ -1792,7 +2071,83 @@
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
 		<property name="area" ref="area2" />
 	</bean>
+	
+	<!-- Chapter -->
+	
+	<bean id="chapter1" class="domain.Chapter">
+		<property name="name" value="Alfonso" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Perez" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="alfonsorperez@gmail.com" />
+		<property name="phoneNumber" value="+34 639852147" />
+		<property name="address" value="Calle Principal 2" />
+		<property name="userAccount" ref="userAccount23" />
+		<property name="title" value="Chapter 1" />
+		<property name="area" ref="area2" />
+	</bean>
 
+
+	<bean id="chapter2" class="domain.Chapter">
+		<property name="name" value="Carmen" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ruiz" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="carmenruiz@gmail.com" />
+		<property name="phoneNumber" value="+34 654987321" />
+		<property name="address" value="Calle Secundaria 2" />
+		<property name="userAccount" ref="userAccount24" />
+		<property name="title" value="Chapter 2" /><property name="area" ref="area2" />
+	</bean>
+
+<!-- CreditCard -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="holder1" />
+		<property name="make" value="VISA" />
+		<property name="number" value="38353348140483" />
+		<property name="expirationMonth" value="08" />
+		<property name="expirationYear" value="21" />
+		<property name="cvvCode" value="724" />
+	</bean>
+	
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="holder2" />
+		<property name="make" value="VISA" />
+		<property name="number" value="4716895067094219" />
+		<property name="expirationMonth" value="10" />
+		<property name="expirationYear" value="22" />
+		<property name="cvvCode" value="587" />
+	</bean>
+	
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holder" value="holder3" />
+		<property name="make" value="VISA" />
+		<property name="number" value="4389142361978458" />
+		<property name="expirationMonth" value="03" />
+		<property name="expirationYear" value="22" />
+		<property name="cvvCode" value="587" />
+	</bean>
+	
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holder" value="holder4" />
+		<property name="make" value="VISA" />
+		<property name="number" value="4698134836204970" />
+		<property name="expirationMonth" value="02" />
+		<property name="expirationYear" value="21" />
+		<property name="cvvCode" value="147" />
+	</bean>
+	
+	<bean id="creditCard5" class="domain.CreditCard">
+		<property name="holder" value="holder5" />
+		<property name="make" value="MCARD" />
+		<property name="number" value="4241698979306653" />
+		<property name="expirationMonth" value="01" />
+		<property name="expirationYear" value="20" />
+		<property name="cvvCode" value="258" />
+	</bean>
+	
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
 		<property name="name" value="Acme Madrugá" />
@@ -1812,10 +2167,13 @@
 		<property name="positiveWords" value="good,fantastic,excellent,great,amazing,terrific,beautiful,bien,fantastico,excelente,genial,increible,terrorifico,hermosos" />
 		<property name="negativeWords" value="not,bad,horrible,average,disaster,no,mal,mediocre,desastre" />
 		<property name="languages" value="es,en" />
+		<property name="creditCardMakes" value="VISA,MCARD,AMEX,DINNERS,FLY" />
+		<property name="vatPercentage" value="0.21" />
+		<property name="fare" value="500.0" />
 	</bean>
 
-	<!-- Enrolment (ordenados por member) -->
-	<bean id="enrolment1" class="domain.Enrolment">
+		<!-- Enrolment (ordenados por member) -->
+		<bean id="enrolment1" class="domain.Enrolment">
 		<property name="registeredMoment" value="2015/02/07 10:15" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="member" ref="member1" />
@@ -2207,6 +2565,273 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!-- Float -->
+	<bean id="float1" class="domain.Float">
+		<property name="title" value="Paso del sagrado corazon" />
+		<property name="description" value="Paso de la hermandad1" />
+		<property name="pictures"
+			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
+		<property name="brotherhood" ref="brotherhood1" />
+	</bean>
+
+	<bean id="float2" class="domain.Float">
+		<property name="title" value="Paso del cristo de las penas" />
+		<property name="description" value="Paso2 de la hermandad1" />
+		<property name="pictures"
+			value="https://okdiario.com/img/2018/03/22/cambios-semana-santa-sevilla-2018-655x368.jpg" />
+		<property name="brotherhood" ref="brotherhood1" />
+	</bean>
+
+	<bean id="float3" class="domain.Float">
+		<property name="title" value="Virgen de las Angustias" />
+		<property name="description" value="Paso de la hermandad1" />
+		<property name="pictures"
+			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
+		<property name="brotherhood" ref="brotherhood1" />
+	</bean>
+
+	<bean id="float4" class="domain.Float">
+		<property name="title" value="Esperanza de Triana" />
+		<property name="description" value="Paso de la Esperanza de Triana" />
+		<property name="pictures"
+			value="https://sevilla.abc.es/pasionensevilla//wp-content/uploads/2013/03/esperanzadetriana_ensupaso2013.jpg" />
+		<property name="brotherhood" ref="brotherhood2" />
+	</bean>
+
+	<bean id="float5" class="domain.Float">
+		<property name="title" value="La borriquita" />
+		<property name="description" value="Paso de la borriquita" />
+		<property name="pictures"
+			value="https://i.ytimg.com/vi/Qa_x5Fz8MRY/maxresdefault.jpg" />
+		<property name="brotherhood" ref="brotherhood2" />
+	</bean>
+
+	<bean id="float6" class="domain.Float">
+		<property name="title" value="Paso Jesús Nazareno" />
+		<property name="description" value="Paso de la hermandad3" />
+		<property name="pictures"
+			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
+		<property name="brotherhood" ref="brotherhood3" />
+	</bean>
+	
+	
+	<!-- GPSCoordinates -->
+	<bean id="gpscoordinates1" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712783" />
+		<property name="longitude" value="-74.005413" />
+	</bean>
+	
+	<bean id="gpscoordinates2" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.189796" />
+		<property name="longitude" value="-5.773350" />
+	</bean>
+	
+	<bean id="gpscoordinates3" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712737" />
+		<property name="longitude" value="-74.059413" />
+	</bean>
+	
+	<bean id="gpscoordinates4" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.860669" />
+		<property name="longitude" value="-5.997597" />
+	</bean>
+	
+	<bean id="gpscoordinates5" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.717837" />
+		<property name="longitude" value="-74.059413" />
+	</bean>
+	
+	<bean id="gpscoordinates6" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.379869" />
+		<property name="longitude" value="-5.997886" />
+	</bean>
+	
+	<bean id="gpscoordinates7" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.727837" />
+		<property name="longitude" value="-74.059413" />
+	</bean>
+	
+	<bean id="gpscoordinates8" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.379796" />
+		<property name="longitude" value="-5.902886" />
+	</bean>
+	
+	<bean id="gpscoordinates9" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.717837" />
+		<property name="longitude" value="-74.059413" />
+	</bean>
+	
+	<bean id="gpscoordinates10" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.189796" />
+		<property name="longitude" value="-5.502886" />
+	</bean>
+	
+	<bean id="gpscoordinates11" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712737" />
+		<property name="longitude" value="-74.009413" />
+	</bean>
+	
+	<bean id="gpscoordinates12" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.379896" />
+		<property name="longitude" value="-5.997886" />
+	</bean>
+	
+	<bean id="gpscoordinates13" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712837" />
+		<property name="longitude" value="-74.005413" />
+	</bean>
+	
+	<bean id="gpscoordinates14" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
+	</bean>
+	
+	<bean id="gpscoordinates15" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712787" />
+		<property name="longitude" value="-74.005413" />
+	</bean>
+	
+	<bean id="gpscoordinates16" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
+	</bean>
+	<bean id="gpscoordinates17" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712737" />
+		<property name="longitude" value="-74.009413" />
+	</bean>
+	
+	<bean id="gpscoordinates18" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
+	</bean>
+	<bean id="gpscoordinates19" class="domain.GPSCoordinates">
+		<property name="latitude" value="40.712737" />
+		<property name="longitude" value="-74.005413" />
+	</bean>
+	
+	<bean id="gpscoordinates20" class="domain.GPSCoordinates">
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
+	</bean>
+	<!-- History -->
+	
+	<bean id="history1" class="domain.History">
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="inceptionRecord" ref="inceptionRecord1" />
+		<property name="periodRecords">
+			<list>
+				<ref bean="periodRecord1" />
+				<ref bean="periodRecord2" />
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+				<ref bean="miscellaneousRecord1" />
+				<ref bean="miscellaneousRecord2" />
+			</list>
+		</property>
+		<property name="legalRecords">
+			<list>
+				<ref bean="legalRecord1" />
+			</list>
+		</property>
+		<property name="linkRecords">
+			<list>
+				<ref bean="linkRecord1" />
+				<ref bean="linkRecord2" />
+			</list>
+		</property>		
+	</bean>
+	
+		<bean id="history2" class="domain.History">
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="inceptionRecord" ref="inceptionRecord2" />
+		<property name="periodRecords">
+			<list>
+				<ref bean="periodRecord3" />
+			</list>
+		</property>
+		<property name="miscellaneousRecords">
+			<list>
+				<ref bean="miscellaneousRecord3" />
+			</list>
+		</property>
+		<property name="legalRecords">
+			<list>
+				<ref bean="legalRecord2" />
+				<ref bean="legalRecord3" />
+			</list>
+		</property>
+		<property name="linkRecords">
+			<list>
+				<ref bean="linkRecord3" />
+			</list>
+		</property>		
+	</bean>
+	
+	<!-- InceptionRecord -->
+	
+	<bean id="inceptionRecord1" class="domain.InceptionRecord">
+	<property name="title" value="title of inception record 1" />
+	<property name="text" value="text of inception record 1" />
+	<property name="photos" value="https://tournamentofroses.com/wp-content/uploads/2018/07/2015-Rose-Parade-History.jpg" />
+	</bean>
+	
+	<bean id="inceptionRecord2" class="domain.InceptionRecord">
+	<property name="title" value="title of inception record 2" />
+	<property name="text" value="text of inception record 2" />
+	<property name="photos" value="https://www.profootballhoffestival.com/uploads/273271536074720-xl.jpg" />
+	</bean>
+	
+	<!-- LegalRecord -->
+	
+	<bean id="legalRecord1" class="domain.LegalRecord">
+	<property name="title" value="title of legal record 1" />
+	<property name="text" value="text of legal record 1" />
+	<property name="name" value="legal1" />
+	<property name="vatNumber" value="50" />
+	<property name="laws" value="law1, law2" />
+	</bean>
+	
+	<bean id="legalRecord2" class="domain.LegalRecord">
+	<property name="title" value="title of legal record 2" />
+	<property name="text" value="text of legal record 2" />
+	<property name="name" value="legal2" />
+	<property name="vatNumber" value="50" />
+	<property name="laws" value="law2, law3" />
+	</bean>
+	
+	<bean id="legalRecord3" class="domain.LegalRecord">
+	<property name="title" value="title of legal record 3" />
+	<property name="text" value="text of legal record 3" />
+	<property name="name" value="legal3" />
+	<property name="vatNumber" value="50" />
+	<property name="laws" value="law3, law4" />
+	</bean>
+	
+	<!-- LinkRecord -->
+	
+	<bean id="linkRecord1" class="domain.LinkRecord">
+	<property name="title" value="title of link record 1" />
+	<property name="text" value="text of link record 1" />
+	<property name="linkBrotherhood" value="http://brotherhood1.com" />
+	</bean>
+	
+	<bean id="linkRecord2" class="domain.LinkRecord">
+	<property name="title" value="title of link record 2" />
+	<property name="text" value="text of link record 2" />
+	<property name="linkBrotherhood" value="http://brotherhood1.com" />
+	</bean>
+	
+	<bean id="linkRecord3" class="domain.LinkRecord">
+	<property name="title" value="title of link record 3" />
+	<property name="text" value="text of link record 3" />
+	<property name="linkBrotherhood" value="http://brotherhood1.com" />
+	</bean>
+	
+	
+	
 
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
@@ -2577,56 +3202,237 @@
 			</list>
 		</property>
 	</bean>
-
-	<!-- Float -->
-	<bean id="float1" class="domain.Float">
-		<property name="title" value="Paso del sagrado corazon" />
-		<property name="description" value="Paso de la hermandad1" />
-		<property name="pictures"
-			value="https://elpais.com/elpais/imagenes/2017/02/08/videos/1486542451_183414_1486542754_noticia_fotograma.jpg" />
-		<property name="brotherhood" ref="brotherhood1" />
+	
+		<!-- MiscellaneousRecord -->
+	
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+	<property name="title" value="title of miscellaneous record 1" />
+	<property name="text" value="text of miscellaneous record 1" />
+	</bean>
+	
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+	<property name="title" value="title of miscellaneous record 2" />
+	<property name="text" value="text of miscellaneous record 2" />
+	</bean>
+	
+	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
+	<property name="title" value="title of miscellaneous record 3" />
+	<property name="text" value="text of miscellaneous record 3" />
+	</bean>
+	
+	<!-- Parade -->
+	<bean id="parade1" class="domain.Parade">
+		<property name="ticker" value="120718-ASDFG" />
+		<property name="title" value="Desfile de primavera" />
+		<property name="description" value="Esta es la desfile que sale en primavera" />
+		<property name="moment" value="2019/05/27 10:15" />
+		<property name="isFinalMode" value="true" />
+		<property name="matrizParade">
+			<list>
+				<list>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
+		<property name="floats">
+			<list>
+				<ref bean="float1" />
+			</list>
+		</property>
+		<property name="status" value="rejected" />
+		<property name="reasonWhy" value="no es adecuado" />
+		<property name="segments">
+			<list>
+				<ref bean="segment1" />
+				<ref bean="segment2" />
+				<ref bean="segment3" />
+			</list>
+		</property>
 	</bean>
 
-	<bean id="float2" class="domain.Float">
-		<property name="title" value="Paso del cristo de las penas" />
-		<property name="description" value="Paso2 de la hermandad1" />
-		<property name="pictures"
-			value="https://okdiario.com/img/2018/03/22/cambios-semana-santa-sevilla-2018-655x368.jpg" />
-		<property name="brotherhood" ref="brotherhood1" />
+	<bean id="parade2" class="domain.Parade">
+		<property name="ticker" value="120717-IOKNH" />
+		<property name="title" value="Desfile de invierno" />
+		<property name="description" value="Esta es la desfile que sale en invierno" />
+		<property name="moment" value="2019/11/27 10:15" />
+		<property name="isFinalMode" value="true" />
+		<property name="matrizParade">
+			<list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
+		<property name="floats">
+			<list>
+				<ref bean="float4" />
+				<ref bean="float5" />
+			</list>
+		</property>
+		<property name="status" value="accepted" />
+		<property name="segments">
+			<list>
+				<ref bean="segment6" />
+				<ref bean="segment7" />
+			</list>
+		</property>
 	</bean>
 
-	<bean id="float3" class="domain.Float">
-		<property name="title" value="Virgen de las Angustias" />
-		<property name="description" value="Paso de la hermandad1" />
-		<property name="pictures"
-			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
-		<property name="brotherhood" ref="brotherhood1" />
+	<bean id="parade3" class="domain.Parade">
+		<property name="ticker" value="120716-ASDPG" />
+		<property name="title" value="Desfile de verano" />
+		<property name="description" value="Esta es la desfile que sale en verano" />
+		<property name="moment" value="2019/08/27 10:15" />
+		<property name="isFinalMode" value="true" />
+		<property name="matrizParade">
+			<list>
+				<list>
+					<null></null>
+				</list>
+				<list>
+					<null></null>
+				</list>
+				<list>
+					<null></null>
+				</list>
+			</list>
+		</property>
+		<property name="floats">
+			<list>
+				<ref bean="float4" />
+				<ref bean="float5" />
+			</list>
+		</property>
+		<property name="status" value="submitted" />
+		<property name="segments">
+			<list>
+				<ref bean="segment8" />
+				<ref bean="segment9" />
+			</list>
+		</property>
 	</bean>
 
-	<bean id="float4" class="domain.Float">
-		<property name="title" value="Esperanza de Triana" />
-		<property name="description" value="Paso de la Esperanza de Triana" />
-		<property name="pictures"
-			value="https://sevilla.abc.es/pasionensevilla//wp-content/uploads/2013/03/esperanzadetriana_ensupaso2013.jpg" />
-		<property name="brotherhood" ref="brotherhood2" />
+	<bean id="parade4" class="domain.Parade">
+		<property name="ticker" value="120715-ASSFG" />
+		<property name="title" value="Desfile del jueves santo" />
+		<property name="description"
+			value="Esta es la desfile que sale el jueves santo" />
+		<property name="moment" value="2019/03/27 10:15" />
+		<property name="isFinalMode" value="true" />
+		<property name="matrizParade">
+			<list>
+				<list>
+					<null></null>
+				</list>
+				<list>
+					<null></null>
+				</list>
+				<list>
+					<null></null>
+				</list>
+			</list>
+		</property>
+		<property name="floats">
+			<list>
+				<ref bean="float5" />
+			</list>
+		</property>
+		<property name="status" value="accepted" />
+		<property name="segments">
+			<list>
+				<ref bean="segment10" />
+			</list>
+		</property>
 	</bean>
 
-	<bean id="float5" class="domain.Float">
-		<property name="title" value="La borriquita" />
-		<property name="description" value="Paso de la borriquita" />
-		<property name="pictures"
-			value="https://i.ytimg.com/vi/Qa_x5Fz8MRY/maxresdefault.jpg" />
-		<property name="brotherhood" ref="brotherhood2" />
+	<bean id="parade5" class="domain.Parade">
+		<property name="ticker" value="120714-ADDFG" />
+		<property name="title" value="Desfile de navidad" />
+		<property name="description" value="Esta es la desfile que sale en navidad" />
+		<property name="moment" value="2019/12/27 10:15" />
+		<property name="isFinalMode" value="true" />
+		<property name="matrizParade">
+			<list>
+				<list>
+					<value>0</value>
+					<value>1</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+				<list>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
+				</list>
+			</list>
+		</property>
+		<property name="floats">
+			<list>
+				<ref bean="float6" />
+			</list>
+		</property>
+		<property name="status" value="rejected" />
+		<property name="segments">
+			<list>
+				<null></null>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- PeriodRecord -->
+	<bean id="periodRecord1" class="domain.PeriodRecord">
+	<property name="title" value="title of period record 1" />
+	<property name="text" value="text of period record 1" />
+	<property name="startYear" value="1965" />
+	<property name="endYear" value="1972" />
+	<property name="photos" value="https://www.bloemfonteincourant.co.za/wp-content/uploads/2018/01/history-2.jpg" />
+	</bean>
+	
+	<bean id="periodRecord2" class="domain.PeriodRecord">
+	<property name="title" value="title of period record 2" />
+	<property name="text" value="text of period record 2" />
+	<property name="startYear" value="1838" />
+	<property name="endYear" value="1936" />
+	<property name="photos" value="http://saudioncology.org/main/wp-content/uploads/2017/10/mttc-history-practice-study-guide_171851_large.jpg" />
+	</bean>
+	
+	<bean id="periodRecord3" class="domain.PeriodRecord">
+	<property name="title" value="title of period record 3" />
+	<property name="text" value="text of period record 3" />
+	<property name="startYear" value="1996" />
+	<property name="endYear" value="2005" />
+	<property name="photos" value="https://strangenotions.com/wp-content/uploads/History-600x390.jpg" />
 	</bean>
 
-	<bean id="float6" class="domain.Float">
-		<property name="title" value="Paso Jesús Nazareno" />
-		<property name="description" value="Paso de la hermandad3" />
-		<property name="pictures"
-			value="https://i.ytimg.com/vi/Lm87pxF3nGE/maxresdefault.jpg" />
-		<property name="brotherhood" ref="brotherhood3" />
-	</bean>
-
+	
 	<!-- Position -->
 	<bean id="position1" class="domain.Position">
 		<property name="translationPositions">
@@ -2691,170 +3497,20 @@
 		</property>
 	</bean>
 
-	<!-- Parade -->
-	<bean id="parade1" class="domain.Parade">
-		<property name="ticker" value="120718-ASDFG" />
-		<property name="title" value="Desfile de primavera" />
-		<property name="description" value="Esta es la desfile que sale en primavera" />
-		<property name="moment" value="2019/05/27 10:15" />
-		<property name="isFinalMode" value="true" />
-		<property name="matrizParade">
-			<list>
-				<list>
-					<value>1</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-			</list>
-		</property>
-		<property name="floats">
-			<list>
-				<ref bean="float1" />
-			</list>
-		</property>
+	<!-- Proclaim -->
+	<bean id="proclaim1" class="domain.Proclaim">
+		<property name="publishedMoment" value="03/08/2016 08:30" />
+		<property name="text" value="text of proclaim 1" />		
+		<property name="chapter" ref="chapter1" />
 	</bean>
-
-	<bean id="parade2" class="domain.Parade">
-		<property name="ticker" value="120717-IOKNH" />
-		<property name="title" value="Desfile de invierno" />
-		<property name="description" value="Esta es la desfile que sale en invierno" />
-		<property name="moment" value="2019/11/27 10:15" />
-		<property name="isFinalMode" value="true" />
-		<property name="matrizParade">
-			<list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>1</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-			</list>
-		</property>
-		<property name="floats">
-			<list>
-				<ref bean="float2" />
-				<ref bean="float3" />
-			</list>
-		</property>
+	
+	<bean id="proclaim2" class="domain.Proclaim">
+		<property name="publishedMoment" value="21/02/1985 12:14" />
+		<property name="text" value="text of proclaim 2" />
+		<property name="chapter" ref="chapter2" />
 	</bean>
-
-	<bean id="parade3" class="domain.Parade">
-		<property name="ticker" value="120716-ASDPG" />
-		<property name="title" value="Desfile de verano" />
-		<property name="description" value="Esta es la desfile que sale en verano" />
-		<property name="moment" value="2019/08/27 10:15" />
-		<property name="isFinalMode" value="true" />
-		<property name="matrizParade">
-			<list>
-				<list>
-					<value>1</value>
-					<value>1</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-			</list>
-		</property>
-		<property name="floats">
-			<list>
-				<ref bean="float4" />
-				<ref bean="float5" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="parade4" class="domain.Parade">
-		<property name="ticker" value="120715-ASSFG" />
-		<property name="title" value="Desfile del jueves santo" />
-		<property name="description"
-			value="Esta es la desfile que sale el jueves santo" />
-		<property name="moment" value="2019/03/27 10:15" />
-		<property name="isFinalMode" value="true" />
-		<property name="matrizParade">
-			<list>
-				<list>
-					<value>1</value>
-					<value>1</value>
-					<value>1</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-			</list>
-		</property>
-		<property name="floats">
-			<list>
-				<ref bean="float5" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="parade5" class="domain.Parade">
-		<property name="ticker" value="120714-ADDFG" />
-		<property name="title" value="Desfile de navidad" />
-		<property name="description" value="Esta es la desfile que sale en navidad" />
-		<property name="moment" value="2019/12/27 10:15" />
-		<property name="isFinalMode" value="true" />
-		<property name="matrizParade">
-			<list>
-				<list>
-					<value>0</value>
-					<value>1</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-				<list>
-					<value>0</value>
-					<value>0</value>
-					<value>0</value>
-				</list>
-			</list>
-		</property>
-		<property name="floats">
-			<list>
-				<ref bean="float6" />
-			</list>
-		</property>
-	</bean>
-
+	
+	
 	<!-- Request -->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
@@ -2963,7 +3619,78 @@
 		<property name="member" ref="member6" />
 		<property name="parade" ref="parade4" />
 	</bean>
+	
+	<!-- Segment -->
+	
+	<bean id="segment1" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates1" />
+		<property name="destination" ref="gpscoordinates2" />
+		<property name="reachingOrigin" value="01/02/2016 08:30" />
+		<property name="reachingDestination" value="01/02/2016 10:30" />
+	</bean>
+	
+	<bean id="segment2" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates3" />
+		<property name="destination" ref="gpscoordinates4" />
+		<property name="reachingOrigin" value="01/02/2016 10:31" />
+		<property name="reachingDestination" value="01/02/2016 12:30" />
+	</bean>
+	
+	<bean id="segment3" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates5" />
+		<property name="destination" ref="gpscoordinates6" />
+		<property name="reachingOrigin" value="01/02/2016 12:31" />
+		<property name="reachingDestination" value="01/02/2016 14:30" />
+	</bean>
 
+	<bean id="segment4" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates7" />
+		<property name="destination" ref="gpscoordinates8" />
+		<property name="reachingOrigin" value="12/10/2018 15:00" />
+		<property name="reachingDestination" value="12/10/2018 16:30" />
+	</bean>
+	
+	<bean id="segment5" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates9" />
+		<property name="destination" ref="gpscoordinates10" />
+		<property name="reachingOrigin" value="12/10/2018 15:00" />
+		<property name="reachingDestination" value="12/10/2018 16:30" />
+	</bean>
+	
+	<bean id="segment6" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates11" />
+		<property name="destination" ref="gpscoordinates12" />
+		<property name="reachingOrigin" value="12/10/2018 16:30" />
+		<property name="reachingDestination" value="12/10/2018 15:30" />
+	</bean>
+	
+	<bean id="segment7" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates13" />
+		<property name="destination" ref="gpscoordinates14" />
+		<property name="reachingOrigin" value="06/05/2017 19:00" />
+		<property name="reachingDestination" value="06/05/2017 19:30" />
+	</bean>
+	
+	<bean id="segment8" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates15" />
+		<property name="destination" ref="gpscoordinates16" />
+		<property name="reachingOrigin" value="06/05/2017 19:30" />
+		<property name="reachingDestination" value="06/05/2017 20:30" />
+	</bean>
+	
+	<bean id="segment9" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates17" />
+		<property name="destination" ref="gpscoordinates18" />
+		<property name="reachingOrigin" value="07/02/2018 20:00" />
+		<property name="reachingDestination" value="07/02/2018 21:30" />
+	</bean>
+	
+	<bean id="segment10" class="domain.Segment">
+		<property name="origin" ref="gpscoordinates19" />
+		<property name="destination" ref="gpscoordinates20" />
+		<property name="reachingOrigin" value="07/02/2018 21:30" />
+		<property name="reachingDestination" value="07/02/2018 22:30" />
+	</bean>
 	<!-- SocialProfile -->
 	<bean id="socialProfile1" class="domain.SocialProfile">
 		<property name="nick" value="nick1" />
@@ -2999,6 +3726,80 @@
 		<property name="linkProfile" value="http://www.facebook.com/nick5" />
 		<property name="actor" ref="brotherhood2" />
 	</bean>
+	
+	<!-- Sponsor -->
+	
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="Juan" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Lobato" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="lobatojuan@gmail.com" />
+		<property name="phoneNumber" value="+34 623587154" />
+		<property name="address" value="Calle Feria 2" />
+		<property name="userAccount" ref="userAccount21" />
+	</bean>
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="Marta" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Rodriguez" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="martarod@gmail.com" />
+		<property name="phoneNumber" value="+34 692157361" />
+		<property name="address" value="Calle Peatonal 2" />
+		<property name="userAccount" ref="userAccount22" />
+	</bean>
+	
+	<!-- Sponsorship -->
+
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner" value="https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg" />
+		<property name="targetURL" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="isActive" value="true" />
+		<property name="sponsor" ref="sponsor2" />		
+		<property name="parade" ref="parade1" />
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner" value="https://cdn.pixabay.com/photo/2016/07/12/17/22/banner-1512645_1280.png" />
+		<property name="targetURL" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="isActive" value="true" />
+		<property name="sponsor" ref="sponsor2" />		
+		<property name="parade" ref="parade3" />
+	</bean>
+
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="banner" value="https://morelianas.com/wp-content/uploads/2014/09/desfile-11-festival-nacional-folklorico-morelia.jpg" />
+		<property name="targetURL" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="isActive" value="true"  />
+		<property name="sponsor" ref="sponsor1" />		
+		<property name="parade" ref="parade2" />
+	</bean>
+	
+	<bean id="sponsorship4" class="domain.Sponsorship">
+		<property name="banner" value="https://www.aciprensa.com/imagespp/DesfilePorLaVida2017_ArquidicesisManagua_280217.jpg" />
+		<property name="targetURL" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="isActive" value="false"  />
+		<property name="sponsor" ref="sponsor1" />		
+		<property name="parade" ref="parade1" />
+	</bean>
+	
+	<bean id="sponsorship5" class="domain.Sponsorship">
+		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
+		<property name="targetURL" value="http://www.targetpage.com" />
+		<property name="creditCard" ref="creditCard5" />
+		<property name="isActive" value="false" />
+		<property name="sponsor" ref="sponsor1" />		
+		<property name="parade" ref="parade5" />
+	</bean>
+	
 
 	<!-- Translation position -->
 	<bean id="translationPosition1" class="domain.TranslationPosition">

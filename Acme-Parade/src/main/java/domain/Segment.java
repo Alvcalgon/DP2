@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,11 +17,13 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@AttributeOverrides({
+	@AttributeOverride(name = "latitude", column = @Column(name = "new")), @AttributeOverride(name = "destination", column = @Column(name = "end"))
+})
 @Access(AccessType.PROPERTY)
 public class Segment extends DomainEntity {
 
 	// Constructor
-
 	public Segment() {
 		super();
 	}
@@ -34,6 +39,9 @@ public class Segment extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@AttributeOverrides({
+		@AttributeOverride(name = "latitude", column = @Column(name = "originLatitude")), @AttributeOverride(name = "longitude", column = @Column(name = "originLongitude"))
+	})
 	public GPSCoordinates getOrigin() {
 		return this.origin;
 	}
@@ -44,6 +52,9 @@ public class Segment extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@AttributeOverrides({
+		@AttributeOverride(name = "latitude", column = @Column(name = "destinationLatitude")), @AttributeOverride(name = "longitude", column = @Column(name = "destinationLongitude"))
+	})
 	public GPSCoordinates getDestination() {
 		return this.destination;
 	}

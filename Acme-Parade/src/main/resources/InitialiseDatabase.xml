@@ -84,6 +84,60 @@
 		<property name="isBanned" value="false" />
 	</bean>
 	
+	<bean id="userAccount21" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount22" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount23" class="security.UserAccount">
+		<property name="username" value="chapter1" />
+		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
+	
+	<bean id="userAccount24" class="security.UserAccount">
+		<property name="username" value="chapter2" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
 	
 	<!-- Administrator -->
 <bean id="administrator1" class="domain.Administrator">
@@ -447,6 +501,226 @@
 		<property name="actor" ref="system" />
 	</bean>
 
+<bean id="box101" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box102" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box103" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box104" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="box105" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+	
+		
+		<bean id="box106" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box107" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box108" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box109" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="box110" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+		<bean id="box111" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box112" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box113" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box114" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+
+	<bean id="box115" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter1" />
+	</bean>
+	
+		<bean id="box116" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box117" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box118" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box119" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+
+	<bean id="box120" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter2" />
+	</bean>
+		
 
 	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
@@ -482,6 +756,36 @@
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg" />
 		<property name="area" ref="area2" />
 	</bean>
+	
+	<!-- Chapter -->
+	
+	<bean id="chapter1" class="domain.Chapter">
+		<property name="name" value="Alfonso" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Perez" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="alfonsorperez@gmail.com" />
+		<property name="phoneNumber" value="+34 639852147" />
+		<property name="address" value="Calle Principal 2" />
+		<property name="userAccount" ref="userAccount23" />
+		<property name="title" value="Chapter 1" />
+	</bean>
+
+
+	<bean id="chapter2" class="domain.Chapter">
+		<property name="name" value="Carmen" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ruiz" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="carmenruiz@gmail.com" />
+		<property name="phoneNumber" value="+34 654987321" />
+		<property name="address" value="Calle Secundaria 2" />
+		<property name="userAccount" ref="userAccount24" />
+		<property name="title" value="Chapter 2" />
+	</bean>
+	
 
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
@@ -502,7 +806,11 @@
 		<property name="positiveWords" value="good,fantastic,excellent,great,amazing,terrific,beautiful,bien,fantastico,excelente,genial,increible,terrorifico,hermosos" />
 		<property name="negativeWords" value="not,bad,horrible,average,disaster,no,mal,mediocre,desastre" />
 		<property name="languages" value="es,en" />
+		<property name="creditCardMakes" value="VISA,MCARD,AMEX,DINNERS,FLY" />
+		<property name="vatPercentage" value="0.21" />
+		<property name="fare" value="500.0" />
 	</bean>
+
 
 	<!-- Finder -->
 <bean id="finder1" class="domain.Finder">
@@ -621,6 +929,33 @@
 			</list>
 		</property>
 	</bean>
+
+<!-- Sponsor -->
+	
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="Juan" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Lobato" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="lobatojuan@gmail.com" />
+		<property name="phoneNumber" value="+34 623587154" />
+		<property name="address" value="Calle Feria 2" />
+		<property name="userAccount" ref="userAccount21" />
+	</bean>
+	
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="Marta" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Rodriguez" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="martarod@gmail.com" />
+		<property name="phoneNumber" value="+34 692157361" />
+		<property name="address" value="Calle Peatonal 2" />
+		<property name="userAccount" ref="userAccount22" />
+	</bean>
+	
 
 	<!-- Translation position -->
 	<bean id="translationPosition1" class="domain.TranslationPosition">
