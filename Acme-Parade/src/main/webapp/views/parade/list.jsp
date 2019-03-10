@@ -60,7 +60,7 @@
 
 
 <!-- ---------------------------------SUBMITTED LIST-------------------------------------- -->
-<security:authorize access="hasAnyRole('BROTHERHOOD', 'CHAPTER')">
+<jstl:if test="${isOwner || isChapterOwner}">
 <fieldset>
 	<legend>
 		<spring:message code="parade.status.submitted" />
@@ -121,10 +121,10 @@
 
 </display:table>
 </fieldset>
-</security:authorize>
+</jstl:if>
 
 <!-- ---------------------------------REJECTED LIST-------------------------------------- -->
-<security:authorize access="hasAnyRole('BROTHERHOOD', 'CHAPTER')">
+<jstl:if test="${isOwner || isChapterOwner}">
 <fieldset>
 	<legend>
 		<spring:message code="parade.status.rejected" />
@@ -154,7 +154,7 @@
 
 </display:table>
 </fieldset>
-</security:authorize>
+</jstl:if>
 
 <!-- ---------------------------------ACCEPTED LIST-------------------------------------- -->
 <fieldset>
