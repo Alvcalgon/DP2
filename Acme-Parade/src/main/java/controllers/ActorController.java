@@ -4,6 +4,7 @@ package controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -96,6 +97,9 @@ public class ActorController extends ActorAbstractController {
 			try {
 				this.brotherhoodService.save(brotherhood);
 				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createModelAndView(registrationForm, "actor.email.used");
+				result.addObject("rol", "Brotherhood");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
 				result.addObject("rol", "Brotherhood");
@@ -134,6 +138,9 @@ public class ActorController extends ActorAbstractController {
 			try {
 				this.memberService.save(member);
 				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createModelAndView(registrationForm, "actor.email.used");
+				result.addObject("rol", "Member");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
 				result.addObject("rol", "Member");
@@ -171,6 +178,9 @@ public class ActorController extends ActorAbstractController {
 			try {
 				this.chapterService.save(chapter);
 				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createModelAndView(registrationForm, "actor.email.used");
+				result.addObject("rol", "Chapter");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.registration.error");
 				result.addObject("rol", "Chapter");
