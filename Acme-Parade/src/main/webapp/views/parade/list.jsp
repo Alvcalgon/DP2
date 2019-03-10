@@ -63,17 +63,16 @@
 				code="parade.display" />
 		</a>
 	</display:column>
-
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<display:column>
-			<jstl:if test="${!row.isFinalMode}">
+			<jstl:if test="${!row.isFinalMode && isOwner}">
 				<a href="parade/brotherhood/makeFinal.do?paradeId=${row.id}">
 					<spring:message code="parade.makeFinal" />
 				</a>
 
 			</jstl:if>
 		</display:column>
-	</security:authorize>
+		</security:authorize>
 
 	<jstl:if test="${isOwner}">
 		<display:column>
@@ -83,7 +82,31 @@
 		</display:column>
 
 		<display:column property="isFinalMode" titleKey="parade.finalMode" />
+		
+		<display:column property="status" titleKey="parade.status" />
+		
 	</jstl:if>
+	<security:authorize access="hasRole('CHAPTER')">
+	<display:column>
+		
+	<jstl:if test="${isChapterOwner && row.isFinalMode && row.status=='submitted'}">
+			<a href="parade/chapter/accept.do?paradeId=${row.id}">
+				<spring:message code="parade.accept" />
+			</a>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+		
+	<jstl:if test="${isChapterOwner &&  row.isFinalMode && row.status=='submitted'}">
+			<a href="parade/chapter/reject.do?paradeId=${row.id}">
+				<spring:message code="parade.reject" />
+			</a>
+			
+			</jstl:if>
+		</display:column>		
+	</security:authorize>
+	
 
 	<display:column property="title" titleKey="parade.title" />
 

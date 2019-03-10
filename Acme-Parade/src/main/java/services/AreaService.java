@@ -136,7 +136,7 @@ public class AreaService {
 		return result;
 	}
 
-	protected Area findAreaByParade(final int idParade) {
+	public Area findAreaByParade(final int idParade) {
 		Area result;
 
 		result = this.areaRepository.findAreaByParade(idParade);

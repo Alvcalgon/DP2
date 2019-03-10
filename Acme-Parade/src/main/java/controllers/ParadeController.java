@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.AreaService;
 import services.BrotherhoodService;
 import services.FloatService;
 import services.MemberService;
 import services.ParadeService;
 import services.RequestService;
 import services.UtilityService;
+import domain.Area;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Parade;
@@ -43,6 +45,9 @@ public class ParadeController extends AbstractController {
 
 	@Autowired
 	private FloatService		floatService;
+
+	@Autowired
+	private AreaService			areaService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -116,6 +121,8 @@ public class ParadeController extends AbstractController {
 		Collection<Parade> parades;
 		Brotherhood principal;
 		Boolean hasFloats;
+		final Area areaBrotherhood;
+		final Area areaChapter;
 
 		result = new ModelAndView("parade/list");
 		parades = this.paradeService.findParadeVisibleByBrotherhood(brotherhoodId);
@@ -141,6 +148,12 @@ public class ParadeController extends AbstractController {
 					result.addObject("parades", parades);
 
 				}
+			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]")) {
+				//	areaChapter = this.chapterService.findByPrincipal().getArea();
+				areaBrotherhood = this.brotherhoodService.findOne(brotherhoodId).getArea();
+				//	result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
+				parades = this.paradeService.findParadeByBrotherhood(this.brotherhoodService.findOne(brotherhoodId).getId());
+				result.addObject("parades", parades);
 			}
 		} catch (final Exception e) {
 		}
@@ -149,7 +162,6 @@ public class ParadeController extends AbstractController {
 		return result;
 
 	}
-
 	//Este método se usa en caso de que si es un miembro para que pueda solicitar salir en la desfile
 	private void isRequestable(final Parade parade, final ModelAndView result) {
 		Collection<Member> members;

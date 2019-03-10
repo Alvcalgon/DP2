@@ -185,46 +185,6 @@ public class ParadeService {
 		return result;
 	}
 
-	public Parade addToMatriz(final Parade parade, final Integer rowParade, final Integer columnParade) {
-		Assert.notNull(parade);
-
-		Parade result;
-		Integer[][] matriz;
-
-		matriz = parade.getMatrizParade();
-		matriz[rowParade - 1][columnParade - 1] = 1;
-		parade.setMatrizParade(matriz);
-
-		result = this.paradeRepository.save(parade);
-
-		return result;
-	}
-
-	public Parade removeToMatriz(final Parade parade, final Integer rowParade, final Integer columnParade) {
-		Assert.notNull(parade);
-
-		Parade result;
-		Integer[][] matriz;
-
-		matriz = parade.getMatrizParade();
-		matriz[rowParade - 1][columnParade - 1] = 0;
-		parade.setMatrizParade(matriz);
-
-		result = this.paradeRepository.save(parade);
-
-		return result;
-	}
-
-	protected void searchParadeFinder(final Finder finder, final Pageable pageable) {
-		Page<Parade> parades;
-
-		parades = this.paradeRepository.searchParadeFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
-		Assert.notNull(parades);
-
-		finder.setParades(parades.getContent());
-		finder.setUpdatedMoment(this.utilityService.current_moment());
-	}
-
 	// Other business methods ---------------------
 	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
 	//TODO: DESCOMENTAR
@@ -246,8 +206,10 @@ public class ParadeService {
 
 		if (parade.getStatus().equals("accepted"))
 			parade.setStatus("accepted");
-		else if (parade.getStatus().equals("rejected"))
+		else if (parade.getStatus().equals("rejected")) {
 			parade.setStatus("rejected");
+			parade.setReasonWhy(parade.getReasonWhy());
+		}
 
 		return parade;
 	}
@@ -373,6 +335,46 @@ public class ParadeService {
 
 		return results;
 
+	}
+
+	public Parade addToMatriz(final Parade parade, final Integer rowParade, final Integer columnParade) {
+		Assert.notNull(parade);
+
+		Parade result;
+		Integer[][] matriz;
+
+		matriz = parade.getMatrizParade();
+		matriz[rowParade - 1][columnParade - 1] = 1;
+		parade.setMatrizParade(matriz);
+
+		result = this.paradeRepository.save(parade);
+
+		return result;
+	}
+
+	public Parade removeToMatriz(final Parade parade, final Integer rowParade, final Integer columnParade) {
+		Assert.notNull(parade);
+
+		Parade result;
+		Integer[][] matriz;
+
+		matriz = parade.getMatrizParade();
+		matriz[rowParade - 1][columnParade - 1] = 0;
+		parade.setMatrizParade(matriz);
+
+		result = this.paradeRepository.save(parade);
+
+		return result;
+	}
+
+	protected void searchParadeFinder(final Finder finder, final Pageable pageable) {
+		Page<Parade> parades;
+
+		parades = this.paradeRepository.searchParadeFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
+		Assert.notNull(parades);
+
+		finder.setParades(parades.getContent());
+		finder.setUpdatedMoment(this.utilityService.current_moment());
 	}
 
 }

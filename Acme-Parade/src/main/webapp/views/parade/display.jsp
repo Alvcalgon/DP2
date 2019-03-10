@@ -42,7 +42,7 @@
 	<spring:message code="parade.formatMoment1" var="formatMoment"/>
 		<fmt:formatDate value="${parade.moment}" pattern="${formatMoment}"/>
 	
-	
+	<br/>
 	<security:authorize access="hasRole('BROTHERHOOD')">		
  	<jstl:if test="${owner}">
  		<strong><spring:message code="parade.finalMode"/>:</strong>
