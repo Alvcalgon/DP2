@@ -24,15 +24,6 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p join p.floats f where f.id=?1")
 	Collection<Parade> floatBelongtToParade(Integer id);
 
-	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1")
-	Collection<Parade> findParadeByBrotherhood(int id);
-
-	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode= true")
-	Collection<Parade> findParadeFinalByBrotherhood(int id);
-
-	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true and p.status='accepted'")
-	Collection<Parade> findParadeVisibleByBrotherhood(int id);
-
 	@Query("select avg(f.parades.size), min(f.parades.size), max(f.parades.size), stddev(f.parades.size) from Finder f")
 	Double[] findDataNumberResultsPerFinder();
 
@@ -41,4 +32,28 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 
 	@Query("select p from Parade p where p.isFinalMode=true")
 	Collection<Parade> findPublishedParade();
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1")
+	Collection<Parade> findParadeByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode= true")
+	Collection<Parade> findParadeFinalByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.status='submitted'")
+	Collection<Parade> findParadeSubmittedByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and  p.status='rejected'")
+	Collection<Parade> findParadeRejectedByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.status='accepted'")
+	Collection<Parade> findParadeAcceptedByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true and p.status='submitted'")
+	Collection<Parade> findParadeSubmittedFinalByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true and p.status='rejected'")
+	Collection<Parade> findParadeRejectedFinalByBrotherhood(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true  and p.status ='accepted'")
+	Collection<Parade> findParadeAcceptedFinalByBrotherhood(int id);
 }

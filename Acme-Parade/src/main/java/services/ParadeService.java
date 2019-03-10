@@ -198,17 +198,19 @@ public class ParadeService {
 	}
 
 	// Other business methods ---------------------
-	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
-	private void checkChapter(final Parade parade) {
-		final Chapter chapter;
-		final Area areaChapter;
-		Area areaParade;
 
-		chapter = this.chapterService.findByPrincipal();
-		areaChapter = chapter.getArea();
-		areaParade = this.areaService.findAreaByParade(parade.getId());
+	public void makeFinal(final Parade parade) {
+		Brotherhood principal;
+		Brotherhood owner;
 
-		Assert.isTrue(areaChapter.equals(areaParade));
+		principal = this.brotherhoodService.findByPrincipal();
+		owner = this.getBrotherhoodToParade(parade);
+
+		Assert.isTrue(owner.equals(principal));
+
+		parade.setIsFinalMode(true);
+		parade.setStatus("submitted");
+		this.messageService.notificationPublishedParade(parade);
 	}
 
 	public Parade changeStatus(final Parade parade) {
@@ -225,6 +227,7 @@ public class ParadeService {
 		return parade;
 	}
 
+	//Devuelve los desfiles que tienen FinalMode = true
 	public Collection<Parade> findPublishedParade() {
 		Collection<Parade> result;
 
@@ -233,41 +236,77 @@ public class ParadeService {
 		return result;
 	}
 
-	public Double[] findDataNumberResultsPerFinder() {
-		Double[] result;
-
-		result = this.paradeRepository.findDataNumberResultsPerFinder();
-		Assert.notNull(result);
-
-		return result;
-	}
-
-	public Collection<Parade> findParadeLess30days() {
-		Date today;
-		final Date more30days;
+	//Devuelve los desfiles de un brotherhood
+	public Collection<Parade> findParadeByBrotherhood(final int id) {
 		Collection<Parade> parades;
-		Calendar calendar;
 
-		calendar = Calendar.getInstance();
-		today = this.utilityService.current_moment();
-
-		calendar.setTime(today);
-		calendar.add(Calendar.DAY_OF_YEAR, 30);
-
-		more30days = calendar.getTime();
-		parades = this.paradeRepository.findParadeLess30days(today, more30days);
+		parades = this.paradeRepository.findParadeByBrotherhood(id);
 
 		return parades;
-
 	}
 
-	protected String existTicker(final String ticker) {
-		String result;
+	//Devuelve los desfiles de un brotherhood que tienen FinalMode = true
+	public Collection<Parade> findParadeFinalByBrotherhood(final int id) {
+		Collection<Parade> parades;
 
-		result = this.paradeRepository.existTicker(ticker);
+		parades = this.paradeRepository.findParadeFinalByBrotherhood(id);
 
-		return result;
+		return parades;
 	}
+
+	//Devuelve los desfiles de un brotherhood con estado SUBMITTED
+	public Collection<Parade> findParadeSubmittedByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeSubmittedByBrotherhood(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un brotherhood con estado REJECTED
+	public Collection<Parade> findParadeRejectedByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeRejectedByBrotherhood(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un brotherhood con estado ACCEPTED
+	public Collection<Parade> findParadeAcceptedByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeAcceptedByBrotherhood(id);
+
+		return parades;
+	}
+	//Devuelve los desfiles de un brotherhood con estado SUBMITTED y MODOFINAL
+	public Collection<Parade> findParadeSubmittedFinalByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeSubmittedFinalByBrotherhood(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un brotherhood con estado REJECTED y MODOFINAL
+	public Collection<Parade> findParadeRejectedFinalByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeRejectedFinalByBrotherhood(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un brotherhood con estado ACCEPTED y MODOFINAL
+	public Collection<Parade> findParadeAcceptedFinalByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeAcceptedFinalByBrotherhood(id);
+
+		return parades;
+	}
+
 	private Brotherhood getBrotherhoodToParade(final Parade parade) {
 		Brotherhood result;
 		Collection<Float> floats;
@@ -293,42 +332,34 @@ public class ParadeService {
 		return res;
 
 	}
-	public Collection<Parade> findParadeByBrotherhood(final int id) {
-		Collection<Parade> parades;
 
-		parades = this.paradeRepository.findParadeByBrotherhood(id);
+	protected void searchParadeFinder(final Finder finder, final Pageable pageable) {
+		Page<Parade> parades;
 
-		return parades;
+		parades = this.paradeRepository.searchParadeFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
+		Assert.notNull(parades);
+
+		finder.setParades(parades.getContent());
+		finder.setUpdatedMoment(this.utilityService.current_moment());
 	}
+	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
+	private void checkChapter(final Parade parade) {
+		final Chapter chapter;
+		final Area areaChapter;
+		Area areaParade;
 
-	public Collection<Parade> findParadeFinalByBrotherhood(final int id) {
-		Collection<Parade> parades;
+		chapter = this.chapterService.findByPrincipal();
+		areaChapter = chapter.getArea();
+		areaParade = this.areaService.findAreaByParade(parade.getId());
 
-		parades = this.paradeRepository.findParadeFinalByBrotherhood(id);
-
-		return parades;
+		Assert.isTrue(areaChapter.equals(areaParade));
 	}
+	protected String existTicker(final String ticker) {
+		String result;
 
-	public Collection<Parade> findParadeVisibleByBrotherhood(final int id) {
-		Collection<Parade> parades;
+		result = this.paradeRepository.existTicker(ticker);
 
-		parades = this.paradeRepository.findParadeVisibleByBrotherhood(id);
-
-		return parades;
-	}
-
-	public void makeFinal(final Parade parade) {
-		Brotherhood principal;
-		Brotherhood owner;
-
-		principal = this.brotherhoodService.findByPrincipal();
-		owner = this.getBrotherhoodToParade(parade);
-
-		Assert.isTrue(owner.equals(principal));
-
-		parade.setIsFinalMode(true);
-		parade.setStatus("submitted");
-		this.messageService.notificationPublishedParade(parade);
+		return result;
 	}
 
 	public SortedMap<Integer, List<Integer>> positionsFree(final Parade parade) {
@@ -387,14 +418,32 @@ public class ParadeService {
 		return result;
 	}
 
-	protected void searchParadeFinder(final Finder finder, final Pageable pageable) {
-		Page<Parade> parades;
+	public Double[] findDataNumberResultsPerFinder() {
+		Double[] result;
 
-		parades = this.paradeRepository.searchParadeFinder(finder.getKeyword(), finder.getArea(), finder.getMinimumDate(), finder.getMaximumDate(), pageable);
-		Assert.notNull(parades);
+		result = this.paradeRepository.findDataNumberResultsPerFinder();
+		Assert.notNull(result);
 
-		finder.setParades(parades.getContent());
-		finder.setUpdatedMoment(this.utilityService.current_moment());
+		return result;
+	}
+
+	public Collection<Parade> findParadeLess30days() {
+		Date today;
+		final Date more30days;
+		Collection<Parade> parades;
+		Calendar calendar;
+
+		calendar = Calendar.getInstance();
+		today = this.utilityService.current_moment();
+
+		calendar.setTime(today);
+		calendar.add(Calendar.DAY_OF_YEAR, 30);
+
+		more30days = calendar.getTime();
+		parades = this.paradeRepository.findParadeLess30days(today, more30days);
+
+		return parades;
+
 	}
 
 }

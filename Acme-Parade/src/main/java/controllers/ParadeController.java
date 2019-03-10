@@ -21,6 +21,7 @@ import services.RequestService;
 import services.UtilityService;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import domain.Parade;
 
@@ -127,14 +128,22 @@ public class ParadeController extends AbstractController {
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
 		Collection<Parade> parades;
+		Collection<Parade> paradesSubmittedBrotherhood;
+		Collection<Parade> paradesRejectedBrotherhood;
+		Collection<Parade> paradesAcceptedBrotherhood;
+		Collection<Parade> paradesSubmittedFinal;
+		Collection<Parade> paradesRejectedFinal;
+		Collection<Parade> paradesAcceptedFinal;
 		Brotherhood principal;
 		Boolean hasFloats;
 		final Area areaBrotherhood;
 		final Area areaChapter;
+		Brotherhood brotherhood;
+		Chapter chapterprincipal;
 
 		result = new ModelAndView("parade/list");
-		parades = this.paradeService.findParadeVisibleByBrotherhood(brotherhoodId);
-		result.addObject("parades", parades);
+		parades = this.paradeService.findParadeAcceptedFinalByBrotherhood(brotherhoodId);
+		result.addObject("paradesAccepted", parades);
 		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
@@ -150,19 +159,36 @@ public class ParadeController extends AbstractController {
 
 				if (brotherhoodId == this.brotherhoodService.findByPrincipal().getId()) {
 
-					parades = this.paradeService.findParadeByBrotherhood(principal.getId());
+					paradesSubmittedBrotherhood = this.paradeService.findParadeSubmittedByBrotherhood(principal.getId());
+					paradesRejectedBrotherhood = this.paradeService.findParadeRejectedByBrotherhood(principal.getId());
+					paradesAcceptedBrotherhood = this.paradeService.findParadeAcceptedByBrotherhood(principal.getId());
 
 					result.addObject("isOwner", true);
-					result.addObject("parades", parades);
+					result.addObject("paradesSubmitted", paradesSubmittedBrotherhood);
+					result.addObject("paradesRejected", paradesRejectedBrotherhood);
+					result.addObject("paradesAccepted", paradesAcceptedBrotherhood);
 
 				}
 			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]")) {
-				areaChapter = this.chapterService.findByPrincipal().getArea();
-				areaBrotherhood = this.brotherhoodService.findOne(brotherhoodId).getArea();
-				result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
-				parades = this.paradeService.findParadeFinalByBrotherhood(brotherhoodId);
-				result.addObject("parades", parades);
+
+				brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+				chapterprincipal = this.chapterService.findByPrincipal();
+				if (brotherhood.getArea().equals(chapterprincipal.getArea())) {
+
+					areaChapter = this.chapterService.findByPrincipal().getArea();
+					areaBrotherhood = this.brotherhoodService.findOne(brotherhoodId).getArea();
+
+					paradesSubmittedFinal = this.paradeService.findParadeSubmittedFinalByBrotherhood(brotherhoodId);
+					paradesRejectedFinal = this.paradeService.findParadeRejectedFinalByBrotherhood(brotherhoodId);
+					paradesAcceptedFinal = this.paradeService.findParadeAcceptedFinalByBrotherhood(brotherhoodId);
+
+					result.addObject("paradesSubmitted", paradesSubmittedFinal);
+					result.addObject("paradesRejected", paradesRejectedFinal);
+					result.addObject("paradesAccepted", paradesAcceptedFinal);
+					result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
+				}
 			}
+
 		} catch (final Exception e) {
 		}
 
