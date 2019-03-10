@@ -57,9 +57,8 @@ public class ParadeService {
 	@Autowired
 	private CustomisationService	customisationService;
 
-	//TODO: añadir cuando suba
-	//	@Autowired
-	//	private ChapterService			chapterService;
+	@Autowired
+	private ChapterService			chapterService;
 
 	@Autowired
 	private AreaService				areaService;
@@ -92,6 +91,7 @@ public class ParadeService {
 				matrizParade[i][j] = 0;
 
 		result.setMatrizParade(matrizParade);
+		result.setStatus("submitted");
 
 		return result;
 	}
@@ -107,10 +107,11 @@ public class ParadeService {
 		Assert.isTrue(brotherhood.getArea() != null);
 
 		if (!parade.getIsFinalMode())
+			//TODO: quitar comentario cuando se arregle el estado
+			//	Assert.isNull(parade.getStatus());
 			try {
 				fechaActual = this.utilityService.current_moment();
 				Assert.isTrue(parade.getMoment().after(fechaActual));
-				Assert.isNull(parade.getStatus());
 
 			} catch (final Exception e) {
 				throw new IllegalArgumentException("Invalid moment");
@@ -184,20 +185,30 @@ public class ParadeService {
 
 		return result;
 	}
+	public Parade findOneToDisplayToChapter(final int paradeId) {
+		Parade result;
+
+		result = this.paradeRepository.findOne(paradeId);
+
+		Assert.notNull(result);
+		Assert.isTrue(result.getIsFinalMode());
+		this.checkChapter(result);
+
+		return result;
+	}
 
 	// Other business methods ---------------------
 	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
-	//TODO: DESCOMENTAR
 	private void checkChapter(final Parade parade) {
 		final Chapter chapter;
 		final Area areaChapter;
 		Area areaParade;
 
-		//	chapter = chapterService.findByPrincipal();
-		//	areaChapter = chapter.getArea();
+		chapter = this.chapterService.findByPrincipal();
+		areaChapter = chapter.getArea();
 		areaParade = this.areaService.findAreaByParade(parade.getId());
 
-		//	Assert.isTrue(areaChapter.equals(areaParade));
+		Assert.isTrue(areaChapter.equals(areaParade));
 	}
 
 	public Parade changeStatus(final Parade parade) {
@@ -290,6 +301,14 @@ public class ParadeService {
 		return parades;
 	}
 
+	public Collection<Parade> findParadeFinalByBrotherhood(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findParadeFinalByBrotherhood(id);
+
+		return parades;
+	}
+
 	public Collection<Parade> findParadeVisibleByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -297,6 +316,7 @@ public class ParadeService {
 
 		return parades;
 	}
+
 	public void makeFinal(final Parade parade) {
 		Brotherhood principal;
 		Brotherhood owner;

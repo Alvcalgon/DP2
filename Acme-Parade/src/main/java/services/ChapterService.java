@@ -31,7 +31,7 @@ public class ChapterService {
 	// Simple CRUD methods --------------------
 
 	// Other business methods -----------------
-	protected Chapter findByPrincipal() {
+	public Chapter findByPrincipal() {
 		Chapter result;
 		UserAccount userAccount;
 

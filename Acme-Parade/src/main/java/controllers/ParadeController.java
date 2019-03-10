@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.AreaService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.FloatService;
 import services.MemberService;
 import services.ParadeService;
@@ -47,7 +47,7 @@ public class ParadeController extends AbstractController {
 	private FloatService		floatService;
 
 	@Autowired
-	private AreaService			areaService;
+	private ChapterService		chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -78,6 +78,14 @@ public class ParadeController extends AbstractController {
 
 				result.addObject("isOwner", true);
 				result.addObject("principal", principal);
+				result.addObject("parade", parade);
+				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
+
+			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]") && brotherhood.getArea() == this.chapterService.findByPrincipal().getArea()) {
+				parade = this.paradeService.findOneToDisplayToChapter(paradeId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
+
 				result.addObject("parade", parade);
 				result.addObject("floats", parade.getFloats());
 				result.addObject("segments", parade.getSegments());
@@ -149,10 +157,10 @@ public class ParadeController extends AbstractController {
 
 				}
 			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]")) {
-				//	areaChapter = this.chapterService.findByPrincipal().getArea();
+				areaChapter = this.chapterService.findByPrincipal().getArea();
 				areaBrotherhood = this.brotherhoodService.findOne(brotherhoodId).getArea();
-				//	result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
-				parades = this.paradeService.findParadeByBrotherhood(this.brotherhoodService.findOne(brotherhoodId).getId());
+				result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
+				parades = this.paradeService.findParadeFinalByBrotherhood(brotherhoodId);
 				result.addObject("parades", parades);
 			}
 		} catch (final Exception e) {

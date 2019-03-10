@@ -55,96 +55,93 @@
 	</fieldset>
 </jstl:if>
 
-<display:table pagesize="5" class="displaytag" name="parades"
-	requestURI="${requestURI}" id="row">
 
+<display:table pagesize="5" class="displaytag" name="parades" requestURI="${requestURI}" id="row">
 	<display:column>
-		<a href="parade/display.do?paradeId=${row.id}"> <spring:message
-				code="parade.display" />
+		<a href="parade/display.do?paradeId=${row.id}"> 
+			<spring:message code="parade.display" />
 		</a>
 	</display:column>
+	
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<display:column>
 			<jstl:if test="${!row.isFinalMode && isOwner}">
 				<a href="parade/brotherhood/makeFinal.do?paradeId=${row.id}">
 					<spring:message code="parade.makeFinal" />
 				</a>
-
 			</jstl:if>
 		</display:column>
-		</security:authorize>
+	</security:authorize>
 
 	<jstl:if test="${isOwner}">
 		<display:column>
 			<a href="parade/brotherhood/edit.do?paradeId=${row.id}">
 				<spring:message code="parade.edit" />
 			</a>
-		</display:column>
+	</display:column>
 
-		<display:column property="isFinalMode" titleKey="parade.finalMode" />
+	<display:column property="isFinalMode" titleKey="parade.finalMode" />
 		
-		<display:column property="status" titleKey="parade.status" />
-		
+	<display:column property="status" titleKey="parade.status" />	
 	</jstl:if>
+	
 	<security:authorize access="hasRole('CHAPTER')">
-	<display:column>
-		
-	<jstl:if test="${isChapterOwner && row.isFinalMode && row.status=='submitted'}">
-			<a href="parade/chapter/accept.do?paradeId=${row.id}">
-				<spring:message code="parade.accept" />
-			</a>
+		<display:column>		
+			<jstl:if test="${isChapterOwner && row.isFinalMode && row.status=='submitted'}">
+				<a href="parade/chapter/accept.do?paradeId=${row.id}">
+					<spring:message code="parade.accept" />
+				</a>
 			</jstl:if>
 		</display:column>
 		
 		<display:column>
-		
-	<jstl:if test="${isChapterOwner &&  row.isFinalMode && row.status=='submitted'}">
-			<a href="parade/chapter/reject.do?paradeId=${row.id}">
-				<spring:message code="parade.reject" />
-			</a>
-			
+			<jstl:if test="${isChapterOwner && row.isFinalMode && row.status=='submitted'}">
+				<a href="parade/chapter/reject.do?paradeId=${row.id}">
+					<spring:message code="parade.reject" />
+				</a>
 			</jstl:if>
-		</display:column>		
+		</display:column>	
+			
+		
+		<jstl:if test="${isChapterOwner}">
+			<display:column property="status" titleKey="parade.status" />
+		</jstl:if>	
 	</security:authorize>
 	
-
 	<display:column property="title" titleKey="parade.title" />
 
 	<spring:message code="parade.formatMoment" var="formatMomentHeader" />
-	<display:column property="moment" titleKey="parade.moment"
-		format="${formatMomentHeader}" />
+	<display:column property="moment" titleKey="parade.moment" 	format="${formatMomentHeader}" />
 
 
 </display:table>
 
-<security:authorize access="hasRole('BROTHERHOOD')">
-	 
-	<jstl:if test="${areaSelected && not hasFloats }">
-
-		<a href="parade/brotherhood/create.do"><spring:message
-				code="parade.create" /></a>
-
-	</jstl:if>
+	<security:authorize access="hasRole('BROTHERHOOD')"> 
+		<jstl:if test="${areaSelected && not hasFloats }">
+			<a href="parade/brotherhood/create.do">
+				<spring:message code="parade.create" />
+			</a>
+		</jstl:if>
 	
-	<jstl:if test="${ hasFloats }">
-		<spring:message
-				code="parade.info.notFloat" /><a href="float/brotherhood/create.do"><spring:message
-				code="parade.info.notFloat1" /></a>
-	</jstl:if>
+		<jstl:if test="${ hasFloats }">
+			<spring:message code="parade.info.notFloat" />
+				<a href="float/brotherhood/create.do">
+					<spring:message code="parade.info.notFloat1" />
+				</a>
+		</jstl:if>
 
-
-	<jstl:if test="${!areaSelected}">
-
-		<a href="brotherhood/brotherhood/selectArea.do"><spring:message
-				code="select.area.parade" /></a>
-
-	</jstl:if>
-	 <br>
-</security:authorize>
+		<jstl:if test="${!areaSelected}">
+			<a href="brotherhood/brotherhood/selectArea.do">
+				<spring:message code="select.area.parade" />
+			</a>
+		</jstl:if>
+		 <br>
+	</security:authorize>
 	
 	<jstl:if test="${finder == null}">
-		<a href="actor/display.do?actorId=${brotherhoodId}"><spring:message
-				code="actor.return" /></a>
+		<a href="actor/display.do?actorId=${brotherhoodId}">
+			<spring:message code="actor.return" />
+		</a>
 	</jstl:if>
 
 

@@ -2085,7 +2085,7 @@
 		<property name="address" value="Calle Principal 2" />
 		<property name="userAccount" ref="userAccount23" />
 		<property name="title" value="Chapter 1" />
-		<property name="area" ref="area2" />
+		<property name="area" ref="area1" />
 	</bean>
 
 
@@ -2099,7 +2099,8 @@
 		<property name="phoneNumber" value="+34 654987321" />
 		<property name="address" value="Calle Secundaria 2" />
 		<property name="userAccount" ref="userAccount24" />
-		<property name="title" value="Chapter 2" /><property name="area" ref="area2" />
+		<property name="title" value="Chapter 2" />
+		<property name="area" ref="area2" />
 	</bean>
 
 <!-- CreditCard -->
