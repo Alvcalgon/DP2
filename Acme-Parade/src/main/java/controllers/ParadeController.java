@@ -27,7 +27,7 @@ import domain.Parade;
 public class ParadeController extends AbstractController {
 
 	@Autowired
-	private ParadeService	paradeService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -75,12 +75,14 @@ public class ParadeController extends AbstractController {
 				result.addObject("principal", principal);
 				result.addObject("parade", parade);
 				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
 			} else {
 				parade = this.paradeService.findOneToDisplay(paradeId);
 				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 				floats = parade.getFloats();
 				result.addObject("parade", parade);
 				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
 
 				if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
 					this.isRequestable(parade, result);
@@ -97,6 +99,7 @@ public class ParadeController extends AbstractController {
 
 				result.addObject("parade", parade);
 				result.addObject("floats", floats);
+				result.addObject("segments", parade.getSegments());
 				result.addObject("brotherhood", brotherhood);
 			} catch (final Exception e) {
 
@@ -115,7 +118,7 @@ public class ParadeController extends AbstractController {
 		Boolean hasFloats;
 
 		result = new ModelAndView("parade/list");
-		parades = this.paradeService.findParadeFinalByBrotherhood(brotherhoodId);
+		parades = this.paradeService.findParadeVisibleByBrotherhood(brotherhoodId);
 		result.addObject("parades", parades);
 		result.addObject("brotherhoodId", brotherhoodId);
 

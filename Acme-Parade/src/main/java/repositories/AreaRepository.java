@@ -18,4 +18,7 @@ public interface AreaRepository extends JpaRepository<Area, Integer> {
 	@Query("select a.name from Area a")
 	Collection<String> findAllAreaNames();
 
+	@Query("select b.area from Parade p join p.floats f join f.brotherhood b where p.id=?1")
+	Area findAreaByParade(int idParade);
+
 }

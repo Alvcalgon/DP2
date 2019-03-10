@@ -19,11 +19,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ParadeRepository;
+import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Finder;
 import domain.Float;
 import domain.Parade;
 import domain.Request;
+import domain.Segment;
 
 @Service
 @Transactional
@@ -32,7 +35,7 @@ public class ParadeService {
 	// Managed repository --------------------------
 
 	@Autowired
-	private ParadeRepository	paradeRepository;
+	private ParadeRepository		paradeRepository;
 
 	// Other supporting services -------------------
 
@@ -51,6 +54,16 @@ public class ParadeService {
 	@Autowired
 	private MessageService			messageService;
 
+	@Autowired
+	private CustomisationService	customisationService;
+
+	//TODO: añadir cuando suba
+	//	@Autowired
+	//	private ChapterService			chapterService;
+
+	@Autowired
+	private AreaService				areaService;
+
 
 	// Constructors -------------------------------
 
@@ -62,14 +75,28 @@ public class ParadeService {
 
 	public Parade create() {
 		Parade result;
+		final Integer[][] matrizParade;
+		final int rowLimit;
+		final int columnLimit;
 
 		result = new Parade();
 		result.setTicker("000000-XXXXX");
 		result.setFloats(Collections.<Float> emptySet());
+		result.setSegments(Collections.<Segment> emptySet());
+		rowLimit = this.customisationService.find().getRowLimit();
+		columnLimit = this.customisationService.find().getColumnLimit();
+		matrizParade = new Integer[rowLimit][columnLimit];
+
+		for (int i = 0; i < matrizParade.length; i++)
+			for (int j = 0; j < matrizParade[0].length; j++)
+				matrizParade[i][j] = 0;
+
+		result.setMatrizParade(matrizParade);
 
 		return result;
 	}
-	public Parade save(final Parade parade, final int rowLimit, final int columnLimit) {
+
+	public Parade save(final Parade parade) {
 		Assert.notNull(parade);
 
 		final Parade result;
@@ -83,28 +110,20 @@ public class ParadeService {
 			try {
 				fechaActual = this.utilityService.current_moment();
 				Assert.isTrue(parade.getMoment().after(fechaActual));
+				Assert.isNull(parade.getStatus());
 
 			} catch (final Exception e) {
 				throw new IllegalArgumentException("Invalid moment");
 			}
 
-		if (parade.getId() == 0) {
+		if (parade.getId() == 0)
 			parade.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
-
-			final Integer[][] matrizParade;
-
-			matrizParade = new Integer[rowLimit][columnLimit];
-
-			for (int i = 0; i < matrizParade.length; i++)
-				for (int j = 0; j < matrizParade[0].length; j++)
-					matrizParade[i][j] = 0;
-			parade.setMatrizParade(matrizParade);
-		}
 
 		result = this.paradeRepository.save(parade);
 
 		return result;
 	}
+
 	public void delete(final Parade parade) {
 		Assert.notNull(parade);
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
@@ -141,6 +160,7 @@ public class ParadeService {
 
 		return results;
 	}
+
 	public Parade findOneToEdit(final int paradeId) {
 		Parade result;
 		Brotherhood brotherhood;
@@ -160,7 +180,7 @@ public class ParadeService {
 		result = this.paradeRepository.findOne(paradeId);
 
 		Assert.notNull(result);
-		Assert.isTrue(result.getIsFinalMode());
+		Assert.isTrue(result.getIsFinalMode() && result.getStatus().equals("accepted"));
 
 		return result;
 	}
@@ -206,6 +226,32 @@ public class ParadeService {
 	}
 
 	// Other business methods ---------------------
+	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
+	//TODO: DESCOMENTAR
+	private void checkChapter(final Parade parade) {
+		final Chapter chapter;
+		final Area areaChapter;
+		Area areaParade;
+
+		//	chapter = chapterService.findByPrincipal();
+		//	areaChapter = chapter.getArea();
+		areaParade = this.areaService.findAreaByParade(parade.getId());
+
+		//	Assert.isTrue(areaChapter.equals(areaParade));
+	}
+
+	public Parade changeStatus(final Parade parade) {
+		this.checkChapter(parade);
+		Assert.notNull(parade);
+
+		if (parade.getStatus().equals("accepted"))
+			parade.setStatus("accepted");
+		else if (parade.getStatus().equals("rejected"))
+			parade.setStatus("rejected");
+
+		return parade;
+	}
+
 	public Collection<Parade> findPublishedParade() {
 		Collection<Parade> result;
 
@@ -282,10 +328,10 @@ public class ParadeService {
 		return parades;
 	}
 
-	public Collection<Parade> findParadeFinalByBrotherhood(final int id) {
+	public Collection<Parade> findParadeVisibleByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
-		parades = this.paradeRepository.findParadeFinalByBrotherhood(id);
+		parades = this.paradeRepository.findParadeVisibleByBrotherhood(id);
 
 		return parades;
 	}
@@ -299,6 +345,7 @@ public class ParadeService {
 		Assert.isTrue(owner.equals(principal));
 
 		parade.setIsFinalMode(true);
+		parade.setStatus("submitted");
 		this.messageService.notificationPublishedParade(parade);
 	}
 

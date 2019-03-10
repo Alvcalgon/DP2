@@ -27,8 +27,8 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1")
 	Collection<Parade> findParadeByBrotherhood(int id);
 
-	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true")
-	Collection<Parade> findParadeFinalByBrotherhood(int id);
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true and p.status='accepted'")
+	Collection<Parade> findParadeVisibleByBrotherhood(int id);
 
 	@Query("select avg(f.parades.size), min(f.parades.size), max(f.parades.size), stddev(f.parades.size) from Finder f")
 	Double[] findDataNumberResultsPerFinder();

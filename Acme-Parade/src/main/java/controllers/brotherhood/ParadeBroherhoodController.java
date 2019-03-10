@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.BrotherhoodService;
-import services.CustomisationService;
 import services.FloatService;
 import services.ParadeService;
 import controllers.AbstractController;
@@ -31,13 +30,10 @@ public class ParadeBroherhoodController extends AbstractController {
 	private ParadeService		paradeService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private FloatService			floatService;
-
-	@Autowired
-	private CustomisationService	customisationService;
+	private FloatService		floatService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -82,16 +78,13 @@ public class ParadeBroherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		Parade saved;
-		int rowLimit;
-		int columnLimit;
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(parade);
 		else
 			try {
-				rowLimit = this.customisationService.find().getRowLimit();
-				columnLimit = this.customisationService.find().getColumnLimit();
-				saved = this.paradeService.save(parade, rowLimit, columnLimit);
+
+				saved = this.paradeService.save(parade);
 				brotherhood = this.brotherhoodService.findBrotherhoodByParade(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
 			} catch (final IllegalArgumentException invalidMoment) {
