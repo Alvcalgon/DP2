@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
+import domain.Sponsor;
 import domain.Sponsorship;
 
 @Service
@@ -21,8 +23,11 @@ public class SponsorshipService {
 	@Autowired
 	private SponsorshipRepository	sponsorshipRepository;
 
-
 	// Other supporting services --------------------------
+
+	@Autowired
+	private SponsorService			sponsorService;
+
 
 	// Constructors ---------------------------------------
 
@@ -33,6 +38,17 @@ public class SponsorshipService {
 	// Simple CRUD methods --------------------------------
 
 	// Other business methods -----------------------------
+
+	public Collection<Sponsorship> findAllByPrincipal() {
+		Collection<Sponsorship> result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.findByPrincipal();
+		result = this.sponsorshipRepository.findAllBySponsorId(sponsor.getId());
+		Assert.notNull(result);
+
+		return result;
+	}
 
 	public Sponsorship getRandomSponsorship(final int paradeId) {
 		List<Sponsorship> allSponsorships;
