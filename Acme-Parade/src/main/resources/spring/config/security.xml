@@ -47,6 +47,7 @@
 		<security:intercept-url pattern="/actor/registerBrotherhood.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
 		<security:intercept-url pattern="/actor/registerMember.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
 		<security:intercept-url pattern="/actor/registerChapter.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
+		<security:intercept-url pattern="/actor/registerSponsor.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
 		
 		<security:intercept-url pattern="/actor/administrator,brotherhood,member/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />

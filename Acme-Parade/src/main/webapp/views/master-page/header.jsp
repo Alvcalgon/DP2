@@ -78,6 +78,7 @@
 					<li><a href="actor/registerBrotherhood.do"><spring:message code="master.page.brotherhood.create" /></a></li>
 					<li><a href="actor/registerMember.do"><spring:message code="master.page.member.create" /></a></li>
 					<li><a href="actor/registerChapter.do"><spring:message code="master.page.chapter.create" /></a></li>
+					<li><a href="actor/registerSponsor.do"><spring:message code="master.page.sponsor.create" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
