@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="${banner}" alt="Acme-Madruga, Inc." /></a>
+	<a href="#"><img src="${banner}" alt="Acme-Parade, Inc." /></a>
 </div>
 
 <div>
@@ -75,6 +75,10 @@
 					<li><a href="enrolment/brotherhood/listMemberRequest.do"><spring:message code="master.page.enrolments.list" /></a></li>			
 				</ul>
 			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message code="master.page.sponsorship.list" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
