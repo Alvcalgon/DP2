@@ -32,6 +32,7 @@
 	<acme:textbox code="customisation.negativeWords" path="negativeWords" />
 	<acme:textbox code="customisation.spamWords" path="spamWords" />
 	<acme:textbox code="customisation.languages" path="languages" />
+	<acme:textbox code="customisation.makes" path="creditCardMakes" />
 	<acme:textbox code="customisation.threshold" path="thresholdScore" />
 	<br />
 	
