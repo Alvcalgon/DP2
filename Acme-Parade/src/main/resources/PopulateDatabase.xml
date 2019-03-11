@@ -4683,21 +4683,20 @@
 		<property name="parade" ref="parade5" />
 	</bean>
 	
-		
 	<bean id="sponsorship6" class="domain.Sponsorship">
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor3" />		
 		<property name="parade" ref="parade5" />
 	</bean>
 	
-		<bean id="sponsorship7" class="domain.Sponsorship">
+	<bean id="sponsorship7" class="domain.Sponsorship">
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor3" />		
 		<property name="parade" ref="parade1" />
 	</bean>
@@ -4707,7 +4706,7 @@
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor3" />		
 		<property name="parade" ref="parade2" />
 	</bean>
@@ -4717,7 +4716,7 @@
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor5" />		
 		<property name="parade" ref="parade2" />
 	</bean>
@@ -4726,7 +4725,7 @@
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard1" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor5" />		
 		<property name="parade" ref="parade3" />
 	</bean>
@@ -4753,7 +4752,7 @@
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
 		<property name="creditCard" ref="creditCard2" />
-		<property name="isActive" value="false" />
+		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor7" />		
 		<property name="parade" ref="parade5" />
 	</bean>

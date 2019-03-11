@@ -15,25 +15,18 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="proclaim/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de anuncios" />
+		<put-attribute name="body" value="/views/proclaim/list.jsp" />
 	</definition>
 	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="proclaim/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar anuncio" />
+		<put-attribute name="body" value="/views/proclaim/display.jsp" />
 	</definition>
 	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="proclaim/edit" extends="master.page">	
+		<put-attribute name="title" value="Crear anuncio" />
+		<put-attribute name="body" value="/views/proclaim/edit.jsp" />
 	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
 </tiles-definitions>
