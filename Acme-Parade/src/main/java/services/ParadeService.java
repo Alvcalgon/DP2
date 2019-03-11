@@ -107,15 +107,14 @@ public class ParadeService {
 		Assert.isTrue(brotherhood.getArea() != null);
 
 		if (!parade.getIsFinalMode())
-			//TODO: quitar comentario cuando se arregle el estado
-			//	Assert.isNull(parade.getStatus());
-			try {
-				fechaActual = this.utilityService.current_moment();
-				Assert.isTrue(parade.getMoment().after(fechaActual));
+			Assert.isTrue(parade.getStatus().equals("submitted"));
+		try {
+			fechaActual = this.utilityService.current_moment();
+			Assert.isTrue(parade.getMoment().after(fechaActual));
 
-			} catch (final Exception e) {
-				throw new IllegalArgumentException("Invalid moment");
-			}
+		} catch (final Exception e) {
+			throw new IllegalArgumentException("Invalid moment");
+		}
 
 		if (parade.getId() == 0)
 			parade.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
@@ -213,16 +212,12 @@ public class ParadeService {
 		this.messageService.notificationPublishedParade(parade);
 	}
 
-	public Parade changeStatus(final Parade parade) {
+	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);
+		Assert.isTrue(parade.getStatus().equals("submitted"));
 
-		if (parade.getStatus().equals("accepted"))
-			parade.setStatus("accepted");
-		else if (parade.getStatus().equals("rejected")) {
-			parade.setStatus("rejected");
-			parade.setReasonWhy(parade.getReasonWhy());
-		}
+		parade.setStatus("accepted");
 
 		return parade;
 	}

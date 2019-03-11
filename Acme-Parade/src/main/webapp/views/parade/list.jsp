@@ -98,7 +98,7 @@
 	<security:authorize access="hasRole('CHAPTER')">
 		<display:column style="background-color:${colorValue }">		
 			<jstl:if test="${isChapterOwner && rowSubmitted.isFinalMode && rowSubmitted.status=='submitted'}">
-				<a href="parade/chapter/accept.do?paradeId=${row.id}">
+				<a href="parade/chapter/accept.do?paradeId=${rowSubmitted.id}">
 					<spring:message code="parade.accept" />
 				</a>
 			</jstl:if>

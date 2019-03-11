@@ -93,6 +93,7 @@
 		<security:intercept-url pattern="/parade/list.do" access="permitAll" /> 	
 		<security:intercept-url pattern="/parade/brotherhood/**"  access="hasRole('BROTHERHOOD')"/> 	
 		<security:intercept-url pattern="/parade/member/**"  access="hasRole('MEMBER')"/>
+		<security:intercept-url pattern="/parade/chapter/**"  access="hasRole('CHAPTER')"/>
 		
 		
 		
