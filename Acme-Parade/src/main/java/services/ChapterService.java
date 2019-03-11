@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
+import domain.Area;
 import domain.Chapter;
 import forms.ChapterRegistrationForm;
 
@@ -35,6 +38,9 @@ public class ChapterService {
 
 	@Autowired
 	private UserAccountService	userAccountService;
+
+	@Autowired
+	private AreaService			areaService;
 
 
 	// Constructors ---------------------------
@@ -62,6 +68,14 @@ public class ChapterService {
 		return result;
 	}
 
+	public Collection<Chapter> findAll() {
+		Collection<Chapter> results;
+
+		results = this.chapterRepository.findAll();
+
+		return results;
+	}
+
 	public Chapter findOneToDisplayEdit(final int chapterId) {
 		Assert.isTrue(chapterId != 0);
 
@@ -84,6 +98,20 @@ public class ChapterService {
 	}
 
 	// Other business methods -----------------
+	public void selfAssignedArea(final Area area) {
+		Assert.notNull(area);
+		Assert.isTrue(area.getId() != 0 && this.areaService.findAreasNotAssigned().contains(area));
+
+		Chapter principal;
+
+		principal = this.findByPrincipal();
+
+		// Once an area is self-assigned, it cannot be changed.
+		Assert.isNull(principal.getArea());
+
+		principal.setArea(area);
+	}
+
 	public Chapter findByPrincipal() {
 		Chapter result;
 		UserAccount userAccount;
