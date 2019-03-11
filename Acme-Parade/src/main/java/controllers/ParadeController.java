@@ -13,13 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.FloatService;
 import services.MemberService;
 import services.ParadeService;
 import services.RequestService;
 import services.SponsorshipService;
 import services.UtilityService;
+import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import domain.Parade;
 import domain.Sponsorship;
@@ -48,6 +51,9 @@ public class ParadeController extends AbstractController {
 
 	@Autowired
 	private SponsorshipService	sponsorshipService;
+
+	@Autowired
+	private ChapterService		chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -82,12 +88,22 @@ public class ParadeController extends AbstractController {
 				result.addObject("principal", principal);
 				result.addObject("parade", parade);
 				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
+
+			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]") && brotherhood.getArea() == this.chapterService.findByPrincipal().getArea()) {
+				parade = this.paradeService.findOneToDisplayToChapter(paradeId);
+				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
+
+				result.addObject("parade", parade);
+				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
 			} else {
 				parade = this.paradeService.findOneToDisplay(paradeId);
 				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 				floats = parade.getFloats();
 				result.addObject("parade", parade);
 				result.addObject("floats", parade.getFloats());
+				result.addObject("segments", parade.getSegments());
 
 				if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
 					this.isRequestable(parade, result);
@@ -105,6 +121,7 @@ public class ParadeController extends AbstractController {
 
 				result.addObject("parade", parade);
 				result.addObject("floats", floats);
+				result.addObject("segments", parade.getSegments());
 				result.addObject("brotherhood", brotherhood);
 			} catch (final Exception e) {
 
@@ -119,12 +136,22 @@ public class ParadeController extends AbstractController {
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
 		Collection<Parade> parades;
+		Collection<Parade> paradesSubmittedBrotherhood;
+		Collection<Parade> paradesRejectedBrotherhood;
+		Collection<Parade> paradesAcceptedBrotherhood;
+		Collection<Parade> paradesSubmittedFinal;
+		Collection<Parade> paradesRejectedFinal;
+		Collection<Parade> paradesAcceptedFinal;
 		Brotherhood principal;
 		Boolean hasFloats;
+		final Area areaBrotherhood;
+		final Area areaChapter;
+		Brotherhood brotherhood;
+		Chapter chapterprincipal;
 
 		result = new ModelAndView("parade/list");
-		parades = this.paradeService.findParadeFinalByBrotherhood(brotherhoodId);
-		result.addObject("parades", parades);
+		parades = this.paradeService.findParadeAcceptedFinalByBrotherhood(brotherhoodId);
+		result.addObject("paradesAccepted", parades);
 		result.addObject("brotherhoodId", brotherhoodId);
 
 		try {
@@ -140,13 +167,36 @@ public class ParadeController extends AbstractController {
 
 				if (brotherhoodId == this.brotherhoodService.findByPrincipal().getId()) {
 
-					parades = this.paradeService.findParadeByBrotherhood(principal.getId());
+					paradesSubmittedBrotherhood = this.paradeService.findParadeSubmittedByBrotherhood(principal.getId());
+					paradesRejectedBrotherhood = this.paradeService.findParadeRejectedByBrotherhood(principal.getId());
+					paradesAcceptedBrotherhood = this.paradeService.findParadeAcceptedByBrotherhood(principal.getId());
 
 					result.addObject("isOwner", true);
-					result.addObject("parades", parades);
+					result.addObject("paradesSubmitted", paradesSubmittedBrotherhood);
+					result.addObject("paradesRejected", paradesRejectedBrotherhood);
+					result.addObject("paradesAccepted", paradesAcceptedBrotherhood);
 
 				}
+			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]")) {
+
+				brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+				chapterprincipal = this.chapterService.findByPrincipal();
+				if (brotherhood.getArea().equals(chapterprincipal.getArea())) {
+
+					areaChapter = this.chapterService.findByPrincipal().getArea();
+					areaBrotherhood = this.brotherhoodService.findOne(brotherhoodId).getArea();
+
+					paradesSubmittedFinal = this.paradeService.findParadeSubmittedFinalByBrotherhood(brotherhoodId);
+					paradesRejectedFinal = this.paradeService.findParadeRejectedFinalByBrotherhood(brotherhoodId);
+					paradesAcceptedFinal = this.paradeService.findParadeAcceptedFinalByBrotherhood(brotherhoodId);
+
+					result.addObject("paradesSubmitted", paradesSubmittedFinal);
+					result.addObject("paradesRejected", paradesRejectedFinal);
+					result.addObject("paradesAccepted", paradesAcceptedFinal);
+					result.addObject("isChapterOwner", areaChapter.equals(areaBrotherhood));
+				}
 			}
+
 		} catch (final Exception e) {
 		}
 
@@ -154,7 +204,6 @@ public class ParadeController extends AbstractController {
 		return result;
 
 	}
-
 	//Este método se usa en caso de que si es un miembro para que pueda solicitar salir en la desfile
 	private void isRequestable(final Parade parade, final ModelAndView result) {
 		Collection<Member> members;

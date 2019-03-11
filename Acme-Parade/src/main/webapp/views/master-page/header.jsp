@@ -52,6 +52,15 @@
 			<li><a class="fNiv" href="parade/member/listFinder.do"><spring:message code="master.page.finder.parade" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('CHAPTER')">
+			<li><a class="fNiv"><spring:message	code="master.page.chapter" /></a>
+				<ul>
+					<li class="fNiv"></li>
+					<li><a href="area/chapter/listNotAssigned.do"><spring:message code="master.page.area.listNot" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a class="fNiv"><spring:message	code="master.page.requests" /></a>
 				<ul>
@@ -74,6 +83,7 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
+			<li><a class="fNiv" href="chapter/list.do"><spring:message code="master.page.chapter.list" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	
@@ -82,6 +92,7 @@
 					<li><a href="actor/registerBrotherhood.do"><spring:message code="master.page.brotherhood.create" /></a></li>
 					<li><a href="actor/registerMember.do"><spring:message code="master.page.member.create" /></a></li>
 					<li><a href="actor/registerChapter.do"><spring:message code="master.page.chapter.create" /></a></li>
+					<li><a href="actor/registerSponsor.do"><spring:message code="master.page.sponsor.create" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

@@ -48,6 +48,25 @@
 
 	</jstl:if>
 
+	<security:authorize access="hasAnyRole('CHAPTER','SPONSOR')">
+		<jstl:if test="${actor.phoneNumber != null }">
+			<p>
+				<strong> <spring:message code="actor.phoneNumber" />
+				</strong>
+				<jstl:out value="${actor.phoneNumber}" />
+			</p>
+		</jstl:if>
+
+		<jstl:if test="${actor.address != null }">
+			<p>
+				<strong> <spring:message code="actor.address" />
+				</strong>
+				<jstl:out value="${actor.address}" />
+			</p>
+		</jstl:if>
+
+	</security:authorize>
+
 
 	<p> <strong> <spring:message code="actor.email" /> </strong>  <jstl:out value="${actor.email}" /></p>
 
@@ -174,7 +193,7 @@
 	
 	
 	<jstl:if test="${isAuthorized == true}">
-	<a href="actor/administrator,brotherhood,member/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
+	<a href="actor/administrator,brotherhood,chapter,member,sponsor/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
 	</jstl:if>
 </fieldset>
 
@@ -218,6 +237,24 @@
 		</jstl:if>
 	</fieldset>
 </jstl:if>
+
+	<security:authorize access="hasRole('CHAPTER')">
+	<fieldset>
+		<legend >
+			<spring:message code="actor.chapter.legend" />
+		</legend>
+		<p> <strong> <spring:message code="actor.chapter.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
+		
+		<jstl:if test="${actor.area != null }">
+			<strong> <spring:message code="actor.chapter.area" />
+			</strong> <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out
+					value="${actor.area.name}" /></a>
+		</jstl:if>
+		
+	</fieldset>	
+		
+	
+	</security:authorize>
 
 
 <fieldset>

@@ -368,6 +368,11 @@
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
 	</bean>
 
+	<bean id="area3" class="domain.Area">
+		<property name="name" value="area3" />
+		<property name="pictures" value="" />
+	</bean>
+
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -2085,7 +2090,7 @@
 		<property name="address" value="Calle Principal 2" />
 		<property name="userAccount" ref="userAccount23" />
 		<property name="title" value="Chapter 1" />
-		<property name="area" ref="area2" />
+		<property name="area" ref="area1" />
 	</bean>
 
 
@@ -2099,7 +2104,8 @@
 		<property name="phoneNumber" value="+34 654987321" />
 		<property name="address" value="Calle Secundaria 2" />
 		<property name="userAccount" ref="userAccount24" />
-		<property name="title" value="Chapter 2" /><property name="area" ref="area2" />
+		<property name="title" value="Chapter 2" />
+		<property name="area" ref="area2" />
 	</bean>
 
 <!-- CreditCard -->
@@ -3251,8 +3257,7 @@
 				<ref bean="float1" />
 			</list>
 		</property>
-		<property name="status" value="rejected" />
-		<property name="reasonWhy" value="no es adecuado" />
+		<property name="status" value="accepted" />
 		<property name="segments">
 			<list>
 				<ref bean="segment1" />
@@ -3400,6 +3405,7 @@
 			</list>
 		</property>
 		<property name="status" value="rejected" />
+		<property name="reasonWhy" value="no es adecuado" />
 		<property name="segments">
 			<list>
 				<null></null>

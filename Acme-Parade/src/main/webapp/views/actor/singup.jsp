@@ -28,6 +28,9 @@
 		<jstl:when test="${rol == 'Chapter'}">
 			<h2><spring:message code="header.chapter"/></h2>
 		</jstl:when>
+		<jstl:when test="${rol == 'Sponsor'}">
+			<h2><spring:message code="header.sponsor"/></h2>
+		</jstl:when>
 		
 	
 	</jstl:choose>
@@ -91,6 +94,7 @@
 			<br />
 		
 		</jstl:if>
+	
  		 
 	</fieldset>
 	
@@ -143,6 +147,12 @@
 		<jstl:if test="${rol == 'Chapter'}">
 		
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="CHAPTER"/>
+		
+		</jstl:if>
+		
+		<jstl:if test="${rol == 'Sponsor'}">
+		
+			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="SPONSOR"/>
 		
 		</jstl:if>
 		

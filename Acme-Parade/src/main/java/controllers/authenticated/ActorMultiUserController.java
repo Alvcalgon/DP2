@@ -13,17 +13,22 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.AdministratorService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.MemberService;
+import services.SponsorService;
 import controllers.ActorAbstractController;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
+import domain.Sponsor;
 import forms.BrotherhoodRegistrationForm;
+import forms.ChapterRegistrationForm;
 import forms.RegistrationForm;
 
 @Controller
-@RequestMapping(value = "/actor/administrator,brotherhood,member")
+@RequestMapping(value = "/actor/administrator,brotherhood,chapter,member,sponsor")
 public class ActorMultiUserController extends ActorAbstractController {
 
 	// Services
@@ -39,6 +44,12 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private ChapterService			chapterService;
+
+	@Autowired
+	private SponsorService			sponsorService;
 
 
 	// Constructor
@@ -56,6 +67,10 @@ public class ActorMultiUserController extends ActorAbstractController {
 		final Brotherhood brotherhood;
 		Administrator administrator;
 		Member member;
+		Chapter chapter;
+		final Sponsor sponsor;
+
+		result = new ModelAndView();
 
 		try {
 			actor = this.actorService.findOneToDisplayEdit(actorId);
@@ -68,10 +83,18 @@ public class ActorMultiUserController extends ActorAbstractController {
 				administrator = this.administratorService.findOneToDisplayEdit(actorId);
 				result = this.createModelAndView(administrator);
 				result.addObject("rol", "Administrator");
-			} else {
+			} else if (actor instanceof Brotherhood) {
 				brotherhood = this.brotherhoodService.findOneToDisplayEdit(actorId);
 				result = this.createModelAndView(brotherhood);
 				result.addObject("rol", "Brotherhood");
+			} else if (actor instanceof Chapter) {
+				chapter = this.chapterService.findOneToDisplayEdit(actorId);
+				result = this.createModelAndView(chapter);
+				result.addObject("rol", "Chapter");
+			} else if (actor instanceof Sponsor) {
+				sponsor = this.sponsorService.findOneToDisplayEdit(actorId);
+				result = this.createModelAndView(sponsor);
+				result.addObject("rol", "Sponsor");
 			}
 
 		} catch (final Throwable oops) {
@@ -146,6 +169,50 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveChapter")
+	public ModelAndView saveChapter(@ModelAttribute("registrationForm") final ChapterRegistrationForm chapterRegistrationForm, final BindingResult binding) {
+		ModelAndView result;
+		Chapter chapter;
+
+		chapter = this.chapterService.reconstruct(chapterRegistrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(chapterRegistrationForm);
+			result.addObject("rol", "Chapter");
+		} else
+			try {
+				this.chapterService.save(chapter);
+				result = new ModelAndView("redirect:/actor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(chapterRegistrationForm, "actor.commit.error");
+				result.addObject("rol", "Chapter");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveSponsor")
+	public ModelAndView saveSponsor(final RegistrationForm registrationForm, final BindingResult binding) {
+		ModelAndView result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Sponsor");
+		} else
+			try {
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:/actor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Sponsor");
+			}
+
+		return result;
+	}
+
 	// Ancillary methods
 
 	protected ModelAndView createModelAndView(final Administrator administrator) {
@@ -181,6 +248,28 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
+	protected ModelAndView createModelAndView(final Chapter chapter) {
+		ModelAndView result;
+		ChapterRegistrationForm chapterRegistrationForm;
+
+		chapterRegistrationForm = this.chapterService.createForm(chapter);
+
+		result = this.createModelAndView(chapterRegistrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final Sponsor sponsor) {
+		ModelAndView result;
+		RegistrationForm registrationForm;
+
+		registrationForm = this.sponsorService.createForm(sponsor);
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
+
 	protected ModelAndView createModelAndView(final RegistrationForm registrationForm) {
 		ModelAndView result;
 
@@ -194,6 +283,24 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		result = new ModelAndView("actor/edit");
 		result.addObject("registrationForm", registrationForm);
+		result.addObject("messageCode", messageCode);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final ChapterRegistrationForm chapterRegistrationForm) {
+		ModelAndView result;
+
+		result = this.createModelAndView(chapterRegistrationForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createModelAndView(final ChapterRegistrationForm chapterRegistrationForm, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("actor/edit");
+		result.addObject("registrationForm", chapterRegistrationForm);
 		result.addObject("messageCode", messageCode);
 
 		return result;

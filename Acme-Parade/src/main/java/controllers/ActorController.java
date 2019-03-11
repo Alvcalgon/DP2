@@ -17,10 +17,12 @@ import services.AreaService;
 import services.BrotherhoodService;
 import services.ChapterService;
 import services.MemberService;
+import services.SponsorService;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
+import domain.Sponsor;
 import forms.BrotherhoodRegistrationForm;
 import forms.ChapterRegistrationForm;
 import forms.RegistrationForm;
@@ -42,6 +44,9 @@ public class ActorController extends ActorAbstractController {
 
 	@Autowired
 	private ChapterService		chapterService;
+
+	@Autowired
+	private SponsorService		sponsorService;
 
 
 	// Constructor
@@ -190,7 +195,58 @@ public class ActorController extends ActorAbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/registerSponsor", method = RequestMethod.GET)
+	public ModelAndView createSponsor() {
+		ModelAndView result;
+		String rol;
+		Sponsor sponsor;
+
+		rol = "Sponsor";
+		sponsor = new Sponsor();
+		result = this.createModelAndView(sponsor);
+		result.addObject("rol", rol);
+		result.addObject("urlAdmin", "");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/registerSponsor", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveSponsor(final RegistrationForm registrationForm, final BindingResult binding) {
+		ModelAndView result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Sponsor");
+		} else
+			try {
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:/welcome/index.do");
+			} catch (final DataIntegrityViolationException oops) {
+				result = this.createModelAndView(registrationForm, "actor.email.used");
+				result.addObject("rol", "Sponsor");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.registration.error");
+				result.addObject("rol", "Sponsor");
+			}
+
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
+
+	protected ModelAndView createModelAndView(final Sponsor sponsor) {
+		ModelAndView result;
+		RegistrationForm registrationForm;
+
+		registrationForm = this.sponsorService.createForm(sponsor);
+
+		result = this.createModelAndView(registrationForm, null);
+
+		return result;
+	}
 
 	protected ModelAndView createModelAndView(final Chapter chapter) {
 		ModelAndView result;

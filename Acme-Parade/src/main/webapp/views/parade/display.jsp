@@ -42,20 +42,37 @@
 	<spring:message code="parade.formatMoment1" var="formatMoment"/>
 		<fmt:formatDate value="${parade.moment}" pattern="${formatMoment}"/>
 	
-	
+	<br/>
 	<security:authorize access="hasRole('BROTHERHOOD')">		
  	<jstl:if test="${owner}">
  		<strong><spring:message code="parade.finalMode"/>:</strong>
 			<jstl:out value="${parade.isFinalMode}"/>
 		<br/>
- 	
+		</jstl:if>
+		<jstl:if test="${parade.status!=null}">
+		<strong><spring:message code="parade.status"/>:</strong>
+			<jstl:out value="${parade.status}"/>
+		<br/>
+ 	 	</jstl:if>
+ 	<jstl:if test="${parade.reasonWhy!=null}">
+		<strong><spring:message code="parade.reasonWhy"/>:</strong>
+			<jstl:out value="${parade.reasonWhy}"/>
+		<br/>
  	</jstl:if>
  	</security:authorize>
  	
+ 	<security:authorize access="hasRole('CHAPTER')">
+ 	
+ 	<jstl:if test="${parade.reasonWhy!=null}">
+		<strong><spring:message code="parade.reasonWhy"/>:</strong>
+			<jstl:out value="${parade.reasonWhy}"/>
+		<br/>
+ 	</jstl:if>
+ 	</security:authorize>
  	
  	<br/><br/>
 <jstl:if test="${ not empty floats}">	
-<fieldset name="">
+<fieldset>
 <strong><spring:message	code="parade.floats" /></strong>
 	<display:table pagesize="5" class="displaytag" name="parade.floats" requestURI="${requestURI}" id="row">
 
@@ -83,7 +100,49 @@
 	
 	</fieldset>
 			</jstl:if>
-		<jstl:if test="${brotherhood==principal && !parade.isFinalMode }">
+			
+		<br/><br/>
+		
+		<jstl:if test="${ not empty segments}">	
+	<fieldset>
+<strong><spring:message	code="parade.segments" /></strong>
+	<display:table pagesize="5" class="displaytag" name="parade.segments" requestURI="${requestURI}" id="rowSegments">
+
+		<display:column>	
+			<a href="segment/display.do?segmentId=${rowSegments.id}">
+				<spring:message	code="parade.display" />			
+			</a>
+		</display:column>
+		
+		<security:authorize access="hasRole('BROTHERHOOD')">		
+	<jstl:if test="${principal == row.brotherhood}">	 
+		<display:column >
+			<a href="segment/brotherhood/edit.do?segmentId=${row.id}">
+				<spring:message	code="parade.edit" />
+			</a>
+		</display:column>
+	</jstl:if>
+		</security:authorize>
+	
+		<display:column property="origin.latitude" titleKey="parade.segment.origin.latitude" />
+		<display:column property="origin.latitude" titleKey="parade.segment.origin.longitude" />
+			
+		<display:column property="destination.latitude" titleKey="parade.segment.destination.latitude" />
+		<display:column property="destination.longitude" titleKey="parade.segment.destination.longitude" />		
+		
+		<spring:message code="parade.formatMoment" var="formatMomentHeader" />
+			<display:column property="reachingOrigin" titleKey="parade.segment.reachingOrigin" 	format="${formatMomentHeader}" />
+		
+		<spring:message code="parade.formatMoment" var="formatMomentHeader" />
+			<display:column property="reachingDestination" titleKey="parade.segment.reachingDestination" 	format="${formatMomentHeader}" />
+
+	</display:table>
+	
+	</fieldset>
+			</jstl:if>
+			
+			
+		<jstl:if test="${brotherhood==principal && !parade.isFinalMode && !parade.status=='accepted' }">
 
 	<p style="color:blue;"><spring:message code="parade.info"/></p>
 	

@@ -73,9 +73,10 @@ public class AreaService {
 
 	public Area save(final Area area) {
 		Assert.notNull(area);
+		this.utilityService.checkPicture(area.getPictures());
 
 		Area result;
-		this.utilityService.checkPicture(area.getPictures());
+
 		result = this.areaRepository.save(area);
 
 		return result;
@@ -118,6 +119,13 @@ public class AreaService {
 	}
 
 	// Other methods --------------------------
+	public Collection<Area> findAreasNotAssigned() {
+		Collection<Area> results;
+
+		results = this.areaRepository.findAreasNotAssigned();
+
+		return results;
+	}
 
 	public Integer findBrotherhoodFromArea(final Area area) {
 		Integer result;
@@ -135,4 +143,21 @@ public class AreaService {
 
 		return result;
 	}
+
+	public Area findAreaByParade(final int idParade) {
+		Area result;
+
+		result = this.areaRepository.findAreaByParade(idParade);
+
+		return result;
+	}
+
+	public Double ratioAreaWithoutChapter() {
+		Double result;
+
+		result = this.areaRepository.ratioAreaWithoutChapter();
+
+		return result;
+	}
+
 }
