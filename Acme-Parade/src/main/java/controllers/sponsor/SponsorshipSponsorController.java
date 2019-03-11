@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.SponsorshipService;
@@ -42,6 +43,23 @@ public class SponsorshipSponsorController extends AbstractController {
 			result = new ModelAndView("sponsorship/list");
 			result.addObject("sponsorships", sponsorships);
 			result.addObject("requestURI", "sponsorship/sponsor/list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int sponsorshipId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.findOneToDisplay(sponsorshipId);
+
+			result = new ModelAndView("sponsorship/display");
+			result.addObject("sponsorship", sponsorship);
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/error.do");
 		}

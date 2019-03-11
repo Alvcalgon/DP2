@@ -37,6 +37,15 @@ public class SponsorshipService {
 
 	// Simple CRUD methods --------------------------------
 
+	public Sponsorship findOneToDisplay(final int sponsorshipId) {
+		Sponsorship result;
+
+		result = this.sponsorshipRepository.findOne(sponsorshipId);
+		this.checkOwnerSponsorship(result);
+
+		return result;
+	}
+
 	// Other business methods -----------------------------
 
 	public Collection<Sponsorship> findAllByPrincipal() {
@@ -64,6 +73,8 @@ public class SponsorshipService {
 		return result;
 	}
 
+	// Ancillary methods ----------------------------------
+
 	private List<Sponsorship> findByParadeId(final int paradeId) {
 		List<Sponsorship> result;
 
@@ -73,6 +84,11 @@ public class SponsorshipService {
 		return result;
 	}
 
-	// Ancillary methods ----------------------------------
+	private void checkOwnerSponsorship(final Sponsorship sponsorship) {
+		Sponsor principal;
+
+		principal = this.sponsorService.findByPrincipal();
+		Assert.isTrue(sponsorship.getSponsor().equals(principal));
+	}
 
 }
