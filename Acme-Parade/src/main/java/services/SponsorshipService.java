@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SponsorshipRepository;
 import domain.Sponsor;
@@ -28,6 +30,9 @@ public class SponsorshipService {
 	@Autowired
 	private SponsorService			sponsorService;
 
+	@Autowired
+	private Validator				validator;
+
 
 	// Constructors ---------------------------------------
 
@@ -37,7 +42,18 @@ public class SponsorshipService {
 
 	// Simple CRUD methods --------------------------------
 
-	public Sponsorship findOneToDisplay(final int sponsorshipId) {
+	public Sponsorship save(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		this.checkOwnerSponsorship(sponsorship);
+
+		Sponsorship saved;
+
+		saved = this.sponsorshipRepository.save(sponsorship);
+
+		return saved;
+	}
+
+	public Sponsorship findOneToEditDisplay(final int sponsorshipId) {
 		Sponsorship result;
 
 		result = this.sponsorshipRepository.findOne(sponsorshipId);
@@ -74,6 +90,26 @@ public class SponsorshipService {
 	}
 
 	// Ancillary methods ----------------------------------
+
+	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
+		Sponsorship result, sponsorshipStored;
+
+		result = new Sponsorship();
+		sponsorshipStored = this.sponsorshipRepository.findOne(sponsorship.getId());
+		// TODO: Tratamiento distinto si llego aquí desde un create?
+		result.setId(sponsorship.getId());
+		result.setBanner(sponsorship.getBanner().trim());
+		result.setCreditCard(sponsorship.getCreditCard());
+		result.setIsActive(sponsorshipStored.getIsActive());
+		result.setParade(sponsorshipStored.getParade());
+		result.setSponsor(sponsorshipStored.getSponsor());
+		result.setTargetURL(sponsorship.getTargetURL().trim());
+		result.setVersion(sponsorshipStored.getVersion());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
 
 	private List<Sponsorship> findByParadeId(final int paradeId) {
 		List<Sponsorship> result;

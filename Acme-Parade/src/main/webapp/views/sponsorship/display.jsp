@@ -77,6 +77,8 @@
 <!-- Links -->
 
 <div>
+	<a href="sponsorship/sponsor/list.do"><spring:message code="sponsorship.return.list"/></a>
+	&nbsp;
 	<a href="sponsorship/sponsor/edit.do?sponsorshipId=${sponsorship.id}"><spring:message code="sponsorship.edit.extended"/></a>
 	&nbsp;
 	<jstl:choose>
