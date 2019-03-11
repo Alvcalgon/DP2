@@ -368,6 +368,11 @@
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
 	</bean>
 
+	<bean id="area3" class="domain.Area">
+		<property name="name" value="area3" />
+		<property name="pictures" value="" />
+	</bean>
+
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />

@@ -54,12 +54,13 @@
 		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" /> <!-- requires-channel="https"/> --> 
 		
 		<security:intercept-url pattern="/area/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/area/chapter/**" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/area/display.do**" access="permitAll" /> 
 		<security:intercept-url pattern="/brotherhood/brotherhood/selectArea.do" 
 					access="hasRole('BROTHERHOOD')" />
 		
 		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" />
-		
+		<security:intercept-url pattern="/chapter/list.do" access="permitAll" />
 
 		<security:intercept-url pattern="/box/**" access="isAuthenticated()" /> 
 		
