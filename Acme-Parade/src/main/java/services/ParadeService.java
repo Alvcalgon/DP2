@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ParadeRepository;
 import domain.Area;
@@ -62,6 +64,9 @@ public class ParadeService {
 
 	@Autowired
 	private AreaService				areaService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	// Constructors -------------------------------
@@ -124,6 +129,17 @@ public class ParadeService {
 		return result;
 	}
 
+	public Parade saveRejected(final Parade parade) {
+		Assert.notNull(parade);
+
+		final Parade result;
+		this.checkChapter(parade);
+
+		result = this.paradeRepository.save(parade);
+
+		return result;
+	}
+
 	public void delete(final Parade parade) {
 		Assert.notNull(parade);
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
@@ -170,6 +186,16 @@ public class ParadeService {
 
 		Assert.notNull(result);
 		Assert.isTrue(this.getBrotherhoodToParade(result).equals(brotherhood));
+
+		return result;
+	}
+	public Parade findOneToEditChapter(final int paradeId) {
+		Parade result;
+
+		result = this.paradeRepository.findOne(paradeId);
+
+		Assert.notNull(result);
+		this.checkChapter(result);
 
 		return result;
 	}
@@ -353,6 +379,30 @@ public class ParadeService {
 		String result;
 
 		result = this.paradeRepository.existTicker(ticker);
+
+		return result;
+	}
+
+	public Parade reconstruct(final Parade parade, final BindingResult binding) {
+		Parade result, paradeStored;
+
+		result = new Parade();
+		paradeStored = this.findOneToEditChapter(parade.getId());
+
+		result.setId(parade.getId());
+		result.setTicker(paradeStored.getTicker());
+		result.setTitle(paradeStored.getTitle());
+		result.setDescription(paradeStored.getDescription());
+		result.setMoment(paradeStored.getMoment());
+		result.setIsFinalMode(paradeStored.getIsFinalMode());
+		result.setMatrizParade(paradeStored.getMatrizParade());
+		result.setStatus("rejected");
+		result.setReasonWhy(parade.getReasonWhy());
+		result.setVersion(paradeStored.getVersion());
+		result.setFloats(paradeStored.getFloats());
+		result.setSegments(paradeStored.getSegments());
+
+		this.validator.validate(result, binding);
 
 		return result;
 	}

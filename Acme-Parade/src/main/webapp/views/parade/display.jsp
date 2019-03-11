@@ -61,6 +61,14 @@
  	</jstl:if>
  	</security:authorize>
  	
+ 	<security:authorize access="hasRole('CHAPTER')">
+ 	
+ 	<jstl:if test="${parade.reasonWhy!=null}">
+		<strong><spring:message code="parade.reasonWhy"/>:</strong>
+			<jstl:out value="${parade.reasonWhy}"/>
+		<br/>
+ 	</jstl:if>
+ 	</security:authorize>
  	
  	<br/><br/>
 <jstl:if test="${ not empty floats}">	
