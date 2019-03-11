@@ -19,12 +19,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <display:table name="areas" id="row"
-	requestURI="${requestURI }" class="displaytag" pagesize="5">
+	requestURI="${requestURI}" class="displaytag" pagesize="5">
 
-	<display:column>
-		<a href="area/administrator/edit.do?areaId=${row.id}"><spring:message
-				code="area.edit" /></a>
-	</display:column>
+	<security:authorize access="hasRole('CHAPTER')">
+		<jstl:if test="${hasAssignedArea}">
+			<display:column>
+				<a href="area/chapter/selfAssign.do?areaId=${row.id}"><spring:message code="area.selfAssign" /></a>
+			</display:column>	
+		</jstl:if>
+	</security:authorize>
+
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="area/administrator/edit.do?areaId=${row.id}"><spring:message code="area.edit" /></a>
+		</display:column>
+	</security:authorize>
 	
 	<display:column>
 		<a href="area/display.do?areaId=${row.id}"><spring:message
@@ -32,9 +41,9 @@
 	</display:column>
 
 	<display:column	property="name" titleKey="area.name" />
-	
-
 </display:table>
 
-<a href="area/administrator/create.do"><spring:message code="area.create"/></a>
+<security:authorize access="hasRole('ADMIN')">
+	<a href="area/administrator/create.do"><spring:message code="area.create"/></a>
+</security:authorize>
 

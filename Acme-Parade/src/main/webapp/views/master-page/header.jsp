@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="${banner}" alt="Acme-Madruga, Inc." /></a>
+	<a href="#"><img src="${banner}" alt="Acme-Parade, Inc." /></a>
 </div>
 
 <div>
@@ -52,6 +52,15 @@
 			<li><a class="fNiv" href="parade/member/listFinder.do"><spring:message code="master.page.finder.parade" /></a></li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('CHAPTER')">
+			<li><a class="fNiv"><spring:message	code="master.page.chapter" /></a>
+				<ul>
+					<li class="fNiv"></li>
+					<li><a href="area/chapter/listNotAssigned.do"><spring:message code="master.page.area.listNot" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<li><a class="fNiv"><spring:message	code="master.page.requests" /></a>
 				<ul>
@@ -68,8 +77,13 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message code="master.page.sponsorship.list" /></a></li>
+		</security:authorize>
+		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
+			<li><a class="fNiv" href="chapter/list.do"><spring:message code="master.page.chapter.list" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>	

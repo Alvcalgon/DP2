@@ -491,4 +491,36 @@ public class ParadeService {
 
 	}
 
+	public Double findRatioParadesDraftModeVSParadesFinalMode() {
+		Double result;
+
+		result = this.paradeRepository.findRatioParadesDraftModeVSParadesFinalMode();
+
+		return result;
+	}
+
+	public Double findRatioSubmittedParadesFinalMode() {
+		Double result;
+
+		result = this.paradeRepository.findRatioSubmittedParadesFinalMode();
+
+		return result;
+	}
+
+	public Double findRatioAcceptedParadesFinalMode() {
+		Double result;
+
+		result = this.paradeRepository.findRatioAcceptedParadesFinalMode();
+
+		return result;
+	}
+
+	public Double findRatioRejectedParadesFinalMode() {
+		Double result;
+
+		result = this.paradeRepository.findRatioRejectedParadesFinalMode();
+
+		return result;
+	}
+
 }

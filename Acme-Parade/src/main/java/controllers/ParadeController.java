@@ -18,12 +18,14 @@ import services.FloatService;
 import services.MemberService;
 import services.ParadeService;
 import services.RequestService;
+import services.SponsorshipService;
 import services.UtilityService;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
 import domain.Parade;
+import domain.Sponsorship;
 
 @Controller
 @RequestMapping(value = "/parade")
@@ -48,6 +50,9 @@ public class ParadeController extends AbstractController {
 	private FloatService		floatService;
 
 	@Autowired
+	private SponsorshipService	sponsorshipService;
+
+	@Autowired
 	private ChapterService		chapterService;
 
 
@@ -65,12 +70,14 @@ public class ParadeController extends AbstractController {
 		Parade parade;
 		Brotherhood brotherhood;
 		Brotherhood principal;
+		Sponsorship sponsorship;
 		Collection<domain.Float> floats;
 
 		result = new ModelAndView("parade/display");
 
 		try {
 			brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
+			sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
 
 			//Está registrado como hermandad y además es el dueño de la desfile
 			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
@@ -103,6 +110,7 @@ public class ParadeController extends AbstractController {
 			}
 
 			result.addObject("brotherhood", brotherhood);
+			result.addObject("sponsorship", sponsorship);
 
 		} catch (final Exception e1) {
 

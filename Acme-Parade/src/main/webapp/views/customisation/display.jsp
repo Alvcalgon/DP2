@@ -73,6 +73,13 @@
 	</jstl:forEach>
 </ul>
 
+<p> <strong> <spring:message code="customisation.makes" />: </strong> </p>
+<ul>
+	<jstl:forEach var="make" items="${creditCardMakes}">
+		<li> <jstl:out value="${make}" /> </li>
+	</jstl:forEach>
+</ul>
+
 <display:table name="positiveWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
 	<display:column value="${row}" titleKey="customisation.positiveWords"/>
 </display:table>
