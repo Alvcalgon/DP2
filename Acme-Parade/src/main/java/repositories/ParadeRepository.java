@@ -57,6 +57,15 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=true  and p.status ='accepted'")
 	Collection<Parade> findParadeAcceptedFinalByBrotherhood(int id);
 
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.area.id=?1 and p.isFinalMode=true and p.status='submitted'")
+	Collection<Parade> findSubmittedByArea(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.area.id=?1 and p.isFinalMode=true and p.status='rejected'")
+	Collection<Parade> findRejectedByArea(int id);
+
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.area.id=?1 and p.isFinalMode=true  and p.status ='accepted'")
+	Collection<Parade> findAcceptedByArea(int id);
+
 	// Req 8.1.4 Acme-Parade
 	@Query("select count(pa)/(select count(p) from Parade p where p.isFinalMode = true)*1.0 from Parade pa where pa.isFinalMode = false")
 	Double findRatioParadesDraftModeVSParadesFinalMode();

@@ -1,8 +1,6 @@
 
 package repositories;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,7 +14,7 @@ public interface SponsorRepository extends JpaRepository<Sponsor, Integer> {
 	Sponsor findByUserAccount(int userAccountId);
 
 	// Req 18.2.c
-	@Query("select s.name,(select count(sp) from Sponsorship sp where sp.isActive=true and sp.sponsor.id=s.id order by count(sp) ASC) from Sponsor s")
-	Page<Sponsor> topFiveSponsors(Pageable page);
+	//	@Query("select s.name,(select count(sp) from Sponsorship sp where sp.isActive=true and sp.sponsor.id=s.id order by count(sp) ASC) from Sponsor s")
+	//	Page<Sponsor> topFiveSponsors(Pageable page);
 
 }
