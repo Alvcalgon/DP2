@@ -30,10 +30,32 @@
 			</jstl:forEach>
 		</ul>
 	</jstl:if>
+	
+	<security:authorize access="isAnonymous()">
+		<p> <strong> <spring:message code="area.brotherhoods" />: </strong> </p>
+		<display:table name="brotherhoods" id="row" requestURI="area/display.do?areaId=${area.id}" class="displaytag" pagesize="5">
+			<display:column>
+				<a href="actor/display.do?actorId=${row.id}"><spring:message code="actor.table.display.profile"/></a>
+			</display:column>
+			
+			<display:column property="fullname" titleKey="table.fullname" />
+	
+			<display:column property="email" titleKey="table.email" />
+			
+			<display:column property="title" titleKey="table.title" />	
+		</display:table>
+	</security:authorize>
+	
 	<!-- Links -->	
 
 <security:authorize access="hasRole('ADMIN')">
 	<a href="area/administrator/list.do">
 		<spring:message	code="area.back" />			
 	</a>
-	</security:authorize>
+</security:authorize>
+
+<security:authorize access="isAnonymous()">
+	<a href="chapter/list.do">
+		<spring:message	code="area.back" />
+	</a>
+</security:authorize>
