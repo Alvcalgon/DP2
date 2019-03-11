@@ -271,8 +271,6 @@ public class BrotherhoodService {
 			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
-		if (this.actorService.existEmail(brotherhood.getEmail()))
-			binding.rejectValue("email", "actor.email.used", "Email already in use");
 		if (password.length() < 5 || password.length() > 32)
 			binding.rejectValue("password", "actor.password.size", "Password must have between 5 and 32 characters");
 		if (username.length() < 5 || username.length() > 32)

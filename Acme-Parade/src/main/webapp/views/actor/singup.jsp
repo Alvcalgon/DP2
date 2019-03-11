@@ -25,6 +25,9 @@
 		<jstl:when test="${rol == 'Administrator'}">
 			<h2><spring:message code="header.administrator"/></h2>
 		</jstl:when>
+		<jstl:when test="${rol == 'Chapter'}">
+			<h2><spring:message code="header.chapter"/></h2>
+		</jstl:when>
 		
 	
 	</jstl:choose>
@@ -78,6 +81,16 @@
 			<br />
 
 		</jstl:if>
+		
+		<jstl:if test="${rol == 'Chapter' }">
+		
+			<acme:textbox code="actor.chapter.title.requested" path="title"/>
+			<br /> 
+			
+			<acme:select items="${areas}" itemLabel="name" code="actor.chapter.area" path="area"/>
+			<br />
+		
+		</jstl:if>
  		 
 	</fieldset>
 	
@@ -126,6 +139,14 @@
 			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="MEMBER"/>
 		
 		</jstl:if>
+		
+		<jstl:if test="${rol == 'Chapter'}">
+		
+			<acme:textbox code="actor.authority" path="userAccount.authorities" readonly="true" value="CHAPTER"/>
+		
+		</jstl:if>
+		
+		
 		
 		</security:authorize>
 		
