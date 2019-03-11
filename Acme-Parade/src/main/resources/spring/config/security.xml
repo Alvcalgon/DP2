@@ -49,7 +49,7 @@
 		<security:intercept-url pattern="/actor/registerChapter.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
 		<security:intercept-url pattern="/actor/registerSponsor.do" access="isAnonymous()" /> <!-- requires-channel="https"/> -->
 		
-		<security:intercept-url pattern="/actor/administrator,brotherhood,member/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/actor/administrator,brotherhood,chapter,member,sponsor/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/display.do**" access="permitAll" /> <!-- requires-channel="https"/> -->  
 		<security:intercept-url pattern="/actor/display.do" access="hasAnyRole('ADMIN','BROTHERHOOD','MEMBER')" /> <!-- requires-channel="https"/> --> 

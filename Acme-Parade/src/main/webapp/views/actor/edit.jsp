@@ -11,7 +11,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="confirm.telephone" var="confirmTelephone"/>
-<form:form action="actor/administrator,brotherhood,member/edit.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
+<form:form action="actor/administrator,brotherhood,chapter,member,sponsor/edit.do" modelAttribute="registrationForm" onsubmit="javascript:calcMD5();">
 	<jstl:choose>
 		<jstl:when test="${rol == 'Brotherhood'}">
 			<h2>
@@ -26,6 +26,16 @@
 		<jstl:when test="${rol == 'Administrator'}">
 			<h2>
 				<spring:message code="header.administrator" />
+			</h2>
+		</jstl:when>
+		<jstl:when test="${rol == 'Chapter'}">
+			<h2>
+				<spring:message code="header.chapter" />
+			</h2>
+		</jstl:when>
+		<jstl:when test="${rol == 'Sponsor'}">
+			<h2>
+				<spring:message code="header.sponsor" />
 			</h2>
 		</jstl:when>
 
@@ -79,6 +89,13 @@
 			<br />
 		
 		</jstl:if>
+		
+		<jstl:if test="${rol == 'Chapter'}">
+		
+			<acme:textbox code="actor.chapter.title" path="title"/>
+			<br /> 
+		
+		</jstl:if>
 	</fieldset>
  
 	<fieldset>
@@ -106,6 +123,12 @@
 		</jstl:when>
 		<jstl:when test="${rol == 'Member'}">
 			<acme:submit name="saveMember" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+		</jstl:when>
+		<jstl:when test="${rol == 'Chapter'}">
+			<acme:submit name="saveChapter" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+		</jstl:when>
+		<jstl:when test="${rol == 'Sponsor'}">
+			<acme:submit name="saveSponsor" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 		</jstl:when>
 	</jstl:choose>
 	
