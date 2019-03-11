@@ -3252,8 +3252,7 @@
 				<ref bean="float1" />
 			</list>
 		</property>
-		<property name="status" value="rejected" />
-		<property name="reasonWhy" value="no es adecuado" />
+		<property name="status" value="accepted" />
 		<property name="segments">
 			<list>
 				<ref bean="segment1" />
@@ -3401,6 +3400,7 @@
 			</list>
 		</property>
 		<property name="status" value="rejected" />
+		<property name="reasonWhy" value="no es adecuado" />
 		<property name="segments">
 			<list>
 				<null></null>
