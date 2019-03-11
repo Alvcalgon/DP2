@@ -86,7 +86,10 @@
 		<jstl:if test="${brotherhood==principal && !parade.isFinalMode }">
 
 	<p style="color:blue;"><spring:message code="parade.info"/></p>
+	
 </jstl:if>		
 
-	
+<div>
+	<a href="${sponsorship.targetURL}"><img src="${sponsorship.banner}" alt="Sponsorship banner" /></a>
+</div>
 	
