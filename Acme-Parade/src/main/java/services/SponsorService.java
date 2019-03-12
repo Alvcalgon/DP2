@@ -1,9 +1,14 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -287,18 +292,18 @@ public class SponsorService {
 		return registrationForm;
 	}
 
-	//	public Collection<Sponsor> topFiveSponsors() {
-	//		Collection<Sponsor> results;
-	//		Page<Sponsor> sponsors;
-	//		Pageable page;
-	//
-	//		page = new PageRequest(0, 5);
-	//
-	//		sponsors = this.sponsorRepository.topFiveSponsors(page);
-	//
-	//		results = sponsors.getContent();
-	//
-	//		return results;
-	//	}
+	public Collection<Sponsor> topFiveSponsors() {
+		Collection<Sponsor> results;
+		Page<Sponsor> sponsors;
+		Pageable page;
+
+		page = new PageRequest(0, 5);
+
+		sponsors = this.sponsorRepository.topFiveSponsors(page);
+
+		results = sponsors.getContent();
+
+		return results;
+	}
 
 }
