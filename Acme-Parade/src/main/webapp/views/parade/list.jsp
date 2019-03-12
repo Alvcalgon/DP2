@@ -93,7 +93,18 @@
 				</a>
 			</jstl:if>
 		</display:column>
+		
+		<display:column style="background-color:${colorValue }">
+			<jstl:if test="${isOwner}">
+				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowSubmitted.id}">
+					<spring:message code="parade.makeCopy" />
+				</a>
+			</jstl:if>
+		</display:column>	
 	</security:authorize>
+	
+		
+
 
 	<security:authorize access="hasRole('CHAPTER')">
 		<display:column style="background-color:${colorValue }">		
