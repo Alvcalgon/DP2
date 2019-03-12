@@ -27,6 +27,6 @@
 	<acme:textarea code="proclaim.text" path="text"/>
 	
 	<!-- Buttons -->
-	<input type="submit" name="save" value="<spring:message code="proclaim.save" />" onclick="return confirm('<spring:message code="proclaim.confirm.save" />')" />
+	<input type="submit" name="save" value="<spring:message code="proclaim.save" />" onclick="return confirm('<spring:message code="proclaim.confirm.save"/>')" />
 	<acme:cancel code="proclaim.cancel" url="welcome/index.do" />
 </form:form>
