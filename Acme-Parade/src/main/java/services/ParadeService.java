@@ -238,6 +238,35 @@ public class ParadeService {
 		this.messageService.notificationPublishedParade(parade);
 	}
 
+	public Parade makeCopy(final Parade parade) {
+		Brotherhood principal;
+		Brotherhood owner;
+		Parade paradeCopied;
+		Parade paradeSaved;
+
+		principal = this.brotherhoodService.findByPrincipal();
+		owner = this.getBrotherhoodToParade(parade);
+
+		Assert.isTrue(owner.equals(principal));
+
+		paradeCopied = this.create();
+
+		paradeCopied.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
+		paradeCopied.setIsFinalMode(false);
+		paradeCopied.setStatus("submitted");
+		paradeCopied.setDescription(parade.getDescription());
+		paradeCopied.setMoment(parade.getMoment());
+		paradeCopied.setFloats(parade.getFloats());
+		paradeCopied.setMatrizParade(parade.getMatrizParade());
+		paradeCopied.setReasonWhy(null);
+		paradeCopied.setTitle(parade.getTitle());
+
+		paradeSaved = this.paradeRepository.save(paradeCopied);
+
+		return paradeSaved;
+
+	}
+
 	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);

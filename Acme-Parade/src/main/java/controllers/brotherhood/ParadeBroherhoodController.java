@@ -134,6 +134,27 @@ public class ParadeBroherhoodController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/makeCopy", method = RequestMethod.GET)
+	public ModelAndView makeCopy(@RequestParam final int paradeId, final RedirectAttributes redir) {
+		ModelAndView result;
+		Parade parade;
+		Brotherhood principal;
+
+		parade = this.paradeService.findOne(paradeId);
+
+		principal = this.brotherhoodService.findByPrincipal();
+
+		try {
+			this.paradeService.makeCopy(parade);
+		} catch (final Throwable oops) {
+			redir.addFlashAttribute("messageCode", "parade.make.copy.error");
+
+		}
+
+		result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + principal.getId());
+		return result;
+	}
+
 	// Arcillary methods --------------------------
 
 	protected ModelAndView createEditModelAndView(final Parade parade) {
