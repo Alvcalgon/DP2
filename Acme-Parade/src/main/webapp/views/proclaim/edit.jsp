@@ -23,12 +23,10 @@
 <form:form action="proclaim/chapter/edit.do" modelAttribute="proclaim" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="publishedMoment" />
-	<form:hidden path="chapter" />
 	
 	<acme:textarea code="proclaim.text" path="text"/>
 	
 	<!-- Buttons -->
-	<acme:submit name="save" code="proclaim.save" onclick="return confirm('<spring:message code="proclaim.confirm.save" />')" />
+	<input type="submit" name="save" value="<spring:message code="proclaim.save" />" onclick="return confirm('<spring:message code="proclaim.confirm.save" />')" />
 	<acme:cancel code="proclaim.cancel" url="welcome/index.do" />
 </form:form>
