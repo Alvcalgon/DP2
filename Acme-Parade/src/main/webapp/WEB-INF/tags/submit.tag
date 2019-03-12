@@ -30,7 +30,6 @@
 	<jstl:set var="onclick" value=""/>
 </jstl:if>
 
-
 <%-- Definition --%>
 
 <button type="submit" name="${name}" class="btn btn-primary" onclick="${onclick}" >
