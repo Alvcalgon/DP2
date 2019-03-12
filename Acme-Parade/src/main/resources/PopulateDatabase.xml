@@ -2000,63 +2000,6 @@
 		</property>
 		<property name="actor" ref="sponsor4" />
 	</bean>
-	
-	
-	<bean id="box131" class="domain.Box">
-		<property name="name" value="in box" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="actor" ref="sponsor4" />
-	</bean>
-
-	<bean id="box132" class="domain.Box">
-		<property name="name" value="out box" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="actor" ref="sponsor4" />
-	</bean>
-
-	<bean id="box133" class="domain.Box">
-		<property name="name" value="trash box" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="actor" ref="sponsor4" />
-	</bean>
-
-	<bean id="box134" class="domain.Box">
-		<property name="name" value="spam box" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="actor" ref="sponsor4" />
-	</bean>
-
-	<bean id="box135" class="domain.Box">
-		<property name="name" value="notification box" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				<null></null>
-			</list>
-		</property>
-		<property name="actor" ref="sponsor4" />
-	</bean>
-	
 		
 	<bean id="box136" class="domain.Box">
 		<property name="name" value="in box" />

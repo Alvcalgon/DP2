@@ -10,13 +10,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="message/administrator,brotherhood,member/move.do" modelAttribute="messageForm">
+<form:form action="message/administrator,brotherhood,chapter,member,sponsor/move.do" modelAttribute="messageForm">
 	<form:hidden path="messageId" />
 	<form:hidden path="originBoxId" />
 
 	<acme:select path="destinationBoxId" code="message.move.destinationBox" items="${destinationBoxes}" itemLabel="name" />
 
 	<acme:submit name="move" code="message.button.move" />
-	<acme:cancel url="box/administrator,brotherhood,member/list.do" code="message.button.cancel" />
+	<acme:cancel url="box/administrator,brotherhood,chapter,member,sponsor/list.do" code="message.button.cancel" />
 </form:form>
 

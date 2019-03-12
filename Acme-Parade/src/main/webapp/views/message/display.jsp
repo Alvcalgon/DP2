@@ -53,7 +53,7 @@
 </p>
 
 <strong> <spring:message code="message.display.recipients"/>: </strong>
-<display:table name="${messageToDisplay.recipients}" id="row" requestURI="message/administrator,brotherhood,member/display.do?messageId=${messageToDisplay.id}&boxId=${boxId}" pagesize="5" class="displaytag">
+<display:table name="${messageToDisplay.recipients}" id="row" requestURI="message/administrator,brotherhood,chapter,member,sponsor/display.do?messageId=${messageToDisplay.id}&boxId=${boxId}" pagesize="5" class="displaytag">
 
 	<display:column property="fullname" titleKey="message.recipient.name"/>
 
@@ -61,7 +61,7 @@
 
 </display:table>	   
 
-<a href="box/administrator,brotherhood,member/display.do?boxId=${boxId}">
+<a href="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${boxId}">
 	<spring:message code="message.button.return" />
 </a>
 	   

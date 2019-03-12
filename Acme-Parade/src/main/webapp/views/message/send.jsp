@@ -43,5 +43,5 @@
 	
 	<!-- Buttons -->
 	<acme:submit name="send" code="message.button.send" />
-	<acme:cancel url="box/administrator,brotherhood,member/list.do" code="message.button.cancel" />
+	<acme:cancel url="box/administrator,brotherhood,chapter,member,sponsor/list.do" code="message.button.cancel" />
 </form:form>
