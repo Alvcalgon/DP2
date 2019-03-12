@@ -29,6 +29,7 @@
 		<value>/views/message/tiles.xml</value>
 		<value>/views/area/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
+		<value>/views/chapter/tiles.xml</value>
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/customisation/tiles.xml</value>
 		<value>/views/dashboard/tiles.xml</value>

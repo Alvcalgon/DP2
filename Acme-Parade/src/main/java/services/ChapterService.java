@@ -18,6 +18,7 @@ import security.UserAccount;
 import security.UserAccountService;
 import domain.Area;
 import domain.Chapter;
+import forms.ChapterForm;
 import forms.ChapterRegistrationForm;
 
 @Service
@@ -130,6 +131,25 @@ public class ChapterService {
 		result = this.chapterRepository.findByUserAccount(userAccountId);
 
 		return result;
+	}
+
+	private Chapter findChapterToSelectArea() {
+		Chapter result;
+
+		result = this.findByPrincipal();
+
+		Assert.isNull(result.getArea());
+
+		return result;
+	}
+
+	public Chapter reconstruct(final ChapterForm chapterForm, final BindingResult binding) {
+		final Chapter result;
+
+		result = this.findChapterToSelectArea();
+		result.setArea(chapterForm.getArea());
+		return result;
+
 	}
 
 	public Chapter reconstruct(final ChapterRegistrationForm registrationForm, final BindingResult binding) {

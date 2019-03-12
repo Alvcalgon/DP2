@@ -239,23 +239,26 @@
 </jstl:if>
 
 	<security:authorize access="hasRole('CHAPTER')">
-	<fieldset>
-		<legend >
-			<spring:message code="actor.chapter.legend" />
-		</legend>
-		<p> <strong> <spring:message code="actor.chapter.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
-		
-		<jstl:if test="${actor.area != null }">
-			<strong> <spring:message code="actor.chapter.area" />
-			</strong> <a href="area/display.do?areaId=${actor.area.id}"> <jstl:out
-					value="${actor.area.name}" /></a>
-		</jstl:if>
-		
-	</fieldset>	
-		
-	
+		<fieldset>
+			<legend >
+				<spring:message code="actor.chapter.legend" />
+			</legend>
+			<p> <strong> <spring:message code="actor.chapter.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
+			
+			<jstl:if test="${actor.area != null }">
+				<strong> <spring:message code="actor.chapter.area" />: </strong>
+				 <a href="area/display.do?areaId=${actor.area.id}">
+				 	<jstl:out value="${actor.area.name}" />
+				 </a>
+			</jstl:if>
+			
+			<jstl:if test="${actor.area == null && isActorLogged}">
+				<a href="chapter/chapter/selectArea.do">
+					<spring:message code="select.area" />
+				</a>
+			</jstl:if>
+		</fieldset>	
 	</security:authorize>
-
 
 <fieldset>
 	<legend><spring:message code="userAccount.legend"/></legend>
