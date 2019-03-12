@@ -80,16 +80,16 @@
 	</jstl:forEach>
 </ul>
 
-<display:table name="positiveWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.positiveWords"/>
+<display:table name="positiveWords" id="row1" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row1}" titleKey="customisation.positiveWords"/>
 </display:table>
 
-<display:table name="negativeWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.negativeWords"/>
+<display:table name="negativeWords" id="row2" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row2}" titleKey="customisation.negativeWords"/>
 </display:table>
 
-<display:table name="spamWords" id="row" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
-	<display:column value="${row}" titleKey="customisation.spamWords"/>
+<display:table name="spamWords" id="row3" requestURI="customisation/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column value="${row3}" titleKey="customisation.spamWords"/>
 </display:table>
 
 <!-- LINKS -->
