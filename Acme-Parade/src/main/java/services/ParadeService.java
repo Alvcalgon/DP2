@@ -328,6 +328,33 @@ public class ParadeService {
 		return parades;
 	}
 
+	//Devuelve los desfiles de un mismo area con estado SUBMITTED y MODOFINAL
+	public Collection<Parade> findSubmittedByArea(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findSubmittedByArea(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un mismo area con estado REJECTED y MODOFINAL
+	public Collection<Parade> findRejectedByArea(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findRejectedByArea(id);
+
+		return parades;
+	}
+
+	//Devuelve los desfiles de un mismo area con estado ACCEPTED y MODOFINAL
+	public Collection<Parade> findAcceptedByArea(final int id) {
+		Collection<Parade> parades;
+
+		parades = this.paradeRepository.findAcceptedByArea(id);
+
+		return parades;
+	}
+
 	private Brotherhood getBrotherhoodToParade(final Parade parade) {
 		Brotherhood result;
 		Collection<Float> floats;

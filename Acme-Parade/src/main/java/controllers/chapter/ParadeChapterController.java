@@ -1,6 +1,8 @@
 
 package controllers.chapter;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.ParadeService;
 import controllers.AbstractController;
+import domain.Chapter;
 import domain.Parade;
 
 @Controller
@@ -25,6 +29,9 @@ public class ParadeChapterController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ChapterService		chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -48,6 +55,35 @@ public class ParadeChapterController extends AbstractController {
 			this.paradeService.accept(parade);
 
 			result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + brotherhoodId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Parade> paradesSubmitted;
+		Collection<Parade> paradesRejected;
+		Collection<Parade> paradesAccepted;
+		Chapter principal;
+
+		result = new ModelAndView("parade/list");
+
+		try {
+
+			principal = this.chapterService.findByPrincipal();
+			paradesSubmitted = this.paradeService.findSubmittedByArea(principal.getArea().getId());
+			paradesRejected = this.paradeService.findRejectedByArea(principal.getArea().getId());
+			paradesAccepted = this.paradeService.findAcceptedByArea(principal.getArea().getId());
+
+			result.addObject("paradesSubmitted", paradesSubmitted);
+			result.addObject("paradesRejected", paradesRejected);
+			result.addObject("paradesAccepted", paradesAccepted);
+			result.addObject("isChapterOwner", true);
+
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
