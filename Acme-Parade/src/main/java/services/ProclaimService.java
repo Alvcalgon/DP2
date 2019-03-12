@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ProclaimRepository;
 import domain.Chapter;
@@ -79,7 +81,23 @@ public class ProclaimService {
 		return result;
 	}
 
+
+	@Autowired
+	private Validator	validator;
+
+
 	// Other business methods -----------------------
+	public Proclaim reconstruct(final Proclaim proclaim, final BindingResult binding) {
+		Proclaim result;
+
+		result = this.create();
+		result.setText(proclaim.getText().trim());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+
 	private void checkByPrincipal(final Proclaim proclaim) {
 		Chapter principal;
 

@@ -1,8 +1,6 @@
 
 package controllers.chapter;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -39,17 +37,19 @@ public class ProclaimChapterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Proclaim proclaim, final BindingResult binding) {
+	public ModelAndView save(final Proclaim proclaim, final BindingResult binding) {
 		ModelAndView result;
+		Proclaim w_proclaim;
 
+		w_proclaim = this.proclaimService.reconstruct(proclaim, binding);
 		if (binding.hasErrors())
 			result = this.createModelAndView(proclaim);
 		else
 			try {
-				this.proclaimService.save(proclaim);
+				this.proclaimService.save(w_proclaim);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				result = this.createModelAndView(proclaim, "proclaim.commit.error");
+				result = this.createModelAndView(w_proclaim, "proclaim.commit.error");
 			}
 
 		return result;
