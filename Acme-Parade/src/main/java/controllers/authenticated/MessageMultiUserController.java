@@ -29,7 +29,7 @@ import domain.Message;
 import forms.MessageForm;
 
 @Controller
-@RequestMapping("/message/administrator,brotherhood,member")
+@RequestMapping("/message/administrator,brotherhood,chapter,member,sponsor")
 public class MessageMultiUserController extends AbstractController {
 
 	@Autowired
@@ -122,7 +122,7 @@ public class MessageMultiUserController extends AbstractController {
 		else
 			try {
 				this.messageService.moveMessage(target, origin, destination);
-				result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
+				result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 			} catch (final Throwable oops) {
 				result = this.moveModelAndView(messageForm, "message.commit.error");
 			}
@@ -139,7 +139,7 @@ public class MessageMultiUserController extends AbstractController {
 		else
 			try {
 				this.messageService.send(message);
-				result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
+				result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
 			}
@@ -158,7 +158,7 @@ public class MessageMultiUserController extends AbstractController {
 
 		try {
 			this.messageService.delete(message, box);
-			result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
+			result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/error.do");
 		}
@@ -199,7 +199,7 @@ public class MessageMultiUserController extends AbstractController {
 		result.addObject("actors", actors);
 		result.addObject("priorities", priorities);
 		result.addObject("isBroadcastMessage", false);
-		result.addObject("actionURI", "message/administrator,brotherhood,member/send.do");
+		result.addObject("actionURI", "message/administrator,brotherhood,chapter,member,sponsor/send.do");
 		result.addObject("messageCode", messageCode);
 
 		return result;

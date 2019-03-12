@@ -22,14 +22,14 @@
 <display:table name="boxes" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 	<display:column>
 		<jstl:if test="${!row.isSystemBox}">
-			<a href="box/administrator,brotherhood,member/edit.do?boxId=${row.id}">
+			<a href="box/administrator,brotherhood,chapter,member,sponsor/edit.do?boxId=${row.id}">
 				<spring:message code="box.edit" />
 			</a>
 		</jstl:if>
 	</display:column>
 	
 	<display:column>
-		<a href="box/administrator,brotherhood,member/display.do?boxId=${row.id}">
+		<a href="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${row.id}">
 			<spring:message code="box.display" />
 		</a>
 	</display:column>
@@ -39,12 +39,12 @@
 </display:table>
 
 <!-- LINKS -->
-<a href="box/administrator,brotherhood,member/create.do">
+<a href="box/administrator,brotherhood,chapter,member,sponsor/create.do">
 	<spring:message code="box.create" />
 </a>
 <br />
 
-<a href="message/administrator,brotherhood,member/send.do">
+<a href="message/administrator,brotherhood,chapter,member,sponsor/send.do">
 	<spring:message code="message.send"/>
 </a>
 <br />
