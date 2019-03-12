@@ -63,7 +63,7 @@ public class MessageAdministratorController extends AbstractController {
 		else
 			try {
 				this.messageService.sendBroadcast(broadcast);
-				result = new ModelAndView("redirect:/box/administrator,brotherhood,member/list.do");
+				result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 			} catch (final Throwable oops) {
 				result = this.broadcastModelAndView(broadcast, "message.commit.error");
 			}

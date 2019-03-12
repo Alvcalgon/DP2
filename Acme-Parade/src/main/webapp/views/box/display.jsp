@@ -27,7 +27,7 @@
 <jstl:if test="${box.parent != null}">
 	<p>
 		<strong> <spring:message code="box.parent" />: </strong>
-		<a href="box/administrator,brotherhood,member/display.do?boxId=${box.parent.id}">
+		<a href="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${box.parent.id}">
 			<jstl:out value="${box.parent.name}"/>
 		</a>
 	</p>
@@ -35,17 +35,17 @@
 
 <jstl:if test="${not empty childBoxes}">
 	<p> <strong> <spring:message code="box.child" />: </strong> </p>
-	<display:table name="childBoxes" id="row" requestURI="box/administrator,brotherhood,member/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
+	<display:table name="childBoxes" id="row" requestURI="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
 		<display:column>
 			<jstl:if test="${!row.isSystemBox}">
-				<a href="box/administrator,brotherhood,member/edit.do?boxId=${row.id}">
+				<a href="box/administrator,brotherhood,chapter,member,sponsor/edit.do?boxId=${row.id}">
 					<spring:message code="box.edit" />
 				</a>
 			</jstl:if>
 		</display:column>
 		
 		<display:column>
-			<a href="box/administrator,brotherhood,member/display.do?boxId=${row.id}">
+			<a href="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${row.id}">
 				<spring:message code="box.display" />
 			</a>
 		</display:column>
@@ -57,19 +57,19 @@
 
 <jstl:if test="${not empty messages}">
 	<p> <strong> <spring:message code="box.messages" />: </strong> </p>
-	<display:table name="messages" id="row" requestURI="box/administrator,brotherhood,member/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
+	<display:table name="messages" id="fila" requestURI="box/administrator,brotherhood,chapter,member,sponsor/display.do?boxId=${box.id}" pagesize="5" class="displaytag">
 		<display:column>
-			<a href="message/administrator,brotherhood,member/display.do?messageId=${row.id}&boxId=${box.id}">
+			<a href="message/administrator,brotherhood,chapter,member,sponsor/display.do?messageId=${fila.id}&boxId=${box.id}">
 				<spring:message code="box.display" />
 			</a>
 		</display:column>
 		<display:column>
-			<a href="message/administrator,brotherhood,member/move.do?messageId=${row.id}&boxId=${box.id}">
+			<a href="message/administrator,brotherhood,chapter,member,sponsor/move.do?messageId=${fila.id}&boxId=${box.id}">
 				<spring:message code="box.move" />
 			</a>
 		</display:column>
 		<display:column>
-			<a href="message/administrator,brotherhood,member/delete.do?messageId=${row.id}&boxId=${box.id}">
+			<a href="message/administrator,brotherhood,chapter,member,sponsor/delete.do?messageId=${fila.id}&boxId=${box.id}">
 				<spring:message code="box.delete" />
 			</a>
 		</display:column>
@@ -88,7 +88,7 @@
 
 <!-- LINKS -->
 
-<a href="box/administrator,brotherhood,member/list.do">
+<a href="box/administrator,brotherhood,chapter,member,sponsor/list.do">
 	<spring:message code="box.return" />
 </a>
 

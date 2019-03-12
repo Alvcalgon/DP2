@@ -20,7 +20,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="box/administrator,brotherhood,member/edit.do" modelAttribute="box" >
+<form:form action="box/administrator,brotherhood,chapter,member,sponsor/edit.do" modelAttribute="box" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="isSystemBox" />
@@ -37,5 +37,5 @@
 		<acme:submit name="delete"
 		 			 code="box.delete" />
 	</jstl:if>
-	<acme:cancel code="box.cancel" url="box/administrator,brotherhood,member/list.do" />
+	<acme:cancel code="box.cancel" url="box/administrator,brotherhood,chapter,member,sponsor/list.do" />
 </form:form>
