@@ -334,7 +334,7 @@ public class ActorController extends ActorAbstractController {
 		ModelAndView result;
 		Collection<Area> areas;
 
-		areas = this.areaService.findAll();
+		areas = this.areaService.findAreasNotAssigned();
 
 		result = new ModelAndView("actor/singup");
 		result.addObject("registrationForm", chapterRegistrationForm);
