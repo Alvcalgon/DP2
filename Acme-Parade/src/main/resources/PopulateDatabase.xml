@@ -2768,7 +2768,7 @@
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
 		<property name="name" value="Acme Madrugá" />
-		<property name="banner" value="https://image.ibb.co/iuaDgV/Untitled.png" />
+		<property name="banner" value="https://i.ibb.co/Thcj1dW/acme-parade-1.jpg" />
 		<property name="englishWelcomeMessage"
 			value="Welcome to Acme Madrugá! the site to organise your parades." />
 		<property name="spanishWelcomeMessage"
