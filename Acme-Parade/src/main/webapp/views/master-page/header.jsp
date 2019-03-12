@@ -58,6 +58,7 @@
 					<li class="fNiv"></li>
 					<li><a href="area/chapter/listNotAssigned.do"><spring:message code="master.page.area.listNot" /></a></li>
 					<li><a href="proclaim/chapter/create.do"><spring:message code="master.page.proclaim.create" /></a></li>
+					<li><a href="parade/chapter/list.do"><spring:message code="master.page.chapter.parades" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
