@@ -71,6 +71,25 @@ public class EnrolmentServiceTest extends AbstractTest {
 	}
 
 	/*
+	 * A: Requirement tested: level C: requirement 11.3: List the brotherhoods to which he or she
+	 * belongs or has belonged
+	 * C: Analysis of sentence coverage: Sequence.
+	 * D: Analysis of data coverage: intentionally blank
+	 */
+	@Test
+	public void findEnrolmentsByMember_test() {
+		super.authenticate("member1");
+
+		Collection<Enrolment> all;
+
+		all = this.enrolmentService.findAllEnrolmentsByPrincipal();
+
+		Assert.isTrue(all != null && !all.isEmpty());
+
+		super.unauthenticate();
+	}
+
+	/*
 	 * A: Requirement tested: level C: requirement 11.2: Drop out from a brotherhood to which he or she belongs
 	 * B: The business rule that is intended to be broken: A member try to drop out brotherhood but this member doesn't
 	 * belong to the brotherhood
