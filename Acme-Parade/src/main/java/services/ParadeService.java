@@ -579,4 +579,12 @@ public class ParadeService {
 		return result;
 	}
 
+	public Double[] findDataNumerParadesCoordinatedByChapters() {
+		Double[] result;
+
+		result = this.paradeRepository.findDataNumerParadesCoordinatedByChapters();
+
+		return result;
+	}
+
 }

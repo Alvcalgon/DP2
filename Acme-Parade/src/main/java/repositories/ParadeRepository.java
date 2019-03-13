@@ -81,4 +81,8 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	// Req 8.1.5 Acme-Parade status = 'rejected'
 	@Query("select (sum(case when p.status = 'rejected' then 1.0 else 0 end)/count(*)) from Parade p where p.isFinalMode = true")
 	Double findRatioRejectedParadesFinalMode();
+
+	// Req 8.1.2 Acme-Parade. Average, Min, Max, Stdev number of parades coordinated by the chapters
+	@Query("select avg(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),min(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),max(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),stddev (1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)) from Area a where a in (select c.area from Chapter c)")
+	Double[] findDataNumerParadesCoordinatedByChapters();
 }
