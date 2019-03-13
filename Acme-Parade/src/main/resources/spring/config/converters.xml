@@ -84,9 +84,6 @@
 		<bean class="converters.ProclaimToStringConverter" />
 		<bean class="converters.StringToProclaimConverter" />
 		
-		<bean class="converters.RecordToStringConverter" />
-		<bean class="converters.StringToRecordConverter" />
-
 		<bean class="converters.RequestToStringConverter" />
 		<bean class="converters.StringToRequestConverter" />
 		

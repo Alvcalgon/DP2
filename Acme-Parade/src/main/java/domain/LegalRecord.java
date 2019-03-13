@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class LegalRecord extends Record {
+public class LegalRecord extends DomainEntity {
 
 	// Constructor
 
@@ -21,11 +21,32 @@ public class LegalRecord extends Record {
 
 
 	// Attributes
-
+	private String	title;
+	private String	text;
 	private String	name;
 	private int		vatNumber;
 	private String	laws;
 
+
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	public String getText() {
+		return this.text;
+	}
+
+	public void setText(final String text) {
+		this.text = text;
+	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
