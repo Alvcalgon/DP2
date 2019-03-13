@@ -121,4 +121,12 @@ public class HistoryService {
 
 		return history;
 	}
+
+	public History findByPrincipal() {
+		History history;
+
+		history = this.findHistoryByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
+
+		return history;
+	}
 }

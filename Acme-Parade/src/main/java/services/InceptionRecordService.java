@@ -26,9 +26,6 @@ public class InceptionRecordService {
 	@Autowired
 	private HistoryService				historyService;
 
-	@Autowired
-	private BrotherhoodService			brotherhoodService;
-
 
 	// Constructors ------------------------------------
 
@@ -78,7 +75,7 @@ public class InceptionRecordService {
 		else {
 			History history;
 
-			history = this.historyService.findHistoryByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
+			history = this.historyService.findByPrincipal();
 
 			this.historyService.addInceptionRecord(history, result);
 		}
@@ -90,7 +87,7 @@ public class InceptionRecordService {
 	private void checkByPrincipal(final InceptionRecord inceptionRecord) {
 		History history;
 
-		history = this.historyService.findHistoryByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
+		history = this.historyService.findByPrincipal();
 
 		Assert.isTrue(history.getInceptionRecord().equals(inceptionRecord));
 	}
