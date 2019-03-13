@@ -384,6 +384,15 @@ public class ParadeService {
 		return parades;
 	}
 
+	public Parade findBySegment(final int id) {
+		Parade parade;
+
+		parade = this.paradeRepository.findBySegment(id);
+		Assert.notNull(parade);
+
+		return parade;
+	}
+
 	private Brotherhood getBrotherhoodToParade(final Parade parade) {
 		Brotherhood result;
 		Collection<Float> floats;
