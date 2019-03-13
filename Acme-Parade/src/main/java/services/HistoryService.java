@@ -114,4 +114,11 @@ public class HistoryService {
 		history.getLinkRecords().remove(linkRecord);
 	}
 
+	public History findHistoryByBrotherhood(final int brotherhoodId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByBrotherhood(brotherhoodId);
+
+		return history;
+	}
 }
