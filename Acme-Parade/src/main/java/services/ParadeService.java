@@ -587,4 +587,12 @@ public class ParadeService {
 		return result;
 	}
 
+	protected Double avgNumberParadesCoordinatedByChapters() {
+		Double result;
+
+		result = this.paradeRepository.avgNumberParadesCoordinatedByChapters();
+
+		return result;
+	}
+
 }
