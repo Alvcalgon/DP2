@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SegmentRepository;
 import domain.Brotherhood;
@@ -29,6 +31,9 @@ public class SegmentService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private Validator			validator;
+
 
 	// Constructors -------------------------------
 
@@ -49,9 +54,7 @@ public class SegmentService {
 	}
 
 	public Segment save(final Segment segment) {
-		//TODO: terminar
 		Assert.notNull(segment);
-		Assert.isTrue(segment.getId() == 0);
 
 		Segment result;
 
@@ -124,25 +127,36 @@ public class SegmentService {
 
 	}
 
-	//	public Segment reconstruct(final SegmentForm segmentForm) {
-	//		Segment segment;
-	//		final GPSCoordinates gpsOrigin;
-	//		final GPSCoordinates gpsDestination;
-	//
-	//		segmentForm = new SegmentForm();
-	//		gpsOrigin = new GPSCoordinates();
-	//		gpsDestination = new GPSCoordinates();
-	//
-	//		segmentForm.setId(segment.getId());
-	//		segmentForm.setOriginLatitude(gpsOrigin.getLatitude());
-	//		segmentForm.setOriginLongitude(gpsOrigin.getLongitude());
-	//		segmentForm.setDestinationLatitude(gpsDestination.getLatitude());
-	//		segmentForm.setDestinationLongitude(gpsDestination.getLongitude());
-	//		segmentForm.setReachingOrigin(segment.getReachingOrigin());
-	//		segmentForm.setReachingDestination(segment.getReachingDestination());
-	//		segmentForm.setParadeId(paradeId);
-	//
-	//		return segmentForm;
-	//
-	//	}
+	public Segment reconstruct(final SegmentForm segmentForm, final BindingResult binding) {
+		final Segment segment;
+		final GPSCoordinates gpsOrigin;
+		final GPSCoordinates gpsDestination;
+
+		if (segmentForm.getId() == 0) {
+
+			segment = this.create();
+			gpsOrigin = new GPSCoordinates();
+			gpsDestination = new GPSCoordinates();
+
+		} else {
+			segment = this.segmentRepository.findOne(segmentForm.getId());
+			gpsOrigin = segment.getOrigin();
+			gpsDestination = segment.getDestination();
+		}
+
+		gpsOrigin.setLatitude(segmentForm.getOriginLatitude());
+		gpsOrigin.setLongitude(segmentForm.getOriginLongitude());
+		gpsDestination.setLatitude(segmentForm.getDestinationLatitude());
+		gpsDestination.setLongitude(segmentForm.getDestinationLongitude());
+
+		segment.setDestination(gpsDestination);
+		segment.setOrigin(gpsOrigin);
+		segment.setReachingOrigin(segmentForm.getReachingOrigin());
+		segment.setReachingDestination(segmentForm.getReachingDestination());
+
+		this.validator.validate(segment, binding);
+
+		return segment;
+
+	}
 }
