@@ -43,7 +43,7 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<jstl:if test="${brotherhoodLoginId == brotherhoodHistoryId}">
 			<a
-				href="inceptionRecord/broterhood/edit.do?inceptionRecordId=${history.inceptionRecord.id}">
+				href="inceptionRecord/brotherhood/edit.do?inceptionRecordId=${history.inceptionRecord.id}">
 				<spring:message code="history.edit" />
 			</a>
 		</jstl:if>

@@ -54,6 +54,18 @@ public class InceptionRecordService {
 
 	}
 
+	public InceptionRecord findOneEdit(final int inceptionRecordId) {
+		Assert.isTrue(inceptionRecordId != 0);
+		InceptionRecord result;
+
+		result = this.inceptionRecordRepository.findOne(inceptionRecordId);
+
+		this.checkByPrincipal(result);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected Collection<InceptionRecord> findAll() {
 		Collection<InceptionRecord> results;
 
@@ -91,5 +103,4 @@ public class InceptionRecordService {
 
 		Assert.isTrue(history.getInceptionRecord().equals(inceptionRecord));
 	}
-
 }
