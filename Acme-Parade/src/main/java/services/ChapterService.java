@@ -2,6 +2,9 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -42,6 +45,9 @@ public class ChapterService {
 
 	@Autowired
 	private AreaService			areaService;
+
+	@Autowired
+	private ParadeService		paradeService;
 
 
 	// Constructors ---------------------------
@@ -336,4 +342,29 @@ public class ChapterService {
 
 	}
 
+	// Req 8.1.3 Chapters coordinate at least 10% more parades than average
+	public Collection<Chapter> chaptersCoordinateLeast10MoreParadasThanAverage() {
+		Map<Chapter, Long> map;
+		Double avg;
+
+		avg = this.paradeService.avgNumberParadesCoordinatedByChapters();
+		final List<Object[]> list = this.chapterRepository.chaptersCoordinateLeast10MoreParadasThanAverage(avg);
+		Chapter key;
+		Long value;
+		final Collection<Chapter> result;
+
+		map = new HashMap<>();
+		for (final Object[] ob : list) {
+			key = (Chapter) ob[0];
+			value = (Long) ob[1];
+
+			if (value != null)
+				map.put(key, value);
+
+		}
+
+		result = map.keySet();
+
+		return result;
+	}
 }
