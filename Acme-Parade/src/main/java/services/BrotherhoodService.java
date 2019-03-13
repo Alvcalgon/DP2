@@ -153,6 +153,15 @@ public class BrotherhoodService {
 
 	}
 
+	public Brotherhood findBrotherhoodBySegment(final int segmentId) {
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodRepository.findBrotherhoodBySegment(segmentId);
+
+		return brotherhood;
+
+	}
+
 	public Collection<Brotherhood> findByMemberId(final int memberId) {
 		Collection<Brotherhood> result;
 
