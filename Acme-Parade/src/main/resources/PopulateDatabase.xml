@@ -3373,27 +3373,23 @@
 	<!-- LinkRecord -->
 	
 	<bean id="linkRecord1" class="domain.LinkRecord">
-	<property name="title" value="title of link record 1" />
-	<property name="text" value="text of link record 1" />
-	<property name="brotherhood" ref="brotherhood2" />
-	
+		<property name="title" value="title of link record 1" />
+		<property name="text" value="text of link record 1" />
+		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 	
 	<bean id="linkRecord2" class="domain.LinkRecord">
-	<property name="title" value="title of link record 2" />
-	<property name="text" value="text of link record 2" />
-	<property name="brotherhood" ref="brotherhood3" />
+		<property name="title" value="title of link record 2" />
+		<property name="text" value="text of link record 2" />
+		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 	
 	<bean id="linkRecord3" class="domain.LinkRecord">
-	<property name="title" value="title of link record 3" />
-	<property name="text" value="text of link record 3" />
-	<property name="brotherhood" ref="brotherhood1" />
+		<property name="title" value="title of link record 3" />
+		<property name="text" value="text of link record 3" />
+		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 	
-	
-	
-
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
 		<property name="name" value="José Antonio" />
