@@ -108,7 +108,6 @@ public class Parade extends DomainEntity {
 		this.matrizParade = matrizParade;
 	}
 
-	@NotBlank
 	@Pattern(regexp = "^submitted|accepted|rejected|$")
 	public String getStatus() {
 		return this.status;
