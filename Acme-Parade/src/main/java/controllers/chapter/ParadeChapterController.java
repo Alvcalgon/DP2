@@ -92,7 +92,7 @@ public class ParadeChapterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int paradeId) {
+	public ModelAndView reject(@RequestParam final int paradeId) {
 		ModelAndView result;
 		Parade parade;
 
@@ -108,7 +108,7 @@ public class ParadeChapterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final Parade parade, final BindingResult binding) {
+	public ModelAndView saveReject(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 		Parade paradeRec;
 

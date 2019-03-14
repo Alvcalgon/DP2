@@ -57,6 +57,52 @@
 	</fieldset>
 </jstl:if>
 
+<!-- ---------------------------------NOTFINAL LIST-------------------------------------- -->
+<jstl:if test="${isOwner}">
+<fieldset>
+	<legend>
+		<spring:message code="parade.status.notFinal" />
+	</legend>
+	
+<display:table pagesize="5" class="displaytag" name="paradesNotFinal" requestURI="${requestURI}" id="rowNotFinal">
+	
+	<display:column>
+		<a href="parade/display.do?paradeId=${rowNotFinal.id}"> 
+			<spring:message code="parade.display" />
+		</a>
+	</display:column>
+	
+	<display:column>
+		<a href="parade/brotherhood/edit.do?paradeId=${rowNotFinal.id}">
+			<spring:message code="parade.edit" />
+		</a>
+	</display:column>
+
+	
+		<display:column>
+			<jstl:if test="${!rowNotFinal.isFinalMode}">
+				<a href="parade/brotherhood/makeFinal.do?paradeId=${rowNotFinal.id}">
+					<spring:message code="parade.makeFinal" />
+				</a>
+			</jstl:if>
+		</display:column>
+		
+		<display:column>
+				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowNotFinal.id}">
+					<spring:message code="parade.makeCopy" />
+				</a>
+		</display:column>
+	
+	<display:column property="title" titleKey="parade.title" />
+
+	<spring:message code="parade.formatMoment" var="formatMomentHeader" />
+	<display:column property="moment" titleKey="parade.moment" 	format="${formatMomentHeader}"/>
+
+
+</display:table>
+</fieldset>
+</jstl:if>
+
 
 
 <!-- ---------------------------------SUBMITTED LIST-------------------------------------- -->

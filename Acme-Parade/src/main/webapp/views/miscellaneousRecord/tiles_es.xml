@@ -16,24 +16,14 @@
       
 <tiles-definitions>
 
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="miscellaneousRecord/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar registro misceláneo" />
+		<put-attribute name="body" value="/views/miscellaneousRecord/edit.jsp" />
 	</definition>
 	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="miscellaneousRecord/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar registro misceláneo" />
+		<put-attribute name="body" value="/views/miscellaneousRecord/display.jsp" />
 	</definition>
 	
 </tiles-definitions>
