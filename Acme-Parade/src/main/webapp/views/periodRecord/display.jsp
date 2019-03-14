@@ -37,7 +37,7 @@
 		<strong><spring:message code="periodRecord.photos"/>:</strong>
 		<ul>
 			<jstl:forEach var="photo" items="${photos}">
-				<img src="${photo}" alt="photo" height="75px" width="200px">				
+				<img src="${photo}" alt="photo" height="125px" width="200px">				
 			</jstl:forEach>
 		</ul>
 	</jstl:if>

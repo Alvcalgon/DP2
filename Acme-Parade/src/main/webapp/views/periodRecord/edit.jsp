@@ -27,7 +27,7 @@
 	<acme:textarea code="periodRecord.text" path="text" />
 	<acme:textbox code="periodRecord.startYear" path="startYear" />
 	<acme:textbox code="periodRecord.endYear" path="endYear" />
-	<acme:textarea code="periodRecord.photos" path="text" />
+	<acme:textarea code="periodRecord.photos" path="photos" />
 	
 
 	<acme:submit name="save" code="periodRecord.save"/>	

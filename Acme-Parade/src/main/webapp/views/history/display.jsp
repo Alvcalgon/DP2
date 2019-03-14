@@ -24,7 +24,9 @@
 </p>
 
 <fieldset>
-<legend><spring:message code="history.inceptionRecord"/></legend>
+	<legend>
+		<spring:message code="history.inceptionRecord" />
+	</legend>
 	<p>
 		<strong><spring:message code="history.inceptionRecord.title" /></strong>
 		:
@@ -32,13 +34,18 @@
 	</p>
 	<p>
 		<strong><spring:message code="history.inceptionRecord.text" /></strong>
-		: 
+		:
 		<jstl:out value="${history.inceptionRecord.text}"></jstl:out>
 	</p>
 	<p>
-		<strong><spring:message code="history.inceptionRecord.photos" /></strong>
-		:
-		<jstl:out value="${history.inceptionRecord.photos}"></jstl:out>
+		<jstl:if test="${not empty photos}">
+			<strong><spring:message code="history.inceptionRecord.photos" />:</strong>
+			<ul>
+				<jstl:forEach var="photo" items="${photos}">
+					<img src="${photo}" alt="photo" height="125px" width="200px">
+				</jstl:forEach>
+			</ul>
+		</jstl:if>
 	</p>
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<jstl:if test="${brotherhoodLoginId == brotherhoodHistoryId}">
@@ -51,7 +58,9 @@
 </fieldset>
 
 <fieldset>
-<legend><spring:message code="history.periodRecord"/></legend>
+	<legend>
+		<spring:message code="history.periodRecord" />
+	</legend>
 	<display:table name="history.periodRecords" id="rowPeriodRecord"
 		pagesize="5" class="displaytag" requestURI="${requestURI}">
 
@@ -65,12 +74,13 @@
 				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<display:column>
-			<a href="periodRecord/display.do?periodRecordId=${rowPeriodRecord.id}"><spring:message
+			<a
+				href="periodRecord/display.do?periodRecordId=${rowPeriodRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-		
+
 		<spring:message code="history.periodRecord.title" var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
 			sortable="false" />
@@ -100,7 +110,9 @@
 </fieldset>
 
 <fieldset>
-<legend><spring:message code="history.miscellaneousRecord"/></legend>
+	<legend>
+		<spring:message code="history.miscellaneousRecord" />
+	</legend>
 	<display:table name="history.miscellaneousRecords"
 		id="rowMiscellaneousRecord" pagesize="5" class="displaytag"
 		requestURI="${requestURI}">
@@ -115,12 +127,13 @@
 				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<display:column>
-			<a href="miscellaneousRecord/display.do?miscellaneousRecordId=${rowMiscellaneousRecord.id}"><spring:message
+			<a
+				href="miscellaneousRecord/display.do?miscellaneousRecordId=${rowMiscellaneousRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-		
+
 		<spring:message code="history.miscellaneousRecord.title"
 			var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
@@ -142,7 +155,9 @@
 </fieldset>
 
 <fieldset>
-<legend><spring:message code="history.legalRecord"/></legend>
+	<legend>
+		<spring:message code="history.legalRecord" />
+	</legend>
 	<display:table name="history.legalRecords" id="rowLegalRecord"
 		pagesize="5" class="displaytag" requestURI="${requestURI}">
 
@@ -156,12 +171,12 @@
 				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<display:column>
 			<a href="legalRecord/display.do?legalRecordId=${rowLegalRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-		
+
 		<spring:message code="history.legalRecord.title" var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
 			sortable="false" />
@@ -173,8 +188,10 @@
 		<display:column property="name" title="${nameHeader}" sortable="false" />
 
 
-		<spring:message code="history.legalRecord.vatNumber" var="vatNumberHeader" />
-		<display:column property="vatNumber" title="${vatNumberHeader}" sortable="false" />
+		<spring:message code="history.legalRecord.vatNumber"
+			var="vatNumberHeader" />
+		<display:column property="vatNumber" title="${vatNumberHeader}"
+			sortable="false" />
 
 	</display:table>
 	<security:authorize access="hasRole('BROTHERHOOD')">
@@ -189,10 +206,11 @@
 </fieldset>
 
 <fieldset>
-<legend><spring:message code="history.linkRecord"/></legend>
-	<display:table name="history.linkRecords"
-		id="rowLinkRecord" pagesize="5" class="displaytag"
-		requestURI="${requestURI}">
+	<legend>
+		<spring:message code="history.linkRecord" />
+	</legend>
+	<display:table name="history.linkRecords" id="rowLinkRecord"
+		pagesize="5" class="displaytag" requestURI="${requestURI}">
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<jstl:if test="${brotherhoodLoginId == brotherhoodHistoryId}">
 				<display:column>
@@ -203,12 +221,12 @@
 				</display:column>
 			</jstl:if>
 		</security:authorize>
-		
+
 		<display:column>
 			<a href="linkRecord/display.do?linkRecordId=${rowLinkRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-		
+
 		<spring:message code="history.linkRecord.title" var="titleHeader" />
 		<display:column property="title" title="${titleHeader}"
 			sortable="false" />
@@ -219,8 +237,8 @@
 
 		<spring:message code="history.linkRecord.brotherhood"
 			var="brotherhoodHeader" />
-		<display:column property="brotherhood.name" title="${brotherhoodHeader}"
-			sortable="false" />
+		<display:column property="brotherhood.name"
+			title="${brotherhoodHeader}" sortable="false" />
 	</display:table>
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
