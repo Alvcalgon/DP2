@@ -60,13 +60,17 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		PeriodRecord periodRecord;
 		Integer brotherhoodId;
 
-		periodRecord = this.periodRecordService.findOneEdit(periodRecordId);
-		Assert.notNull(periodRecord);
-		result = new ModelAndView("periodRecord/edit");
-		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+		try {
+			periodRecord = this.periodRecordService.findOneEdit(periodRecordId);
+			Assert.notNull(periodRecord);
+			result = new ModelAndView("periodRecord/edit");
+			brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
 
-		result.addObject("periodRecord", periodRecord);
-		result.addObject("brotherhoodId", brotherhoodId);
+			result.addObject("periodRecord", periodRecord);
+			result.addObject("brotherhoodId", brotherhoodId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -79,17 +83,21 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(periodRecord);
-		else
-			try {
-				this.periodRecordService.save(periodRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(periodRecord);
+			else
+				try {
+					this.periodRecordService.save(periodRecord);
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
@@ -100,13 +108,17 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
-
 		try {
-			this.periodRecordService.delete(periodRecord);
-			result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+			brotherhood = this.brotherhoodService.findByPrincipal();
+
+			try {
+				this.periodRecordService.delete(periodRecord);
+				result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;

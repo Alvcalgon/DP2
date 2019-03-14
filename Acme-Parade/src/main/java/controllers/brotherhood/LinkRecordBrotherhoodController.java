@@ -60,13 +60,17 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		LinkRecord linkRecord;
 		Integer brotherhoodId;
 
-		linkRecord = this.linkRecordService.findOneEdit(linkRecordId);
-		Assert.notNull(linkRecord);
-		result = new ModelAndView("linkRecord/edit");
-		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+		try {
+			linkRecord = this.linkRecordService.findOneEdit(linkRecordId);
+			Assert.notNull(linkRecord);
+			result = new ModelAndView("linkRecord/edit");
+			brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
 
-		result.addObject("linkRecord", linkRecord);
-		result.addObject("brotherhoodId", brotherhoodId);
+			result.addObject("linkRecord", linkRecord);
+			result.addObject("brotherhoodId", brotherhoodId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -79,17 +83,21 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(linkRecord);
-		else
-			try {
-				this.linkRecordService.save(linkRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(linkRecord, "linkRecord.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(linkRecord);
+			else
+				try {
+					this.linkRecordService.save(linkRecord);
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(linkRecord, "linkRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
@@ -100,13 +108,17 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
-
 		try {
-			this.linkRecordService.delete(linkRecord);
-			result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(linkRecord, "linkRecord.commit.error");
+			brotherhood = this.brotherhoodService.findByPrincipal();
+
+			try {
+				this.linkRecordService.delete(linkRecord);
+				result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(linkRecord, "linkRecord.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;

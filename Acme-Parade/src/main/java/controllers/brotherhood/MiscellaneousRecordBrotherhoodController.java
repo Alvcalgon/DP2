@@ -60,13 +60,17 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		MiscellaneousRecord miscellaneousRecord;
 		Integer brotherhoodId;
 
-		miscellaneousRecord = this.miscellaneousRecordService.findOneEdit(miscellaneousRecordId);
-		Assert.notNull(miscellaneousRecord);
-		result = new ModelAndView("miscellaneousRecord/edit");
-		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+		try {
+			miscellaneousRecord = this.miscellaneousRecordService.findOneEdit(miscellaneousRecordId);
+			Assert.notNull(miscellaneousRecord);
+			result = new ModelAndView("miscellaneousRecord/edit");
+			brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
 
-		result.addObject("miscellaneousRecord", miscellaneousRecord);
-		result.addObject("brotherhoodId", brotherhoodId);
+			result.addObject("miscellaneousRecord", miscellaneousRecord);
+			result.addObject("brotherhoodId", brotherhoodId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -79,17 +83,21 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(miscellaneousRecord);
-		else
-			try {
-				this.miscellaneousRecordService.save(miscellaneousRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(miscellaneousRecord);
+			else
+				try {
+					this.miscellaneousRecordService.save(miscellaneousRecord);
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
@@ -100,13 +108,17 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
-
 		try {
-			this.miscellaneousRecordService.delete(miscellaneousRecord);
-			result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
+			brotherhood = this.brotherhoodService.findByPrincipal();
+
+			try {
+				this.miscellaneousRecordService.delete(miscellaneousRecord);
+				result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(miscellaneousRecord, "miscellaneousRecord.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;

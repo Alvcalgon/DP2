@@ -59,14 +59,17 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		LegalRecord legalRecord;
 		Integer brotherhoodId;
+		try {
+			legalRecord = this.legalRecordService.findOneEdit(legalRecordId);
+			Assert.notNull(legalRecord);
+			result = new ModelAndView("legalRecord/edit");
+			brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
 
-		legalRecord = this.legalRecordService.findOneEdit(legalRecordId);
-		Assert.notNull(legalRecord);
-		result = new ModelAndView("legalRecord/edit");
-		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
-
-		result.addObject("legalRecord", legalRecord);
-		result.addObject("brotherhoodId", brotherhoodId);
+			result.addObject("legalRecord", legalRecord);
+			result.addObject("brotherhoodId", brotherhoodId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -79,17 +82,21 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(legalRecord);
-		else
-			try {
-				this.legalRecordService.save(legalRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(legalRecord);
+			else
+				try {
+					this.legalRecordService.save(legalRecord);
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
@@ -103,10 +110,14 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		try {
-			this.legalRecordService.delete(legalRecord);
-			result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
+			try {
+				this.legalRecordService.delete(legalRecord);
+				result = new ModelAndView("redirect:../../history/display.do?brotherhoodId=" + brotherhood.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(legalRecord, "legalRecord.commit.error");
+			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
