@@ -129,4 +129,44 @@ public class HistoryService {
 
 		return history;
 	}
+
+	public History findHistoryByInceptionRecord(final int inceptionRecordId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByInceptionRecord(inceptionRecordId);
+
+		return history;
+	}
+
+	public History findHistoryByPeriodRecord(final int periodRecordId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByPeriodRecord(periodRecordId);
+
+		return history;
+	}
+
+	public History findHistoryByMiscellaneousRecord(final int miscellaneousRecordId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByInceptionRecord(miscellaneousRecordId);
+
+		return history;
+	}
+
+	public History findHistoryByLegalRecord(final int legalRecordId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByLegalRecord(legalRecordId);
+
+		return history;
+	}
+
+	public History findHistoryByLinkRecord(final int linkRecordId) {
+		History history;
+
+		history = this.historyRepository.findHistoryByLegalRecord(linkRecordId);
+
+		return history;
+	}
 }

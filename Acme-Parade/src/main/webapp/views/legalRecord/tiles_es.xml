@@ -16,24 +16,9 @@
       
 <tiles-definitions>
 
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
-	</definition>
-	
-	<definition name="" extends="master.page">	
-		<put-attribute name="title" value="" />
-		<put-attribute name="body" value="" />
+	<definition name="legalRecord/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar registro legal" />
+		<put-attribute name="body" value="/views/legalRecord/edit.jsp" />
 	</definition>
 	
 </tiles-definitions>

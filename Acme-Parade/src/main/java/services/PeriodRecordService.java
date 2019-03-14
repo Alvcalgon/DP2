@@ -52,6 +52,19 @@ public class PeriodRecordService {
 
 	}
 
+	public PeriodRecord findOneEdit(final int periodRecordId) {
+		Assert.isTrue(periodRecordId != 0);
+		PeriodRecord result;
+
+		result = this.periodRecordRepository.findOne(periodRecordId);
+
+		this.checkByPrincipal(result);
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
 	protected Collection<PeriodRecord> findAll() {
 		Collection<PeriodRecord> results;
 

@@ -52,6 +52,19 @@ public class LinkRecordService {
 
 	}
 
+	public LinkRecord findOneEdit(final int linkRecordId) {
+		Assert.isTrue(linkRecordId != 0);
+		LinkRecord result;
+
+		result = this.linkRecordRepository.findOne(linkRecordId);
+
+		this.checkBrotherhoodLink(result);
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
 	protected Collection<LinkRecord> findAll() {
 		Collection<LinkRecord> results;
 

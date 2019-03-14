@@ -52,6 +52,18 @@ public class MiscellaneousRecordService {
 
 	}
 
+	public MiscellaneousRecord findOneEdit(final int miscellaneousRecordId) {
+		Assert.isTrue(miscellaneousRecordId != 0);
+		MiscellaneousRecord result;
+
+		result = this.miscellaneousRecordRepository.findOne(miscellaneousRecordId);
+
+		this.checkByPrincipal(result);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	protected Collection<MiscellaneousRecord> findAll() {
 		Collection<MiscellaneousRecord> results;
 

@@ -150,7 +150,7 @@
 			<jstl:if test="${brotherhoodLoginId == brotherhoodHistoryId}">
 				<display:column>
 					<a
-						href="legalRecord/brotherhopd/edit.do?legalRecordId=${rowLegalRecord.id}">
+						href="legalRecord/brotherhood/edit.do?legalRecordId=${rowLegalRecord.id}">
 						<spring:message code="history.edit" />
 					</a>
 				</display:column>
@@ -193,7 +193,7 @@
 	<display:table name="history.linkRecords"
 		id="rowLinkRecord" pagesize="5" class="displaytag"
 		requestURI="${requestURI}">
-		<security:authorize access="hasRole('HANDYWORKER')">
+		<security:authorize access="hasRole('BROTHERHOOD')">
 			<jstl:if test="${brotherhoodLoginId == brotherhoodHistoryId}">
 				<display:column>
 					<a

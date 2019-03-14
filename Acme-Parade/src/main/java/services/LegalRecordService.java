@@ -52,6 +52,19 @@ public class LegalRecordService {
 
 	}
 
+	public LegalRecord findOneEdit(final int legalRecordId) {
+		Assert.isTrue(legalRecordId != 0);
+		LegalRecord result;
+
+		result = this.legalRecordRepository.findOne(legalRecordId);
+
+		this.checkByPrincipal(result);
+		Assert.notNull(result);
+
+		return result;
+
+	}
+
 	protected Collection<LegalRecord> findAll() {
 		Collection<LegalRecord> results;
 

@@ -19,24 +19,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="inceptionRecord/brotherhood/edit.do" modelAttribute="inceptionRecord">
+<form:form action="miscellaneousRecord/brotherhood/edit.do" modelAttribute="miscellaneousRecord">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
-	<acme:textbox code="inceptionRecord.title" path="title" />
-	<acme:textarea code="inceptionRecord.text" path="text" />
-	<acme:textarea code="inceptionRecord.photos" path="photos" />
+	<acme:textbox code="miscellaneousRecord.title" path="title" />
+	<acme:textarea code="miscellaneousRecord.text" path="text" />
 
-	<acme:submit name="save" code="inceptionRecord.save"/>
-	
-	<jstl:if test="${existHistory}">
-		<acme:cancel url="history/display.do?brotherhoodId=${brotherhoodId}" code="inceptionRecord.cancel"/>
+	<acme:submit name="save" code="miscellaneousRecord.save"/>	
+
+	<acme:cancel url="history/display.do?brotherhoodId=${brotherhoodId}" code="miscellaneousRecord.cancel"/>
+
+	<jstl:if test="${miscellaneousRecord.id != 0}"> 		
+		<acme:submit name="delete" code="miscellaneousRecord.delete" />
 	</jstl:if>
-	
-	<jstl:if test="${!existHistory}">
-		<acme:cancel url="actor/display.do" code="inceptionRecord.cancel"/>
-	</jstl:if>
-	<br />
 	
 
 

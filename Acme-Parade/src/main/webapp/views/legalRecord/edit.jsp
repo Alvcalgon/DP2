@@ -19,24 +19,24 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="inceptionRecord/brotherhood/edit.do" modelAttribute="inceptionRecord">
+<form:form action="legalRecord/brotherhood/edit.do" modelAttribute="legalRecord">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
-	<acme:textbox code="inceptionRecord.title" path="title" />
-	<acme:textarea code="inceptionRecord.text" path="text" />
-	<acme:textarea code="inceptionRecord.photos" path="photos" />
+	<acme:textbox code="legalRecord.title" path="title" />
+	<acme:textarea code="legalRecord.text" path="text" />
+	<acme:textbox code="legalRecord.name" path="name" />
+	<acme:textbox code="legalRecord.vatNumber" path="vatNumber" />
+	<acme:textarea code="legalRecord.laws" path="laws" />
+	
 
-	<acme:submit name="save" code="inceptionRecord.save"/>
-	
-	<jstl:if test="${existHistory}">
-		<acme:cancel url="history/display.do?brotherhoodId=${brotherhoodId}" code="inceptionRecord.cancel"/>
+	<acme:submit name="save" code="legalRecord.save"/>	
+
+	<acme:cancel url="history/display.do?brotherhoodId=${brotherhoodId}" code="legalRecord.cancel"/>
+
+	<jstl:if test="${legalRecord.id != 0}"> 		
+		<acme:submit name="delete" code="legalRecord.delete" />
 	</jstl:if>
-	
-	<jstl:if test="${!existHistory}">
-		<acme:cancel url="actor/display.do" code="inceptionRecord.cancel"/>
-	</jstl:if>
-	<br />
 	
 
 
