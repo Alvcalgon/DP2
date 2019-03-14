@@ -547,6 +547,7 @@ public class ParadeService {
 
 	}
 
+	// Req 8.1.4 Acme-Parade Ratio parades in draft mode vs final mode
 	public Double findRatioParadesDraftModeVSParadesFinalMode() {
 		Double result;
 
@@ -555,6 +556,7 @@ public class ParadeService {
 		return result;
 	}
 
+	// Req 8.1.5 Acme-Parade status = 'submitted'
 	public Double findRatioSubmittedParadesFinalMode() {
 		Double result;
 
@@ -563,6 +565,7 @@ public class ParadeService {
 		return result;
 	}
 
+	// Req 8.1.5 Acme-Parade status = 'accepted'
 	public Double findRatioAcceptedParadesFinalMode() {
 		Double result;
 
@@ -571,10 +574,28 @@ public class ParadeService {
 		return result;
 	}
 
+	// Req 8.1.5 Acme-Parade status = 'rejected'
 	public Double findRatioRejectedParadesFinalMode() {
 		Double result;
 
 		result = this.paradeRepository.findRatioRejectedParadesFinalMode();
+
+		return result;
+	}
+
+	// Req 8.1.2 Acme-Parade. Average, Min, Max, Stdev number of parades coordinated by the chapters
+	public Double[] findDataNumerParadesCoordinatedByChapters() {
+		Double[] result;
+
+		result = this.paradeRepository.findDataNumerParadesCoordinatedByChapters();
+
+		return result;
+	}
+
+	protected Double avgNumberParadesCoordinatedByChapters() {
+		Double result;
+
+		result = this.paradeRepository.avgNumberParadesCoordinatedByChapters();
 
 		return result;
 	}

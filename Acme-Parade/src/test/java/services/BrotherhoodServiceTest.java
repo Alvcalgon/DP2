@@ -14,22 +14,22 @@ import domain.Brotherhood;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+	"classpath:spring/junit.xml"
 })
 @Transactional
 public class BrotherhoodServiceTest extends AbstractTest {
 
-	// Services under testing --------------------------------
+	// Services under testing (SUT) --------------------------------
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
 
-	// Supporting test ---------------------------------------
+	// Supporting services ---------------------------------------
 
-	// Test
+	// Test ----------------------------------------------------
 
 	@Test
-	public void testBrotherhood() {
+	public void create_test() {
 		Brotherhood brotherhood;
 
 		brotherhood = this.brotherhoodService.create();

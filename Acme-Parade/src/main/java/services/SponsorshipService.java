@@ -78,13 +78,18 @@ public class SponsorshipService {
 	public Sponsorship getRandomSponsorship(final int paradeId) {
 		List<Sponsorship> allSponsorships;
 		Sponsorship result;
-		int index;
+		int index, numberSponsorships;
 		Random random;
 
 		allSponsorships = this.findByParadeId(paradeId);
 		random = new Random();
-		index = random.nextInt(allSponsorships.size());
-		result = allSponsorships.get(index);
+		numberSponsorships = allSponsorships.size();
+
+		if (numberSponsorships > 0) {
+			index = random.nextInt(numberSponsorships);
+			result = allSponsorships.get(index);
+		} else
+			result = null;
 
 		return result;
 	}

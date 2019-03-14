@@ -17,9 +17,6 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@AttributeOverrides({
-	@AttributeOverride(name = "latitude", column = @Column(name = "new")), @AttributeOverride(name = "destination", column = @Column(name = "end"))
-})
 @Access(AccessType.PROPERTY)
 public class Segment extends DomainEntity {
 

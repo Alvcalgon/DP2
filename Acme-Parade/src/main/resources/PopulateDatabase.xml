@@ -418,7 +418,6 @@
 		<property name="isBanned" value="false" />
 	</bean>
 	
-	
 	<bean id="userAccount32" class="security.UserAccount">
 		<property name="username" value="sponsor10" />
 		<property name="password" value="a667d56c80461ae8bd64029e955c60ce" />
@@ -432,6 +431,18 @@
 		<property name="isBanned" value="false" />
 	</bean>
 	
+	<bean id="userAccount33" class="security.UserAccount">
+		<property name="username" value="brotherhood4" />
+		<property name="password" value="ddeb3302b54a2e0dbc83f2bd3c866124" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="BROTHERHOOD" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
 
 	<!-- Administrator -->
 	<bean id="administrator1" class="domain.Administrator">
@@ -1670,7 +1681,7 @@
 		<property name="actor" ref="system" />
 	</bean>
 	
-		<bean id="box101" class="domain.Box">
+	<bean id="box101" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -2332,9 +2343,61 @@
 		<property name="actor" ref="sponsor10" />
 	</bean>
 		
+	<bean id="box166" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="brotherhood4" />
+	</bean>
 
+	<bean id="box167" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="brotherhood4" />
+	</bean>
+
+	<bean id="box168" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="brotherhood4" />
+	</bean>
+
+	<bean id="box169" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="brotherhood4" />
+	</bean>
+
+	<bean id="box170" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="brotherhood4" />
+	</bean>
 		
-
 	<bean id="box01" class="domain.Box">
 		<property name="name" value="favorite box" />
 		<property name="isSystemBox" value="false" />
@@ -2629,6 +2692,21 @@
 		<property name="pictures"
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg?" />
 		<property name="area" ref="area2" />
+	</bean>
+	
+	<bean id="brotherhood4" class="domain.Brotherhood">
+		<property name="name" value="Hermandad numero 4" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Cuarta" />
+		<property name="photo" value="" />
+		<property name="email" value="hermandadcuarta@gmail.com" />
+		<property name="phoneNumber" value="+34 677843567" />
+		<property name="address" value="Calle Victory" />
+		<property name="userAccount" ref="userAccount33" />
+		<property name="title" value="Hermandad de los aceituneros" />
+		<property name="establishmentDate" value="1989/06/21" />
+		<property name="pictures"
+			value="" />
 	</bean>
 	
 	<!-- Chapter -->
@@ -3373,27 +3451,23 @@
 	<!-- LinkRecord -->
 	
 	<bean id="linkRecord1" class="domain.LinkRecord">
-	<property name="title" value="title of link record 1" />
-	<property name="text" value="text of link record 1" />
-	<property name="brotherhood" ref="brotherhood2" />
-	
+		<property name="title" value="title of link record 1" />
+		<property name="text" value="text of link record 1" />
+		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 	
 	<bean id="linkRecord2" class="domain.LinkRecord">
-	<property name="title" value="title of link record 2" />
-	<property name="text" value="text of link record 2" />
-	<property name="brotherhood" ref="brotherhood3" />
+		<property name="title" value="title of link record 2" />
+		<property name="text" value="text of link record 2" />
+		<property name="brotherhood" ref="brotherhood2" />
 	</bean>
 	
 	<bean id="linkRecord3" class="domain.LinkRecord">
-	<property name="title" value="title of link record 3" />
-	<property name="text" value="text of link record 3" />
-	<property name="brotherhood" ref="brotherhood1" />
+		<property name="title" value="title of link record 3" />
+		<property name="text" value="text of link record 3" />
+		<property name="brotherhood" ref="brotherhood1" />
 	</bean>
 	
-	
-	
-
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
 		<property name="name" value="José Antonio" />
