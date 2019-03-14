@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 
@@ -68,6 +69,7 @@ public class PeriodRecord extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+	@Column(length = 30000)
 	public String getPhotos() {
 		return this.photos;
 	}
