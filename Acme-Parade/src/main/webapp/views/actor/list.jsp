@@ -14,7 +14,7 @@
 		<jstl:if test="${row.userAccount.authorities == '[BROTHERHOOD]' || row.userAccount.authorities == '[MEMBER]' }">
 			<a href="actor/display.do?actorId=${row.id}"><spring:message code="actor.table.display.profile"/></a>
 		</jstl:if>
-	</display:column>		
+	</display:column>	
 	
 	<display:column property="fullname" titleKey="table.fullname" />
 	
