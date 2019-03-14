@@ -235,6 +235,23 @@
 			</jstl:if>
 			</p>
 		</jstl:if>
+
+		<jstl:if test="${hasHistory == true}">
+		<p>
+			<strong> <spring:message code="actor.brotherhood.history" />
+			</strong>
+			<a href="history/display.do?brotherhoodId=${actor.id}"><spring:message
+					code="brotherhood.display.history" /></a>
+		</p>
+		</jstl:if>
+		
+		<jstl:if test="${hasHistory == false && isAuthorized == true}">
+			<p>
+				<strong> <spring:message code="actor.brotherhood.history" />
+				</strong> <a href="inceptionRecord/brotherhood/create.do"><spring:message
+						code="brotherhood.create.history" /></a>
+			</p>
+		</jstl:if>
 	</fieldset>
 </jstl:if>
 
