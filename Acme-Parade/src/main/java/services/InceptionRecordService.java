@@ -37,6 +37,7 @@ public class InceptionRecordService {
 
 	public InceptionRecord create() {
 		InceptionRecord result;
+		Assert.isNull(this.historyService.findByPrincipal());
 
 		result = new InceptionRecord();
 

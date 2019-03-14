@@ -23,7 +23,7 @@
 	
 	<definition name="miscellaneousRecord/display" extends="master.page">	
 		<put-attribute name="title" value="Editar registro misceláneo" />
-		<put-attribute name="body" value="/views/miscellaneous/display.jsp" />
+		<put-attribute name="body" value="/views/miscellaneousRecord/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

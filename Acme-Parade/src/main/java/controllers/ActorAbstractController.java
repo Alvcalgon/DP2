@@ -10,10 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ActorService;
 import services.CustomisationService;
 import services.EnrolmentService;
+import services.HistoryService;
 import services.UtilityService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.History;
 import domain.Member;
 
 @Controller
@@ -33,6 +35,9 @@ public class ActorAbstractController extends AbstractController {
 	@Autowired
 	private UtilityService			utilityService;
 
+	@Autowired
+	private HistoryService			historyService;
+
 
 	// Main methods -----------------------------------------------------------
 
@@ -45,6 +50,7 @@ public class ActorAbstractController extends AbstractController {
 		boolean isEnrolled, existEnrolmentRequest;
 		final boolean hasSelectedArea;
 		Collection<String> pictures;
+		History history;
 
 		actor = null;
 		principal = null;
@@ -61,6 +67,11 @@ public class ActorAbstractController extends AbstractController {
 			result.addObject("isActorLogged", true);
 			if (actor instanceof Brotherhood) {
 				pictures = this.utilityService.getSplittedString(((Brotherhood) actor).getPictures());
+				history = this.historyService.findHistoryByBrotherhood(actor.getId());
+				if (history != null)
+					result.addObject("hasHistory", "true");
+				else
+					result.addObject("hasHistory", "false");
 				result.addObject("pictures", pictures);
 			}
 		} else {
@@ -71,6 +82,11 @@ public class ActorAbstractController extends AbstractController {
 				throw new IllegalArgumentException();
 			else if (actor instanceof Brotherhood) {
 				pictures = this.utilityService.getSplittedString(((Brotherhood) actor).getPictures());
+				history = this.historyService.findHistoryByBrotherhood(actor.getId());
+				if (history != null)
+					result.addObject("hasHistory", "true");
+				else
+					result.addObject("hasHistory", "false");
 				result.addObject("pictures", pictures);
 			}
 

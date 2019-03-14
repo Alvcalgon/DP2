@@ -49,9 +49,13 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		InceptionRecord inceptionRecord;
 
-		inceptionRecord = this.inceptionRecordService.create();
-		result = this.createEditModelAndView(inceptionRecord);
-		result.addObject("existHistory", false);
+		try {
+			inceptionRecord = this.inceptionRecordService.create();
+			result = this.createEditModelAndView(inceptionRecord);
+			result.addObject("existHistory", false);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
