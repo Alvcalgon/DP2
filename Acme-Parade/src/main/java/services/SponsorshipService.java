@@ -17,6 +17,7 @@ import org.springframework.validation.Validator;
 
 import repositories.SponsorshipRepository;
 import domain.CreditCard;
+import domain.Parade;
 import domain.Sponsor;
 import domain.Sponsorship;
 
@@ -35,6 +36,9 @@ public class SponsorshipService {
 	private SponsorService			sponsorService;
 
 	@Autowired
+	private ParadeService			paradeService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -45,6 +49,22 @@ public class SponsorshipService {
 	}
 
 	// Simple CRUD methods --------------------------------
+
+	public Sponsorship create(final int paradeId) {
+		Sponsorship result;
+		Parade parade;
+		Sponsor sponsor;
+
+		parade = this.paradeService.findOne(paradeId);
+		sponsor = this.sponsorService.findByPrincipal();
+		result = new Sponsorship();
+
+		result.setIsActive(true);
+		result.setParade(parade);
+		result.setSponsor(sponsor);
+
+		return result;
+	}
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);

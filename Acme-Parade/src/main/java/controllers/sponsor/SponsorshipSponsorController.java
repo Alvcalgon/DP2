@@ -77,6 +77,21 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int paradeId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.create(paradeId);
+			result = this.createEditModelAndView(sponsorship);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
