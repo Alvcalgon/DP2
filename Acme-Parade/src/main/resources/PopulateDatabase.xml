@@ -4438,71 +4438,71 @@
 	<bean id="segment1" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates1" />
 		<property name="destination" ref="gpscoordinates2" />
-		<property name="reachingOrigin" value="01/02/2016 08:30" />
-		<property name="reachingDestination" value="01/02/2016 10:30" />
+		<property name="reachingOrigin" value="2016/02/02 08:30" />
+		<property name="reachingDestination" value="2016/02/02 10:30" />
 	</bean>
 	
 	<bean id="segment2" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates3" />
 		<property name="destination" ref="gpscoordinates4" />
-		<property name="reachingOrigin" value="01/02/2016 10:31" />
-		<property name="reachingDestination" value="01/02/2016 12:30" />
+		<property name="reachingOrigin" value="2016/02/02 10:31" />
+		<property name="reachingDestination" value="2016/02/02 12:30" />
 	</bean>
 	
 	<bean id="segment3" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates5" />
 		<property name="destination" ref="gpscoordinates6" />
-		<property name="reachingOrigin" value="01/02/2016 12:31" />
-		<property name="reachingDestination" value="01/02/2016 14:30" />
+		<property name="reachingOrigin" value="2016/02/02 12:31" />
+		<property name="reachingDestination" value="2016/02/02 14:30" />
 	</bean>
 
 	<bean id="segment4" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates7" />
 		<property name="destination" ref="gpscoordinates8" />
-		<property name="reachingOrigin" value="12/10/2018 15:00" />
-		<property name="reachingDestination" value="12/10/2018 16:30" />
+		<property name="reachingOrigin" value="2018/12/10 15:00" />
+		<property name="reachingDestination" value="2018/12/10 16:30" />
 	</bean>
 	
 	<bean id="segment5" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates9" />
 		<property name="destination" ref="gpscoordinates10" />
-		<property name="reachingOrigin" value="12/10/2018 15:00" />
-		<property name="reachingDestination" value="12/10/2018 16:30" />
+		<property name="reachingOrigin" value="2018/12/10 15:00" />
+		<property name="reachingDestination" value="2018/12/10 16:30" />
 	</bean>
 	
 	<bean id="segment6" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates11" />
 		<property name="destination" ref="gpscoordinates12" />
-		<property name="reachingOrigin" value="12/10/2018 16:30" />
-		<property name="reachingDestination" value="12/10/2018 15:30" />
+		<property name="reachingOrigin" value="2018/12/10 16:30" />
+		<property name="reachingDestination" value="2018/12/10 15:30" />
 	</bean>
 	
 	<bean id="segment7" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates13" />
 		<property name="destination" ref="gpscoordinates14" />
-		<property name="reachingOrigin" value="06/05/2017 19:00" />
-		<property name="reachingDestination" value="06/05/2017 19:30" />
+		<property name="reachingOrigin" value="2018/06/05 19:00" />
+		<property name="reachingDestination" value="2018/06/05 19:30" />
 	</bean>
 	
 	<bean id="segment8" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates15" />
 		<property name="destination" ref="gpscoordinates16" />
-		<property name="reachingOrigin" value="06/05/2017 19:30" />
-		<property name="reachingDestination" value="06/05/2017 20:30" />
+		<property name="reachingOrigin" value="2018/06/05 19:30" />
+		<property name="reachingDestination" value="2018/06/05 20:30" />
 	</bean>
 	
 	<bean id="segment9" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates17" />
 		<property name="destination" ref="gpscoordinates18" />
-		<property name="reachingOrigin" value="07/02/2018 20:00" />
-		<property name="reachingDestination" value="07/02/2018 21:30" />
+		<property name="reachingOrigin" value="2018/07/02 20:00" />
+		<property name="reachingDestination" value="2018/07/02 21:30" />
 	</bean>
 	
 	<bean id="segment10" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates19" />
 		<property name="destination" ref="gpscoordinates20" />
-		<property name="reachingOrigin" value="07/02/2018 21:30" />
-		<property name="reachingDestination" value="07/02/2018 22:30" />
+		<property name="reachingOrigin" value="2018/07/02 21:30" />
+		<property name="reachingDestination" value="2018/07/02 22:30" />
 	</bean>
 	<!-- SocialProfile -->
 	<bean id="socialProfile1" class="domain.SocialProfile">

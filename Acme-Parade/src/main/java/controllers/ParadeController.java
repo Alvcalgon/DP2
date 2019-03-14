@@ -119,6 +119,8 @@ public class ParadeController extends AbstractController {
 				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 				floats = parade.getFloats();
 
+				sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+
 				result.addObject("parade", parade);
 				result.addObject("floats", floats);
 				result.addObject("segments", parade.getSegments());
@@ -136,6 +138,7 @@ public class ParadeController extends AbstractController {
 	public ModelAndView list(@RequestParam final int brotherhoodId) {
 		ModelAndView result;
 		Collection<Parade> parades;
+		Collection<Parade> paradesNotFinalBrotherhood;
 		Collection<Parade> paradesSubmittedBrotherhood;
 		Collection<Parade> paradesRejectedBrotherhood;
 		Collection<Parade> paradesAcceptedBrotherhood;
@@ -167,11 +170,13 @@ public class ParadeController extends AbstractController {
 
 				if (brotherhoodId == this.brotherhoodService.findByPrincipal().getId()) {
 
+					paradesNotFinalBrotherhood = this.paradeService.findParadeNotFinalParadeByBrotherhood(principal.getId());
 					paradesSubmittedBrotherhood = this.paradeService.findParadeSubmittedByBrotherhood(principal.getId());
 					paradesRejectedBrotherhood = this.paradeService.findParadeRejectedByBrotherhood(principal.getId());
 					paradesAcceptedBrotherhood = this.paradeService.findParadeAcceptedByBrotherhood(principal.getId());
 
 					result.addObject("isOwner", true);
+					result.addObject("paradesNotFinal", paradesNotFinalBrotherhood);
 					result.addObject("paradesSubmitted", paradesSubmittedBrotherhood);
 					result.addObject("paradesRejected", paradesRejectedBrotherhood);
 					result.addObject("paradesAccepted", paradesAcceptedBrotherhood);
