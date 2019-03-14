@@ -149,7 +149,7 @@ public class HistoryService {
 	public History findHistoryByMiscellaneousRecord(final int miscellaneousRecordId) {
 		History history;
 
-		history = this.historyRepository.findHistoryByInceptionRecord(miscellaneousRecordId);
+		history = this.historyRepository.findHistoryByMiscellaneousRecord(miscellaneousRecordId);
 
 		return history;
 	}
@@ -165,7 +165,7 @@ public class HistoryService {
 	public History findHistoryByLinkRecord(final int linkRecordId) {
 		History history;
 
-		history = this.historyRepository.findHistoryByLegalRecord(linkRecordId);
+		history = this.historyRepository.findHistoryByLinkRecord(linkRecordId);
 
 		return history;
 	}

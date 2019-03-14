@@ -17,33 +17,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-	<strong><spring:message code="periodRecord.title"/>:</strong>
-		<jstl:out value="${periodRecord.title}"/>
+	<strong><spring:message code="linkRecord.title"/>:</strong>
+		<jstl:out value="${linkRecord.title}"/>
 	<br/>
 	
-	<strong><spring:message code="periodRecord.text"/>:</strong>
-		<jstl:out value="${periodRecord.text}"/>
+	<strong><spring:message code="linkRecord.text"/>:</strong>
+		<jstl:out value="${linkRecord.text}"/>
 	<br/>
-	
-	<strong><spring:message code="periodRecord.startYear"/>:</strong>
-		<jstl:out value="${periodRecord.startYear}"/>
-	<br/>
-	
-	<strong><spring:message code="periodRecord.endYear"/>:</strong>
-		<jstl:out value="${periodRecord.endYear}"/>
-	<br/>
-	
-	<jstl:if test="${not empty photos}">
-		<strong><spring:message code="periodRecord.photos"/>:</strong>
-		<ul>
-			<jstl:forEach var="photo" items="${photos}">
-				<img src="${photo}" alt="photo" height="75px" width="200px">				
-			</jstl:forEach>
-		</ul>
-	</jstl:if>
 	
 	<!-- Links -->	
 
 	<a href="history/display.do?brotherhoodId=${brotherhoodId}">
-		<spring:message	code="periodRecord.back" />			
+		<spring:message	code="linkRecord.back" />			
 	</a>
