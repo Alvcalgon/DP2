@@ -96,7 +96,7 @@ public class ParadeService {
 				matrizParade[i][j] = 0;
 
 		result.setMatrizParade(matrizParade);
-		result.setStatus("submitted");
+		result.setStatus("");
 
 		return result;
 	}
@@ -112,7 +112,7 @@ public class ParadeService {
 		Assert.isTrue(brotherhood.getArea() != null);
 
 		if (!parade.getIsFinalMode())
-			Assert.isTrue(parade.getStatus().equals("submitted"));
+			Assert.isTrue(parade.getStatus().equals(""));
 		try {
 			fechaActual = this.utilityService.current_moment();
 			Assert.isTrue(parade.getMoment().after(fechaActual));
@@ -253,7 +253,7 @@ public class ParadeService {
 
 		paradeCopied.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
 		paradeCopied.setIsFinalMode(false);
-		paradeCopied.setStatus("submitted");
+		paradeCopied.setStatus("");
 		paradeCopied.setDescription(parade.getDescription());
 		paradeCopied.setMoment(parade.getMoment());
 		paradeCopied.setFloats(parade.getFloats());
@@ -270,7 +270,7 @@ public class ParadeService {
 	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);
-		Assert.isTrue(parade.getStatus().equals("submitted"));
+		Assert.isTrue(parade.getStatus().equals(""));
 
 		parade.setStatus("accepted");
 
@@ -282,6 +282,15 @@ public class ParadeService {
 		Collection<Parade> result;
 
 		result = this.paradeRepository.findPublishedParade();
+
+		return result;
+	}
+
+	//Devuelve los desfiles que tienen FinalMode = false
+	public Collection<Parade> findParadeNotFinalParadeByBrotherhood(final int id) {
+		Collection<Parade> result;
+
+		result = this.paradeRepository.findParadeNotFinalParadeByBrotherhood(id);
 
 		return result;
 	}

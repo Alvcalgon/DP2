@@ -33,6 +33,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.isFinalMode=true")
 	Collection<Parade> findPublishedParade();
 
+	@Query("select p from Parade p where p.isFinalMode=false")
+	Collection<Parade> findParadeNotFinalParadeByBrotherhood(int id);
+
 	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1")
 	Collection<Parade> findParadeByBrotherhood(int id);
 
