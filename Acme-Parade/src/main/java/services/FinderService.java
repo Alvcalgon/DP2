@@ -34,7 +34,7 @@ public class FinderService {
 	private MemberService			memberService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private UtilityService			utilityService;
@@ -55,6 +55,13 @@ public class FinderService {
 	}
 
 	// Simple CRUD methods --------------------------------
+	protected Finder findOne(final int finderId) {
+		Finder result;
+
+		result = this.finderRepository.findOne(finderId);
+
+		return result;
+	}
 
 	private Finder create() {
 		Finder result;
@@ -175,6 +182,10 @@ public class FinderService {
 		finder = this.create();
 		finder.setMember(member);
 		this.save(finder);
+	}
+
+	protected void flush() {
+		this.finderRepository.flush();
 	}
 
 	private boolean isFinderOutdated(final Date updatedUpdate, final int timeCache) {
