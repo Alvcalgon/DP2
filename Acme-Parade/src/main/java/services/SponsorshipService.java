@@ -44,7 +44,7 @@ public class SponsorshipService {
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-		this.checkOwnerSponsorship(sponsorship);
+		this.checkOwner(sponsorship);
 
 		Sponsorship saved;
 
@@ -53,26 +53,47 @@ public class SponsorshipService {
 		return saved;
 	}
 
+	public Sponsorship findOne(final int sponsorshipId) {
+		Sponsorship result;
+
+		result = this.sponsorshipRepository.findOne(sponsorshipId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Sponsorship findOneToEditDisplay(final int sponsorshipId) {
 		Sponsorship result;
 
 		result = this.sponsorshipRepository.findOne(sponsorshipId);
-		this.checkOwnerSponsorship(result);
+		this.checkOwner(result);
 
 		return result;
 	}
 
 	// Other business methods -----------------------------
 
-	public Collection<Sponsorship> findAllByPrincipal() {
-		Collection<Sponsorship> result;
-		Sponsor sponsor;
+	private void remove(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
 
-		sponsor = this.sponsorService.findByPrincipal();
-		result = this.sponsorshipRepository.findAllBySponsorId(sponsor.getId());
-		Assert.notNull(result);
+		sponsorship.setIsActive(false);
+	}
 
-		return result;
+	public void removeBySponsor(final Sponsorship sponsorship) {
+		this.checkOwner(sponsorship);
+		this.remove(sponsorship);
+	}
+
+	//	public void removeByAdmin(final Sponsorship sponsorship) {
+	//		this.remove(sponsorship);
+	//	}
+
+	public void reactivate(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
+
+		sponsorship.setIsActive(true);
 	}
 
 	public Sponsorship getRandomSponsorship(final int paradeId) {
@@ -90,6 +111,17 @@ public class SponsorshipService {
 			result = allSponsorships.get(index);
 		} else
 			result = null;
+
+		return result;
+	}
+
+	public Collection<Sponsorship> findAllByPrincipal() {
+		Collection<Sponsorship> result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.findByPrincipal();
+		result = this.sponsorshipRepository.findAllBySponsorId(sponsor.getId());
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -135,7 +167,7 @@ public class SponsorshipService {
 		return result;
 	}
 
-	private void checkOwnerSponsorship(final Sponsorship sponsorship) {
+	private void checkOwner(final Sponsorship sponsorship) {
 		Sponsor principal;
 
 		principal = this.sponsorService.findByPrincipal();

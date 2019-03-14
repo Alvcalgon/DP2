@@ -111,6 +111,22 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public ModelAndView remove(@RequestParam final int sponsorshipId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			this.sponsorshipService.removeBySponsor(sponsorship);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
 	// Ancillary methods ------------------------------------------------------
 
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship) {
