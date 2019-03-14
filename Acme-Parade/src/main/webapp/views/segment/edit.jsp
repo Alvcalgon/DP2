@@ -17,28 +17,29 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="segment/brotherhood/edit.do" modelAttribute="segmentForm">
-	<form:hidden path="paradeId"/>
+<form:form action="segment/brotherhood/edit.do" modelAttribute="segment">
 	<form:hidden path="id"/>	
+	<form:hidden path="version"/>	
+	<input type="hidden" name="paradeId" value="${paradeId}"/>
 	
 	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
-	<acme:textbox code="segment.latitude.origin" path="originLatitude"/><br/>
+	<acme:textbox code="segment.latitude.origin" path="origin.latitude"/><br/>
 	
-	<acme:textbox code="segment.longitude.origin" path="originLongitude" placeholder="dd/MM/yyyy hh:mm"/><br/>
+	<acme:textbox code="segment.longitude.origin" path="origin.longitude" /><br/>
 	
-	<acme:textbox code="segment.date.destination" path="reachingDestination"/><br/>
+	<acme:textbox code="segment.date.destination" path="reachingDestination" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
-	<acme:textbox code="segment.latitude.destination" path="destinationLatitude"/><br/>
+	<acme:textbox code="segment.latitude.destination" path="destination.latitude"/><br/>
 	
-	<acme:textbox code="segment.longitude.destination" path="destinationLongitude"/><br/>
+	<acme:textbox code="segment.longitude.destination" path="destination.longitude"/><br/>
 	
 	
 	<acme:submit name="save" code="segment.save"/>	
 	
-	<jstl:if test="${segmentForm.id != 0}">
+	<jstl:if test="${segment.id != 0}">
 		<acme:submit name="delete" code="segment.delete"/>	
 	</jstl:if>
-	<acme:cancel url="parade/display.do?paradeId=${paradeId}" code="segment.cancel"/>
+	<acme:cancel url="parade/list.do?brotherhoodId=${principalId}" code="segment.cancel"/>
 	<br />
 </form:form>

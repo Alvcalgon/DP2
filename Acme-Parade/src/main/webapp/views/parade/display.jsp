@@ -103,7 +103,7 @@
 			
 		<br/><br/>
 		
-		<jstl:if test="${ not empty segments}">	
+		
 	<fieldset>
 <strong><spring:message	code="parade.segments" /></strong>
 	<display:table pagesize="5" class="displaytag" name="parade.segments" requestURI="${requestURI}" id="rowSegments">
@@ -138,15 +138,15 @@
 
 	
 	</display:table>
-		<jstl:if test="${isOwner}">
+		
+		
+			
+			<jstl:if test="${isOwner}">
  			<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
 		<spring:message code="parade.segment.create" />
 	</a>
-	
-
-		</jstl:if>
+	</jstl:if>
 	</fieldset>
-			</jstl:if>
 			
 			
 		<jstl:if test="${brotherhood==principal && !parade.isFinalMode && !parade.status=='accepted' }">

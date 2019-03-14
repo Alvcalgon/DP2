@@ -571,6 +571,16 @@ public class ParadeService {
 
 	}
 
+	protected void checkParadeByBrotherhood(final Parade parade) {
+		Brotherhood owner;
+		Brotherhood principal;
+
+		owner = this.brotherhoodService.findBrotherhoodByParade(parade.getId());
+		principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(owner.equals(principal));
+	}
+
 	// Req 8.1.4 Acme-Parade Ratio parades in draft mode vs final mode
 	public Double findRatioParadesDraftModeVSParadesFinalMode() {
 		Double result;
