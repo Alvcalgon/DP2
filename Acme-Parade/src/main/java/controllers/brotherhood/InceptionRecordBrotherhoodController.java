@@ -20,7 +20,7 @@ import domain.History;
 import domain.InceptionRecord;
 
 @Controller
-@RequestMapping("/inceptionRecord/handyWorker")
+@RequestMapping("/inceptionRecord/brotherhood")
 public class InceptionRecordBrotherhoodController extends AbstractController {
 
 	// Services -------------------------------------
