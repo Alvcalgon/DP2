@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,44 +29,34 @@ public class BrotherhoodServiceTest extends AbstractTest {
 	// Supporting services ---------------------------------------
 
 	// Test ----------------------------------------------------
-
+	/*
+	 * A: Requirement tested: level C: requirement 12.3: The largest brotherhoods
+	 * C: Analysis of sentence coverage: Sequence.
+	 * D: Analysis of data coverage: intentionally blank
+	 */
 	@Test
-	public void create_test() {
-		Brotherhood brotherhood;
+	public void largestBrotherhoods_test() {
+		Collection<Brotherhood> largest_brotherhoods;
 
-		brotherhood = this.brotherhoodService.create();
+		largest_brotherhoods = this.brotherhoodService.findLargest();
 
-		Assert.notNull(brotherhood);
-		Assert.notNull(brotherhood.getUserAccount());
-		Assert.isNull(brotherhood.getAddress());
-		Assert.isNull(brotherhood.getEmail());
-		Assert.isNull(brotherhood.getMiddleName());
-		Assert.isNull(brotherhood.getName());
-		Assert.isNull(brotherhood.getPhoneNumber());
-		Assert.isNull(brotherhood.getPhoto());
-		Assert.isNull(brotherhood.getSurname());
-		Assert.isNull(brotherhood.getArea());
-		Assert.isNull(brotherhood.getEstablishmentDate());
-		Assert.isNull(brotherhood.getTitle());
-		Assert.isNull(brotherhood.getPictures());
-
-		Assert.isTrue(brotherhood.getIsSpammer() == false);
-		Assert.isNull(brotherhood.getScore());
+		Assert.notNull(largest_brotherhoods);
+		Assert.isTrue(largest_brotherhoods.size() > 0);
 	}
 
+	/*
+	 * A: Requirement tested: level C: requirement 12.3: The smallest brotherhoods
+	 * C: Analysis of sentence coverage: Sequence.
+	 * D: Analysis of data coverage: intentionally blank
+	 */
 	@Test
-	public void testCreate_dos() {
-		Brotherhood brotherhood, saved;
+	public void smallestBrotherhoods_test() {
+		Collection<Brotherhood> smallest_brotherhoods;
 
-		brotherhood = this.brotherhoodService.create();
+		smallest_brotherhoods = this.brotherhoodService.findSmallest();
 
-		brotherhood.setEmail("broth@mail.com");
-		brotherhood.setName("brother1");
-		brotherhood.setSurname("brother1");
-		brotherhood.setTitle("TEST");
-
-		saved = this.brotherhoodService.save(brotherhood);
-
-		Assert.isTrue(this.brotherhoodService.findOne(saved.getId()) != null);
+		Assert.notNull(smallest_brotherhoods);
+		Assert.isTrue(smallest_brotherhoods.size() > 0);
 	}
+
 }
