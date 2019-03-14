@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 import repositories.SegmentRepository;
 import domain.Brotherhood;
 import domain.GPSCoordinates;
+import domain.Parade;
 import domain.Segment;
 import forms.SegmentForm;
 
@@ -30,6 +31,9 @@ public class SegmentService {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ParadeService		paradeService;
 
 	@Autowired
 	private Validator			validator;
@@ -65,9 +69,23 @@ public class SegmentService {
 	}
 
 	public void delete(final Segment segment) {
-		//TODO
+		Assert.notNull(segment);
+		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
+
+		Parade parade;
+		Brotherhood principal;
+
+		parade = this.paradeService.findBySegment(segment.getId());
+		principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(this.paradeService.getBrotherhoodToParade(parade).equals(principal));
+
+		this.removeSegmentToParade(parade, segment);
+
+		this.segmentRepository.delete(segment);
 
 	}
+
 	public Segment findOne(final int segmentId) {
 		Segment result;
 
@@ -157,6 +175,14 @@ public class SegmentService {
 		this.validator.validate(segment, binding);
 
 		return segment;
+
+	}
+
+	private void removeSegmentToParade(final Parade parade, final Segment segment) {
+		Collection<Segment> segments;
+
+		segments = parade.getSegments();
+		segments.remove(segment);
 
 	}
 }

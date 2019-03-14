@@ -393,7 +393,7 @@ public class ParadeService {
 		return parade;
 	}
 
-	private Brotherhood getBrotherhoodToParade(final Parade parade) {
+	protected Brotherhood getBrotherhoodToParade(final Parade parade) {
 		Brotherhood result;
 		Collection<Float> floats;
 		Float floatt;
@@ -467,9 +467,15 @@ public class ParadeService {
 		result.setFloats(paradeStored.getFloats());
 		result.setSegments(paradeStored.getSegments());
 
+		this.checkReasonWhy(result, binding);
+
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+	private void checkReasonWhy(final Parade parade, final BindingResult binding) {
+		if (parade.getReasonWhy().isEmpty())
+			binding.rejectValue("reasonWhy", "parade.error.blank", "Can not be blank");
 	}
 
 	public SortedMap<Integer, List<Integer>> positionsFree(final Parade parade) {
