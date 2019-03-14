@@ -33,6 +33,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	@Query("select p from Parade p where p.isFinalMode=true")
 	Collection<Parade> findPublishedParade();
 
+	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1 and p.isFinalMode=false")
+	Collection<Parade> findParadeNotFinalParadeByBrotherhood(int id);
+
 	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.id=?1")
 	Collection<Parade> findParadeByBrotherhood(int id);
 
@@ -65,6 +68,9 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 
 	@Query("select distinct p from Parade p join p.floats f where f.brotherhood.area.id=?1 and p.isFinalMode=true  and p.status ='accepted'")
 	Collection<Parade> findAcceptedByArea(int id);
+
+	@Query("select p from Parade p join p.segments seg where seg.id=?1")
+	Parade findBySegment(int segmentId);
 
 	// Req 8.1.4 Acme-Parade Ratio parades in draft mode vs final mode
 	@Query("select count(pa)/(select count(p) from Parade p where p.isFinalMode = true)*1.0 from Parade pa where pa.isFinalMode = false")

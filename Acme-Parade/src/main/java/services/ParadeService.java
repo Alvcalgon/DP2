@@ -96,7 +96,7 @@ public class ParadeService {
 				matrizParade[i][j] = 0;
 
 		result.setMatrizParade(matrizParade);
-		result.setStatus("submitted");
+		result.setStatus("");
 
 		return result;
 	}
@@ -112,7 +112,7 @@ public class ParadeService {
 		Assert.isTrue(brotherhood.getArea() != null);
 
 		if (!parade.getIsFinalMode())
-			Assert.isTrue(parade.getStatus().equals("submitted"));
+			Assert.isTrue(parade.getStatus().equals(""));
 		try {
 			fechaActual = this.utilityService.current_moment();
 			Assert.isTrue(parade.getMoment().after(fechaActual));
@@ -253,7 +253,7 @@ public class ParadeService {
 
 		paradeCopied.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
 		paradeCopied.setIsFinalMode(false);
-		paradeCopied.setStatus("submitted");
+		paradeCopied.setStatus("");
 		paradeCopied.setDescription(parade.getDescription());
 		paradeCopied.setMoment(parade.getMoment());
 		paradeCopied.setFloats(parade.getFloats());
@@ -270,7 +270,7 @@ public class ParadeService {
 	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);
-		Assert.isTrue(parade.getStatus().equals("submitted"));
+		Assert.isTrue(parade.getStatus().equals(""));
 
 		parade.setStatus("accepted");
 
@@ -282,6 +282,15 @@ public class ParadeService {
 		Collection<Parade> result;
 
 		result = this.paradeRepository.findPublishedParade();
+
+		return result;
+	}
+
+	//Devuelve los desfiles que tienen FinalMode = false
+	public Collection<Parade> findParadeNotFinalParadeByBrotherhood(final int id) {
+		Collection<Parade> result;
+
+		result = this.paradeRepository.findParadeNotFinalParadeByBrotherhood(id);
 
 		return result;
 	}
@@ -384,7 +393,16 @@ public class ParadeService {
 		return parades;
 	}
 
-	private Brotherhood getBrotherhoodToParade(final Parade parade) {
+	public Parade findBySegment(final int id) {
+		Parade parade;
+
+		parade = this.paradeRepository.findBySegment(id);
+		Assert.notNull(parade);
+
+		return parade;
+	}
+
+	protected Brotherhood getBrotherhoodToParade(final Parade parade) {
 		Brotherhood result;
 		Collection<Float> floats;
 		Float floatt;
@@ -458,9 +476,15 @@ public class ParadeService {
 		result.setFloats(paradeStored.getFloats());
 		result.setSegments(paradeStored.getSegments());
 
+		this.checkReasonWhy(result, binding);
+
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+	private void checkReasonWhy(final Parade parade, final BindingResult binding) {
+		if (parade.getReasonWhy().isEmpty())
+			binding.rejectValue("reasonWhy", "parade.error.blank", "Can not be blank");
 	}
 
 	public SortedMap<Integer, List<Integer>> positionsFree(final Parade parade) {
@@ -545,6 +569,16 @@ public class ParadeService {
 
 		return parades;
 
+	}
+
+	protected void checkParadeByBrotherhood(final Parade parade) {
+		Brotherhood owner;
+		Brotherhood principal;
+
+		owner = this.brotherhoodService.findBrotherhoodByParade(parade.getId());
+		principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(owner.equals(principal));
 	}
 
 	// Req 8.1.4 Acme-Parade Ratio parades in draft mode vs final mode
