@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -65,6 +66,7 @@ public class SegmentService {
 			this.paradeService.checkParadeByBrotherhood(parade);
 
 		Assert.notNull(parade);
+		this.checkSegment(segment, parade);
 
 		result = this.segmentRepository.save(segment);
 
@@ -74,7 +76,36 @@ public class SegmentService {
 		return result;
 
 	}
+	private void checkSegment(final Segment segment, final Parade parade) {
+		//Compruebo que la fecha origen es antes que la destino
+		Assert.isTrue(segment.getReachingDestination().after(segment.getReachingOrigin()));
 
+		//Comprueba que las fechas del segmento son posteriores a la del desfile
+		Assert.isTrue(segment.getReachingDestination().after(parade.getMoment()));
+		Assert.isTrue(segment.getReachingOrigin().after(parade.getMoment()));
+
+		//Compruebo que la fecha del segmento actual está entre las fechas del segmento previo y el posterior
+		final Date fechaSegmentoPrevio;
+		final Date fechaSegmentoPosterior;
+		Collection<Segment> segmentsParade;
+
+		segmentsParade = this.findOrderedSegments(parade.getId());
+
+		final int i = 0;
+		final int tamaño = segmentsParade.size();
+		for (final Segment s : segmentsParade)
+			if (s.equals(segment) && i == 0) { //si es el primer segmento del camino 
+				if (tamaño != 1) { // si hay mas de un elemento
+					//tengo que ver que el final de s coincida con el inicio del segundo
+				}
+			} else if (s.equals(segment) && i >= 0 && i <= tamaño - 1) { // si no es ni el primero ni el ultimo
+
+				//tengo que mirar tanto el inicio como el fin
+			} else if (s.equals(segment) && i == tamaño - 1) {
+				//solo tengo que mirar el inicio de s con el final del anterior
+			}
+
+	}
 	public void delete(final Segment segment) {
 		Assert.notNull(segment);
 		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
@@ -139,4 +170,13 @@ public class SegmentService {
 		segments.add(segment);
 
 	}
+
+	public Collection<Segment> findOrderedSegments(final int paradeId) {
+		Collection<Segment> segmentsOrdered;
+
+		segmentsOrdered = this.segmentRepository.findOrderedSegments(paradeId);
+
+		return segmentsOrdered;
+	}
+
 }
