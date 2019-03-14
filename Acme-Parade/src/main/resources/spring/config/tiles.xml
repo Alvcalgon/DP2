@@ -45,6 +45,7 @@
 		<value>/views/periodRecord/tiles.xml</value>
 		<value>/views/position/tiles.xml</value>
 		<value>/views/parade/tiles.xml</value>
+		<value>/views/process/tiles.xml</value>
 		<value>/views/proclaim/tiles.xml</value>
 		<value>/views/request/tiles.xml</value>
 		<value>/views/segment/tiles.xml</value>

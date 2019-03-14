@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SponsorshipRepository;
+import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
 
@@ -85,9 +89,15 @@ public class SponsorshipService {
 		this.remove(sponsorship);
 	}
 
-	//	public void removeByAdmin(final Sponsorship sponsorship) {
-	//		this.remove(sponsorship);
-	//	}
+	public void deactivateProcess() {
+		Collection<Sponsorship> activeSponsorships;
+
+		activeSponsorships = this.findAllActive();
+
+		for (final Sponsorship s : activeSponsorships)
+			if (this.checkIsExpired(s.getCreditCard()))
+				this.remove(s);
+	}
 
 	public void reactivate(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
@@ -126,6 +136,14 @@ public class SponsorshipService {
 		return result;
 	}
 
+	public Double[] dataSponsorshipPerSponsor() {
+		Double[] result;
+
+		result = this.sponsorshipRepository.dataSponsorshipPerSponsor();
+
+		return result;
+	}
+
 	// Ancillary methods ----------------------------------
 
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
@@ -148,21 +166,20 @@ public class SponsorshipService {
 		return result;
 	}
 
-	private List<Sponsorship> findByParadeId(final int paradeId) {
-		List<Sponsorship> result;
+	private Collection<Sponsorship> findAllActive() {
+		Collection<Sponsorship> result;
 
-		result = this.sponsorshipRepository.findByParadeId(paradeId);
+		result = this.sponsorshipRepository.findAllActive();
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	// Ancillary methods ----------------------------------
+	private List<Sponsorship> findByParadeId(final int paradeId) {
+		List<Sponsorship> result;
 
-	public Double[] dataSponsorshipPerSponsor() {
-		Double[] result;
-
-		result = this.sponsorshipRepository.dataSponsorshipPerSponsor();
+		result = this.sponsorshipRepository.findByParadeId(paradeId);
+		Assert.notNull(result);
 
 		return result;
 	}
@@ -174,4 +191,21 @@ public class SponsorshipService {
 		Assert.isTrue(sponsorship.getSponsor().equals(principal));
 	}
 
+	private boolean checkIsExpired(final CreditCard creditCard) {
+		String year, month;
+		LocalDate expiration, now;
+		boolean result;
+		DateTimeFormatter formatter;
+
+		year = creditCard.getExpirationYear();
+		month = creditCard.getExpirationMonth();
+		formatter = DateTimeFormat.forPattern("yy-MM-dd");
+		expiration = LocalDate.parse(year + "-" + month + "-" + "01", formatter);
+		expiration = expiration.plusMonths(1).minusDays(1);
+		now = LocalDate.now();
+
+		result = now.isAfter(expiration);
+
+		return result;
+	}
 }
