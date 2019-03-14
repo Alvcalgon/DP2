@@ -44,7 +44,7 @@
 	
 	<br/>
 	<security:authorize access="hasRole('BROTHERHOOD')">		
- 	<jstl:if test="${owner}">
+ 	<jstl:if test="${isOwner}">
  		<strong><spring:message code="parade.finalMode"/>:</strong>
 			<jstl:out value="${parade.isFinalMode}"/>
 		<br/>
@@ -103,7 +103,7 @@
 			
 		<br/><br/>
 		
-		<jstl:if test="${ not empty segments}">	
+		
 	<fieldset>
 <strong><spring:message	code="parade.segments" /></strong>
 	<display:table pagesize="5" class="displaytag" name="parade.segments" requestURI="${requestURI}" id="rowSegments">
@@ -117,7 +117,7 @@
 		<security:authorize access="hasRole('BROTHERHOOD')">		
 	<jstl:if test="${principal == row.brotherhood}">	 
 		<display:column >
-			<a href="segment/brotherhood/edit.do?segmentId=${row.id}">
+			<a href="segment/brotherhood/edit.do?segmentId=${rowSegments.id}">
 				<spring:message	code="parade.edit" />
 			</a>
 		</display:column>
@@ -136,17 +136,17 @@
 		<spring:message code="parade.formatMoment" var="formatMomentHeader" />
 			<display:column property="reachingDestination" titleKey="parade.segment.reachingDestination" 	format="${formatMomentHeader}" />
 
-		<jstl:if test="${owner}">
+	
+	</display:table>
+		
+		
+			
+			<jstl:if test="${isOwner}">
  			<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
 		<spring:message code="parade.segment.create" />
 	</a>
-	
-
-		</jstl:if>
-	</display:table>
-	
+	</jstl:if>
 	</fieldset>
-			</jstl:if>
 			
 			
 		<jstl:if test="${brotherhood==principal && !parade.isFinalMode && !parade.status=='accepted' }">

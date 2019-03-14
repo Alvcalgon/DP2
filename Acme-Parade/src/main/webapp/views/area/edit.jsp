@@ -22,8 +22,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-	<form:form action="area/administrator/edit.do"
-		modelAttribute="area">
+	<form:form action="area/administrator/edit.do" 	modelAttribute="area">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		
@@ -39,7 +38,7 @@
 		
 		<acme:cancel url="area/administrator/list.do" code="area.cancel"/>
 			
-		<jstl:if test="${isEmpty==true}">
+		<jstl:if test="${isEmpty==true && area.id!=0}">
 		<acme:submit name="delete" code="area.delete" />
 	</jstl:if>
 		
