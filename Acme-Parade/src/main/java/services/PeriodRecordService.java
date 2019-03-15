@@ -76,7 +76,7 @@ public class PeriodRecordService {
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
-		//TODO falta restriccion en años
+		Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
 
 		PeriodRecord result;
 

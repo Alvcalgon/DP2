@@ -1,6 +1,8 @@
 
 package controllers.brotherhood;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +61,17 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		LinkRecord linkRecord;
 		Integer brotherhoodId;
+		Collection<Brotherhood> brotherhoods;
 
 		try {
 			linkRecord = this.linkRecordService.findOneEdit(linkRecordId);
 			Assert.notNull(linkRecord);
 			result = new ModelAndView("linkRecord/edit");
 			brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+			brotherhoods = this.brotherhoodService.findAll();
+			brotherhoods.remove(this.brotherhoodService.findByPrincipal());
 
+			result.addObject("brotherhoods", brotherhoods);
 			result.addObject("linkRecord", linkRecord);
 			result.addObject("brotherhoodId", brotherhoodId);
 		} catch (final Exception e) {
@@ -138,12 +144,17 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 
 		ModelAndView result;
 		Integer brotherhoodId;
+		Collection<Brotherhood> brotherhoods;
+
 		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
+		brotherhoods = this.brotherhoodService.findAll();
+		brotherhoods.remove(this.brotherhoodService.findByPrincipal());
 
 		result = new ModelAndView("linkRecord/edit");
 		result.addObject("linkRecord", linkRecord);
 		result.addObject("messageCode", messageCode);
 		result.addObject("brotherhoodId", brotherhoodId);
+		result.addObject("brotherhoods", brotherhoods);
 
 		return result;
 

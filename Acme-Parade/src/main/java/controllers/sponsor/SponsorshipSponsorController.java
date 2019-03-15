@@ -77,6 +77,21 @@ public class SponsorshipSponsorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int paradeId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.create(paradeId);
+			result = this.createEditModelAndView(sponsorship);
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
@@ -107,6 +122,38 @@ public class SponsorshipSponsorController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(sponsorshipRec, "sponsorship.commit.error");
 			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/remove", method = RequestMethod.GET)
+	public ModelAndView remove(@RequestParam final int sponsorshipId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			this.sponsorshipService.removeBySponsor(sponsorship);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/reactivate", method = RequestMethod.GET)
+	public ModelAndView reactivate(@RequestParam final int sponsorshipId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			this.sponsorshipService.reactivate(sponsorship);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/error.do");
+		}
 
 		return result;
 	}

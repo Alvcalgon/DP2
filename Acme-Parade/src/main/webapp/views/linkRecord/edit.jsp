@@ -25,7 +25,8 @@
 	
 	<acme:textbox code="linkRecord.title" path="title" />
 	<acme:textarea code="linkRecord.text" path="text" />
-	<acme:textbox code="linkRecord.brotherhood" path="brotherhood.name" />
+	
+	<acme:selectMandatory path="brotherhood" code="linkRecord.brotherhood" items="${brotherhoods}" itemLabel="name" multiple="false" />
 	
 
 	<acme:submit name="save" code="linkRecord.save"/>	

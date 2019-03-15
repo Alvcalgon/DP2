@@ -23,6 +23,10 @@
 	</jstl:if>
 	</security:authorize>
 	
+	<security:authorize access="hasRole('SPONSOR')">
+		<h2><a href="sponsorship/sponsor/create.do?paradeId=${parade.id}"><spring:message code="parade.sponsor" /></a></h2>
+	</security:authorize>
+
 
 	<strong><spring:message code="parade.brotherhood"/>:</strong>
 		<jstl:out value="${brotherhood.title}"/>
