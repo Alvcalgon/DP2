@@ -32,7 +32,7 @@ public interface HistoryRepository extends JpaRepository<History, Integer> {
 	History findHistoryByLinkRecord(int linkRecordId);
 
 	@Query("select h.brotherhood from History h where (1 + h.periodRecords.size + h.miscellaneousRecords.size + h.legalRecords.size + h.linkRecords.size) = (select max(1 + hi.periodRecords.size + hi.miscellaneousRecords.size + hi.legalRecords.size + hi.linkRecords.size) from History hi)")
-	Brotherhood findBrotherhoohLargestHistory();
+	Collection<Brotherhood> findBrotherhoohLargestHistory();
 
 	@Query("select avg(1 + h.periodRecords.size + h.miscellaneousRecords.size + h.legalRecords.size + h.linkRecords.size), min(1 + h.periodRecords.size + h.miscellaneousRecords.size + h.legalRecords.size + h.linkRecords.size), max(1 + h.periodRecords.size + h.miscellaneousRecords.size + h.legalRecords.size + h.linkRecords.size), stddev(1 + h.periodRecords.size + h.miscellaneousRecords.size + h.legalRecords.size + h.linkRecords.size) from History h")
 	Double[] findDataNumberRecordsPerHistory();

@@ -171,12 +171,12 @@ public class HistoryService {
 		return history;
 	}
 
-	public Brotherhood findBrotherhoohLargestHistory() {
-		Brotherhood brotherhood;
+	public Collection<Brotherhood> findBrotherhoohLargestHistory() {
+		Collection<Brotherhood> brotherhoods;
 
-		brotherhood = this.historyRepository.findBrotherhoohLargestHistory();
+		brotherhoods = this.historyRepository.findBrotherhoohLargestHistory();
 
-		return brotherhood;
+		return brotherhoods;
 	}
 
 	public Double[] findDataNumberRecordsPerHistory() {

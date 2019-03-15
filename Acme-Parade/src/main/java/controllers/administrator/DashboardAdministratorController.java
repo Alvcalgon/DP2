@@ -15,9 +15,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.FinderService;
+import services.HistoryService;
 import services.MemberService;
-import services.PositionService;
 import services.ParadeService;
+import services.PositionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
@@ -39,13 +40,16 @@ public class DashboardAdministratorController extends AbstractController {
 	private RequestService		requestService;
 
 	@Autowired
-	private ParadeService	paradeService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private PositionService		positionService;
 
 	@Autowired
 	private FinderService		finderService;
+
+	@Autowired
+	private HistoryService		historyService;
 
 
 	// Constructors --------------
@@ -96,6 +100,14 @@ public class DashboardAdministratorController extends AbstractController {
 		histogramValues = new ArrayList<Integer>(this.positionService.findHistogramValues());
 		histogramLabels = new ArrayList<String>(this.positionService.findHistogramLabels(locale.getLanguage()));
 
+		//Req Acme-Parade 4.1
+		Collection<Brotherhood> findBrotherhoohLargestHistory;
+		Double[] findDataNumberRecordsPerHistory;
+		Collection<Brotherhood> findBrotherhoohsLargestHistoryAvg;
+		findBrotherhoohLargestHistory = this.historyService.findBrotherhoohLargestHistory();
+		findDataNumberRecordsPerHistory = this.historyService.findDataNumberRecordsPerHistory();
+		findBrotherhoohsLargestHistoryAvg = this.historyService.findBrotherhoohsLargestHistoryAvg();
+
 		// LEVEL B --------------------------------------
 
 		// Req 22.2.1
@@ -130,6 +142,9 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("rejectedRatio", rejectedRatio);
 		result.addObject("members", members);
 		result.addObject("mapa", ratioRequestByParade);
+		result.addObject("findBrotherhoohLargestHistory", findBrotherhoohLargestHistory);
+		result.addObject("findDataNumberRecordsPerHistory", findDataNumberRecordsPerHistory);
+		result.addObject("findBrotherhoohsLargestHistoryAvg", findBrotherhoohsLargestHistoryAvg);
 
 		// LEVEL B
 		result.addObject("dataResultsPerFinder", dataResultsPerFinder);

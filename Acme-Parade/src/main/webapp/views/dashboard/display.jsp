@@ -203,6 +203,36 @@ window.onload = function() {
 	<jstl:out value="${ratioEmptyVsNonEmpty}" />
 </p>
 
+<p> <strong> <spring:message code="dashboard.twelve" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[0]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[1]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[2]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[3]}" /> </td>
+	</tr>
+</table>
+
+<p><strong> <spring:message code="dashboard.thirteen" />: </strong></p>
+<display:table name="findBrotherhoohLargestHistory" id="row13" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
+</display:table>
+
+<p><strong> <spring:message code="dashboard.fourteen" />: </strong></p>
+<display:table name="findBrotherhoohsLargestHistoryAvg" id="row14" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
+</display:table>
+
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>
 </p>
