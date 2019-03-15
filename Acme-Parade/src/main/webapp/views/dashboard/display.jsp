@@ -280,7 +280,33 @@ window.onload = function() {
 		<strong> <spring:message code="dashboard.parades.rejected" />: </strong>
 		<jstl:out value="${findRatioRejectedParadesFinalMode}" />
 	</p>
+	
+<p>
+	<strong> <spring:message code="dashboard.twenty" /> </strong>:
+	<jstl:out value="${ratioActiveSponsorship}" />
+</p>
 
+<p> <strong> <spring:message code="dashboard.twentyOne" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[0]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[1]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[2]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[3]}" /> </td>
+	</tr>
+</table>
+
+<p><strong> <spring:message code="dashboard.twentyTwo" />: </strong></p>
+<display:table name="topFiveSponsors" id="row22" requestURI="dashboard/administrator/display.do" class="displaytag">
+	<display:column property="name" titleKey="actor.name" />
+	<display:column property="email" titleKey="actor.email" />
+</display:table>
 
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>

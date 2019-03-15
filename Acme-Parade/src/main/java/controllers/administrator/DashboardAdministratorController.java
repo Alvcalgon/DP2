@@ -22,11 +22,14 @@ import services.MemberService;
 import services.ParadeService;
 import services.PositionService;
 import services.RequestService;
+import services.SponsorService;
+import services.SponsorshipService;
 import controllers.AbstractController;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
 import domain.Parade;
+import domain.Sponsor;
 
 @Controller
 @RequestMapping("dashboard/administrator")
@@ -59,6 +62,12 @@ public class DashboardAdministratorController extends AbstractController {
 
 	@Autowired
 	private AreaService			areaService;
+
+	@Autowired
+	private SponsorService		sponsorService;
+
+	@Autowired
+	private SponsorshipService	sponsorshipService;
 
 
 	// Constructors --------------
@@ -155,6 +164,16 @@ public class DashboardAdministratorController extends AbstractController {
 		findRatioAcceptedParadesFinalMode = this.paradeService.findRatioAcceptedParadesFinalMode();
 		findRatioRejectedParadesFinalMode = this.paradeService.findRatioRejectedParadesFinalMode();
 
+		// LEVEL B --------------------------------------
+
+		// Req Acme-Parade 18.2
+		Double ratioActiveSponsorship;
+		Double[] dataSponsorshipPerSponsor;
+		Collection<Sponsor> topFiveSponsors;
+		ratioActiveSponsorship = this.sponsorshipService.ratioActiveSponsorship();
+		dataSponsorshipPerSponsor = this.sponsorshipService.dataSponsorshipPerSponsor();
+		topFiveSponsors = this.sponsorService.topFiveSponsors();
+
 		result = new ModelAndView("dashboard/display");
 
 		// LEVEL C
@@ -186,6 +205,11 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("findRatioSubmittedParadesFinalMode", findRatioSubmittedParadesFinalMode);
 		result.addObject("findRatioAcceptedParadesFinalMode", findRatioAcceptedParadesFinalMode);
 		result.addObject("findRatioRejectedParadesFinalMode", findRatioRejectedParadesFinalMode);
+
+		// LEVEL A
+		result.addObject("ratioActiveSponsorship", ratioActiveSponsorship);
+		result.addObject("dataSponsorshipPerSponsor", dataSponsorshipPerSponsor);
+		result.addObject("topFiveSponsors", topFiveSponsors);
 
 		return result;
 	}

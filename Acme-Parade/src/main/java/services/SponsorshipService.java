@@ -156,6 +156,14 @@ public class SponsorshipService {
 		return result;
 	}
 
+	public Double ratioActiveSponsorship() {
+		Double result;
+
+		result = this.sponsorshipRepository.ratioActiveSponsorship();
+
+		return result;
+	}
+
 	public Double[] dataSponsorshipPerSponsor() {
 		Double[] result;
 
