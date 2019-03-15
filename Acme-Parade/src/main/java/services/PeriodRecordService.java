@@ -25,6 +25,9 @@ public class PeriodRecordService {
 	@Autowired
 	private HistoryService			historyService;
 
+	@Autowired
+	private UtilityService			utilityService;
+
 
 	// Constructors ------------------------------------
 
@@ -77,6 +80,7 @@ public class PeriodRecordService {
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 		Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
+		this.utilityService.checkPicture(periodRecord.getPhotos());
 
 		PeriodRecord result;
 

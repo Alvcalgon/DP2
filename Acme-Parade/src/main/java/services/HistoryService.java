@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import javax.transaction.Transactional;
@@ -168,5 +169,29 @@ public class HistoryService {
 		history = this.historyRepository.findHistoryByLinkRecord(linkRecordId);
 
 		return history;
+	}
+
+	public Brotherhood findBrotherhoohLargestHistory() {
+		Brotherhood brotherhood;
+
+		brotherhood = this.historyRepository.findBrotherhoohLargestHistory();
+
+		return brotherhood;
+	}
+
+	public Double[] findDataNumberRecordsPerHistory() {
+		Double[] result;
+
+		result = this.historyRepository.findDataNumberRecordsPerHistory();
+
+		return result;
+	}
+
+	public Collection<Brotherhood> findBrotherhoohsLargestHistoryAvg() {
+		Collection<Brotherhood> brotherhoods;
+
+		brotherhoods = this.historyRepository.findBrotherhoohsLargestHistoryAvg();
+
+		return brotherhoods;
 	}
 }
