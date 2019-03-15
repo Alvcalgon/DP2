@@ -626,7 +626,7 @@ public class ParadeService {
 		return result;
 	}
 
-	protected Double avgNumberParadesCoordinatedByChapters() {
+	public Double avgNumberParadesCoordinatedByChapters() {
 		Double result;
 
 		result = this.paradeRepository.avgNumberParadesCoordinatedByChapters();

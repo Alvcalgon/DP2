@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AreaService;
 import services.BrotherhoodService;
+import services.ChapterService;
 import services.FinderService;
 import services.HistoryService;
 import services.MemberService;
@@ -22,6 +24,7 @@ import services.PositionService;
 import services.RequestService;
 import controllers.AbstractController;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Member;
 import domain.Parade;
 
@@ -50,6 +53,12 @@ public class DashboardAdministratorController extends AbstractController {
 
 	@Autowired
 	private HistoryService		historyService;
+
+	@Autowired
+	private ChapterService		chapterService;
+
+	@Autowired
+	private AreaService			areaService;
 
 
 	// Constructors --------------
@@ -128,6 +137,24 @@ public class DashboardAdministratorController extends AbstractController {
 		Double ratioEmptyVsNonEmpty;
 		ratioEmptyVsNonEmpty = this.finderService.findRatioEmptyVsNonEmpty();
 
+		// Req Acme-Parade 8.1
+		Double ratioAreaWithoutChapter;
+		Double[] findDataNumerParadesCoordinatedByChapters;
+		Collection<Chapter> chaptersCoordinateLeast10MoreParadasThanAverage;
+		Double findRatioParadesDraftModeVSParadesFinalMode;
+		ratioAreaWithoutChapter = this.areaService.ratioAreaWithoutChapter();
+		findDataNumerParadesCoordinatedByChapters = this.paradeService.findDataNumerParadesCoordinatedByChapters();
+		chaptersCoordinateLeast10MoreParadasThanAverage = this.chapterService.chaptersCoordinateLeast10MoreParadasThanAverage();
+		findRatioParadesDraftModeVSParadesFinalMode = this.paradeService.findRatioParadesDraftModeVSParadesFinalMode();
+
+		// Req Acme-Parade 8.1.5
+		Double findRatioSubmittedParadesFinalMode;
+		Double findRatioAcceptedParadesFinalMode;
+		Double findRatioRejectedParadesFinalMode;
+		findRatioSubmittedParadesFinalMode = this.paradeService.findRatioSubmittedParadesFinalMode();
+		findRatioAcceptedParadesFinalMode = this.paradeService.findRatioAcceptedParadesFinalMode();
+		findRatioRejectedParadesFinalMode = this.paradeService.findRatioRejectedParadesFinalMode();
+
 		result = new ModelAndView("dashboard/display");
 
 		// LEVEL C
@@ -152,6 +179,13 @@ public class DashboardAdministratorController extends AbstractController {
 		result.addObject("dataBrotherhoodPerArea", dataBrotherhoodPerArea);
 		result.addObject("countBrotherhoodsPerArea", countBrotherhoodsPerArea);
 		result.addObject("ratioBrotherhoodsPerArea", ratioBrotherhoodsPerArea);
+		result.addObject("ratioAreaWithoutChapter", ratioAreaWithoutChapter);
+		result.addObject("findDataNumerParadesCoordinatedByChapters", findDataNumerParadesCoordinatedByChapters);
+		result.addObject("chaptersCoordinateLeast10MoreParadasThanAverage", chaptersCoordinateLeast10MoreParadasThanAverage);
+		result.addObject("findRatioParadesDraftModeVSParadesFinalMode", findRatioParadesDraftModeVSParadesFinalMode);
+		result.addObject("findRatioSubmittedParadesFinalMode", findRatioSubmittedParadesFinalMode);
+		result.addObject("findRatioAcceptedParadesFinalMode", findRatioAcceptedParadesFinalMode);
+		result.addObject("findRatioRejectedParadesFinalMode", findRatioRejectedParadesFinalMode);
 
 		return result;
 	}
