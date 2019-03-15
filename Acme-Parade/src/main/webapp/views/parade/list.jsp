@@ -202,6 +202,12 @@
 				<spring:message code="parade.edit" />
 			</a>
 	</display:column>	
+	
+	<display:column>
+				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowRejected.id}">
+					<spring:message code="parade.makeCopy" />
+				</a>
+		</display:column>
 	</jstl:if>
 	
 	<display:column property="title" titleKey="parade.title"  style="background-color:${colorValue }"/>
@@ -244,6 +250,11 @@
 				<spring:message code="parade.edit" />
 			</a>
 	</display:column>	
+	<display:column style="background-color:${colorValue }">
+				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowAccepted.id}">
+					<spring:message code="parade.makeCopy" />
+				</a>
+		</display:column>
 	</jstl:if>	
 	</security:authorize>
 	

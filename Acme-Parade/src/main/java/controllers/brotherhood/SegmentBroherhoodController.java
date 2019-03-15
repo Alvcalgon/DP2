@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,13 +45,11 @@ public class SegmentBroherhoodController extends AbstractController {
 	public ModelAndView create(@RequestParam final int paradeId) {
 		ModelAndView result;
 		final Segment segment;
-		Parade parade;
 
 		try {
-			parade = this.paradeService.findOne(paradeId);
 			segment = this.segmentService.create();
 
-			result = this.createEditModelAndView(segment, parade.getId());
+			result = this.createEditModelAndView(segment, paradeId);
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -66,7 +65,7 @@ public class SegmentBroherhoodController extends AbstractController {
 
 		try {
 			segment = this.segmentService.findOneToEdit(segmentId);
-			result = this.createEditModelAndView(segment);
+			result = this.createEditModelAndView(segment, segmentId);
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
@@ -86,7 +85,7 @@ public class SegmentBroherhoodController extends AbstractController {
 		paradeId = paramParadeId.isEmpty() ? null : Integer.parseInt(paramParadeId);
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(segment);
+			result = this.createEditModelAndView(segment, paradeId);
 		else
 			try {
 				if (segment.getId() == 0)
@@ -97,6 +96,16 @@ public class SegmentBroherhoodController extends AbstractController {
 				this.segmentService.save(segment, parade);
 				principal = this.brotherhoodService.findByPrincipal();
 				result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + principal.getId());
+			} catch (final DataIntegrityViolationException ex) {
+				if (ex.getMessage().equals("Invalid data"))
+					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.data");
+				else if (ex.getMessage().equals("Invalid date"))
+					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.date");
+				else if (ex.getMessage().equals("Invalid dates"))
+					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.dates");
+				else
+					result = new ModelAndView("redirect:../../error.do");
+
 			} catch (final Exception e) {
 				result = new ModelAndView("redirect:../../error.do");
 			}
@@ -104,16 +113,37 @@ public class SegmentBroherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Segment segment, final BindingResult binding) {
+	public ModelAndView delete(final Segment segment, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
 		Parade parade;
+		Integer paradeId;
+		String paramParadeId;
+
+		paramParadeId = request.getParameter("paradeId");
+		paradeId = paramParadeId.isEmpty() ? null : Integer.parseInt(paramParadeId);
 
 		try {
 			parade = this.paradeService.findBySegment(segment.getId());
 			this.segmentService.delete(segment);
 			result = new ModelAndView("redirect:/parade/display.do?paradeId=" + parade.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(segment, "segment.delete.error");
+			result = this.createEditModelAndView(segment, paradeId, "segment.delete.error");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/removeAll", method = RequestMethod.GET)
+	public ModelAndView removeAll(@RequestParam final int paradeId) {
+		ModelAndView result;
+		Parade parade;
+
+		try {
+			parade = this.paradeService.findOne(paradeId);
+			this.segmentService.removeAll(parade);
+			result = new ModelAndView("redirect:/parade/display.do?paradeId=" + paradeId);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
