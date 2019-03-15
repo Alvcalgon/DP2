@@ -186,6 +186,10 @@ public class SponsorshipService {
 		return result;
 	}
 
+	protected void flush() {
+		this.sponsorshipRepository.flush();
+	}
+
 	private Collection<Sponsorship> findAllActive() {
 		Collection<Sponsorship> result;
 
