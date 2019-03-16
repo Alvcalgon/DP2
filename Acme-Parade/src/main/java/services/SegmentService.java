@@ -167,6 +167,7 @@ public class SegmentService {
 		principal = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(this.paradeService.getBrotherhoodToParade(parade).equals(principal));
+		Assert.isTrue(this.isDeletable(segment));
 
 		this.removeSegmentToParade(parade, segment);
 
@@ -227,6 +228,20 @@ public class SegmentService {
 		segmentsOrdered = this.segmentRepository.findOrderedSegments(paradeId);
 
 		return segmentsOrdered;
+	}
+	public Boolean isDeletable(final Segment segment) {
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+
+		if (segments.indexOf(segment) == 0 || segments.indexOf(segment) == segments.size() - 1)
+			result = true;
+
+		return result;
 	}
 
 }
