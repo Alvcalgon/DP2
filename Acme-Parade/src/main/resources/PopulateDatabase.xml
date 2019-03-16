@@ -3266,23 +3266,23 @@
 	</bean>
 	
 	<bean id="gpscoordinates3" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.712737" />
-		<property name="longitude" value="-74.059413" />
+		<property name="latitude" value="37.189796" />
+		<property name="longitude" value="-5.773350" />
 	</bean>
 	
 	<bean id="gpscoordinates4" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.860669" />
-		<property name="longitude" value="-5.997597" />
+		<property name="latitude" value="38.860669" />
+		<property name="longitude" value="-4.997597" />
 	</bean>
 	
 	<bean id="gpscoordinates5" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.717837" />
-		<property name="longitude" value="-74.059413" />
+		<property name="latitude" value="38.860669" />
+		<property name="longitude" value="-4.997597" />
 	</bean>
 	
 	<bean id="gpscoordinates6" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.379869" />
-		<property name="longitude" value="-5.997886" />
+		<property name="latitude" value="40.379869" />
+		<property name="longitude" value="-7.997886" />
 	</bean>
 	
 	<bean id="gpscoordinates7" class="domain.GPSCoordinates">
@@ -3296,22 +3296,22 @@
 	</bean>
 	
 	<bean id="gpscoordinates9" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.717837" />
-		<property name="longitude" value="-74.059413" />
+		<property name="latitude" value="37.379796" />
+		<property name="longitude" value="-5.902886" />
 	</bean>
 	
 	<bean id="gpscoordinates10" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.189796" />
-		<property name="longitude" value="-5.502886" />
+		<property name="latitude" value="25.189796" />
+		<property name="longitude" value="-10.502886" />
 	</bean>
 	
 	<bean id="gpscoordinates11" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.712737" />
-		<property name="longitude" value="-74.009413" />
+		<property name="latitude" value="25.189796" />
+		<property name="longitude" value="-10.502886" />
 	</bean>
 	
 	<bean id="gpscoordinates12" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.379896" />
+		<property name="latitude" value="26.379896" />
 		<property name="longitude" value="-5.997886" />
 	</bean>
 	
@@ -3326,12 +3326,12 @@
 	</bean>
 	
 	<bean id="gpscoordinates15" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.712787" />
-		<property name="longitude" value="-74.005413" />
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
 	</bean>
 	
 	<bean id="gpscoordinates16" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.389796" />
+		<property name="latitude" value="40.389796" />
 		<property name="longitude" value="-5.502886" />
 	</bean>
 	<bean id="gpscoordinates17" class="domain.GPSCoordinates">
@@ -3344,12 +3344,12 @@
 		<property name="longitude" value="-5.502886" />
 	</bean>
 	<bean id="gpscoordinates19" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.712737" />
-		<property name="longitude" value="-74.005413" />
+		<property name="latitude" value="37.389796" />
+		<property name="longitude" value="-5.502886" />
 	</bean>
 	
 	<bean id="gpscoordinates20" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.389796" />
+		<property name="latitude" value="45.389796" />
 		<property name="longitude" value="-5.502886" />
 	</bean>
 	<!-- History -->
@@ -4069,7 +4069,7 @@
 				
 			</list>
 		</property>
-		<property name="status" value="submitted" />
+		<property name="status" value="" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4445,14 +4445,14 @@
 	<bean id="segment2" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates3" />
 		<property name="destination" ref="gpscoordinates4" />
-		<property name="reachingOrigin" value="2016/02/02 10:31" />
+		<property name="reachingOrigin" value="2016/02/02 10:30" />
 		<property name="reachingDestination" value="2016/02/02 12:30" />
 	</bean>
 	
 	<bean id="segment3" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates5" />
 		<property name="destination" ref="gpscoordinates6" />
-		<property name="reachingOrigin" value="2016/02/02 12:31" />
+		<property name="reachingOrigin" value="2016/02/02 12:30" />
 		<property name="reachingDestination" value="2016/02/02 14:30" />
 	</bean>
 
@@ -4466,15 +4466,15 @@
 	<bean id="segment5" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates9" />
 		<property name="destination" ref="gpscoordinates10" />
-		<property name="reachingOrigin" value="2018/12/10 15:00" />
-		<property name="reachingDestination" value="2018/12/10 16:30" />
+		<property name="reachingOrigin" value="2018/12/10 16:30" />
+		<property name="reachingDestination" value="2018/12/10 17:30" />
 	</bean>
 	
 	<bean id="segment6" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates11" />
 		<property name="destination" ref="gpscoordinates12" />
-		<property name="reachingOrigin" value="2018/12/10 16:30" />
-		<property name="reachingDestination" value="2018/12/10 15:30" />
+		<property name="reachingOrigin" value="2018/12/10 17:30" />
+		<property name="reachingDestination" value="2018/12/10 18:30" />
 	</bean>
 	
 	<bean id="segment7" class="domain.Segment">
@@ -4494,7 +4494,7 @@
 	<bean id="segment9" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates17" />
 		<property name="destination" ref="gpscoordinates18" />
-		<property name="reachingOrigin" value="2018/07/02 20:00" />
+		<property name="reachingOrigin" value="2018/07/02 20:30" />
 		<property name="reachingDestination" value="2018/07/02 21:30" />
 	</bean>
 	
