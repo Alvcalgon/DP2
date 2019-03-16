@@ -327,7 +327,7 @@ public class MessageService {
 		recipients.add(sponsor);
 
 		subject = "Fare notification. / Notificación de tarifas.";
-		body = "The payment of " + finalFare + "euros has been made in one of you sponsorships for the" + sponsorship.getParade().getTitle() + "parade. / Se ha realizado el cobro de " + finalFare + "euros de uno de sus patrocinios para el desfile "
+		body = "The payment of " + finalFare + " euros has been made in one of you sponsorships for the" + sponsorship.getParade().getTitle() + "parade. / Se ha realizado el cobro de " + finalFare + " euros de uno de sus patrocinios para el desfile "
 			+ sponsorship.getParade().getTitle() + ".";
 
 		message = this.createNotification(system, recipients, subject, body);
