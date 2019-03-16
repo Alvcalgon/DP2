@@ -22,6 +22,8 @@ import domain.Enrolment;
 import domain.Message;
 import domain.Parade;
 import domain.Request;
+import domain.Sponsor;
+import domain.Sponsorship;
 import forms.MessageForm;
 
 @Service
@@ -298,6 +300,44 @@ public class MessageService {
 
 			this.boxService.addMessage(notificationBoxRecipient, result);
 		}
+
+		return result;
+	}
+
+	public Message notificationFare(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		Assert.isTrue(sponsorship.getId() != 0);
+
+		Message message, result;
+		Actor system;
+		Sponsor sponsor;
+		Box outBoxSystem, notificationBoxRecipient;
+		List<Actor> recipients;
+		String subject, body;
+		Customisation customisation;
+		double fare, vat, finalFare;
+
+		system = this.administratorService.findSystem();
+		customisation = this.customisationService.find();
+		sponsor = sponsorship.getSponsor();
+		fare = customisation.getFare();
+		vat = customisation.getVatPercentage();
+		finalFare = fare * (1.0 + vat);
+		recipients = new ArrayList<Actor>();
+		recipients.add(sponsor);
+
+		subject = "Fare notification. / Notificación de tarifas.";
+		body = "The payment of " + finalFare + "euros has been made in one of you sponsorships for the" + sponsorship.getParade().getTitle() + "parade. / Se ha realizado el cobro de " + finalFare + "euros de uno de sus patrocinios para el desfile "
+			+ sponsorship.getParade().getTitle() + ".";
+
+		message = this.createNotification(system, recipients, subject, body);
+		result = this.messageRepository.save(message);
+
+		outBoxSystem = this.boxService.findOutBoxFromActor(system.getId());
+		this.boxService.addMessage(outBoxSystem, result);
+
+		notificationBoxRecipient = this.boxService.findNotificationBoxFromActor(sponsor.getId());
+		this.boxService.addMessage(notificationBoxRecipient, result);
 
 		return result;
 	}

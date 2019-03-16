@@ -21,8 +21,8 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	@Query("select avg(1.0*(select count(sp) from Sponsorship sp where sp.sponsor.id=s.id and sp.isActive=true)), min(1.0*(select count(sp) from Sponsorship sp where sp.sponsor.id=s.id and sp.isActive=true)), max(1.0*(select count(sp) from Sponsorship sp where sp.sponsor.id=s.id and sp.isActive=true)), stddev(1.0*(select count(sp) from Sponsorship sp where sp.sponsor.id=s.id and sp.isActive=true)) from Sponsor s)")
 	Double[] dataSponsorshipPerSponsor();
 
-	@Query("select s from Sponsorship s where s.parade.id = ?1")
-	List<Sponsorship> findByParadeId(final int paradeId);
+	@Query("select s from Sponsorship s where s.parade.id = ?1 and s.isActive = true")
+	List<Sponsorship> findActiveByParadeId(final int paradeId);
 
 	@Query("select s from Sponsorship s where s.sponsor.id = ?1")
 	Collection<Sponsorship> findAllBySponsorId(int sponsorId);

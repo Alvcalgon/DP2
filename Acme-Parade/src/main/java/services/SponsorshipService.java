@@ -39,6 +39,9 @@ public class SponsorshipService {
 	private ParadeService			paradeService;
 
 	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -132,13 +135,14 @@ public class SponsorshipService {
 		int index, numberSponsorships;
 		Random random;
 
-		allSponsorships = this.findByParadeId(paradeId);
+		allSponsorships = this.findActiveByParadeId(paradeId);
 		random = new Random();
 		numberSponsorships = allSponsorships.size();
 
 		if (numberSponsorships > 0) {
 			index = random.nextInt(numberSponsorships);
 			result = allSponsorships.get(index);
+			this.messageService.notificationFare(result);
 		} else
 			result = null;
 
@@ -195,10 +199,10 @@ public class SponsorshipService {
 		return result;
 	}
 
-	private List<Sponsorship> findByParadeId(final int paradeId) {
+	private List<Sponsorship> findActiveByParadeId(final int paradeId) {
 		List<Sponsorship> result;
 
-		result = this.sponsorshipRepository.findByParadeId(paradeId);
+		result = this.sponsorshipRepository.findActiveByParadeId(paradeId);
 		Assert.notNull(result);
 
 		return result;
