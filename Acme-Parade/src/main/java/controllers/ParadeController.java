@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import security.UserAccount;
 import services.BrotherhoodService;
 import services.ChapterService;
 import services.FloatService;
@@ -71,7 +72,7 @@ public class ParadeController extends AbstractController {
 		Brotherhood brotherhood;
 		Brotherhood principal;
 		Sponsorship sponsorship;
-		Collection<domain.Float> floats;
+		UserAccount userPrincipal;
 
 		result = new ModelAndView("parade/display");
 
@@ -79,56 +80,35 @@ public class ParadeController extends AbstractController {
 			brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 			sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
 
+			try {
+				userPrincipal = LoginService.getPrincipal();
+			} catch (final Exception e1) {
+				userPrincipal = null;
+			}
+
 			//Está registrado como hermandad y además es el dueño de la desfile
-			if (LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
+			if (userPrincipal != null && userPrincipal.getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
 				principal = this.brotherhoodService.findByPrincipal();
 				parade = this.paradeService.findOne(paradeId);
 
 				result.addObject("isOwner", true);
 				result.addObject("principal", principal);
-				result.addObject("parade", parade);
-				result.addObject("floats", parade.getFloats());
-				result.addObject("segments", parade.getSegments());
-
-			} else if (LoginService.getPrincipal().getAuthorities().toString().equals("[CHAPTER]") && brotherhood.getArea() == this.chapterService.findByPrincipal().getArea()) {
+			} else if (userPrincipal != null && userPrincipal.getAuthorities().toString().equals("[CHAPTER]") && brotherhood.getArea() == this.chapterService.findByPrincipal().getArea())
 				parade = this.paradeService.findOneToDisplayToChapter(paradeId);
-				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
-
-				result.addObject("parade", parade);
-				result.addObject("floats", parade.getFloats());
-				result.addObject("segments", parade.getSegments());
-			} else {
+			else {
 				parade = this.paradeService.findOneToDisplay(paradeId);
-				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
-				floats = parade.getFloats();
-				result.addObject("parade", parade);
-				result.addObject("floats", parade.getFloats());
-				result.addObject("segments", parade.getSegments());
 
-				if (LoginService.getPrincipal().getAuthorities().toString().equals("[MEMBER]"))
+				if (userPrincipal != null && userPrincipal.getAuthorities().toString().equals("[MEMBER]"))
 					this.isRequestable(parade, result);
 			}
 
+			result.addObject("parade", parade);
+			result.addObject("floats", parade.getFloats());
+			result.addObject("segments", parade.getSegments());
 			result.addObject("brotherhood", brotherhood);
 			result.addObject("sponsorship", sponsorship);
-
-		} catch (final Exception e1) {
-
-			try {
-				parade = this.paradeService.findOneToDisplay(paradeId);
-				brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
-				floats = parade.getFloats();
-
-				sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
-
-				result.addObject("parade", parade);
-				result.addObject("floats", floats);
-				result.addObject("segments", parade.getSegments());
-				result.addObject("brotherhood", brotherhood);
-			} catch (final Exception e) {
-
-				result = new ModelAndView("redirect:../error.do");
-			}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../error.do");
 		}
 
 		return result;
