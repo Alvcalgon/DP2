@@ -41,7 +41,7 @@ public class RequestService {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ParadeService	paradeService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private Validator			validator;
@@ -506,4 +506,7 @@ public class RequestService {
 		return result;
 	}
 
+	protected void flush() {
+		this.requestRepository.flush();
+	}
 }
