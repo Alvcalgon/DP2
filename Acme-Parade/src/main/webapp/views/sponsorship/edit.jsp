@@ -10,6 +10,7 @@
 
 <form:form action="sponsorship/sponsor/edit.do" modelAttribute="sponsorship">	
 	<form:hidden path="id"/>
+	<form:hidden path="parade"/>
 	
 	<fieldset>
 		<legend><spring:message code="sponsorship.general.fields"/></legend>

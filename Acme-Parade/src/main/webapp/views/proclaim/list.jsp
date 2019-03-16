@@ -19,20 +19,14 @@
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="proclaims" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
-	<display:column>
-		<a href="proclaim/display.do?proclaimId=${row.id}">
-			<spring:message code="proclaim.display" />
-		</a>
-	</display:column>
-	
+<display:table name="proclaims" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">	
 	<spring:message code="moment.format" var="w_format" />
 	
-	<display:column property="chapter.fullname" titleKey="proclaim.chapter" />
+	<display:column property="text" titleKey="proclaim.text" />
 	<display:column property="publishedMoment" titleKey="proclaim.publishedMoment" format="${w_format}" />
 </display:table>
 
-<a href="welcome/index.do">
+<a href="actor/display.do?actorId=${row.chapter.id}">
 	<spring:message code="proclaim.back" />
 </a>
 

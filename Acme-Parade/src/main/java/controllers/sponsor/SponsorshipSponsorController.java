@@ -120,7 +120,10 @@ public class SponsorshipSponsorController extends AbstractController {
 				saved = this.sponsorshipService.save(sponsorshipRec);
 				result = new ModelAndView("redirect:display.do?sponsorshipId=" + saved.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(sponsorshipRec, "sponsorship.commit.error");
+				if (oops.getMessage().equals("Expired credit card"))
+					result = this.createEditModelAndView(sponsorshipRec, "sponsorship.expired.creditCard");
+				else
+					result = this.createEditModelAndView(sponsorshipRec, "sponsorship.commit.error");
 			}
 
 		return result;
