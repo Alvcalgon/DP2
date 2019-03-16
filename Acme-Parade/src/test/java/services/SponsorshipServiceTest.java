@@ -492,4 +492,74 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.isTrue(sponsorship.getIsActive());
 	}
 
+	/*
+	 * A: Requirement tested: level A: requirement 18.1: Launch a process
+	 * that automatically deactivates the sponsorships whose credit cards have expired
+	 * C: Analysis of sentence coverage: Loop.
+	 * In this case, there are two sponsorships with a expired credit card, so sponsorship::isActive
+	 * will be false.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void deactivateProcess_test() {
+		super.authenticate("admin1");
+
+		int sponsorshipId;
+		Sponsorship sponsorship_uno, sponsorship_dos;
+
+		sponsorshipId = super.getEntityId("sponsorship10");
+
+		sponsorship_uno = this.sponsorshipService.findOne(sponsorshipId);
+
+		sponsorshipId = super.getEntityId("sponsorship13");
+
+		sponsorship_dos = this.sponsorshipService.findOne(sponsorshipId);
+
+		Assert.isTrue(sponsorship_uno.getIsActive());
+		Assert.isTrue(sponsorship_dos.getIsActive());
+
+		this.sponsorshipService.deactivateProcess();
+
+		Assert.isTrue(!sponsorship_uno.getIsActive());
+		Assert.isTrue(!sponsorship_dos.getIsActive());
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 20: Every a time a parade with sponsorships is displayed, a
+	 * random sponsorship must be selected...
+	 * C: Analysis of sentence coverage: Conditional: the if condition is true, that is, the number of sponsorship
+	 * of parade1 is more than zero.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void getRandomSponsorship_test_uno() {
+		int paradeId;
+		Sponsorship sponsorship;
+
+		paradeId = super.getEntityId("parade1");
+		sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+
+		Assert.notNull(sponsorship);
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 20: Every a time a parade with sponsorships is displayed, a
+	 * random sponsorship must be selected...
+	 * C: Analysis of sentence coverage: Conditional: the if condition is false, that is, the number of sponsorship
+	 * of parade4 is zero.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void getRandomSponsorship_test_dos() {
+		int paradeId;
+		Sponsorship sponsorship;
+
+		paradeId = super.getEntityId("parade4");
+		sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+
+		Assert.isNull(sponsorship);
+	}
+
 }
