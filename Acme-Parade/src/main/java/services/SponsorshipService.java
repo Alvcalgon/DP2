@@ -71,6 +71,7 @@ public class SponsorshipService {
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
+		Assert.isTrue(sponsorship.getParade().getStatus() == "accepted");
 		this.checkOwner(sponsorship);
 
 		Sponsorship saved;

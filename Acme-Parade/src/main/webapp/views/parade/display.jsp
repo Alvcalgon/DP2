@@ -24,7 +24,9 @@
 	</security:authorize>
 	
 	<security:authorize access="hasRole('SPONSOR')">
-		<h2><a href="sponsorship/sponsor/create.do?paradeId=${parade.id}"><spring:message code="parade.sponsor" /></a></h2>
+		<jstl:if test="${parade.status = 'accepted'}">
+			<h2><a href="sponsorship/sponsor/create.do?paradeId=${parade.id}"><spring:message code="parade.sponsor" /></a></h2>
+		</jstl:if>
 	</security:authorize>
 
 
