@@ -133,22 +133,6 @@ public class SegmentBroherhoodController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/removeAll", method = RequestMethod.GET)
-	public ModelAndView removeAll(@RequestParam final int paradeId) {
-		ModelAndView result;
-		Parade parade;
-
-		try {
-			parade = this.paradeService.findOne(paradeId);
-			this.segmentService.removeAll(parade);
-			result = new ModelAndView("redirect:/parade/display.do?paradeId=" + paradeId);
-		} catch (final Exception e) {
-			result = new ModelAndView("redirect:../../error.do");
-		}
-
-		return result;
-	}
-
 	// Arcillary methods --------------------------
 
 	protected ModelAndView createEditModelAndView(final Segment segment) {
