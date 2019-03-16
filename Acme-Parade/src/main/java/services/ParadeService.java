@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
@@ -86,7 +87,7 @@ public class ParadeService {
 		result = new Parade();
 		result.setTicker("000000-XXXXX");
 		result.setFloats(Collections.<Float> emptySet());
-		result.setSegments(Collections.<Segment> emptySet());
+		result.setSegments(new TreeSet<Segment>());
 		rowLimit = this.customisationService.find().getRowLimit();
 		columnLimit = this.customisationService.find().getColumnLimit();
 		matrizParade = new Integer[rowLimit][columnLimit];
@@ -626,7 +627,7 @@ public class ParadeService {
 		return result;
 	}
 
-	protected Double avgNumberParadesCoordinatedByChapters() {
+	public Double avgNumberParadesCoordinatedByChapters() {
 		Double result;
 
 		result = this.paradeRepository.avgNumberParadesCoordinatedByChapters();

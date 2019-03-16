@@ -161,6 +161,14 @@ public class SponsorshipService {
 		return result;
 	}
 
+	public Double ratioActiveSponsorship() {
+		Double result;
+
+		result = this.sponsorshipRepository.ratioActiveSponsorship();
+
+		return result;
+	}
+
 	public Double[] dataSponsorshipPerSponsor() {
 		Double[] result;
 
@@ -189,6 +197,10 @@ public class SponsorshipService {
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+
+	protected void flush() {
+		this.sponsorshipRepository.flush();
 	}
 
 	private Collection<Sponsorship> findAllActive() {

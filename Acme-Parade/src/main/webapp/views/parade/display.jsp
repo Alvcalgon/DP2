@@ -111,7 +111,7 @@
 		
 		
 	<fieldset>
-<strong><spring:message	code="parade.segments" /></strong>
+<strong><spring:message	code="parade.path" /></strong><spring:message	code="parade.path.ordered" />
 	<display:table pagesize="5" class="displaytag" name="parade.segments" requestURI="${requestURI}" id="rowSegments">
 
 		<display:column>	
@@ -151,6 +151,7 @@
  			<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
 		<spring:message code="parade.segment.create" />
 	</a>
+	
 	</jstl:if>
 	</fieldset>
 			

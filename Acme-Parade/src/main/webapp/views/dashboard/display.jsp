@@ -203,6 +203,111 @@ window.onload = function() {
 	<jstl:out value="${ratioEmptyVsNonEmpty}" />
 </p>
 
+<p> <strong> <spring:message code="dashboard.twelve" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[0]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[1]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[2]}" /> </td>
+		<td> <jstl:out value="${findDataNumberRecordsPerHistory[3]}" /> </td>
+	</tr>
+</table>
+
+<p><strong> <spring:message code="dashboard.thirteen" />: </strong></p>
+<display:table name="findBrotherhoohLargestHistory" id="row13" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
+</display:table>
+
+<p><strong> <spring:message code="dashboard.fourteen" />: </strong></p>
+<display:table name="findBrotherhoohsLargestHistoryAvg" id="row14" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="fullname" titleKey="actor.fullname" />
+	<display:column property="title" titleKey="brotherhood.title" />
+	<display:column property="establishmentDate" titleKey="brotherhood.establishmentDate" format="${dateFormat}" />
+</display:table>
+
+<p>
+	<strong> <spring:message code="dashboard.fifteenth" /> </strong>:
+	<jstl:out value="${ratioAreaWithoutChapter}" />
+</p>
+
+<p> <strong> <spring:message code="dashboard.sixteen" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${findDataNumerParadesCoordinatedByChapters[0]}" /> </td>
+		<td> <jstl:out value="${findDataNumerParadesCoordinatedByChapters[1]}" /> </td>
+		<td> <jstl:out value="${findDataNumerParadesCoordinatedByChapters[2]}" /> </td>
+		<td> <jstl:out value="${findDataNumerParadesCoordinatedByChapters[3]}" /> </td>
+	</tr>
+</table>
+
+<p><strong> <spring:message code="dashboard.seventeen" />: </strong></p>
+<display:table name="chaptersCoordinateLeast10MoreParadasThanAverage" id="row14" requestURI="dashboard/administrator/display.do" pagesize="5" class="displaytag">
+	<display:column property="name" titleKey="actor.name" />
+	<display:column property="title" titleKey="brotherhood.title" />
+</display:table>
+
+<p>
+	<strong> <spring:message code="dashboard.eighteen" /> </strong>:
+	<jstl:out value="${findRatioParadesDraftModeVSParadesFinalMode}" />
+</p>
+
+<p> <strong> <spring:message code="dashboard.nineteen" />: </strong> </p>
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="dashboard.parades.submitted" />: </strong>
+		<jstl:out value="${findRatioSubmittedParadesFinalMode}" />
+	</p>
+	
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="dashboard.parades.accepted" />: </strong>
+		<jstl:out value="${findRatioAcceptedParadesFinalMode}" />
+	</p>
+	
+	<p style="text-indent:10px;">
+		<strong> <spring:message code="dashboard.parades.rejected" />: </strong>
+		<jstl:out value="${findRatioRejectedParadesFinalMode}" />
+	</p>
+	
+<p>
+	<strong> <spring:message code="dashboard.twenty" /> </strong>:
+	<jstl:out value="${ratioActiveSponsorship}" />
+</p>
+
+<p> <strong> <spring:message code="dashboard.twentyOne" />: </strong> </p>
+<table>
+	<tr>
+		<th> <spring:message code="dashboard.average" /> </th>
+		<th> <spring:message code="dashboard.min" /> </th>
+		<th> <spring:message code="dashboard.max" /> </th>
+		<th> <spring:message code="dashboard.deviation" /> </th>
+	</tr>
+	<tr>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[0]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[1]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[2]}" /> </td>
+		<td> <jstl:out value="${dataSponsorshipPerSponsor[3]}" /> </td>
+	</tr>
+</table>
+
+<p><strong> <spring:message code="dashboard.twentyTwo" />: </strong></p>
+<display:table name="topFiveSponsors" id="row22" requestURI="dashboard/administrator/display.do" class="displaytag">
+	<display:column property="name" titleKey="actor.name" />
+	<display:column property="email" titleKey="actor.email" />
+</display:table>
+
 <p>
 	<a href="welcome/index.do"> <spring:message code="dashboard.return" /> </a>
 </p>

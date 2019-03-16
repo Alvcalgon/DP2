@@ -37,7 +37,7 @@
 	
 	<acme:submit name="save" code="segment.save"/>	
 	
-	<jstl:if test="${segment.id != 0}">
+	<jstl:if test="${segment.id != 0 && isDeletable}">
 		<acme:submit name="delete" code="segment.delete"/>	
 	</jstl:if>
 	<acme:cancel url="parade/list.do?brotherhoodId=${principalId}" code="segment.cancel"/>

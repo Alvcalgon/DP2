@@ -26,6 +26,9 @@ public class InceptionRecordService {
 	@Autowired
 	private HistoryService				historyService;
 
+	@Autowired
+	private UtilityService				utilityService;
+
 
 	// Constructors ------------------------------------
 
@@ -78,6 +81,7 @@ public class InceptionRecordService {
 
 	public InceptionRecord save(final InceptionRecord inceptionRecord) {
 		Assert.notNull(inceptionRecord);
+		this.utilityService.checkPicture(inceptionRecord.getPhotos());
 
 		InceptionRecord result;
 
