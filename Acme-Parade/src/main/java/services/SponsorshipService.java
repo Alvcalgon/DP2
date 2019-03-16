@@ -68,6 +68,7 @@ public class SponsorshipService {
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
+		Assert.isTrue(sponsorship.getParade().getIsFinalMode());
 		Assert.isTrue(sponsorship.getParade().getStatus().equals("accepted"));
 		Assert.isTrue(!this.checkIsExpired(sponsorship.getCreditCard()), "Expired credit card");
 		this.checkOwner(sponsorship);
