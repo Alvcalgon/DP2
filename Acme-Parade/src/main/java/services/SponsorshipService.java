@@ -56,28 +56,31 @@ public class SponsorshipService {
 	public Sponsorship create(final int paradeId) {
 		Sponsorship result;
 		Parade parade;
-		Sponsor sponsor;
 
 		parade = this.paradeService.findOne(paradeId);
-		sponsor = this.sponsorService.findByPrincipal();
 		result = new Sponsorship();
 
 		result.setIsActive(true);
 		result.setParade(parade);
-		result.setSponsor(sponsor);
 
 		return result;
 	}
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-		Assert.isTrue(sponsorship.getParade().getStatus() == "accepted");
-		Assert.isTrue(!this.checkIsExpired(sponsorship.getCreditCard()));
+		Assert.isTrue(sponsorship.getParade().getStatus().equals("accepted"));
+		Assert.isTrue(!this.checkIsExpired(sponsorship.getCreditCard()), "Expired credit card");
 		this.checkOwner(sponsorship);
 
 		Sponsorship saved;
+		Sponsor sponsor;
 
 		saved = this.sponsorshipRepository.save(sponsorship);
+
+		if (!this.sponsorshipRepository.exists(sponsorship.getId())) {
+			sponsor = this.sponsorService.findByPrincipal();
+			saved.setSponsor(sponsor);
+		}
 
 		return saved;
 	}
@@ -178,18 +181,25 @@ public class SponsorshipService {
 
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
 		Sponsorship result, sponsorshipStored;
+		Sponsor sponsor;
 
-		result = new Sponsorship();
-		sponsorshipStored = this.sponsorshipRepository.findOne(sponsorship.getId());
-		// TODO: Tratamiento distinto si llego aquí desde un create?
-		result.setId(sponsorship.getId());
-		result.setBanner(sponsorship.getBanner().trim());
-		result.setCreditCard(sponsorship.getCreditCard());
-		result.setIsActive(sponsorshipStored.getIsActive());
-		result.setParade(sponsorshipStored.getParade());
-		result.setSponsor(sponsorshipStored.getSponsor());
-		result.setTargetURL(sponsorship.getTargetURL().trim());
-		result.setVersion(sponsorshipStored.getVersion());
+		if (sponsorship.getId() == 0) {
+			sponsor = this.sponsorService.findByPrincipal();
+			result = sponsorship;
+			result.setSponsor(sponsor);
+		} else {
+			result = new Sponsorship();
+			sponsorshipStored = this.sponsorshipRepository.findOne(sponsorship.getId());
+
+			result.setId(sponsorship.getId());
+			result.setBanner(sponsorship.getBanner().trim());
+			result.setCreditCard(sponsorship.getCreditCard());
+			result.setIsActive(sponsorshipStored.getIsActive());
+			result.setParade(sponsorship.getParade());
+			result.setSponsor(sponsorshipStored.getSponsor());
+			result.setTargetURL(sponsorship.getTargetURL().trim());
+			result.setVersion(sponsorshipStored.getVersion());
+		}
 
 		this.validator.validate(result, binding);
 
