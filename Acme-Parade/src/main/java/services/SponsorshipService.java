@@ -72,6 +72,7 @@ public class SponsorshipService {
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(sponsorship.getParade().getStatus() == "accepted");
+		Assert.isTrue(!this.checkIsExpired(sponsorship.getCreditCard()));
 		this.checkOwner(sponsorship);
 
 		Sponsorship saved;
@@ -101,15 +102,11 @@ public class SponsorshipService {
 
 	// Other business methods -----------------------------
 
-	private void remove(final Sponsorship sponsorship) {
+	public void removeBySponsor(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
-
-		sponsorship.setIsActive(false);
-	}
-
-	public void removeBySponsor(final Sponsorship sponsorship) {
 		this.checkOwner(sponsorship);
+
 		this.remove(sponsorship);
 	}
 
@@ -131,18 +128,18 @@ public class SponsorshipService {
 	}
 
 	public Sponsorship getRandomSponsorship(final int paradeId) {
-		List<Sponsorship> allSponsorships;
+		List<Sponsorship> activeSponsorships;
 		Sponsorship result;
 		int index, numberSponsorships;
 		Random random;
 
-		allSponsorships = this.findActiveByParadeId(paradeId);
+		activeSponsorships = this.findActiveByParadeId(paradeId);
 		random = new Random();
-		numberSponsorships = allSponsorships.size();
+		numberSponsorships = activeSponsorships.size();
 
 		if (numberSponsorships > 0) {
 			index = random.nextInt(numberSponsorships);
-			result = allSponsorships.get(index);
+			result = activeSponsorships.get(index);
 			this.messageService.notificationFare(result);
 		} else
 			result = null;
@@ -199,8 +196,8 @@ public class SponsorshipService {
 		return result;
 	}
 
-	protected void flush() {
-		this.sponsorshipRepository.flush();
+	private void remove(final Sponsorship sponsorship) {
+		sponsorship.setIsActive(false);
 	}
 
 	private Collection<Sponsorship> findAllActive() {
@@ -244,5 +241,9 @@ public class SponsorshipService {
 		result = now.isAfter(expiration);
 
 		return result;
+	}
+
+	protected void flush() {
+		this.sponsorshipRepository.flush();
 	}
 }
