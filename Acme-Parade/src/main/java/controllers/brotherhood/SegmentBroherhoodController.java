@@ -171,7 +171,9 @@ public class SegmentBroherhoodController extends AbstractController {
 		result.addObject("segment", segment);
 		result.addObject("paradeId", paradeId);
 		result.addObject("principalId", principal.getId());
-		result.addObject("isDeletable", this.segmentService.isDeletable(segment));
+
+		if (segment.getId() != 0)
+			result.addObject("isDeletable", this.segmentService.isDeletable(segment));
 
 		return result;
 
