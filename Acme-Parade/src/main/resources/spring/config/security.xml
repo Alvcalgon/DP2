@@ -85,11 +85,11 @@
 		<security:intercept-url pattern="/legalRecord/display.do" access="permitAll" />
 		<security:intercept-url pattern="/linkRecord/display.do" access="permitAll" />
 		
-		
 		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')"/>
 		<security:intercept-url pattern="/request/brotherhood/**" access="hasRole('BROTHERHOOD')"/>
 		<security:intercept-url pattern="/request/brotherhood,member/**"  access="hasAnyRole('BROTHERHOOD','MEMBER')" />
 	
+		<security:intercept-url pattern="/proclaim/**" access="permitAll"/>
 		<security:intercept-url pattern="/proclaim/chapter/**" access="hasRole('CHAPTER')"/>
 	
 		<security:intercept-url pattern="/customisation/**" access="hasRole('ADMIN')" />

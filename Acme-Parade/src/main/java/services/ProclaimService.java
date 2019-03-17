@@ -98,6 +98,15 @@ public class ProclaimService {
 		return result;
 	}
 
+	public Collection<Proclaim> findByChapterId(final int chapterId) {
+		Collection<Proclaim> result;
+
+		result = this.proclaimRepository.findByChapterId(chapterId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	private void checkByPrincipal(final Proclaim proclaim) {
 		Chapter principal;
 

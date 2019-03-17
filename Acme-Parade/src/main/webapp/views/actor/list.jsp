@@ -11,10 +11,10 @@
 
 <display:table name="actors" id="row" requestURI="${requestURI}" class="displaytag" pagesize="5">
 	<display:column>
-		<jstl:if test="${row.userAccount.authorities == '[BROTHERHOOD]' || row.userAccount.authorities == '[MEMBER]' }">
+		<jstl:if test="${row.userAccount.authorities == '[BROTHERHOOD]' || row.userAccount.authorities == '[MEMBER]' || row.userAccount.authorities == '[CHAPTER]'}">
 			<a href="actor/display.do?actorId=${row.id}"><spring:message code="actor.table.display.profile"/></a>
 		</jstl:if>
-	</display:column>	
+	</display:column>
 	
 	<display:column property="fullname" titleKey="table.fullname" />
 	
