@@ -133,6 +133,7 @@ public class SponsorshipService {
 	public void reactivate(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(this.sponsorshipRepository.exists(sponsorship.getId()));
+		this.checkOwner(sponsorship);
 
 		sponsorship.setIsActive(true);
 	}
