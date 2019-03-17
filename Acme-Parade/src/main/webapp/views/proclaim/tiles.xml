@@ -20,11 +20,6 @@
 		<put-attribute name="body" value="/views/proclaim/list.jsp" />
 	</definition>
 	
-	<definition name="proclaim/display" extends="master.page">	
-		<put-attribute name="title" value="Display proclaim" />
-		<put-attribute name="body" value="/views/proclaim/display.jsp" />
-	</definition>
-	
 	<definition name="proclaim/edit" extends="master.page">	
 		<put-attribute name="title" value="Create proclaim" />
 		<put-attribute name="body" value="/views/proclaim/edit.jsp" />
