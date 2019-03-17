@@ -1,6 +1,8 @@
 
 package controllers.chapter;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,6 +24,20 @@ public class ProclaimChapterController extends AbstractController {
 
 	public ProclaimChapterController() {
 		super();
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Proclaim> proclaims;
+
+		proclaims = this.proclaimService.findByPrincipal();
+
+		result = new ModelAndView("proclaim/list");
+		result.addObject("proclaims", proclaims);
+		result.addObject("requestURI", "proclaim/chapter/list.do");
+
+		return result;
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

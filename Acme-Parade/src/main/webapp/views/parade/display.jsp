@@ -141,17 +141,13 @@
 		
 		<spring:message code="parade.formatMoment" var="formatMomentHeader" />
 			<display:column property="reachingDestination" titleKey="parade.segment.reachingDestination" 	format="${formatMomentHeader}" />
-
-	
 	</display:table>
+	<br/>
 		
-		
-			
-			<jstl:if test="${isOwner}">
- 			<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
-		<spring:message code="parade.segment.create" />
-	</a>
-	
+	<jstl:if test="${isOwner}">
+ 		<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
+			<spring:message code="parade.segment.create" />
+		</a>
 	</jstl:if>
 	</fieldset>
 			

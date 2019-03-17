@@ -496,6 +496,21 @@
 		<property name="pictures" value="" />
 	</bean>
 
+	<bean id="area4" class="domain.Area">
+		<property name="name" value="area4" />
+		<property name="pictures" value="" />
+	</bean>
+
+	<bean id="area5" class="domain.Area">
+		<property name="name" value="area5" />
+		<property name="pictures" value="" />
+	</bean>
+
+	<bean id="area6" class="domain.Area">
+		<property name="name" value="area6" />
+		<property name="pictures" value="" />
+	</bean>
+
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />

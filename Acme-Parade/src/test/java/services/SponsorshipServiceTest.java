@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.CreditCard;
+import domain.Sponsor;
 import domain.Sponsorship;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +29,10 @@ public class SponsorshipServiceTest extends AbstractTest {
 	@Autowired
 	private SponsorshipService	sponsorshipService;
 
-
 	// Other supporting services ---------
+	@Autowired
+	private SponsorService		sponsorService;
+
 
 	// Test ------------------------------
 
@@ -109,7 +112,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		sponsorship = this.sponsorshipService.create(paradeId);
 
 		Assert.notNull(sponsorship);
-		Assert.notNull(sponsorship.getSponsor());
+		Assert.isNull(sponsorship.getSponsor());
 		Assert.notNull(sponsorship.getParade());
 		Assert.isTrue(sponsorship.getIsActive());
 		Assert.isNull(sponsorship.getBanner());
@@ -384,6 +387,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Class<?> caught;
 		Sponsorship sponsorship, saved;
 		CreditCard creditCard;
+		final Sponsor principal = this.sponsorService.findByPrincipal();
 
 		this.startTransaction();
 
@@ -403,6 +407,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			sponsorship.setBanner(banner);
 			sponsorship.setTargetURL(targetURL);
 			sponsorship.setCreditCard(creditCard);
+			sponsorship.setSponsor(principal);
 
 			saved = this.sponsorshipService.save(sponsorship);
 			this.sponsorshipService.flush();

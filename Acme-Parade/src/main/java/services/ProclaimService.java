@@ -98,6 +98,17 @@ public class ProclaimService {
 		return result;
 	}
 
+	public Collection<Proclaim> findByPrincipal() {
+		Collection<Proclaim> results;
+		Chapter principal;
+
+		principal = this.chapterService.findByPrincipal();
+
+		results = this.findByChapterId(principal.getId());
+
+		return results;
+	}
+
 	public Collection<Proclaim> findByChapterId(final int chapterId) {
 		Collection<Proclaim> result;
 

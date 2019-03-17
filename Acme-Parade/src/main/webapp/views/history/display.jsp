@@ -78,7 +78,8 @@
 		<display:column>
 			<a
 				href="periodRecord/display.do?periodRecordId=${rowPeriodRecord.id}"><spring:message
-					code="history.display" /></a>
+					code="history.display" />
+			</a>
 		</display:column>
 
 		<spring:message code="history.periodRecord.title" var="titleHeader" />
