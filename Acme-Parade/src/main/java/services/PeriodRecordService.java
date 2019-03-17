@@ -120,4 +120,7 @@ public class PeriodRecordService {
 
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
 	}
+	protected void flush() {
+		this.periodRecordRepository.flush();
+	}
 }

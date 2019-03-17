@@ -114,4 +114,7 @@ public class MiscellaneousRecordService {
 
 		Assert.isTrue(history.getMiscellaneousRecords().contains(miscellaneousRecord));
 	}
+	protected void flush() {
+		this.miscellaneousRecordRepository.flush();
+	}
 }
