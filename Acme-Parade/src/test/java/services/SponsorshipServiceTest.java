@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.validation.ConstraintViolationException;
 
+import org.joda.time.IllegalFieldValueException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.CreditCard;
-import domain.Sponsor;
 import domain.Sponsorship;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,10 +29,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 	@Autowired
 	private SponsorshipService	sponsorshipService;
 
-	// Other supporting services ---------
-	@Autowired
-	private SponsorService		sponsorService;
 
+	// Other supporting services ---------
 
 	// Test ------------------------------
 
@@ -112,7 +110,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		sponsorship = this.sponsorshipService.create(paradeId);
 
 		Assert.notNull(sponsorship);
-		Assert.isNull(sponsorship.getSponsor());
+		Assert.notNull(sponsorship.getSponsor());
 		Assert.notNull(sponsorship.getParade());
 		Assert.isTrue(sponsorship.getIsActive());
 		Assert.isNull(sponsorship.getBanner());
@@ -261,7 +259,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
 			 * C: Analysis of sentence coverage: Sequence.
-			 * D: Analysis of data coverage: sponsorship::creditCard::make is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::number is a empty string.
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "", "12", "22", 774, ConstraintViolationException.class
@@ -282,7 +280,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is null.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", null, "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", null, "22", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -291,7 +289,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is empty string.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "", "22", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -299,18 +297,20 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * C: Analysis of sentence coverage: Sequence.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 0.
 			 */
+
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "0", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "0", "22", 774, IllegalFieldValueException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
-			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expiration.
+			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: Sequence.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 13.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "13", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "13", "22", 774, IllegalFieldValueException.class
 			},
+
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
@@ -318,7 +318,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is null.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", null, 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", null, 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -327,7 +327,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is empty string.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -336,7 +336,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: 0.0.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "0.0", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "0.0", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -345,8 +345,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: -0.0.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "-0.0", 774,
-				ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "-0.0", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -387,7 +386,6 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Class<?> caught;
 		Sponsorship sponsorship, saved;
 		CreditCard creditCard;
-		final Sponsor principal = this.sponsorService.findByPrincipal();
 
 		this.startTransaction();
 
@@ -407,7 +405,6 @@ public class SponsorshipServiceTest extends AbstractTest {
 			sponsorship.setBanner(banner);
 			sponsorship.setTargetURL(targetURL);
 			sponsorship.setCreditCard(creditCard);
-			sponsorship.setSponsor(principal);
 
 			saved = this.sponsorshipService.save(sponsorship);
 			this.sponsorshipService.flush();
@@ -485,6 +482,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void reactivate_test() {
+		super.authenticate("sponsor1");
+
 		final int sponsorshipId = super.getEntityId("sponsorship4");
 		Sponsorship sponsorship;
 
@@ -495,6 +494,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 		this.sponsorshipService.reactivate(sponsorship);
 
 		Assert.isTrue(sponsorship.getIsActive());
+
+		super.unauthenticate();
 	}
 
 	/*

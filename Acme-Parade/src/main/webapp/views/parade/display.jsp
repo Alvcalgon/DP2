@@ -131,7 +131,7 @@
 		</security:authorize>
 	
 		<display:column property="origin.latitude" titleKey="parade.segment.origin.latitude" />
-		<display:column property="origin.latitude" titleKey="parade.segment.origin.longitude" />
+		<display:column property="origin.longitude" titleKey="parade.segment.origin.longitude" />
 			
 		<display:column property="destination.latitude" titleKey="parade.segment.destination.latitude" />
 		<display:column property="destination.longitude" titleKey="parade.segment.destination.longitude" />		
