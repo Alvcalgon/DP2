@@ -36,10 +36,10 @@ public class SponsorshipService {
 	private SponsorService			sponsorService;
 
 	@Autowired
-	private ParadeService			paradeService;
+	private MessageService			messageService;
 
 	@Autowired
-	private MessageService			messageService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private Validator				validator;
@@ -53,14 +53,26 @@ public class SponsorshipService {
 
 	// Simple CRUD methods --------------------------------
 
+	public Sponsorship create() {
+		Sponsorship result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.findByPrincipal();
+		result = new Sponsorship();
+
+		result.setIsActive(true);
+		result.setSponsor(sponsor);
+
+		return result;
+	}
+
 	public Sponsorship create(final int paradeId) {
 		Sponsorship result;
 		Parade parade;
 
 		parade = this.paradeService.findOne(paradeId);
-		result = new Sponsorship();
+		result = this.create();
 
-		result.setIsActive(true);
 		result.setParade(parade);
 
 		return result;
@@ -74,14 +86,8 @@ public class SponsorshipService {
 		this.checkOwner(sponsorship);
 
 		Sponsorship saved;
-		Sponsor sponsor;
 
 		saved = this.sponsorshipRepository.save(sponsorship);
-
-		if (!this.sponsorshipRepository.exists(sponsorship.getId())) {
-			sponsor = this.sponsorService.findByPrincipal();
-			saved.setSponsor(sponsor);
-		}
 
 		return saved;
 	}
@@ -182,25 +188,23 @@ public class SponsorshipService {
 
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
 		Sponsorship result, sponsorshipStored;
-		Sponsor sponsor;
 
-		if (sponsorship.getId() == 0) {
-			sponsor = this.sponsorService.findByPrincipal();
-			result = sponsorship;
-			result.setSponsor(sponsor);
-		} else {
+		if (sponsorship.getId() == 0)
+			result = this.create();
+		else {
 			result = new Sponsorship();
 			sponsorshipStored = this.sponsorshipRepository.findOne(sponsorship.getId());
 
 			result.setId(sponsorship.getId());
-			result.setBanner(sponsorship.getBanner().trim());
-			result.setCreditCard(sponsorship.getCreditCard());
 			result.setIsActive(sponsorshipStored.getIsActive());
-			result.setParade(sponsorship.getParade());
 			result.setSponsor(sponsorshipStored.getSponsor());
-			result.setTargetURL(sponsorship.getTargetURL().trim());
 			result.setVersion(sponsorshipStored.getVersion());
 		}
+
+		result.setBanner(sponsorship.getBanner().trim());
+		result.setCreditCard(sponsorship.getCreditCard());
+		result.setTargetURL(sponsorship.getTargetURL().trim());
+		result.setParade(sponsorship.getParade());
 
 		this.validator.validate(result, binding);
 
