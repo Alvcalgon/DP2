@@ -33,7 +33,4 @@
 	<jstl:if test="${miscellaneousRecord.id != 0}"> 		
 		<acme:submit name="delete" code="miscellaneousRecord.delete" />
 	</jstl:if>
-	
-
-
 </form:form>

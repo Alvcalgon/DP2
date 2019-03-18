@@ -238,10 +238,10 @@
 
 		<jstl:if test="${hasHistory == true}">
 		<p>
-			<strong> <spring:message code="actor.brotherhood.history" />
-			</strong>
+			<strong> <spring:message code="actor.brotherhood.history" /> </strong>
 			<a href="history/display.do?brotherhoodId=${actor.id}"><spring:message
-					code="brotherhood.display.history" /></a>
+					code="brotherhood.display.history" />
+			</a>
 		</p>
 		</jstl:if>
 		

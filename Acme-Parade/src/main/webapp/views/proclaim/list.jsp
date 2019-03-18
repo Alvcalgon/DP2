@@ -23,8 +23,15 @@
 	<spring:message code="moment.format" var="w_format" />
 	
 	<display:column property="text" titleKey="proclaim.text" />
-	<display:column property="publishedMoment" titleKey="proclaim.publishedMoment" format="${w_format}" />
+	<display:column property="publishedMoment" titleKey="proclaim.publishedMoment" format="${w_format}" sortable="true" />
 </display:table>
+
+<security:authorize access="hasRole('CHAPTER')">
+	<a href="proclaim/chapter/create.do">
+		<spring:message code="proclaim.create" />
+	</a>
+	<br/>
+</security:authorize>
 
 <a href="actor/display.do?actorId=${row.chapter.id}">
 	<spring:message code="proclaim.back" />

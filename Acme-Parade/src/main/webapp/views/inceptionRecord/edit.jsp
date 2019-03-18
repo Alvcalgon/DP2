@@ -37,7 +37,4 @@
 		<acme:cancel url="actor/display.do" code="inceptionRecord.cancel"/>
 	</jstl:if>
 	<br />
-	
-
-
 </form:form>
