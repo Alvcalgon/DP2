@@ -35,29 +35,28 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	public void driverCreate() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Crea adecuadamente un MiscellaneousRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear miscellaneousRecord
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "title MiscellaneousRecord test", "text MiscellaneousRecord test", null
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un MiscellaneousRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear miscellaneousRecord
+			 * B: Crear un miscellaneousRecord sin título
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", " ", "text MiscellaneousRecord test", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un MiscellaneousRecord con con text en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear miscellaneousRecord
+			 * B: Crear un miscellaneousRecord sin texto
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "title MiscellaneousRecord test", "", ConstraintViolationException.class
@@ -106,39 +105,38 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar adecuadamente un MiscellaneousRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede edit sus miscellaneousRecord
+			 * C: 85%(17/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "miscellaneousRecord1", "title MiscellaneousRecord test", "text MiscellaneousRecord test", null
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un MiscellaneousRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede edit sus miscellaneousRecord
+			 * B: Editar un miscellaneousRecord sin título
+			 * C: 85%(17/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "miscellaneousRecord1", " ", "text MiscellaneousRecord test", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un MiscellaneousRecord con con text en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede edit sus miscellaneousRecord
+			 * B: Editar un miscellaneousRecord sin texto
+			 * C: 85%(17/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "miscellaneousRecord1", "title MiscellaneousRecord test", "", ConstraintViolationException.class
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un MiscellaneousRecord que no es del principal
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede edit sus miscellaneousRecord
+			 * B: Editar un miscellaneousRecord de otro usuario
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D: 25%, (1/4) hay 2 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "miscellaneousRecord3", "title MiscellaneousRecord test", "text MiscellaneousRecord test", IllegalArgumentException.class
@@ -183,10 +181,9 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus miscellaneousRecords
+	 * C: 100%(11/11) Recorre 11 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void delete_positive_test() {
@@ -203,10 +200,10 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar uno que no es suyo
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus miscellaneousRecord
+	 * B: Un usuario borrar el miscellaneousRecord de otro usuario
+	 * C: 54.5%(6/11) Recorre 6 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void delete_negative_test() {
@@ -224,10 +221,9 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Display autenticado
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede mostrar sus miscellaneousRecord
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayAuthenticated_positive_test() {
@@ -245,10 +241,9 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req2.1
-	 * B:Display sin autenticar
-	 * C:
-	 * D:
+	 * A: Req2.1: Un actor no autenticado puede mostrar miscellaneousRecords de las historias de los brotherhood
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D: Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayNotAuthenticated_positive_test() {
