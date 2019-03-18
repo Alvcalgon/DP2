@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -136,7 +137,7 @@ public class ParadeServiceTest extends AbstractTest {
 	 * Analysis of sentence coverage: Sequence
 	 * Analysis of data coverage: intentionally blank
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = DataIntegrityViolationException.class)
 	public void reject_parade_negative_test() {
 		super.authenticate("chapter2");
 
@@ -171,6 +172,49 @@ public class ParadeServiceTest extends AbstractTest {
 		Assert.notNull(paradesRejectedFinal);
 		Assert.notNull(paradesSubmittedFinal);
 		Assert.notNull(paradesAcceptedFinal);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.2
+	 * Brotherhood makes a copy of one of their parades.
+	 * Analysis of sentence coverage: Sequence
+	 * Analysis of data coverage: intentionally blank
+	 */
+	@Test
+	public void make_parade_copy_positive_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade, paradeCopied;
+
+		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+
+		paradeCopied = this.paradeService.makeCopy(parade);
+
+		Assert.isTrue(this.paradeService.findAll().contains(paradeCopied));
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.2
+	 * The business rule that is intended to be broken: Brotherhood make a copy of a parade that not
+	 * belongs to him.
+	 * Analysis of sentence coverage: Sequence
+	 * Analysis of data coverage: intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void make_parade_copy_negative_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade, paradeCopied;
+
+		parade = this.paradeService.findOne(super.getEntityId("parade2"));
+
+		paradeCopied = this.paradeService.makeCopy(parade);
+
+		Assert.isTrue(this.paradeService.findAll().contains(paradeCopied));
 
 		super.unauthenticate();
 	}

@@ -113,4 +113,7 @@ public class LegalRecordService {
 
 		Assert.isTrue(history.getLegalRecords().contains(legalRecord));
 	}
+	protected void flush() {
+		this.legalRecordRepository.flush();
+	}
 }

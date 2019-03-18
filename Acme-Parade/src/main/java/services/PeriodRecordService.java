@@ -122,9 +122,14 @@ public class PeriodRecordService {
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
 	}
 
+
 	private void checkYearsPeriod(final PeriodRecord periodRecord) {
 		if (!(periodRecord.getStartYear() <= periodRecord.getEndYear()))
 			throw new DataIntegrityViolationException("Invalid yearPeriod");
+	}
 
+
+	protected void flush() {
+		this.periodRecordRepository.flush();
 	}
 }

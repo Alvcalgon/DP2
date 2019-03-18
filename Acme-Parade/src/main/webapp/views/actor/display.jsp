@@ -161,6 +161,10 @@
 
 	</jstl:if>
 	
+	<jstl:if test="${actor.userAccount.authorities=='[CHAPTER]'}">
+		<p> <strong> <spring:message code="actor.chapter.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
+	</jstl:if>
+	
 	<security:authorize access="hasRole('ADMIN')">
 	
 		<jstl:if test="${actor.isSpammer == null }">
@@ -260,7 +264,6 @@
 		<legend >
 			<spring:message code="actor.chapter.legend" />
 		</legend>
-		<p> <strong> <spring:message code="actor.chapter.title" /> </strong>  <jstl:out value="${actor.title}" /></p>
 		
 		<jstl:if test="${actor.area != null }">
 			<strong> <spring:message code="actor.chapter.area" />: </strong>
