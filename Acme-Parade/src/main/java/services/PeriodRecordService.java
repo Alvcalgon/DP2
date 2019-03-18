@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -80,7 +81,8 @@ public class PeriodRecordService {
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
-		Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
+		this.checkYearsPeriod(periodRecord);
+		//Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
 		this.utilityService.checkPicture(periodRecord.getPhotos());
 
 		PeriodRecord result;
@@ -97,6 +99,7 @@ public class PeriodRecordService {
 
 		return result;
 	}
+
 	public void delete(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 		Assert.isTrue(periodRecord.getId() != 0);
@@ -117,5 +120,11 @@ public class PeriodRecordService {
 		history = this.historyService.findByPrincipal();
 
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
+	}
+
+	private void checkYearsPeriod(final PeriodRecord periodRecord) {
+		if (!(periodRecord.getStartYear() <= periodRecord.getEndYear()))
+			throw new DataIntegrityViolationException("Invalid yearPeriod");
+
 	}
 }
