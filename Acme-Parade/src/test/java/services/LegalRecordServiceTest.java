@@ -316,5 +316,42 @@ public class LegalRecordServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+	/*
+	 * A: Req1, 3.1
+	 * B:Display autenticado
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayAuthenticated_positive_test() {
+		super.authenticate("member2");
 
+		final int legalRecordId;
+		LegalRecord legalRecord;
+
+		legalRecordId = super.getEntityId("legalRecord1");
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+
+		Assert.notNull(legalRecord);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Req2.1
+	 * B:Display sin autenticar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayNotAuthenticated_positive_test() {
+
+		final int legalRecordId;
+		LegalRecord legalRecord;
+
+		legalRecordId = super.getEntityId("legalRecord1");
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+
+		Assert.notNull(legalRecord);
+	}
 }

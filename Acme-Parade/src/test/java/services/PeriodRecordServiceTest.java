@@ -319,4 +319,44 @@ public class PeriodRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Display autenticado
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayAuthenticated_positive_test() {
+		super.authenticate("member2");
+
+		final int periodRecordId;
+		PeriodRecord periodRecord;
+
+		periodRecordId = super.getEntityId("periodRecord1");
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+
+		Assert.notNull(periodRecord);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Req 2.1
+	 * B:Display sin autenticar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayNotAuthenticated_positive_test() {
+
+		final int periodRecordId;
+		final PeriodRecord periodRecord;
+
+		periodRecordId = super.getEntityId("periodRecord1");
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+
+		Assert.notNull(periodRecord);
+
+	}
+
 }

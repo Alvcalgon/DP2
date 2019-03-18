@@ -223,4 +223,43 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Display autenticado
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayAuthenticated_positive_test() {
+		super.authenticate("member2");
+
+		final int miscellaneousRecordId;
+		MiscellaneousRecord miscellaneousRecord;
+
+		miscellaneousRecordId = super.getEntityId("miscellaneousRecord1");
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+
+		Assert.notNull(miscellaneousRecord);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Req2.1
+	 * B:Display sin autenticar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayNotAuthenticated_positive_test() {
+
+		final int miscellaneousRecordId;
+		MiscellaneousRecord miscellaneousRecord;
+
+		miscellaneousRecordId = super.getEntityId("miscellaneousRecord1");
+		miscellaneousRecord = this.miscellaneousRecordService.findOne(miscellaneousRecordId);
+
+		Assert.notNull(miscellaneousRecord);
+
+	}
 }

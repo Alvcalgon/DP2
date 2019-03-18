@@ -248,4 +248,44 @@ public class LinkRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Display autenticado
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayAuthenticated_positive_test() {
+		super.authenticate("member2");
+
+		final int linkRecordId;
+		LinkRecord linkRecord;
+
+		linkRecordId = super.getEntityId("linkRecord1");
+		linkRecord = this.linkRecordService.findOne(linkRecordId);
+
+		Assert.notNull(linkRecord);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Req2.1
+	 * B:Display sin autenticar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void displayNotAuthenticated_positive_test() {
+
+		final int linkRecordId;
+		LinkRecord linkRecord;
+
+		linkRecordId = super.getEntityId("linkRecord1");
+		linkRecord = this.linkRecordService.findOne(linkRecordId);
+
+		Assert.notNull(linkRecord);
+
+	}
+
 }
