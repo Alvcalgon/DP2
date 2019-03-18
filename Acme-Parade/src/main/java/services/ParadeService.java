@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -135,6 +136,9 @@ public class ParadeService {
 
 		final Parade result;
 		this.checkChapter(parade);
+
+		if (parade.getReasonWhy() == null)
+			throw new DataIntegrityViolationException("ReasonWhy not blank");
 
 		result = this.paradeRepository.save(parade);
 
