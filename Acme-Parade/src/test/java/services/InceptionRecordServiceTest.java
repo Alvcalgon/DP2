@@ -31,94 +31,98 @@ public class InceptionRecordServiceTest extends AbstractTest {
 
 	// Suite test -----------------------------------
 
-	//	@Test
-	//	public void driverCreate() {
-	//		final Object testingData[][] = {
-	//			/*
-	//			 * A: Req1, 3.1
-	//			 * B: Crea adecuadamente un inceptionRecord (historia)
-	//			 * C:
-	//			 * D:
-	//			 */
-	//			{
-	//				"brotherhood4", "inceptionRecordTest1", "textInceptionRecordTest1", "http://photo.com", null
-	//			},
-	//			/*
-	//			 * A: Req1, 3.1
-	//			 * B: Crear un inceptionRecord (historia) con title blanco
-	//			 * C:
-	//			 * D:
-	//			 */
-	//			{
-	//				"brotherhood4", "", "text inceptionRecord test", "http://photo.com", ConstraintViolationException.class
-	//			},
-	//			/*
-	//			 * A: Req1, 3.1
-	//			 * B: Crear un inceptionRecord (historia) con texto blanco
-	//			 * C:
-	//			 * D:
-	//			 */
-	//			{
-	//				"brotherhood4", "title inceptionRecord test", "", "http://photo.com", ConstraintViolationException.class
-	//			},
-	//			/*
-	//			 * A: Req1, 3.1
-	//			 * B: Crear un inceptionRecord (historia) con photo blanco
-	//			 * C:
-	//			 * D:
-	//			 */
-	//			{
-	//				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "", ConstraintViolationException.class
-	//			},
-	//			/*
-	//			 * A: Req1, 3.1
-	//			 * B: Crear un inceptionRecord (historia) sin formato del link
-	//			 * C:
-	//			 * D:
-	//			 */
-	//			{
-	//				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", IllegalArgumentException.class
-	//			},
-	//
-	//		};
-	//
-	//		for (int i = 0; i < testingData.length; i++)
-	//			this.templateCreate((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
-	//
-	//	}
-	//
-	//	protected void templateCreate(final String username, final String titleInception, final String textInception, final String photoInception, final Class<?> expected) {
-	//		Class<?> caught;
-	//		InceptionRecord inceptionRecord;
-	//		InceptionRecord inceptionRecordSaved;
-	//
-	//		this.startTransaction();
-	//
-	//		caught = null;
-	//		try {
-	//			super.authenticate(username);
-	//
-	//			inceptionRecord = this.inceptionRecordService.create();
-	//
-	//			inceptionRecord.setTitle(titleInception);
-	//			inceptionRecord.setText(textInception);
-	//			inceptionRecord.setPhotos(photoInception);
-	//
-	//			inceptionRecordSaved = this.inceptionRecordService.save(inceptionRecord);
-	//			this.inceptionRecordService.flush();
-	//
-	//			Assert.notNull(inceptionRecordSaved);
-	//			Assert.isTrue(inceptionRecordSaved.getId() != 0);
-	//
-	//			super.unauthenticate();
-	//		} catch (final Throwable oops) {
-	//			caught = oops.getClass();
-	//		}
-	//
-	//		this.rollbackTransaction();
-	//
-	//		super.checkExceptions(expected, caught);
-	//	}
+	@Test
+	public void driverCreate() {
+		final Object testingData[][] = {
+			/*
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear sus inceptionRecord
+			 * C: 72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
+			 */
+			{
+				"brotherhood4", "inceptionRecordTest1", "textInceptionRecordTest1", "http://photo.com", null
+			},
+			/*
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear sus inceptionRecord
+			 * B: Crear un inceptionRecord sin introducir título
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
+			 */
+			{
+				"brotherhood4", "", "text inceptionRecord test", "http://photo.com", ConstraintViolationException.class
+			},
+			/*
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear sus inceptionRecord
+			 * B: Crear un inceptionRecord sin introducir texto
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
+			 */
+			{
+				"brotherhood4", "title inceptionRecord test", "", "http://photo.com", ConstraintViolationException.class
+			},
+			/*
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear sus inceptionRecord
+			 * B: Crear un inceptionRecord sin introducir photo
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
+			 */
+			{
+				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "", ConstraintViolationException.class
+			},
+			/*
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear sus inceptionRecord
+			 * B: Crear un inceptionRecord sin introducir formato válido en la foto
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
+			 */
+			{
+				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", IllegalArgumentException.class
+			},
+		//
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateCreate((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (Class<?>) testingData[i][4]);
+
+	}
+
+	protected void templateCreate(final String username, final String titleInception, final String textInception, final String photoInception, final Class<?> expected) {
+		Class<?> caught;
+		InceptionRecord inceptionRecord;
+		InceptionRecord inceptionRecordSaved;
+
+		this.startTransaction();
+
+		caught = null;
+		try {
+			super.authenticate(username);
+
+			inceptionRecord = this.inceptionRecordService.create();
+
+			inceptionRecord.setTitle(titleInception);
+			inceptionRecord.setText(textInception);
+			inceptionRecord.setPhotos(photoInception);
+
+			inceptionRecordSaved = this.inceptionRecordService.save(inceptionRecord);
+			this.inceptionRecordService.flush();
+
+			Assert.notNull(inceptionRecordSaved);
+			Assert.isTrue(inceptionRecordSaved.getId() != 0);
+
+			super.unauthenticate();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.rollbackTransaction();
+
+		super.checkExceptions(expected, caught);
+	}
 	@Test
 	public void driverEdit() {
 		final Object testingData[][] = {
