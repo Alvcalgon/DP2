@@ -95,38 +95,34 @@ public class SegmentService {
 	private void checkSegmentEdit(final Segment segment, final Parade parade) {
 		//Compruebo que la fecha del segmento actual está entre las fechas del segmento previo y el posterior(depende de su posicion en el camino)
 		Collection<Segment> segmentsParadeCollection;
-		final SimpleDateFormat formatter;
-		final int tamaño;
-		String segmentOriginString;
-		String segmentDestinationString;
+		Segment segmentChecked;
 
 		segmentsParadeCollection = parade.getSegments();
 
 		if (!segmentsParadeCollection.isEmpty()) {
 			java.util.List<Segment> segmentsParade;
 			segmentsParade = this.findOrderedSegments(parade.getId());
-			formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
 			//Recorremos el camino para ver la posición del segmento
 			int i = 0;
-			tamaño = segmentsParade.size();
 			for (final Segment s : segmentsParade) {
 
-				segmentOriginString = formatter.format(s.getReachingOrigin());
-				segmentDestinationString = formatter.format(s.getReachingDestination());
+				if (s.equals(segment))
+					segmentChecked = segment;
+				else
+					segmentChecked = s;
 
-				if (s.equals(segment) && segmentsParade.indexOf(s) == 0) { //si es el primer segmento del camino 
-					if (tamaño > 1)
-						if (!segmentDestinationString.equals(formatter.format(segmentsParade.get(i + 1).getReachingOrigin())) || s.getDestination().equals(segmentsParade.get(i + 1).getOrigin()))
-							throw new DataIntegrityViolationException("Invalid data");
-				} else if (s.equals(segment) && i >= 0 && i <= tamaño - 1) { // si no es ni el primero ni el ultimo
-					if (!segmentDestinationString.equals(formatter.format(segmentsParade.get(i + 1).getReachingOrigin())) || !segmentOriginString.equals(formatter.format(segmentsParade.get(i - 1).getDestination()))
-						|| !(s.getDestination().getLatitude() == (segmentsParade.get(i + 1).getOrigin().getLatitude())) || !(s.getDestination().getLongitude() == (segmentsParade.get(i + 1).getOrigin().getLongitude()))
-						|| !(s.getOrigin().getLatitude() == (segmentsParade.get(i - 1).getDestination().getLatitude())) || !(s.getOrigin().getLongitude() == (segmentsParade.get(i - 1).getDestination().getLongitude())))
+				if (i == 0) {
+					if (!segmentChecked.getReachingDestination().equals(segmentsParade.get(i + 1).getReachingOrigin()) || segmentChecked.getDestination().equals(segmentsParade.get(i + 1).getOrigin()))
 						throw new DataIntegrityViolationException("Invalid data");
-				} else if (s.equals(segment) && i == tamaño - 1)
-					//solo tengo que mirar el inicio de s con el final del anterior
-					if (!segmentOriginString.equals(formatter.format(segmentsParade.get(i - 1).getReachingDestination())) || !s.getOrigin().equals(segmentsParade.get(i - 1).getDestination()))
+				} else if (i > 0 && i < segmentsParade.size() - 1) {
+					if ((segmentChecked.getReachingDestination().compareTo(segmentsParade.get(i + 1).getReachingOrigin())) != 0 || (segmentChecked.getReachingOrigin().compareTo(segmentsParade.get(i - 1).getReachingDestination())) != 0
+						|| (segmentChecked.getDestination().getLatitude() != (segmentsParade.get(i + 1).getOrigin().getLatitude())) || (segmentChecked.getDestination().getLongitude() != (segmentsParade.get(i + 1).getOrigin().getLongitude()))
+						|| (segmentChecked.getOrigin().getLatitude() != (segmentsParade.get(i - 1).getDestination().getLatitude())) || (segmentChecked.getOrigin().getLongitude()) != (segmentsParade.get(i - 1).getDestination().getLongitude()))
+						throw new DataIntegrityViolationException("Invalid data");
+				} else if (i == segmentsParade.size() - 1)
+					if ((segmentChecked.getReachingOrigin().compareTo(segmentsParade.get(i - 1).getReachingDestination())) != 0 || segmentChecked.getOrigin().getLatitude() != (segmentsParade.get(i - 1).getDestination().getLatitude())
+						|| segmentChecked.getOrigin().getLongitude() != (segmentsParade.get(i - 1).getDestination().getLongitude()))
 						throw new DataIntegrityViolationException("Invalid data");
 
 				i = i + 1;
@@ -135,7 +131,6 @@ public class SegmentService {
 		}
 
 	}
-
 	private void checkSegmentCreate(final Segment segment, final Parade parade) {
 
 		//Compruebo que la fecha del segmento actual está entre las fechas del segmento previo y el posterior(depende de su posicion en el camino)
