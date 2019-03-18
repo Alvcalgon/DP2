@@ -36,7 +36,4 @@
 	<jstl:if test="${linkRecord.id != 0}"> 		
 		<acme:submit name="delete" code="linkRecord.delete" />
 	</jstl:if>
-	
-
-
 </form:form>

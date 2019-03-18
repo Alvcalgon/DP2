@@ -25,6 +25,7 @@
 	
 	<acme:textbox code="inceptionRecord.title" path="title" />
 	<acme:textarea code="inceptionRecord.text" path="text" />
+	<p style="color:blue;"><spring:message code="periodRecord.info.pictures"/></p>
 	<acme:textarea code="inceptionRecord.photos" path="photos" />
 
 	<acme:submit name="save" code="inceptionRecord.save"/>
@@ -37,7 +38,4 @@
 		<acme:cancel url="actor/display.do" code="inceptionRecord.cancel"/>
 	</jstl:if>
 	<br />
-	
-
-
 </form:form>

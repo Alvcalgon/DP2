@@ -26,6 +26,13 @@
 	<display:column property="publishedMoment" titleKey="proclaim.publishedMoment" format="${w_format}" sortable="true" />
 </display:table>
 
+<security:authorize access="hasRole('CHAPTER')">
+	<a href="proclaim/chapter/create.do">
+		<spring:message code="proclaim.create" />
+	</a>
+	<br/>
+</security:authorize>
+
 <a href="actor/display.do?actorId=${row.chapter.id}">
 	<spring:message code="proclaim.back" />
 </a>

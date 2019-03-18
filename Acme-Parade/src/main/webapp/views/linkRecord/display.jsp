@@ -25,6 +25,10 @@
 		<jstl:out value="${linkRecord.text}"/>
 	<br/>
 	
+	<strong><spring:message code="linkRecord.brotherhood"/>:</strong>
+		<a href="actor/display.do?actorId=${linkRecord.brotherhood.id}"><jstl:out value="${linkRecord.brotherhood.name}"/></a>
+	<br/>
+	
 	<!-- Links -->	
 
 	<a href="history/display.do?brotherhoodId=${brotherhoodId}">

@@ -99,6 +99,9 @@ public class ChapterService {
 	public Chapter save(final Chapter chapter) {
 		Chapter result;
 
+		if (chapter.getArea() != null && chapter.getId() == 0)
+			Assert.isTrue(this.areaService.findAreasNotAssigned().contains(chapter.getArea()));
+
 		result = (Chapter) this.actorService.save(chapter);
 
 		return result;
@@ -367,4 +370,5 @@ public class ChapterService {
 
 		return result;
 	}
+
 }

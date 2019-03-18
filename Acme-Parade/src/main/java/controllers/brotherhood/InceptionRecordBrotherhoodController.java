@@ -4,6 +4,7 @@ package controllers.brotherhood;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ import services.HistoryService;
 import services.InceptionRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
-import domain.History;
 import domain.InceptionRecord;
 
 @Controller
@@ -69,12 +69,16 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		InceptionRecord inceptionRecord;
 		Brotherhood brotherhood;
 
-		inceptionRecord = this.inceptionRecordService.findOneEdit(inceptionRecordId);
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			inceptionRecord = this.inceptionRecordService.findOneEdit(inceptionRecordId);
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		result = this.createEditModelAndView(inceptionRecord);
-		result.addObject("brotherhoodId", brotherhood.getId());
-		result.addObject("existHistory", true);
+			result = this.createEditModelAndView(inceptionRecord);
+			result.addObject("brotherhoodId", brotherhood.getId());
+			result.addObject("existHistory", true);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -87,24 +91,26 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(inceptionRecord);
-		else
-			try {
-				History history;
-				history = this.historyService.findHistoryByBrotherhood(brotherhood.getId());
-				if (history == null) {
-					history = this.historyService.create();
-					this.historyService.addInceptionRecord(history, inceptionRecord);
-					this.historyService.save(history);
-				} else
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(inceptionRecord);
+			else
+				try {
 					this.inceptionRecordService.save(inceptionRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
-			}
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final DataIntegrityViolationException ex) {
+					if (ex.getMessage().equals("Invalid URL"))
+						result = this.createEditModelAndView(inceptionRecord, "periodRecord.invalid.urlPictures");
+					else
+						result = new ModelAndView("redirect:../../error.do");
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 

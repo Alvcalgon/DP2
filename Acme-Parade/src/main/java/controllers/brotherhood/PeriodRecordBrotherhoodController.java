@@ -4,6 +4,7 @@ package controllers.brotherhood;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -45,8 +46,12 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		PeriodRecord periodRecord;
 
-		periodRecord = this.periodRecordService.create();
-		result = this.createEditModelAndView(periodRecord);
+		try {
+			periodRecord = this.periodRecordService.create();
+			result = this.createEditModelAndView(periodRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
@@ -92,6 +97,13 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 				try {
 					this.periodRecordService.save(periodRecord);
 					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final DataIntegrityViolationException ex) {
+					if (ex.getMessage().equals("Invalid URL"))
+						result = this.createEditModelAndView(periodRecord, "periodRecord.invalid.urlPictures");
+					else if (ex.getMessage().equals("Invalid yearPeriod"))
+						result = this.createEditModelAndView(periodRecord, "periodRecord.invalid.yearPeriod");
+					else
+						result = new ModelAndView("redirect:../../error.do");
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(periodRecord, "periodRecord.commit.error");
 				}

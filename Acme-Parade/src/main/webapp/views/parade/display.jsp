@@ -55,12 +55,12 @@
 			<jstl:out value="${parade.isFinalMode}"/>
 		<br/>
 		</jstl:if>
-		<jstl:if test="${parade.status!=null}">
+		<jstl:if test="${parade.status!=''}">
 		<strong><spring:message code="parade.status"/>:</strong>
 			<jstl:out value="${parade.status}"/>
 		<br/>
  	 	</jstl:if>
- 	<jstl:if test="${parade.reasonWhy!=null}">
+ 	<jstl:if test="${parade.status=='rejected'}">
 		<strong><spring:message code="parade.reasonWhy"/>:</strong>
 			<jstl:out value="${parade.reasonWhy}"/>
 		<br/>
@@ -69,7 +69,7 @@
  	
  	<security:authorize access="hasRole('CHAPTER')">
  	
- 	<jstl:if test="${parade.reasonWhy!=null}">
+ 	<jstl:if test="${parade.status=='rejected'}">
 		<strong><spring:message code="parade.reasonWhy"/>:</strong>
 			<jstl:out value="${parade.reasonWhy}"/>
 		<br/>
@@ -131,7 +131,7 @@
 		</security:authorize>
 	
 		<display:column property="origin.latitude" titleKey="parade.segment.origin.latitude" />
-		<display:column property="origin.latitude" titleKey="parade.segment.origin.longitude" />
+		<display:column property="origin.longitude" titleKey="parade.segment.origin.longitude" />
 			
 		<display:column property="destination.latitude" titleKey="parade.segment.destination.latitude" />
 		<display:column property="destination.longitude" titleKey="parade.segment.destination.longitude" />		
@@ -141,17 +141,13 @@
 		
 		<spring:message code="parade.formatMoment" var="formatMomentHeader" />
 			<display:column property="reachingDestination" titleKey="parade.segment.reachingDestination" 	format="${formatMomentHeader}" />
-
-	
 	</display:table>
+	<br/>
 		
-		
-			
-			<jstl:if test="${isOwner}">
- 			<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
-		<spring:message code="parade.segment.create" />
-	</a>
-	
+	<jstl:if test="${isOwner}">
+ 		<a href="segment/brotherhood/create.do?paradeId=${parade.id}">
+			<spring:message code="parade.segment.create" />
+		</a>
 	</jstl:if>
 	</fieldset>
 			

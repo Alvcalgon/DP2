@@ -14,6 +14,7 @@ import java.util.TreeSet;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -135,6 +136,9 @@ public class ParadeService {
 
 		final Parade result;
 		this.checkChapter(parade);
+
+		if (parade.getReasonWhy() == null)
+			throw new DataIntegrityViolationException("ReasonWhy not blank");
 
 		result = this.paradeRepository.save(parade);
 
@@ -371,6 +375,8 @@ public class ParadeService {
 	public Collection<Parade> findSubmittedByArea(final int id) {
 		Collection<Parade> parades;
 
+		this.checkPrincipalArea(id);
+
 		parades = this.paradeRepository.findSubmittedByArea(id);
 
 		return parades;
@@ -380,6 +386,8 @@ public class ParadeService {
 	public Collection<Parade> findRejectedByArea(final int id) {
 		Collection<Parade> parades;
 
+		this.checkPrincipalArea(id);
+
 		parades = this.paradeRepository.findRejectedByArea(id);
 
 		return parades;
@@ -388,6 +396,8 @@ public class ParadeService {
 	//Devuelve los desfiles de un mismo area con estado ACCEPTED y MODOFINAL
 	public Collection<Parade> findAcceptedByArea(final int id) {
 		Collection<Parade> parades;
+
+		this.checkPrincipalArea(id);
 
 		parades = this.paradeRepository.findAcceptedByArea(id);
 
@@ -633,6 +643,16 @@ public class ParadeService {
 		result = this.paradeRepository.avgNumberParadesCoordinatedByChapters();
 
 		return result;
+	}
+	private void checkPrincipalArea(final int areaId) {
+		Chapter principal;
+		Area area;
+
+		principal = this.chapterService.findByPrincipal();
+		area = principal.getArea();
+
+		Assert.isTrue(area.getId() == areaId);
+
 	}
 
 }

@@ -35,6 +35,7 @@ public class LinkRecordService {
 
 	public LinkRecord create() {
 		LinkRecord result;
+		Assert.isTrue(!(this.historyService.findByPrincipal() == null));
 
 		result = new LinkRecord();
 
@@ -80,21 +81,18 @@ public class LinkRecordService {
 
 		LinkRecord result;
 
-		result = this.linkRecordRepository.save(linkRecord);
-
-		if (this.linkRecordRepository.exists(linkRecord.getId()))
-			this.checkByPrincipal(linkRecord);
-		else {
+		if (linkRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.linkRecordRepository.save(linkRecord);
 			this.historyService.addLinkRecord(history, result);
+		} else {
+			this.checkByPrincipal(linkRecord);
+			result = this.linkRecordRepository.save(linkRecord);
 		}
 
 		return result;
 	}
-
 	public void delete(final LinkRecord linkRecord) {
 		Assert.notNull(linkRecord);
 		Assert.isTrue(linkRecord.getId() != 0);
@@ -124,5 +122,8 @@ public class LinkRecordService {
 
 		Assert.isTrue(!(linkRecord.getBrotherhood().equals(history.getBrotherhood())));
 
+	}
+	protected void flush() {
+		this.linkRecordRepository.flush();
 	}
 }

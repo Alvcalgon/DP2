@@ -496,6 +496,21 @@
 		<property name="pictures" value="" />
 	</bean>
 
+	<bean id="area4" class="domain.Area">
+		<property name="name" value="area4" />
+		<property name="pictures" value="" />
+	</bean>
+
+	<bean id="area5" class="domain.Area">
+		<property name="name" value="area5" />
+		<property name="pictures" value="" />
+	</bean>
+
+	<bean id="area6" class="domain.Area">
+		<property name="name" value="area6" />
+		<property name="pictures" value="" />
+	</bean>
+
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -2786,6 +2801,15 @@
 		<property name="cvvCode" value="258" />
 	</bean>
 	
+	<bean id="creditCard6" class="domain.CreditCard">
+		<property name="holder" value="holder6" />
+		<property name="make" value="MCARD" />
+		<property name="number" value="4241698979306653" />
+		<property name="expirationMonth" value="02" />
+		<property name="expirationYear" value="19" />
+		<property name="cvvCode" value="258" />
+	</bean>
+	
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
 		<property name="name" value="Acme Madrugá" />
@@ -4742,7 +4766,7 @@
 	<bean id="sponsorship10" class="domain.Sponsorship">
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
-		<property name="creditCard" ref="creditCard1" />
+		<property name="creditCard" ref="creditCard6" />
 		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor5" />		
 		<property name="parade" ref="parade3" />
@@ -4769,7 +4793,7 @@
 	<bean id="sponsorship13" class="domain.Sponsorship">
 		<property name="banner" value="http://www.ldsbsa.org/wp-content/uploads/2014/06/Family-Banner-Parade-2014-Wk-2-19-300x200.jpg" />
 		<property name="targetURL" value="http://www.targetpage.com" />
-		<property name="creditCard" ref="creditCard2" />
+		<property name="creditCard" ref="creditCard6" />
 		<property name="isActive" value="true" />
 		<property name="sponsor" ref="sponsor7" />		
 		<property name="parade" ref="parade5" />

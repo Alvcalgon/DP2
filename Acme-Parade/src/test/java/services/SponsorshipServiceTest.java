@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.validation.ConstraintViolationException;
 
+import org.joda.time.IllegalFieldValueException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -258,7 +259,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
 			 * C: Analysis of sentence coverage: Sequence.
-			 * D: Analysis of data coverage: sponsorship::creditCard::make is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::number is a empty string.
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "", "12", "22", 774, ConstraintViolationException.class
@@ -279,7 +280,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is null.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", null, "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", null, "22", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -288,7 +289,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is empty string.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "", "22", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -296,18 +297,20 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * C: Analysis of sentence coverage: Sequence.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 0.
 			 */
+
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "0", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "0", "22", 774, IllegalFieldValueException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
-			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expiration.
+			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: Sequence.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 13.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "13", "22", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "13", "22", 774, IllegalFieldValueException.class
 			},
+
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
@@ -315,7 +318,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is null.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", null, 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", null, 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -324,7 +327,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is empty string.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -333,7 +336,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: 0.0.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "0.0", 774, ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "0.0", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -342,8 +345,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: -0.0.
 			 */
 			{
-				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "-0.0", 774,
-				ConstraintViolationException.class
+				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "-0.0", 774, IllegalArgumentException.class
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
@@ -480,6 +482,8 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void reactivate_test() {
+		super.authenticate("sponsor1");
+
 		final int sponsorshipId = super.getEntityId("sponsorship4");
 		Sponsorship sponsorship;
 
@@ -490,6 +494,78 @@ public class SponsorshipServiceTest extends AbstractTest {
 		this.sponsorshipService.reactivate(sponsorship);
 
 		Assert.isTrue(sponsorship.getIsActive());
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 18.1: Launch a process
+	 * that automatically deactivates the sponsorships whose credit cards have expired
+	 * C: Analysis of sentence coverage: Loop.
+	 * In this case, there are two sponsorships with a expired credit card, so sponsorship::isActive
+	 * will be false.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void deactivateProcess_test() {
+		super.authenticate("admin1");
+
+		int sponsorshipId;
+		Sponsorship sponsorship_uno, sponsorship_dos;
+
+		sponsorshipId = super.getEntityId("sponsorship10");
+
+		sponsorship_uno = this.sponsorshipService.findOne(sponsorshipId);
+
+		sponsorshipId = super.getEntityId("sponsorship13");
+
+		sponsorship_dos = this.sponsorshipService.findOne(sponsorshipId);
+
+		Assert.isTrue(sponsorship_uno.getIsActive());
+		Assert.isTrue(sponsorship_dos.getIsActive());
+
+		this.sponsorshipService.deactivateProcess();
+
+		Assert.isTrue(!sponsorship_uno.getIsActive());
+		Assert.isTrue(!sponsorship_dos.getIsActive());
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 20: Every a time a parade with sponsorships is displayed, a
+	 * random sponsorship must be selected...
+	 * C: Analysis of sentence coverage: Conditional: the if condition is true, that is, the number of sponsorship
+	 * of parade1 is more than zero.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void getRandomSponsorship_test_uno() {
+		int paradeId;
+		Sponsorship sponsorship;
+
+		paradeId = super.getEntityId("parade1");
+		sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+
+		Assert.notNull(sponsorship);
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 20: Every a time a parade with sponsorships is displayed, a
+	 * random sponsorship must be selected...
+	 * C: Analysis of sentence coverage: Conditional: the if condition is false, that is, the number of sponsorship
+	 * of parade4 is zero.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void getRandomSponsorship_test_dos() {
+		int paradeId;
+		Sponsorship sponsorship;
+
+		paradeId = super.getEntityId("parade4");
+		sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+
+		Assert.isNull(sponsorship);
 	}
 
 }

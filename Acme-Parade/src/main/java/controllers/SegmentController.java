@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ParadeService;
 import services.SegmentService;
+import domain.Parade;
 import domain.Segment;
 
 @Controller
@@ -35,16 +36,16 @@ public class SegmentController extends AbstractController {
 	public ModelAndView display(@RequestParam final int segmentId) {
 		ModelAndView result;
 		Segment segment;
-		final int paradeId;
+		Parade parade;
 
 		result = new ModelAndView("segment/display");
 
 		try {
 			segment = this.segmentService.findOne(segmentId);
-			//		paradeId = this.paradeService.findBySegment(segment.getId());
+			parade = this.paradeService.findBySegment(segment.getId());
 
 			result.addObject("segment", segment);
-			//		result.addObject("paradeId", paradeId);
+			result.addObject("paradeId", parade.getId());
 
 		} catch (final Exception e) {
 

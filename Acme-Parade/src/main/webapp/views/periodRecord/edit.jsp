@@ -27,6 +27,7 @@
 	<acme:textarea code="periodRecord.text" path="text" />
 	<acme:textbox code="periodRecord.startYear" path="startYear" />
 	<acme:textbox code="periodRecord.endYear" path="endYear" />
+	<p style="color:blue;"><spring:message code="periodRecord.info.pictures"/></p>
 	<acme:textarea code="periodRecord.photos" path="photos" />
 	
 

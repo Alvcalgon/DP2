@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -31,7 +32,7 @@ public class UtilityService {
 	private CustomisationService	customisationService;
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService			paradeService;
 
 
 	// Constructors ------------------------
@@ -104,7 +105,7 @@ public class UtilityService {
 			try {
 				new URL(at);
 			} catch (final MalformedURLException e) {
-				throw new IllegalArgumentException("Invalid URL");
+				throw new DataIntegrityViolationException("Invalid URL");
 			}
 	}
 

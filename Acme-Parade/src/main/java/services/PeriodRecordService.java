@@ -1,11 +1,13 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -38,6 +40,7 @@ public class PeriodRecordService {
 
 	public PeriodRecord create() {
 		PeriodRecord result;
+		Assert.isTrue(!(this.historyService.findByPrincipal() == null));
 
 		result = new PeriodRecord();
 
@@ -79,21 +82,20 @@ public class PeriodRecordService {
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
-		Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
+		this.checkYearsPeriod(periodRecord);
+		//Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
 		this.utilityService.checkPicture(periodRecord.getPhotos());
 
 		PeriodRecord result;
 
-		result = this.periodRecordRepository.save(periodRecord);
-
-		if (this.periodRecordRepository.exists(periodRecord.getId()))
-			this.checkByPrincipal(periodRecord);
-		else {
+		if (periodRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.periodRecordRepository.save(periodRecord);
 			this.historyService.addPeriodRecord(history, result);
+		} else {
+			this.checkByPrincipal(periodRecord);
+			result = this.periodRecordRepository.save(periodRecord);
 		}
 
 		return result;
@@ -119,5 +121,16 @@ public class PeriodRecordService {
 		history = this.historyService.findByPrincipal();
 
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
+	}
+
+	private void checkYearsPeriod(final PeriodRecord periodRecord) {
+		final Calendar cal = Calendar.getInstance();
+		final int year = cal.get(Calendar.YEAR);
+		if ((!(periodRecord.getStartYear() <= periodRecord.getEndYear())) || (periodRecord.getStartYear() > year) || (periodRecord.getEndYear() > year))
+			throw new DataIntegrityViolationException("Invalid yearPeriod");
+	}
+
+	protected void flush() {
+		this.periodRecordRepository.flush();
 	}
 }

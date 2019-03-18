@@ -85,16 +85,15 @@ public class InceptionRecordService {
 
 		InceptionRecord result;
 
-		result = this.inceptionRecordRepository.save(inceptionRecord);
-
-		if (this.inceptionRecordRepository.exists(inceptionRecord.getId()))
-			this.checkByPrincipal(inceptionRecord);
-		else {
+		if (inceptionRecord.getId() == 0) {
 			History history;
-
-			history = this.historyService.findByPrincipal();
-
+			history = this.historyService.create();
+			result = this.inceptionRecordRepository.save(inceptionRecord);
 			this.historyService.addInceptionRecord(history, result);
+			this.historyService.save(history);
+		} else {
+			this.checkByPrincipal(inceptionRecord);
+			result = this.inceptionRecordRepository.save(inceptionRecord);
 		}
 
 		return result;
@@ -107,5 +106,9 @@ public class InceptionRecordService {
 		history = this.historyService.findByPrincipal();
 
 		Assert.isTrue(history.getInceptionRecord().equals(inceptionRecord));
+	}
+
+	protected void flush() {
+		this.inceptionRecordRepository.flush();
 	}
 }
