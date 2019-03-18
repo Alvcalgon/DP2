@@ -203,7 +203,7 @@
 			</a>
 	</display:column>	
 	
-	<display:column>
+	<display:column style="background-color:${colorValue }">
 				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowRejected.id}">
 					<spring:message code="parade.makeCopy" />
 				</a>
