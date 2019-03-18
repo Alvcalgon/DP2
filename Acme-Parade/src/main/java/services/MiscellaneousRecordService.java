@@ -35,6 +35,7 @@ public class MiscellaneousRecordService {
 
 	public MiscellaneousRecord create() {
 		MiscellaneousRecord result;
+		Assert.isTrue(!(this.historyService.findByPrincipal() == null));
 
 		result = new MiscellaneousRecord();
 
@@ -78,16 +79,14 @@ public class MiscellaneousRecordService {
 
 		MiscellaneousRecord result;
 
-		result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
-
-		if (this.miscellaneousRecordRepository.exists(miscellaneousRecord.getId()))
-			this.checkByPrincipal(miscellaneousRecord);
-		else {
+		if (miscellaneousRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 			this.historyService.addMiscellaneousRecord(history, result);
+		} else {
+			this.checkByPrincipal(miscellaneousRecord);
+			result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
 		}
 
 		return result;

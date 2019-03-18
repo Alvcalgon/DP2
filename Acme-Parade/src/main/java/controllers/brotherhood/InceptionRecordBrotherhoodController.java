@@ -69,12 +69,16 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		InceptionRecord inceptionRecord;
 		Brotherhood brotherhood;
 
-		inceptionRecord = this.inceptionRecordService.findOneEdit(inceptionRecordId);
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			inceptionRecord = this.inceptionRecordService.findOneEdit(inceptionRecordId);
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		result = this.createEditModelAndView(inceptionRecord);
-		result.addObject("brotherhoodId", brotherhood.getId());
-		result.addObject("existHistory", true);
+			result = this.createEditModelAndView(inceptionRecord);
+			result.addObject("brotherhoodId", brotherhood.getId());
+			result.addObject("existHistory", true);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 	}
@@ -87,24 +91,28 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.findByPrincipal();
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(inceptionRecord);
-		else
-			try {
-				History history;
-				history = this.historyService.findHistoryByBrotherhood(brotherhood.getId());
-				if (history == null) {
-					history = this.historyService.create();
-					this.historyService.addInceptionRecord(history, inceptionRecord);
-					this.historyService.save(history);
-				} else
-					this.inceptionRecordService.save(inceptionRecord);
-				result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
-			}
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(inceptionRecord);
+			else
+				try {
+					History history;
+					history = this.historyService.findHistoryByBrotherhood(brotherhood.getId());
+					if (history == null) {
+						history = this.historyService.create();
+						this.historyService.addInceptionRecord(history, inceptionRecord);
+						this.historyService.save(history);
+					} else
+						this.inceptionRecordService.save(inceptionRecord);
+					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
+				}
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 

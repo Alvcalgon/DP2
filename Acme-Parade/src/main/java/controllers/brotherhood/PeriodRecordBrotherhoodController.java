@@ -45,8 +45,12 @@ public class PeriodRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		PeriodRecord periodRecord;
 
-		periodRecord = this.periodRecordService.create();
-		result = this.createEditModelAndView(periodRecord);
+		try {
+			periodRecord = this.periodRecordService.create();
+			result = this.createEditModelAndView(periodRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 

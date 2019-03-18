@@ -47,8 +47,12 @@ public class LinkRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		LinkRecord linkRecord;
 
-		linkRecord = this.linkRecordService.create();
-		result = this.createEditModelAndView(linkRecord);
+		try {
+			linkRecord = this.linkRecordService.create();
+			result = this.createEditModelAndView(linkRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 

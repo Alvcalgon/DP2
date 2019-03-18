@@ -35,12 +35,12 @@ public class LegalRecordService {
 
 	public LegalRecord create() {
 		LegalRecord result;
+		Assert.isTrue(!(this.historyService.findByPrincipal() == null));
 
 		result = new LegalRecord();
 
 		return result;
 	}
-
 	public LegalRecord findOne(final int legalRecordId) {
 		Assert.isTrue(legalRecordId != 0);
 		LegalRecord result;
@@ -79,16 +79,14 @@ public class LegalRecordService {
 
 		LegalRecord result;
 
-		result = this.legalRecordRepository.save(legalRecord);
-
-		if (this.legalRecordRepository.exists(legalRecord.getId()))
-			this.checkByPrincipal(legalRecord);
-		else {
+		if (legalRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.legalRecordRepository.save(legalRecord);
 			this.historyService.addLegalRecord(history, result);
+		} else {
+			this.checkByPrincipal(legalRecord);
+			result = this.legalRecordRepository.save(legalRecord);
 		}
 
 		return result;

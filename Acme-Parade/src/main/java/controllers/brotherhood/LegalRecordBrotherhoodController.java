@@ -45,8 +45,12 @@ public class LegalRecordBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		LegalRecord legalRecord;
 
-		legalRecord = this.legalRecordService.create();
-		result = this.createEditModelAndView(legalRecord);
+		try {
+			legalRecord = this.legalRecordService.create();
+			result = this.createEditModelAndView(legalRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 

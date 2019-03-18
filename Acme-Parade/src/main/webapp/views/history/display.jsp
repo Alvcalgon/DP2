@@ -20,7 +20,7 @@
 
 <p>
 	<strong><spring:message code="history.brotherhood" /></strong> :
-	<jstl:out value="${history.brotherhood.name}"></jstl:out>
+	<jstl:out value="${history.brotherhood.fullname}"></jstl:out>
 </p>
 
 <fieldset>
@@ -39,7 +39,8 @@
 	</p>
 	<p>
 		<jstl:if test="${not empty photos}">
-			<strong><spring:message code="history.inceptionRecord.photos" />:</strong>
+			<strong><spring:message
+					code="history.inceptionRecord.photos" />:</strong>
 			<ul>
 				<jstl:forEach var="photo" items="${photos}">
 					<img src="${photo}" alt="photo" height="125px" width="200px">
@@ -78,26 +79,13 @@
 		<display:column>
 			<a
 				href="periodRecord/display.do?periodRecordId=${rowPeriodRecord.id}"><spring:message
-					code="history.display" />
-			</a>
+					code="history.display" /> </a>
 		</display:column>
 
-		<spring:message code="history.periodRecord.title" var="titleHeader" />
-		<display:column property="title" title="${titleHeader}"
-			sortable="false" />
-
-		<spring:message code="history.periodRecord.text" var="textHeader" />
-		<display:column property="text" title="${textHeader}" sortable="false" />
-
-		<spring:message code="history.periodRecord.startYear"
-			var="startYearHeader" />
-		<display:column property="startYear" title="${startYearHeader}"
-			sortable="false" />
-
-		<spring:message code="history.periodRecord.endYear"
-			var="endYearHeader" />
-		<display:column property="endYear" title="${endYearHeader}"
-			sortable="false" />
+		<display:column property="title" titleKey="history.periodRecord.title" />
+		<display:column property="text" titleKey="history.periodRecord.text" />
+		<display:column property="startYear" titleKey="history.periodRecord.startYear" />
+		<display:column property="endYear" titleKey="history.periodRecord.endYear" />
 
 	</display:table>
 
@@ -134,15 +122,9 @@
 				href="miscellaneousRecord/display.do?miscellaneousRecordId=${rowMiscellaneousRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-
-		<spring:message code="history.miscellaneousRecord.title"
-			var="titleHeader" />
-		<display:column property="title" title="${titleHeader}"
-			sortable="false" />
-
-		<spring:message code="history.miscellaneousRecord.text"
-			var="textHeader" />
-		<display:column property="text" title="${textHeader}" sortable="false" />
+		
+		<display:column property="title" titleKey="history.miscellaneousRecord.title" />
+		<display:column property="text" titleKey="history.miscellaneousRecord.text" />
 
 	</display:table>
 
@@ -177,22 +159,11 @@
 			<a href="legalRecord/display.do?legalRecordId=${rowLegalRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-
-		<spring:message code="history.legalRecord.title" var="titleHeader" />
-		<display:column property="title" title="${titleHeader}"
-			sortable="false" />
-
-		<spring:message code="history.legalRecord.text" var="textHeader" />
-		<display:column property="text" title="${textHeader}" sortable="false" />
-
-		<spring:message code="history.legalRecord.name" var="nameHeader" />
-		<display:column property="name" title="${nameHeader}" sortable="false" />
-
-
-		<spring:message code="history.legalRecord.vatNumber"
-			var="vatNumberHeader" />
-		<display:column property="vatNumber" title="${vatNumberHeader}"
-			sortable="false" />
+		
+		<display:column property="title" titleKey="history.legalRecord.title" />
+		<display:column property="text" titleKey="history.legalRecord.text" />
+		<display:column property="name" titleKey="history.legalRecord.name" />
+		<display:column property="vatNumber" titleKey="history.legalRecord.vatNumber" />
 
 	</display:table>
 	<security:authorize access="hasRole('BROTHERHOOD')">
@@ -227,19 +198,11 @@
 			<a href="linkRecord/display.do?linkRecordId=${rowLinkRecord.id}"><spring:message
 					code="history.display" /></a>
 		</display:column>
-
-		<spring:message code="history.linkRecord.title" var="titleHeader" />
-		<display:column property="title" title="${titleHeader}"
-			sortable="false" />
-
-		<spring:message code="history.linkRecord.text" var="textHeader" />
-		<display:column property="text" title="${textHeader}" sortable="false" />
-
-
-		<spring:message code="history.linkRecord.brotherhood"
-			var="brotherhoodHeader" />
-		<display:column property="brotherhood.name"
-			title="${brotherhoodHeader}" sortable="false" />
+		
+		<display:column property="title" titleKey="history.linkRecord.title" />
+		<display:column property="text" titleKey="history.linkRecord.text" />
+		<display:column property="brotherhood.name" titleKey="history.linkRecord.brotherhood" />
+		
 	</display:table>
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
@@ -249,5 +212,9 @@
 			</a>
 		</jstl:if>
 	</security:authorize>
-
+	
 </fieldset>
+
+<br>
+
+	<a href="actor/display.do?actorId=${brotherhoodHistoryId}"><spring:message code="actor.return" /></a>

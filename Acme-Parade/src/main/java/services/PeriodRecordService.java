@@ -38,6 +38,7 @@ public class PeriodRecordService {
 
 	public PeriodRecord create() {
 		PeriodRecord result;
+		Assert.isTrue(!(this.historyService.findByPrincipal() == null));
 
 		result = new PeriodRecord();
 
@@ -84,21 +85,18 @@ public class PeriodRecordService {
 
 		PeriodRecord result;
 
-		result = this.periodRecordRepository.save(periodRecord);
-
-		if (this.periodRecordRepository.exists(periodRecord.getId()))
-			this.checkByPrincipal(periodRecord);
-		else {
+		if (periodRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.periodRecordRepository.save(periodRecord);
 			this.historyService.addPeriodRecord(history, result);
+		} else {
+			this.checkByPrincipal(periodRecord);
+			result = this.periodRecordRepository.save(periodRecord);
 		}
 
 		return result;
 	}
-
 	public void delete(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 		Assert.isTrue(periodRecord.getId() != 0);

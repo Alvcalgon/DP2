@@ -85,16 +85,14 @@ public class InceptionRecordService {
 
 		InceptionRecord result;
 
-		result = this.inceptionRecordRepository.save(inceptionRecord);
-
-		if (this.inceptionRecordRepository.exists(inceptionRecord.getId()))
-			this.checkByPrincipal(inceptionRecord);
-		else {
+		if (inceptionRecord.getId() == 0) {
 			History history;
-
 			history = this.historyService.findByPrincipal();
-
+			result = this.inceptionRecordRepository.save(inceptionRecord);
 			this.historyService.addInceptionRecord(history, result);
+		} else {
+			this.checkByPrincipal(inceptionRecord);
+			result = this.inceptionRecordRepository.save(inceptionRecord);
 		}
 
 		return result;

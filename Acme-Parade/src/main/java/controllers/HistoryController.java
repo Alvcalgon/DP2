@@ -49,7 +49,10 @@ public class HistoryController extends AbstractController {
 		result = new ModelAndView("history/display");
 
 		try {
-			brotherhoodLoginId = this.brotherhoodService.findByPrincipal().getId();
+			try {
+				brotherhoodLoginId = this.brotherhoodService.findByPrincipal().getId();
+			} catch (final Exception e) {
+			}
 
 			history = this.historyService.findOne(this.historyService.findHistoryByBrotherhood(brotherhoodId).getId());
 			photos = this.utilityService.getSplittedString(history.getInceptionRecord().getPhotos());

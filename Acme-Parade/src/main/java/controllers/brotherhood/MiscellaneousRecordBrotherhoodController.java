@@ -45,8 +45,12 @@ public class MiscellaneousRecordBrotherhoodController extends AbstractController
 		ModelAndView result;
 		MiscellaneousRecord miscellaneousRecord;
 
-		miscellaneousRecord = this.miscellaneousRecordService.create();
-		result = this.createEditModelAndView(miscellaneousRecord);
+		try {
+			miscellaneousRecord = this.miscellaneousRecordService.create();
+			result = this.createEditModelAndView(miscellaneousRecord);
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:../../error.do");
+		}
 
 		return result;
 
