@@ -16,7 +16,6 @@ import services.HistoryService;
 import services.InceptionRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
-import domain.History;
 import domain.InceptionRecord;
 
 @Controller
@@ -98,14 +97,7 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 				result = this.createEditModelAndView(inceptionRecord);
 			else
 				try {
-					History history;
-					history = this.historyService.findHistoryByBrotherhood(brotherhood.getId());
-					if (history == null) {
-						history = this.historyService.create();
-						this.historyService.addInceptionRecord(history, inceptionRecord);
-						this.historyService.save(history);
-					} else
-						this.inceptionRecordService.save(inceptionRecord);
+					this.inceptionRecordService.save(inceptionRecord);
 					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
