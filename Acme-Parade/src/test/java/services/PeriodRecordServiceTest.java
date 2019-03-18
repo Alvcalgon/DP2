@@ -35,74 +35,72 @@ public class PeriodRecordServiceTest extends AbstractTest {
 	public void driverCreate() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Crea adecuadamente un periodRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "http://asdf.com", null
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear adecuadamente un periodRecord con startYear==1 y endYeard==1
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:18%, (2/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "http://asdf.com", null
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un periodRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord sin título
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "", "text periodRecord test", 1966, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un periodRecord con con text en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord sin texto
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "", 1966, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un periodRecord con photo en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord sin photo
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un periodRecord con photo invalida
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord sin seguir el formato url para las fotos
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", IllegalArgumentException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un legalRecord startYear cero
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord startYear ==0
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 0, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un legalRecord endYear menor que startYear
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Crear un periodRecord startYear posterior a endYear
+			 * C: 45%(9/20) Recorre 9 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 1700, "http://asdf.com", IllegalArgumentException.class
@@ -153,84 +151,82 @@ public class PeriodRecordServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar adecuadamente un periodRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus periodRecord
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1966, 2000, "http://asdf.com", null
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar adecuadamente un periodRecord con startYear==1 y endYeard==1
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar periodRecord
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:18%, (2/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1, 1, "http://asdf.com", null
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un periodRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord sin título
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "", "text periodRecord test", 1966, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un periodRecord con con text en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord sin texto
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "", 1966, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un periodRecord con photo en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord sin photo
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1966, 2000, "", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un periodRecord con photo invalida
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord sin seguir el patron url para las fotos
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", IllegalArgumentException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un legalRecord startYear negativo
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord con starYeard negativo
+			 * C: 85%(1/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", -1, 2000, "http://asdf.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un legalRecord endYear menor que starYear
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord con starYear posterior a endYear
+			 * C: 45%(9/20) Recorre 9 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 2000, 21, "http://asdf.com", IllegalArgumentException.class
 			},
 
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un legalRecord que no es del principal
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
+			 * B: Editar un periodRecord de otro usuario
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
 				"brotherhood1", "periodRecord3", "title periodRecord test", "text periodRecord test", 21, 21, "http://asdf.com", IllegalArgumentException.class
@@ -279,10 +275,9 @@ public class PeriodRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus periodRecords
+	 * C: 100%(11/11) Recorre 11 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void delete_positive_test() {
@@ -299,10 +294,10 @@ public class PeriodRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar uno que no es suyo
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus periodRecords
+	 * B: Un usuario borrar el periodRecord de otro usuario
+	 * C: 54.5%(6/11) Recorre 6 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void delete_negative_test() {
@@ -320,10 +315,9 @@ public class PeriodRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Display autenticado
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede mostrar sus periodRecords
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayAuthenticated_positive_test() {
@@ -341,10 +335,9 @@ public class PeriodRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req 2.1
-	 * B:Display sin autenticar
-	 * C:
-	 * D:
+	 * A: Req2.1: Un actor no autenticado puede mostrar periodRecords de las historias de los brotherhood
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D: Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayNotAuthenticated_positive_test() {
