@@ -123,4 +123,7 @@ public class LinkRecordService {
 		Assert.isTrue(!(linkRecord.getBrotherhood().equals(history.getBrotherhood())));
 
 	}
+	protected void flush() {
+		this.linkRecordRepository.flush();
+	}
 }

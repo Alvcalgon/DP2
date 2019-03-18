@@ -106,4 +106,8 @@ public class InceptionRecordService {
 
 		Assert.isTrue(history.getInceptionRecord().equals(inceptionRecord));
 	}
+
+	protected void flush() {
+		this.inceptionRecordRepository.flush();
+	}
 }
