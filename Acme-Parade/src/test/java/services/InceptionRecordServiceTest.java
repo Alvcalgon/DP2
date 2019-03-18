@@ -123,55 +123,61 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar adecuadamente un inceptionRecord (historia)
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * C: 72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood1", "inceptionRecord1", "inceptionRecordTest1", "textInceptionRecordTest1", "http://photo.com", null
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un inceptionRecord (historia) con title blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * B: Editar un inceptionRecord sin introducit título
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood1", "inceptionRecord1", "", "text inceptionRecord test", "http://photo.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un inceptionRecord (historia) con texto blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * B: Editar un inceptionRecord sin introducit texto
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood1", "inceptionRecord1", "title inceptionRecord test", "", "http://photo.com", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un inceptionRecord (historia) con photo blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * B: Editar un inceptionRecord sin introducir photos
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood1", "inceptionRecord1", "title inceptionRecord test", "text inceptionRecord test", "", ConstraintViolationException.class
 			},
+
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un inceptionRecord (historia) sin formato del link
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * B: Editar un inceptionRecord sin seguir el patron URL en el atritubo photos
+			 * C:75.8%(22/29) Recorre 22 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood1", "inceptionRecord1", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", IllegalArgumentException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un inceptionRecord que no es del principal
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord
+			 * B: Editar un inceptionRecord de otro usuario
+			 * C:72.5%(21/29) Recorre 21 lineas de código de las 29 posibles
+			 * D:14.2%, (1/7) hay 3 atributos pueden tomar valadores en blanco o no,
+			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
 				"brotherhood2", "inceptionRecord1", "title inceptionRecord test", "text inceptionRecord test", "http://asdf.com", IllegalArgumentException.class
@@ -218,10 +224,9 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Display autenticado
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede ver sus inceptionRecord
+	 * C:100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayAuthenticated_positive_test() {
@@ -239,10 +244,9 @@ public class InceptionRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req 2.1
-	 * B:Display sin autenticar
-	 * C:
-	 * D:
+	 * A: Req2.1: Un actor no autenticado puede ver las historias (inceptionRecord)
+	 * C:100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayNotAuthenticated_positive_test() {

@@ -38,38 +38,38 @@ public class LinkRecordServiceTest extends AbstractTest {
 	@Test
 	public void driverCreate() {
 		final Object testingData[][] = {
+
 			/*
-			 * A: Req1, 3.1
-			 * B: Crea adecuadamente un linkRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear linkRecord
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", " title linkRecord", "text linkRecord", "brotherhood2", null
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un linkRecord cuyo link a brotherhood es él mismo
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear linkRecord
+			 * B: Linkearse a él mismo
+			 * C: 35%(7/20) Recorre 7 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "title linkRecord testd", "text linkRecord test", "brotherhood1", IllegalArgumentException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un linkRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear linkRecord
+			 * B: Crear un linkRecord sin título
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "", "text linkRecord test", "brotherhood2", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Crear un linkRecord cuyo link con texto en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear linkRecord
+			 * B: Crear un texto sin título
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "title linkRecord test", "", "brotherhood2", ConstraintViolationException.class
@@ -121,46 +121,45 @@ public class LinkRecordServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar adecuadamente un linkRecord
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus linkRecords
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "linkRecord2", "linkRecord test", "linkRecord test", "brotherhood2", null
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un linkRecord cuyo link a brotherhood es él mismo
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus linkRecords
+			 * B: Linkearse a él mismo
+			 * C: 35%(7/20) Recorre 7 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "linkRecord2", "linkRecord test", "linkRecord test", "brotherhood1", IllegalArgumentException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un linkRecord con title en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus linkRecords
+			 * B: Editar un linkRecord sin título
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "linkRecord2", "", "linkRecord test", "brotherhood2", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un linkRecord cuyo link con texto en blanco
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus linkRecords
+			 * B: Editar un linkRecord sin texto
+			 * C: 85%(17/20) Recorre 17 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "linkRecord2", "inceptionRecordTest1", "", "brotherhood2", ConstraintViolationException.class
 			},
 			/*
-			 * A: Req1, 3.1
-			 * B: Editar un linkRecord que no es suyo
-			 * C:
-			 * D:
+			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus linkRecords
+			 * B: Editar un linkRecord de otro usuario
+			 * C: 80%(16/20) Recorre 16 lineas de código de las 20 posibles
+			 * D:16.6%, (1/6) hay 3 atributos pueden tomar valadores en blanco o no
 			 */
 			{
 				"brotherhood1", "linkRecord3", "inceptionRecordTest1", "textInceptionRecordTest1", "brotherhood3", IllegalArgumentException.class
@@ -208,10 +207,9 @@ public class LinkRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus linkRecords
+	 * C: 100%(11/11) Recorre 11 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void delete_positive_test() {
@@ -228,10 +226,10 @@ public class LinkRecordServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 	/*
-	 * A: Req1, 3.1
-	 * B:Borrar uno que no es suyo
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede borrar sus linkRecords
+	 * B: Un usuario borrar el linkRecord de otro usuario
+	 * C: 54.5%(6/11) Recorre 6 lineas de código de las 11 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void delete_negative_test() {
@@ -249,10 +247,9 @@ public class LinkRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req1, 3.1
-	 * B:Display autenticado
-	 * C:
-	 * D:
+	 * A: Req1, 3.1: Un actor autenticado como brotherhod puede mostrar sus linkRecords
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayAuthenticated_positive_test() {
@@ -270,10 +267,9 @@ public class LinkRecordServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Req2.1
-	 * B:Display sin autenticar
-	 * C:
-	 * D:
+	 * A: Req2.1: Un actor no autenticado puede mostrar linkRecords de las historias de los brotherhood
+	 * C: 100%(5/5) Recorre 5 lineas de código de las 5 posibles
+	 * D: Intencionadamente en blanco; no hay datos que checkear
 	 */
 	@Test
 	public void displayNotAuthenticated_positive_test() {

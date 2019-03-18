@@ -31,13 +31,11 @@ public class HistoryServiceTest extends AbstractTest {
 	// Other supporting services --------------------
 	@Autowired
 	private MiscellaneousRecordService	miscellaneousRecordService;
-	@Autowired
-	private BrotherhoodService			brotherhoodService;
 
 
 	// Suite test -----------------------------------
 
-	/*
+	/**
 	 * A: Requirement tested: level C: requirement 4.1: The average, the minimum, the maximum
 	 * and the standard deviation of the records per history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
@@ -53,7 +51,7 @@ public class HistoryServiceTest extends AbstractTest {
 		Assert.isTrue(data.length == 4);
 	}
 
-	/*
+	/**
 	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
 	 * D:
@@ -68,7 +66,7 @@ public class HistoryServiceTest extends AbstractTest {
 		Assert.isTrue(brotherhood.size() == 1);
 	}
 
-	/*
+	/**
 	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
 	 * D:
@@ -101,40 +99,4 @@ public class HistoryServiceTest extends AbstractTest {
 		Assert.isTrue(brotherhood.contains(history.getBrotherhood()));
 	}
 
-	/*
-	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
-	 * B:
-	 * C: 100% se ha recorrido todas las líneas de código del método
-	 * D:
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void brotherhoohsLargestHistoryAvg_negative_test() {
-		Collection<Brotherhood> brotherhood;
-		History history;
-		final Collection<MiscellaneousRecord> miscellaneousRecords;
-		final MiscellaneousRecord miscellaneousRecord;
-
-		brotherhood = this.historyService.findBrotherhoohsLargestHistoryAvg();
-		history = this.historyService.findOne(super.getEntityId("history1"));
-		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
-		miscellaneousRecords = history.getMiscellaneousRecords();
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-
-		Brotherhood brotherhood2;
-		brotherhood2 = this.brotherhoodService.findOne(super.getEntityId("brotherhood2"));
-
-		Assert.isTrue(brotherhood.contains(brotherhood2));
-	}
 }
