@@ -276,4 +276,45 @@ public class LegalRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void delete_positive_test() {
+		super.authenticate("brotherhood1");
+
+		int legalRecordId;
+		LegalRecord legalRecord;
+
+		legalRecordId = super.getEntityId("legalRecord1");
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+
+		this.legalRecordService.delete(legalRecord);
+
+		super.unauthenticate();
+	}
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar uno que no es suyo
+	 * C:
+	 * D:
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void delete_negative_test() {
+		super.authenticate("brotherhood1");
+
+		int legalRecordId;
+		LegalRecord legalRecord;
+
+		legalRecordId = super.getEntityId("legalRecord3");
+		legalRecord = this.legalRecordService.findOne(legalRecordId);
+
+		this.legalRecordService.delete(legalRecord);
+
+		super.unauthenticate();
+	}
+
 }

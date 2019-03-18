@@ -207,4 +207,45 @@ public class LinkRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void delete_positive_test() {
+		super.authenticate("brotherhood1");
+
+		int linkRecordId;
+		LinkRecord linkRecord;
+
+		linkRecordId = super.getEntityId("linkRecord1");
+		linkRecord = this.linkRecordService.findOne(linkRecordId);
+
+		this.linkRecordService.delete(linkRecord);
+
+		super.unauthenticate();
+	}
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar uno que no es suyo
+	 * C:
+	 * D:
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void delete_negative_test() {
+		super.authenticate("brotherhood1");
+
+		int linkRecordId;
+		LinkRecord linkRecord;
+
+		linkRecordId = super.getEntityId("linkRecord3");
+		linkRecord = this.linkRecordService.findOne(linkRecordId);
+
+		this.linkRecordService.delete(linkRecord);
+
+		super.unauthenticate();
+	}
+
 }

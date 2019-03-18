@@ -278,4 +278,45 @@ public class PeriodRecordServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar
+	 * C:
+	 * D:
+	 */
+	@Test
+	public void delete_positive_test() {
+		super.authenticate("brotherhood1");
+
+		int periodRecordId;
+		PeriodRecord periodRecord;
+
+		periodRecordId = super.getEntityId("periodRecord1");
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+
+		this.periodRecordService.delete(periodRecord);
+
+		super.unauthenticate();
+	}
+	/*
+	 * A: Req1, 3.1
+	 * B:Borrar uno que no es suyo
+	 * C:
+	 * D:
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void delete_negative_test() {
+		super.authenticate("brotherhood1");
+
+		int periodRecordId;
+		PeriodRecord periodRecord;
+
+		periodRecordId = super.getEntityId("periodRecord3");
+		periodRecord = this.periodRecordService.findOne(periodRecordId);
+
+		this.periodRecordService.delete(periodRecord);
+
+		super.unauthenticate();
+	}
+
 }
