@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -122,12 +123,12 @@ public class PeriodRecordService {
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
 	}
 
-
 	private void checkYearsPeriod(final PeriodRecord periodRecord) {
-		if (!(periodRecord.getStartYear() <= periodRecord.getEndYear()))
+		final Calendar cal = Calendar.getInstance();
+		final int year = cal.get(Calendar.YEAR);
+		if ((!(periodRecord.getStartYear() <= periodRecord.getEndYear())) || (periodRecord.getStartYear() > year) || (periodRecord.getEndYear() > year))
 			throw new DataIntegrityViolationException("Invalid yearPeriod");
 	}
-
 
 	protected void flush() {
 		this.periodRecordRepository.flush();
