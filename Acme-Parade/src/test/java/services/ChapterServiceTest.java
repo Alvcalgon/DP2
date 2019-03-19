@@ -21,7 +21,6 @@ import utilities.AbstractTest;
 import domain.Area;
 import domain.Chapter;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -41,9 +40,9 @@ public class ChapterServiceTest extends AbstractTest {
 
 	@Autowired
 	private ChapterRepository	chapterRepository;
-	
+
 	@Autowired
-	private AreaService		areaService;
+	private AreaService			areaService;
 
 
 	// Tests ------------------------------------------------------------------
@@ -168,7 +167,6 @@ public class ChapterServiceTest extends AbstractTest {
 		Assert.isTrue(chapters.contains(test));
 	}
 
-
 	/**
 	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
 	 * Le asignamos a un chapter (que ya coordina un area),un area (que ya está coordinada)
@@ -250,6 +248,21 @@ public class ChapterServiceTest extends AbstractTest {
 		this.chapterService.selfAssignedArea(area);
 
 		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 14.1 (Listing chapters).
+	 * C: Analysis of sentence coverage: 100%
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void find_all_positive_test() {
+		Collection<Chapter> all;
+
+		all = this.chapterService.findAll();
+
+		Assert.notNull(all);
+		Assert.isTrue(!all.isEmpty());
 	}
 
 }
