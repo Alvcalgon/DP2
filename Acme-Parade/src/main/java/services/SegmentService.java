@@ -34,6 +34,9 @@ public class SegmentService {
 	@Autowired
 	private ParadeService		paradeService;
 
+	@Autowired
+	private UtilityService		utilityService;
+
 
 	// Constructors -------------------------------
 
@@ -52,36 +55,89 @@ public class SegmentService {
 
 	}
 
-	public Segment save(final Segment segment, Parade parade) {
+	public Segment save(final Segment segment, final Parade parade) {
 		Assert.notNull(segment);
-
-		Segment result;
-		boolean isUpdating;
-
-		isUpdating = this.segmentRepository.exists(segment.getId());
-
-		if (isUpdating) {
-
-			parade = this.paradeService.findBySegment(segment.getId());
-			this.paradeService.checkParadeByBrotherhood(parade);
-			this.checkSegmentEdit(segment, parade);
-		} else {
-			this.paradeService.checkParadeByBrotherhood(parade);
-			this.checkSegmentCreate(segment, parade);
-		}
-
 		Assert.notNull(parade);
+		this.paradeService.checkParadeByBrotherhood(parade);
+		this.utilityService.checkMoment(segment.getReachingOrigin(), segment.getReachingDestination());
+
+		List<Segment> segments;
+		Segment result, previousSegment, nextSegment;
+		int pos, tam;
+
+		segments = this.findOrderedSegments(parade.getId());
+
+		pos = segments.indexOf(segment);
+		tam = segments.size();
+
+		// The parade has not any segment yet, so this segment is the first in the path
+		if (pos == -1 && tam == 0) {
+			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+
+			result = this.segmentRepository.save(segment);
+			this.paradeService.addSegment(parade, result);
+
+			// The segment is been inserted and the parade has, at least, one segment in the path
+		} else if (pos == -1 && tam > 0) {
+			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+
+			previousSegment = segments.get(tam - 1);
+
+			// The segments must be contiguous
+			Assert.isTrue(previousSegment.getReachingDestination().equals(segment.getReachingOrigin()));
+			Assert.isTrue(previousSegment.getDestination().equals(segment.getOrigin()));
+
+			result = this.segmentRepository.save(segment);
+			this.paradeService.addSegment(parade, result);
+
+			// The first segment is been edited and path has not other segments.	
+		} else if (pos == 0 && tam == 1) {
+			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+
+			result = this.segmentRepository.save(segment);
+
+			// The first segment is been edited and path has another segments. So we
+			// must update the second segment
+		} else if (pos == 0 && tam > 1) {
+			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+
+			nextSegment = segments.get(1);
+			nextSegment.setOrigin(segment.getDestination());
+			nextSegment.setReachingOrigin(segment.getReachingDestination());
+
+			result = this.segmentRepository.save(segment);
+
+			// The last segment is been edited
+		} else if (pos == (tam - 1) && tam > 1) {
+			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+
+			previousSegment = segments.get(pos - 1);
+			previousSegment.setDestination(segment.getOrigin());
+			previousSegment.setReachingDestination(segment.getReachingOrigin());
+
+			result = this.segmentRepository.save(segment);
+
+			// The segment doesn't take up the first position nor last position 
+		} else if (pos > 0 && pos < (tam - 1)) {
+			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+
+			nextSegment = segments.get(pos + 1);
+			nextSegment.setOrigin(segment.getDestination());
+			nextSegment.setReachingOrigin(segment.getReachingDestination());
+
+			previousSegment = segments.get(pos - 1);
+			previousSegment.setDestination(segment.getOrigin());
+			previousSegment.setReachingDestination(segment.getReachingOrigin());
+
+			result = this.segmentRepository.save(segment);
+		}
 
 		this.checkSegment(segment, parade);
 		result = this.segmentRepository.save(segment);
 
-		if (!isUpdating)
-			this.addSegmentToParade(parade, result);
-
 		return result;
 
 	}
-
 	public void delete(final Segment segment) {
 		Assert.notNull(segment);
 		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
@@ -156,14 +212,6 @@ public class SegmentService {
 
 		segments = parade.getSegments();
 		segments.remove(segment);
-
-	}
-
-	private void addSegmentToParade(final Parade parade, final Segment segment) {
-		Collection<Segment> segments;
-
-		segments = parade.getSegments();
-		segments.add(segment);
 
 	}
 
