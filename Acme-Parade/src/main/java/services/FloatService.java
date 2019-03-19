@@ -70,16 +70,10 @@ public class FloatService {
 	public void delete(final Float floatt) {
 		Assert.notNull(floatt);
 		Assert.isTrue(this.floatRepository.exists(floatt.getId()));
-
-		Brotherhood brotherhood;
-
-		brotherhood = this.brotherhoodService.findByPrincipal();
-
-		Assert.isTrue(floatt.getBrotherhood().equals(brotherhood));
+		this.checkFloatByPrincipal(floatt);
 
 		this.floatRepository.delete(floatt);
 	}
-
 	public Float findOne(final int floatId) {
 		Float result;
 
@@ -98,15 +92,23 @@ public class FloatService {
 
 	public Float findOneToEdit(final int floatId) {
 		Float result;
-		Brotherhood brotherhood;
 
 		result = this.floatRepository.findOne(floatId);
-		brotherhood = this.brotherhoodService.findByPrincipal();
 
+		this.checkFloatByPrincipal(result);
 		Assert.notNull(result);
-		Assert.isTrue(result.getBrotherhood().equals(brotherhood));
 
 		return result;
+	}
+
+	// Other business methods ---------------------
+	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
+		Collection<Float> floats;
+
+		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId);
+
+		return floats;
+
 	}
 
 	public Float reconstruct(final FloatForm floatForm, final BindingResult binding) {
@@ -147,32 +149,21 @@ public class FloatService {
 		return floatForm;
 
 	}
-	// Other business methods ---------------------
-	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
+
+	protected void deleteFloatBrotherhood(final Brotherhood brotherhood) {
 		Collection<Float> floats;
 
-		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId);
+		floats = this.findFloatByBrotherhood(brotherhood.getId());
 
-		return floats;
-
-	}
-	public String validateTitle(final FloatForm floatForm, final BindingResult binding) {
-		String result;
-
-		result = floatForm.getTitle();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("title", "float.error.blank", "Must not be blank");
-
-		return result;
-	}
-	public String validateDescription(final FloatForm floatForm, final BindingResult binding) {
-		String result;
-
-		result = floatForm.getTitle();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("description", "float.error.blank", "Must not be blank");
-
-		return result;
+		this.floatRepository.delete(floats);
 	}
 
+	private void checkFloatByPrincipal(final Float floatt) {
+
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(floatt.getBrotherhood().equals(brotherhood));
+	}
 }

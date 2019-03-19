@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.AreaRepository;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Chapter;
 
 @Service
 @Transactional
@@ -28,6 +29,9 @@ public class AreaService {
 
 	@Autowired
 	private UtilityService		utilityService;
+
+	@Autowired
+	private ChapterService		chapterService;
 
 
 	// Constructors -------------------------------
@@ -159,5 +163,14 @@ public class AreaService {
 
 		return result;
 	}
+	protected void checkPrincipalArea(final int areaId) {
+		Chapter principal;
+		Area area;
 
+		principal = this.chapterService.findByPrincipal();
+		area = principal.getArea();
+
+		Assert.isTrue(area.getId() == areaId);
+
+	}
 }

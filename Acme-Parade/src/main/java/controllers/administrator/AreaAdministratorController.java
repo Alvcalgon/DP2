@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -105,7 +106,7 @@ public class AreaAdministratorController extends AbstractController {
 				try {
 					this.areaService.save(area);
 					result = new ModelAndView("redirect:../administrator/list.do");
-				} catch (final IllegalArgumentException e1) {
+				} catch (final DataIntegrityViolationException e1) {
 					result = this.createEditModelAndView(area, "area.commit.url");
 
 				} catch (final Throwable oops) {

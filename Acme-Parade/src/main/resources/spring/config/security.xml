@@ -41,6 +41,7 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> <!-- requires-channel="https"/> --> 
 		<security:intercept-url pattern="/welcome/terms.do" access="permitAll" /> <!-- requires-channel="https"/> --> 
+		<security:intercept-url pattern="/welcome/dataProcesses.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/error.do" access="permitAll" /> <!-- requires-channel="https"/> --> 
 		

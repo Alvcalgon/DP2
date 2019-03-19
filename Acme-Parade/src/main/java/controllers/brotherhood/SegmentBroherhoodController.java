@@ -104,7 +104,7 @@ public class SegmentBroherhoodController extends AbstractController {
 				else if (ex.getMessage().equals("Invalid dates"))
 					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.dates");
 				else
-					result = new ModelAndView("redirect:../../error.do");
+					result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 
 			} catch (final Exception e) {
 				result = new ModelAndView("redirect:../../error.do");

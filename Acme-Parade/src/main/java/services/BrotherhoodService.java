@@ -23,6 +23,8 @@ import security.UserAccount;
 import security.UserAccountService;
 import domain.Area;
 import domain.Brotherhood;
+import domain.Float;
+import domain.Parade;
 import forms.BrotherhoodForm;
 import forms.BrotherhoodRegistrationForm;
 
@@ -453,6 +455,18 @@ public class BrotherhoodService {
 		}
 
 		return result;
+	}
+	protected Brotherhood getBrotherhoodToParade(final Parade parade) {
+		Brotherhood result;
+		Collection<Float> floats;
+		Float floatt;
+
+		floats = parade.getFloats();
+		floatt = floats.iterator().next();
+		result = floatt.getBrotherhood();
+
+		return result;
+
 	}
 
 }
