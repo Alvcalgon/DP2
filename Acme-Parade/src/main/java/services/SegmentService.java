@@ -70,6 +70,8 @@ public class SegmentService {
 		pos = segments.indexOf(segment);
 		tam = segments.size();
 
+		result = null;
+
 		// The parade has not any segment yet, so this segment is the first in the path
 		if (pos == -1 && tam == 0) {
 			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
@@ -132,12 +134,10 @@ public class SegmentService {
 			result = this.segmentRepository.save(segment);
 		}
 
-		this.checkSegment(segment, parade);
-		result = this.segmentRepository.save(segment);
-
 		return result;
 
 	}
+
 	public void delete(final Segment segment) {
 		Assert.notNull(segment);
 		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
