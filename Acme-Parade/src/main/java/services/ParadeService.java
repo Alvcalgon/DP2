@@ -655,4 +655,12 @@ public class ParadeService {
 
 	}
 
+	protected void deleteParadeBrotherhood(final Brotherhood brotherhood) {
+		Collection<Parade> parades;
+
+		parades = this.findParadeByBrotherhood(brotherhood.getId());
+
+		this.paradeRepository.delete(parades);
+	}
+
 }

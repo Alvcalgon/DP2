@@ -109,6 +109,34 @@ public class FloatService {
 		return result;
 	}
 
+	// Other business methods ---------------------
+	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
+		Collection<Float> floats;
+
+		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId);
+
+		return floats;
+
+	}
+	public String validateTitle(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("title", "float.error.blank", "Must not be blank");
+
+		return result;
+	}
+	public String validateDescription(final FloatForm floatForm, final BindingResult binding) {
+		String result;
+
+		result = floatForm.getTitle();
+		if (result.equals("") || result.equals(null))
+			binding.rejectValue("description", "float.error.blank", "Must not be blank");
+
+		return result;
+	}
+
 	public Float reconstruct(final FloatForm floatForm, final BindingResult binding) {
 		final Float result, floatStore;
 
@@ -147,32 +175,13 @@ public class FloatService {
 		return floatForm;
 
 	}
-	// Other business methods ---------------------
-	public Collection<Float> findFloatByBrotherhood(final int brotherhoodId) {
+
+	protected void deleteFloatBrotherhood(final Brotherhood brotherhood) {
 		Collection<Float> floats;
 
-		floats = this.floatRepository.findFloatByBrotherhood(brotherhoodId);
+		floats = this.findFloatByBrotherhood(brotherhood.getId());
 
-		return floats;
-
-	}
-	public String validateTitle(final FloatForm floatForm, final BindingResult binding) {
-		String result;
-
-		result = floatForm.getTitle();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("title", "float.error.blank", "Must not be blank");
-
-		return result;
-	}
-	public String validateDescription(final FloatForm floatForm, final BindingResult binding) {
-		String result;
-
-		result = floatForm.getTitle();
-		if (result.equals("") || result.equals(null))
-			binding.rejectValue("description", "float.error.blank", "Must not be blank");
-
-		return result;
+		this.floatRepository.delete(floats);
 	}
 
 }
