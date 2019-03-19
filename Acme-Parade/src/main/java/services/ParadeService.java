@@ -148,13 +148,9 @@ public class ParadeService {
 	public void delete(final Parade parade) {
 		Assert.notNull(parade);
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
+		this.checkBrotherhoodByParade(parade);
 
-		Brotherhood brotherhood;
 		Collection<Request> requests;
-
-		brotherhood = this.brotherhoodService.findByPrincipal();
-
-		Assert.isTrue(this.getBrotherhoodToParade(parade).equals(brotherhood));
 
 		requests = this.requestService.findRequestByParade(parade.getId());
 
@@ -190,7 +186,7 @@ public class ParadeService {
 		brotherhood = this.brotherhoodService.findByPrincipal();
 
 		Assert.notNull(result);
-		Assert.isTrue(this.getBrotherhoodToParade(result).equals(brotherhood));
+		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(result).equals(brotherhood));
 
 		return result;
 	}
@@ -230,13 +226,7 @@ public class ParadeService {
 	// Other business methods ---------------------
 
 	public void makeFinal(final Parade parade) {
-		Brotherhood principal;
-		Brotherhood owner;
-
-		principal = this.brotherhoodService.findByPrincipal();
-		owner = this.getBrotherhoodToParade(parade);
-
-		Assert.isTrue(owner.equals(principal));
+		this.checkBrotherhoodByParade(parade);
 
 		parade.setIsFinalMode(true);
 		parade.setStatus("submitted");
@@ -244,15 +234,10 @@ public class ParadeService {
 	}
 
 	public Parade makeCopy(final Parade parade) {
-		Brotherhood principal;
-		Brotherhood owner;
+		this.checkBrotherhoodByParade(parade);
+
 		Parade paradeCopied;
 		Parade paradeSaved;
-
-		principal = this.brotherhoodService.findByPrincipal();
-		owner = this.getBrotherhoodToParade(parade);
-
-		Assert.isTrue(owner.equals(principal));
 
 		paradeCopied = this.create();
 
@@ -282,7 +267,7 @@ public class ParadeService {
 		return parade;
 	}
 
-	//Devuelve los desfiles que tienen FinalMode = true
+	//	Returns the parades that have FinalMode = true
 	public Collection<Parade> findPublishedParade() {
 		Collection<Parade> result;
 
@@ -291,7 +276,7 @@ public class ParadeService {
 		return result;
 	}
 
-	//Devuelve los desfiles que tienen FinalMode = false
+	//Returns the parades that have FinalMode = false
 	public Collection<Parade> findParadeNotFinalParadeByBrotherhood(final int id) {
 		Collection<Parade> result;
 
@@ -300,7 +285,7 @@ public class ParadeService {
 		return result;
 	}
 
-	//Devuelve los desfiles de un brotherhood
+	// Returns the parades whose owner is a brotherhood
 	public Collection<Parade> findParadeByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -309,7 +294,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood que tienen FinalMode = true
+	//Returns the parades that a brotherhood have FinalMode = true
 	public Collection<Parade> findParadeFinalByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -318,7 +303,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood con estado SUBMITTED
+	//Returns the parades that a brotherhood have status = SUBMITTED
 	public Collection<Parade> findParadeSubmittedByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -327,7 +312,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood con estado REJECTED
+	//Returns the parades that a brotherhood have status = REJECTED
 	public Collection<Parade> findParadeRejectedByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -336,7 +321,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood con estado ACCEPTED
+	//Returns the parades that a brotherhood have status =  ACCEPTED
 	public Collection<Parade> findParadeAcceptedByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -344,7 +329,7 @@ public class ParadeService {
 
 		return parades;
 	}
-	//Devuelve los desfiles de un brotherhood con estado SUBMITTED y MODOFINAL
+	//Returns the parades that a brotherhood have status = SUBMITTED and finalMode = true
 	public Collection<Parade> findParadeSubmittedFinalByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -353,7 +338,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood con estado REJECTED y MODOFINAL
+	//Returns the parades that a brotherhood have status = REJECTED and finalMode = true
 	public Collection<Parade> findParadeRejectedFinalByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -362,7 +347,7 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un brotherhood con estado ACCEPTED y MODOFINAL
+	//Returns the parades that a brotherhood have status = ACCEPTED and finalMode = true
 	public Collection<Parade> findParadeAcceptedFinalByBrotherhood(final int id) {
 		Collection<Parade> parades;
 
@@ -371,33 +356,33 @@ public class ParadeService {
 		return parades;
 	}
 
-	//Devuelve los desfiles de un mismo area con estado SUBMITTED y MODOFINAL
+	//Returns the parades that are in the same area and have status = SUBMITTED and finalMode = true
 	public Collection<Parade> findSubmittedByArea(final int id) {
 		Collection<Parade> parades;
 
-		this.checkPrincipalArea(id);
+		this.areaService.checkPrincipalArea(id);
 
 		parades = this.paradeRepository.findSubmittedByArea(id);
 
 		return parades;
 	}
 
-	//Devuelve los desfiles de un mismo area con estado REJECTED y MODOFINAL
+	//Returns the parades that are in the same area and have status = REJECTED and finalMode = true
 	public Collection<Parade> findRejectedByArea(final int id) {
 		Collection<Parade> parades;
 
-		this.checkPrincipalArea(id);
+		this.areaService.checkPrincipalArea(id);
 
 		parades = this.paradeRepository.findRejectedByArea(id);
 
 		return parades;
 	}
 
-	//Devuelve los desfiles de un mismo area con estado ACCEPTED y MODOFINAL
+	//Returns the parades that are in the same area and have status = ACCEPTED and finalMode = true
 	public Collection<Parade> findAcceptedByArea(final int id) {
 		Collection<Parade> parades;
 
-		this.checkPrincipalArea(id);
+		this.areaService.checkPrincipalArea(id);
 
 		parades = this.paradeRepository.findAcceptedByArea(id);
 
@@ -413,18 +398,6 @@ public class ParadeService {
 		return parade;
 	}
 
-	protected Brotherhood getBrotherhoodToParade(final Parade parade) {
-		Brotherhood result;
-		Collection<Float> floats;
-		Float floatt;
-
-		floats = parade.getFloats();
-		floatt = floats.iterator().next();
-		result = floatt.getBrotherhood();
-
-		return result;
-
-	}
 	public Boolean floatBelongtToParade(final int floatId) {
 		Boolean res;
 		Collection<Parade> parades;
@@ -644,16 +617,6 @@ public class ParadeService {
 
 		return result;
 	}
-	private void checkPrincipalArea(final int areaId) {
-		Chapter principal;
-		Area area;
-
-		principal = this.chapterService.findByPrincipal();
-		area = principal.getArea();
-
-		Assert.isTrue(area.getId() == areaId);
-
-	}
 
 	protected void deleteParadeBrotherhood(final Brotherhood brotherhood) {
 		Collection<Parade> parades;
@@ -661,6 +624,14 @@ public class ParadeService {
 		parades = this.findParadeByBrotherhood(brotherhood.getId());
 
 		this.paradeRepository.delete(parades);
+	}
+	private void checkBrotherhoodByParade(final Parade parade) {
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(parade).equals(brotherhood));
+
 	}
 
 }
