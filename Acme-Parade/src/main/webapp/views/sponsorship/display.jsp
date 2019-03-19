@@ -36,7 +36,7 @@
 	
 	<p>
 		<strong><spring:message code="sponsorship.banner"/> </strong>
-		<img alt="Sponsorship banner" src="${sponsorship.banner}">
+		<img alt="Sponsorship banner" src="${sponsorship.banner}" height="275px" width="525px">
 	</p>
 </fieldset>
 
