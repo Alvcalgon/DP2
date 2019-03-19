@@ -74,4 +74,13 @@ public class WelcomeController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/dataProcesses")
+	public ModelAndView dataProcesses() {
+		ModelAndView result;
+
+		result = new ModelAndView("welcome/dataProcesses");
+
+		return result;
+	}
 }
