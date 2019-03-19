@@ -4,6 +4,7 @@ package controllers.brotherhood;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,6 +100,11 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 				try {
 					this.inceptionRecordService.save(inceptionRecord);
 					result = new ModelAndView("redirect:/history/display.do?brotherhoodId=" + brotherhood.getId());
+				} catch (final DataIntegrityViolationException ex) {
+					if (ex.getMessage().equals("Invalid URL"))
+						result = this.createEditModelAndView(inceptionRecord, "periodRecord.invalid.urlPictures");
+					else
+						result = new ModelAndView("redirect:../../error.do");
 				} catch (final Throwable oops) {
 					result = this.createEditModelAndView(inceptionRecord, "inceptionRecord.commit.error");
 				}

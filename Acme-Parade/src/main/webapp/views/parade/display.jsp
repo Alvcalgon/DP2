@@ -55,12 +55,12 @@
 			<jstl:out value="${parade.isFinalMode}"/>
 		<br/>
 		</jstl:if>
-		<jstl:if test="${parade.status!=null}">
+		<jstl:if test="${parade.status!=''}">
 		<strong><spring:message code="parade.status"/>:</strong>
 			<jstl:out value="${parade.status}"/>
 		<br/>
  	 	</jstl:if>
- 	<jstl:if test="${parade.reasonWhy!=null}">
+ 	<jstl:if test="${parade.status=='rejected'}">
 		<strong><spring:message code="parade.reasonWhy"/>:</strong>
 			<jstl:out value="${parade.reasonWhy}"/>
 		<br/>
@@ -69,7 +69,7 @@
  	
  	<security:authorize access="hasRole('CHAPTER')">
  	
- 	<jstl:if test="${parade.reasonWhy!=null}">
+ 	<jstl:if test="${parade.status=='rejected'}">
 		<strong><spring:message code="parade.reasonWhy"/>:</strong>
 			<jstl:out value="${parade.reasonWhy}"/>
 		<br/>

@@ -2,6 +2,7 @@
 package controllers.brotherhood;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ public class FloatBroherhoodController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ParadeService	paradeService;
+	private ParadeService		paradeService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -81,7 +82,7 @@ public class FloatBroherhoodController extends AbstractController {
 			try {
 				this.floatService.save(floatt);
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + floatt.getBrotherhood().getId());
-			} catch (final IllegalArgumentException e1) {
+			} catch (final DataIntegrityViolationException e1) {
 				result = this.createEditModelAndView(floatForm, "float.commit.url");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(floatForm, "float.commit.error");

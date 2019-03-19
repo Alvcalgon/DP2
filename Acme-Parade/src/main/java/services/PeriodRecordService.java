@@ -1,11 +1,13 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -80,7 +82,8 @@ public class PeriodRecordService {
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
-		Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
+		this.checkYearsPeriod(periodRecord);
+		//Assert.isTrue(periodRecord.getStartYear() <= periodRecord.getEndYear());
 		this.utilityService.checkPicture(periodRecord.getPhotos());
 
 		PeriodRecord result;
@@ -97,6 +100,7 @@ public class PeriodRecordService {
 
 		return result;
 	}
+
 	public void delete(final PeriodRecord periodRecord) {
 		Assert.notNull(periodRecord);
 		Assert.isTrue(periodRecord.getId() != 0);
@@ -118,6 +122,14 @@ public class PeriodRecordService {
 
 		Assert.isTrue(history.getPeriodRecords().contains(periodRecord));
 	}
+
+	private void checkYearsPeriod(final PeriodRecord periodRecord) {
+		final Calendar cal = Calendar.getInstance();
+		final int year = cal.get(Calendar.YEAR);
+		if ((!(periodRecord.getStartYear() <= periodRecord.getEndYear())) || (periodRecord.getStartYear() > year) || (periodRecord.getEndYear() > year))
+			throw new DataIntegrityViolationException("Invalid yearPeriod");
+	}
+
 	protected void flush() {
 		this.periodRecordRepository.flush();
 	}

@@ -359,7 +359,7 @@ public class RequestServiceTest extends AbstractTest {
 		requestId = super.getEntityId("request01");
 		request = this.requestService.findOne(requestId);
 
-		this.requestService.deleteRequest(request);
+		this.requestService.deleteCancel(request);
 
 		super.unauthenticate();
 	}
@@ -380,7 +380,7 @@ public class RequestServiceTest extends AbstractTest {
 		requestId = super.getEntityId("request1");
 		request = this.requestService.findOne(requestId);
 
-		this.requestService.deleteRequest(request);
+		this.requestService.deleteCancel(request);
 
 		super.unauthenticate();
 	}
@@ -401,7 +401,7 @@ public class RequestServiceTest extends AbstractTest {
 		requestId = super.getEntityId("request01");
 		request = this.requestService.findOne(requestId);
 
-		this.requestService.deleteRequest(request);
+		this.requestService.deleteCancel(request);
 
 		super.unauthenticate();
 	}

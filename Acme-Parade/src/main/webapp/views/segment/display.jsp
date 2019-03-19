@@ -36,7 +36,7 @@
 	<br/>
 	
 	
-	<a href="parade/display.do?paradeId=${parade.id}">
+	<a href="parade/display.do?paradeId=${paradeId}">
 		<spring:message code="segment.back" />
 	</a>
 	
