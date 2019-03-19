@@ -252,4 +252,8 @@ public class SegmentService {
 
 	}
 
+	protected void flush() {
+		this.segmentRepository.flush();
+	}
+
 }

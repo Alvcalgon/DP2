@@ -33,6 +33,7 @@ public class BrotherhoodRegistrationForm {
 	private String		password;
 	private String		confirmPassword;
 	private boolean		checkBoxAccepted;
+	private boolean		checkBoxDataProcessesAccepted;
 
 
 	public int getId() {
@@ -171,6 +172,14 @@ public class BrotherhoodRegistrationForm {
 
 	public void setCheckBoxAccepted(final boolean checkBoxAccepted) {
 		this.checkBoxAccepted = checkBoxAccepted;
+	}
+
+	public boolean getCheckBoxDataProcessesAccepted() {
+		return this.checkBoxDataProcessesAccepted;
+	}
+
+	public void setCheckBoxDataProcessesAccepted(final boolean checkBoxDataProcessesAccepted) {
+		this.checkBoxDataProcessesAccepted = checkBoxDataProcessesAccepted;
 	}
 
 	public String getUsername() {
