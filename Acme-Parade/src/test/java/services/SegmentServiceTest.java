@@ -1,15 +1,25 @@
 
 package services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+
+import javax.validation.ConstraintViolationException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.GPSCoordinates;
+import domain.Parade;
 import domain.Segment;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,8 +34,11 @@ public class SegmentServiceTest extends AbstractTest {
 	@Autowired
 	private SegmentService	segmentService;
 
-
 	// Supporting services --------------
+
+	@Autowired
+	private ParadeService	paradeService;
+
 
 	// Tests ------------------------
 
@@ -52,4 +65,275 @@ public class SegmentServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void driverInsert() {
+		final Object testingData[][] = {
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Brotherhood creates a segment from a parade
+			 * that not belongs to him
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
+			 * latitudeOrigin exceeds the maximum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
+			 * latitudeOrigin exceeds the minimum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", -91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
+			 * longitudeOrigin exceeds the maximum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, 181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::origin
+			 * longitudeOrigin exceeds the minimum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
+			 * latitudeDestination exceeds the maximum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, 91.000000, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
+			 * latitudeDestination exceeds the minimum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, -90.99999, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
+			 * longitudeDestination exceeds the maximum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, 180.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
+			 * longitudeDestination exceeds the maximum allowed
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -180.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Segment's origin is not the
+			 * destination of the previous segment
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 41.379869, -8.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Segment::reachingOrigin is not equal to
+			 * Segment::reachingDestination of the previous segment.
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 15:30", "2020-02-02 16:30", IllegalArgumentException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * The business rule that is intended to be broken: Segment::reachingOrigin is before
+			 * Parade::moment.
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2019-05-26 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
+			},
+			/**
+			 * Requirement tested: Level B - requirement 3.3 (Create segment)
+			 * Analysis of data coverage: Sequence
+			 * Analysis of data coverage: Intentionally blank
+			 */
+			{
+				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", null
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateInsert((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (double) testingData[i][2], (double) testingData[i][3], (double) testingData[i][4], (double) testingData[i][5], (String) testingData[i][6],
+				(String) testingData[i][7], (Class<?>) testingData[i][8]);
+	}
+	protected void templateInsert(final String username, final int paradeId, final double latitudeOrigin, final double longitudeOrigin, final double latitudeDestination, final double longitudeDestination, final String reachingOrigin,
+		final String reachingDestination, final Class<?> expected) {
+		Class<?> caught;
+		Parade parade;
+		Segment segment, saved;
+		final GPSCoordinates origin, destination;
+		DateFormat formatter;
+		Date dateReachingOrigin, dateReachingDestination;
+
+		this.startTransaction();
+
+		caught = null;
+		try {
+			super.authenticate(username);
+
+			origin = new GPSCoordinates();
+			origin.setLatitude(latitudeOrigin);
+			origin.setLongitude(longitudeOrigin);
+
+			destination = new GPSCoordinates();
+			destination.setLatitude(latitudeDestination);
+			destination.setLongitude(longitudeDestination);
+
+			segment = new Segment();
+			segment.setOrigin(origin);
+			segment.setDestination(destination);
+
+			formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			dateReachingOrigin = formatter.parse(reachingOrigin);
+			dateReachingDestination = formatter.parse(reachingDestination);
+
+			segment.setReachingOrigin(dateReachingOrigin);
+			segment.setReachingDestination(dateReachingDestination);
+
+			parade = this.paradeService.findOne(paradeId);
+
+			saved = this.segmentService.save(segment, parade);
+			this.segmentService.flush();
+
+			Assert.notNull(saved);
+			Assert.isTrue(saved.getId() != 0);
+
+			super.unauthenticate();
+
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		this.rollbackTransaction();
+
+		super.checkExceptions(expected, caught);
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Display segment)
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test
+	public void display_positive_test() {
+		super.authenticate("brotherhood1");
+
+		Segment segment;
+
+		segment = this.segmentService.findOneToEdit(super.getEntityId("segment3"));
+
+		Assert.notNull(segment);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Display segment)
+	 * The business rule that is intended to be broken: a brotherhood try to display a other
+	 * brotherhood's segment.
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void display_negative_test() {
+		super.authenticate("brotherhood1");
+
+		Segment segment;
+
+		segment = this.segmentService.findOneToEdit(super.getEntityId("segment6"));
+
+		Assert.notNull(segment);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Listing the paths of their parades)
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test
+	public void list_positive_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade;
+		Collection<Segment> segments;
+
+		parade = this.paradeService.findOneToDisplay(super.getEntityId("parade1"));
+
+		segments = parade.getSegments();
+
+		Assert.notNull(segments);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Listing the paths of their parades)
+	 * The business rule that is intended to be broken: Brotherhood try to list the paths of a parade
+	 * that is not in final mode
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void list_negative_test() {
+		super.authenticate("brotherhood2");
+
+		Parade parade;
+		Collection<Segment> segments;
+
+		parade = this.paradeService.findOneToDisplay(super.getEntityId("parade6"));
+
+		segments = parade.getSegments();
+
+		Assert.notNull(segments);
+
+		super.unauthenticate();
+	}
 }

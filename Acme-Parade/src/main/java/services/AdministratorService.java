@@ -193,12 +193,13 @@ public class AdministratorService {
 	}
 	private void validateRegistration(final Administrator administrator, final RegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
-		boolean checkBox;
+		boolean checkBox, checkBoxData;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
+		checkBoxData = registrationForm.getCheckBoxDataProcessesAccepted();
 
 		this.validateEmail(administrator.getEmail(), binding);
 		if (username.trim().equals(""))
@@ -209,8 +210,8 @@ public class AdministratorService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false)
-			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
+		if (checkBox == false || checkBoxData == false)
+			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)
@@ -289,6 +290,7 @@ public class AdministratorService {
 		registrationForm.setPhoneNumber(administrator.getPhoneNumber());
 		registrationForm.setAddress(administrator.getAddress());
 		registrationForm.setCheckBoxAccepted(false);
+		registrationForm.setCheckBoxDataProcessesAccepted(false);
 
 		return registrationForm;
 	}
