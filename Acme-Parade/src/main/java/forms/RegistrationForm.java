@@ -21,6 +21,7 @@ public class RegistrationForm {
 	private String		password;
 	private String		confirmPassword;
 	private boolean		checkBoxAccepted;
+	private boolean		checkBoxDataProcessesAccepted;
 
 
 	public int getId() {
@@ -133,6 +134,14 @@ public class RegistrationForm {
 
 	public void setCheckBoxAccepted(final boolean checkBoxAccepted) {
 		this.checkBoxAccepted = checkBoxAccepted;
+	}
+
+	public boolean getCheckBoxDataProcessesAccepted() {
+		return this.checkBoxDataProcessesAccepted;
+	}
+
+	public void setCheckBoxDataProcessesAccepted(final boolean checkBoxDataProcessesAccepted) {
+		this.checkBoxDataProcessesAccepted = checkBoxDataProcessesAccepted;
 	}
 
 	public String getUsername() {

@@ -41,6 +41,9 @@ public class ChapterServiceTest extends AbstractTest {
 	@Autowired
 	private ChapterRepository	chapterRepository;
 
+	@Autowired
+	private AreaService			areaService;
+
 
 	// Tests ------------------------------------------------------------------
 
@@ -162,6 +165,104 @@ public class ChapterServiceTest extends AbstractTest {
 		chapters = this.chapterService.chaptersCoordinateLeast10MoreParadasThanAverage();
 
 		Assert.isTrue(chapters.contains(test));
+	}
+
+	/**
+	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * Le asignamos a un chapter (que ya coordina un area),un area (que ya está coordinada)
+	 * Analysis of sentence coverage: 23%(3 lines /13 lines)
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void selfAssignedArea_negative_test() {
+		super.authenticate("chapter1");
+
+		int areaId;
+		Area area;
+
+		areaId = super.getEntityId("area1");
+		area = this.areaService.findOne(areaId);
+
+		this.chapterService.selfAssignedArea(area);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * Le asignamos a un chapter (que ya coordina un area),un area (sin coordinar)
+	 * Analysis of sentence coverage: 76.9%(10 lines /13 lines)
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void selfAssignedArea_negative2_test() {
+		super.authenticate("chapter1");
+
+		int areaId;
+		Area area;
+
+		areaId = super.getEntityId("area3");
+		area = this.areaService.findOne(areaId);
+
+		this.chapterService.selfAssignedArea(area);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * Le asignamos a un chapter (que no coordina area),un area (ya coordinada por otro chapter)
+	 * Analysis of sentence coverage: 23%(3 lines /13 lines)
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void selfAssignedArea_negative3_test() {
+		super.authenticate("chapter3");
+
+		int areaId;
+		Area area;
+
+		areaId = super.getEntityId("area1");
+		area = this.areaService.findOne(areaId);
+
+		this.chapterService.selfAssignedArea(area);
+
+		super.unauthenticate();
+	}
+
+	/**
+	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * Analysis of sentence coverage: 54.5%(6 lines /11 lines)
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test
+	public void selfAssignedArea_positive_test() {
+		super.authenticate("chapter3");
+
+		int areaId;
+		Area area;
+
+		areaId = super.getEntityId("area3");
+		area = this.areaService.findOne(areaId);
+
+		this.chapterService.selfAssignedArea(area);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirement 14.1 (Listing chapters).
+	 * C: Analysis of sentence coverage: 100%
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test
+	public void find_all_positive_test() {
+		Collection<Chapter> all;
+
+		all = this.chapterService.findAll();
+
+		Assert.notNull(all);
+		Assert.isTrue(!all.isEmpty());
 	}
 
 }

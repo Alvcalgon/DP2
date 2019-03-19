@@ -261,12 +261,13 @@ public class BrotherhoodService {
 
 	private void validateRegistration(final Brotherhood brotherhood, final BrotherhoodRegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
-		boolean checkBox;
+		boolean checkBox, checkBoxData;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
+		checkBoxData = registrationForm.getCheckBoxDataProcessesAccepted();
 
 		this.validatePictures(brotherhood.getPictures(), binding);
 		this.validateEmail(brotherhood.getEmail(), binding);
@@ -278,8 +279,8 @@ public class BrotherhoodService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false)
-			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
+		if (checkBox == false || checkBoxData == false)
+			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)
@@ -406,6 +407,7 @@ public class BrotherhoodService {
 		brotherhoodRegistrationForm.setEstablishmentDate(brotherhood.getEstablishmentDate());
 		brotherhoodRegistrationForm.setPictures(brotherhood.getPictures());
 		brotherhoodRegistrationForm.setCheckBoxAccepted(false);
+		brotherhoodRegistrationForm.setCheckBoxDataProcessesAccepted(false);
 
 		return brotherhoodRegistrationForm;
 

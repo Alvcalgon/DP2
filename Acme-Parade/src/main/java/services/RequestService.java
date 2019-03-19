@@ -18,6 +18,7 @@ import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import security.LoginService;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Parade;
@@ -201,6 +202,17 @@ public class RequestService {
 		if (request.getStatus().equals("APPROVED"))
 			this.paradeService.removeToMatriz(request.getParade(), request.getRowParade(), request.getColumnParade());
 		this.requestRepository.delete(request);
+	}
+
+	public void deleteRequests(final Actor actor) {
+		if (actor instanceof Member) {
+			final Collection<Request> requestsMember = this.findRequestByMemberId(actor.getId());
+			this.requestRepository.deleteInBatch(requestsMember);
+		}
+		if (actor instanceof Brotherhood) {
+			final Collection<Request> requestsBrotherhood = this.findRequestByBrotherhoodId(actor.getId());
+			this.requestRepository.deleteInBatch(requestsBrotherhood);
+		}
 	}
 
 	public RequestForm createRequestForm(final Request request) {
@@ -388,6 +400,14 @@ public class RequestService {
 
 		return requests;
 
+	}
+
+	public Collection<Request> findRequestByBrotherhoodId(final int id) {
+		Collection<Request> requests;
+
+		requests = this.requestRepository.findRequestByBrotherhoodId(id);
+
+		return requests;
 	}
 
 	public Collection<Request> findPendingRequestByBrotherhood() {

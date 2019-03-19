@@ -182,7 +182,7 @@ public class SegmentService {
 		segmentsParadeCollection = parade.getSegments();
 
 		if (!segmentsParadeCollection.isEmpty()) {
-			java.util.List<Segment> segmentsParade;
+			List<Segment> segmentsParade;
 			segmentsParade = this.findOrderedSegments(parade.getId());
 
 			//We run the path to check the data of the segments
@@ -250,6 +250,10 @@ public class SegmentService {
 
 		Assert.isTrue(this.brotherhoodService.findBrotherhoodBySegment(segmentId).equals(principal.getId()));
 
+	}
+
+	protected void flush() {
+		this.segmentRepository.flush();
 	}
 
 }
