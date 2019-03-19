@@ -55,6 +55,100 @@ public class ParadeServiceTest extends AbstractTest {
 		Assert.isTrue(data.length == 4);
 	}
 
+	/*
+	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
+	 * must be able to display a dashboard with the following information:
+	 * The average, the minimum, the maximum and the standard deviation of
+	 * the number of parades co-ordinated by the chapter.
+	 * 
+	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * 
+	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 */
+	@Test
+	public void testDataNumerParadesCoordinatedByChapters() {
+		Double[] data;
+
+		data = this.paradeService.findDataNumerParadesCoordinatedByChapters();
+
+		Assert.isTrue(data[0] == 8.0);
+		Assert.isTrue(data[1] == 5.0);
+		Assert.isTrue(data[2] == 11.0);
+		Assert.isTrue(data[3] == 3.0);
+	}
+
+	/*
+	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
+	 * must be able to display a dashboard with the following information:
+	 * The ratio of parades in draft mode vs parades y final mode.
+	 * 
+	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * 
+	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 */
+	@Test
+	public void testRatioParadesDraftModeVSParadesFinalMode() {
+		Double ratio;
+
+		ratio = this.paradeService.findRatioParadesDraftModeVSParadesFinalMode();
+
+		Assert.isTrue(ratio == 0.11111);
+	}
+
+	/*
+	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
+	 * must be able to display a dashboard with the following information:
+	 * The ratio of parades in final mode grouped by status. [SUBMITTED]
+	 * 
+	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * 
+	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 */
+	@Test
+	public void testRatioSubmittedParadesFinalMode() {
+		Double ratio;
+
+		ratio = this.paradeService.findRatioSubmittedParadesFinalMode();
+
+		Assert.isTrue(ratio == 0.11111);
+	}
+
+	/*
+	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
+	 * must be able to display a dashboard with the following information:
+	 * The ratio of parades in final mode grouped by status. [ACCEPTED]
+	 * 
+	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * 
+	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 */
+	@Test
+	public void testRatioAcceptedParadesFinalMode() {
+		Double ratio;
+
+		ratio = this.paradeService.findRatioAcceptedParadesFinalMode();
+
+		Assert.isTrue(ratio == 0.77778);
+	}
+
+	/*
+	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
+	 * must be able to display a dashboard with the following information:
+	 * The ratio of parades in final mode grouped by status. [REJECTED]
+	 * 
+	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * 
+	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 */
+	@Test
+	public void testRatioRejectedParadesFinalMode() {
+		Double ratio;
+
+		ratio = this.paradeService.findRatioRejectedParadesFinalMode();
+
+		Assert.isTrue(ratio == 0.11111);
+	}
+
 	/**
 	 * Requirement tested: Level B - requirement 2.2
 	 * A chapter logged list published parades grouped by status of a brotherhood in the area
