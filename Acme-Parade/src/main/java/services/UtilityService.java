@@ -56,6 +56,10 @@ public class UtilityService {
 			Assert.isTrue(actor.getEmail().matches("[A-Za-z0-9]+@[a-zA-Z0-9.-]+|[\\w\\s]+[\\<][A-Za-z0-9]+@[a-zA-Z0-9.-]+[\\>]"));
 	}
 
+	public void checkMoment(final Date start_moment, final Date end_moment) {
+		Assert.isTrue(start_moment.before(end_moment));
+	}
+
 	public String getValidPhone(String phone) {
 		String countryCode, result;
 
