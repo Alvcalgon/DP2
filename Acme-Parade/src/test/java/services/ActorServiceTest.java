@@ -20,7 +20,7 @@ import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+	"classpath:spring/junit.xml"
 })
 @Transactional
 public class ActorServiceTest extends AbstractTest {
@@ -132,12 +132,9 @@ public class ActorServiceTest extends AbstractTest {
 		final List<Integer> ls;
 
 		messagesSent = this.messageService.findMessagesSentByActor(actor.getId()); //2
-		System.out.println("mensajes enviados" + messagesSent);
 		ls = new ArrayList<>(this.positiveNegativeWordNumbers(messagesSent));
 		p = ls.get(0); //2
-		System.out.println("p" + p);
 		n = ls.get(1); // 1
-		System.out.println("n" + n);
 
 		maximo = this.max(p, n); //2
 
@@ -147,7 +144,7 @@ public class ActorServiceTest extends AbstractTest {
 			score = 0.0;
 
 		Assert.isTrue(score >= -1.00 && score <= 1.00);
-		System.out.println(score);
+
 		actor.setScore(score);
 
 		super.unauthenticate();
@@ -158,7 +155,7 @@ public class ActorServiceTest extends AbstractTest {
 		final Actor actor = this.actorService.findOne(super.getEntityId("brotherhood1"));
 		Collection<Message> messagesSent;
 		messagesSent = this.messageService.findMessagesSentByActor(actor.getId()); //2
-		System.out.println("mensajes enviados:" + messagesSent.size());
+
 		final List<Integer> results = new ArrayList<Integer>();
 		String body;
 		String[] words = {};
@@ -173,22 +170,18 @@ public class ActorServiceTest extends AbstractTest {
 		for (final Message m : messagesSent) {
 			body = m.getBody().toLowerCase();
 			words = body.split(" ");
-			System.out.println("cuerpo:" + words);
 
 			for (final String word : words)
 				if (positive_ls.contains(word))
 					positive++;
 				else if (negative_ls.contains(word))
 					negative++;
-			System.out.println("Palabras positivas: " + positive);
-			System.out.println("Palabras negativas: " + negative);
 		}
 
 		results.add(positive); //2
 		results.add(negative);	// 1
-		System.out.println("results: " + results);
-
 	}
+
 	private Double max(final Integer n, final Integer p) {
 		Double result;
 

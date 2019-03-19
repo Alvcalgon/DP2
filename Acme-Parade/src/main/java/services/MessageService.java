@@ -199,7 +199,7 @@ public class MessageService {
 		Assert.notNull(destination);
 		Assert.isTrue(origin.getId() != 0 && destination.getId() != 0 && this.messageRepository.exists(message.getId()));
 		Assert.isTrue(origin.getMessages().contains(message) && !destination.getMessages().contains(message));
-		this.checkByPrincipal(message);
+		this.checkSenderOrRecipient(message);
 		this.boxService.checkByPrincipal(origin);
 		this.boxService.checkByPrincipal(destination);
 
@@ -532,6 +532,23 @@ public class MessageService {
 		}
 
 		return result;
+	}
+
+	// This method id used when an actor want to delete all his or her data.
+	public void deleteMessagesFromActor(final Actor actor) {
+		Collection<Message> messages;
+
+		messages = this.findMessagesFromActor(actor.getId());
+
+		this.messageRepository.delete(messages);
+	}
+
+	private Collection<Message> findMessagesFromActor(final int actorId) {
+		Collection<Message> results;
+
+		results = this.messageRepository.findMessagesFromActor(actorId);
+
+		return results;
 	}
 
 	// Protected methods ------------------------------------

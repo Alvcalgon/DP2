@@ -57,9 +57,8 @@ public class LegalRecordService {
 		LegalRecord result;
 
 		result = this.legalRecordRepository.findOne(legalRecordId);
-
-		this.checkByPrincipal(result);
 		Assert.notNull(result);
+		this.checkByPrincipal(result);
 
 		return result;
 
