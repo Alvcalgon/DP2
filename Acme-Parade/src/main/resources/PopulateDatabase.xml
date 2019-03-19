@@ -320,6 +320,19 @@
 		<property name="isBanned" value="false" />
 	</bean>
 	
+	<bean id="userAccount024" class="security.UserAccount">
+		<property name="username" value="chapter3" />
+		<property name="password" value="4cf7b4e4bb6d429f0f08bc498e397d81" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
 		
 	<bean id="userAccount25" class="security.UserAccount">
 		<property name="username" value="sponsor3" />
@@ -1916,6 +1929,60 @@
 		<property name="actor" ref="chapter2" />
 	</bean>
 	
+	<bean id="box0111" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter3" />
+	</bean>
+
+	<bean id="box0112" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+		<property name="actor" ref="chapter3" />
+	</bean>
+
+	<bean id="box0113" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter3" />
+	</bean>
+
+	<bean id="box0114" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter3" />
+	</bean>
+
+	<bean id="box0115" class="domain.Box">
+		<property name="name" value="notification box" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<null></null>
+			</list>
+		</property>
+		<property name="actor" ref="chapter3" />
+	</bean>
+	
 		
 		<bean id="box121" class="domain.Box">
 		<property name="name" value="in box" />
@@ -2753,6 +2820,20 @@
 		<property name="userAccount" ref="userAccount24" />
 		<property name="title" value="Chapter 2" />
 		<property name="area" ref="area2" />
+	</bean>
+	
+	
+	<bean id="chapter3" class="domain.Chapter">
+		<property name="name" value="Julia" />
+		<property name="middleName" value="" />
+		<property name="surname" value="Ramirez" />
+		<property name="photo"
+			value="https://d500.epimg.net/cincodias/imagenes/2016/03/16/lifestyle/1458143779_942162_1458143814_noticia_normal.jpg" />
+		<property name="email" value="juliaruiz@gmail.com" />
+		<property name="phoneNumber" value="+34 654987321" />
+		<property name="address" value="Calle Secundaria 2" />
+		<property name="userAccount" ref="userAccount024" />
+		<property name="title" value="Chapter 3" />
 	</bean>
 
 <!-- CreditCard -->
