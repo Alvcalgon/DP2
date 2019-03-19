@@ -440,6 +440,15 @@ public class RequestService {
 		return result;
 	}
 
+	public Collection<Request> findRequestByMemberIdBrotherhoodId(final int memberId, final int brotherhoodId) {
+		Collection<Request> result;
+
+		result = this.requestRepository.findRequestByMemberIdBrotherhoodId(memberId, brotherhoodId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public String validateReasonWhy(final RequestForm requestForm, final BindingResult binding) {
 		String result;
 

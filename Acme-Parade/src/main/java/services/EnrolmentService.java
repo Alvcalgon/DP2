@@ -260,7 +260,7 @@ public class EnrolmentService {
 	private void manageExitOfMember(final Enrolment enrolment) {
 		Collection<Request> requests;
 
-		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
+		requests = this.requestService.findRequestByMemberIdBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
 		for (final Request r : requests)
 			this.requestService.deleteDropOut(r);
 
