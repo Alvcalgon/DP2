@@ -86,7 +86,7 @@ public class ParadeController extends AbstractController {
 				userPrincipal = null;
 			}
 
-			//Está registrado como hermandad y además es el dueño de la desfile
+			//Is authenticated as brotherhood and it the owner of the parade
 			if (userPrincipal != null && userPrincipal.getAuthorities().toString().equals("[BROTHERHOOD]") && brotherhood.getId() == this.brotherhoodService.findByPrincipal().getId()) {
 				principal = this.brotherhoodService.findByPrincipal();
 				parade = this.paradeService.findOne(paradeId);
@@ -189,7 +189,7 @@ public class ParadeController extends AbstractController {
 		return result;
 
 	}
-	//Este método se usa en caso de que si es un miembro para que pueda solicitar salir en la desfile
+	//	This method is used in case if you are a member so you can request to drop out in the parade
 	private void isRequestable(final Parade parade, final ModelAndView result) {
 		Collection<Member> members;
 		Brotherhood brotherhood;

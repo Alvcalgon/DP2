@@ -82,18 +82,100 @@ public class SegmentService {
 
 	}
 
+	public void delete(final Segment segment) {
+		Assert.notNull(segment);
+		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
+
+		this.checkPrincipalBySegment(segment.getId());
+		Assert.isTrue(this.isDeletable(segment));
+
+		this.removeSegmentToParade(segment);
+
+		this.segmentRepository.delete(segment);
+
+	}
+
+	public Segment findOne(final int segmentId) {
+		Segment result;
+
+		result = this.segmentRepository.findOne(segmentId);
+
+		return result;
+	}
+
+	public Collection<Segment> findAll() {
+		Collection<Segment> results;
+
+		results = this.segmentRepository.findAll();
+
+		return results;
+	}
+
+	public Segment findOneToEdit(final int segmentId) {
+		Segment result;
+
+		result = this.segmentRepository.findOne(segmentId);
+
+		Assert.notNull(result);
+		this.checkPrincipalBySegment(segmentId);
+
+		return result;
+	}
+
+	// Other business methods ---------------------
+
+	public List<Segment> findOrderedSegments(final int paradeId) {
+		List<Segment> segmentsOrdered;
+
+		segmentsOrdered = this.segmentRepository.findOrderedSegments(paradeId);
+
+		return segmentsOrdered;
+	}
+	public Boolean isDeletable(final Segment segment) {
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+
+		if (segments.indexOf(segment) == 0 || segments.indexOf(segment) == segments.size() - 1)
+			result = true;
+
+		return result;
+	}
+
+	// Private methods ---------------------
+
+	private void removeSegmentToParade(final Segment segment) {
+		Collection<Segment> segments;
+		Parade parade;
+
+		parade = this.paradeService.findBySegment(segment.getId());
+
+		segments = parade.getSegments();
+		segments.remove(segment);
+
+	}
+
+	private void addSegmentToParade(final Parade parade, final Segment segment) {
+		Collection<Segment> segments;
+
+		segments = parade.getSegments();
+		segments.add(segment);
+
+	}
+
 	private void checkSegment(final Segment segment, final Parade parade) {
-		//Compruebo que la fecha origen es antes que la destino
 		if (!segment.getReachingDestination().after(segment.getReachingOrigin()))
 			throw new DataIntegrityViolationException("Invalid date");
 
-		//Comprueba que las fechas del segmento son posteriores a la del desfile
 		if (!segment.getReachingDestination().after(parade.getMoment()) || !segment.getReachingOrigin().after(parade.getMoment()))
 			throw new DataIntegrityViolationException("Invalid dates");
 	}
 
 	private void checkSegmentEdit(final Segment segment, final Parade parade) {
-		//Compruebo que la fecha del segmento actual está entre las fechas del segmento previo y el posterior(depende de su posicion en el camino)
 		Collection<Segment> segmentsParadeCollection;
 		Segment segmentChecked;
 
@@ -103,7 +185,8 @@ public class SegmentService {
 			java.util.List<Segment> segmentsParade;
 			segmentsParade = this.findOrderedSegments(parade.getId());
 
-			//Recorremos el camino para ver la posición del segmento
+			//We run the path to check the data of the segments
+
 			int i = 0;
 			for (final Segment s : segmentsParade) {
 
@@ -133,7 +216,7 @@ public class SegmentService {
 	}
 	private void checkSegmentCreate(final Segment segment, final Parade parade) {
 
-		//Compruebo que la fecha del segmento actual está entre las fechas del segmento previo y el posterior(depende de su posicion en el camino)
+		// check that the date of the current segment is between the dates of the previous segment and the subsequent segment (depends on your position on the path)
 		Collection<Segment> segmentsParadeCollection;
 		Segment segmentLast;
 		final SimpleDateFormat formatter;
@@ -147,7 +230,7 @@ public class SegmentService {
 
 			segmentsParade = this.findOrderedSegments(parade.getId());
 			tamaño = segmentsParade.size();
-			segmentLast = segmentsParade.get(tamaño - 1); // cojo el ultimo segmento
+			segmentLast = segmentsParade.get(tamaño - 1); // take the last segment
 			formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 			segementOriginString = formatter.format(segment.getReachingOrigin());
 			segmentLastDestinationString = formatter.format(segmentLast.getReachingDestination());
@@ -158,92 +241,15 @@ public class SegmentService {
 		}
 
 	}
-	public void delete(final Segment segment) {
-		Assert.notNull(segment);
-		Assert.isTrue(this.segmentRepository.exists(segment.getId()));
 
-		Parade parade;
+	private void checkPrincipalBySegment(final int segmentId) {
+
 		Brotherhood principal;
 
-		parade = this.paradeService.findBySegment(segment.getId());
 		principal = this.brotherhoodService.findByPrincipal();
 
-		Assert.isTrue(this.paradeService.getBrotherhoodToParade(parade).equals(principal));
-		Assert.isTrue(this.isDeletable(segment));
+		Assert.isTrue(this.brotherhoodService.findBrotherhoodBySegment(segmentId).equals(principal.getId()));
 
-		this.removeSegmentToParade(parade, segment);
-
-		this.segmentRepository.delete(segment);
-
-	}
-
-	public Segment findOne(final int segmentId) {
-		Segment result;
-
-		result = this.segmentRepository.findOne(segmentId);
-
-		return result;
-	}
-
-	public Collection<Segment> findAll() {
-		Collection<Segment> results;
-
-		results = this.segmentRepository.findAll();
-
-		return results;
-	}
-
-	public Segment findOneToEdit(final int segmentId) {
-		Segment result;
-		Brotherhood principal;
-
-		result = this.segmentRepository.findOne(segmentId);
-		principal = this.brotherhoodService.findByPrincipal();
-
-		Assert.notNull(result);
-		Assert.isTrue(this.brotherhoodService.findBrotherhoodBySegment(segmentId).equals(principal));
-
-		return result;
-	}
-
-	// Other business methods ---------------------
-
-	private void removeSegmentToParade(final Parade parade, final Segment segment) {
-		Collection<Segment> segments;
-
-		segments = parade.getSegments();
-		segments.remove(segment);
-
-	}
-
-	private void addSegmentToParade(final Parade parade, final Segment segment) {
-		Collection<Segment> segments;
-
-		segments = parade.getSegments();
-		segments.add(segment);
-
-	}
-
-	public List<Segment> findOrderedSegments(final int paradeId) {
-		List<Segment> segmentsOrdered;
-
-		segmentsOrdered = this.segmentRepository.findOrderedSegments(paradeId);
-
-		return segmentsOrdered;
-	}
-	public Boolean isDeletable(final Segment segment) {
-		Boolean result;
-		Parade parade;
-		List<Segment> segments;
-
-		result = false;
-		parade = this.paradeService.findBySegment(segment.getId());
-		segments = this.segmentRepository.findOrderedSegments(parade.getId());
-
-		if (segments.indexOf(segment) == 0 || segments.indexOf(segment) == segments.size() - 1)
-			result = true;
-
-		return result;
 	}
 
 }
