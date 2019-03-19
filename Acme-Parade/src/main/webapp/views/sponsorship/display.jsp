@@ -66,11 +66,6 @@
 		<strong><spring:message code="sponsorship.creditcard.expiration.year"/> </strong>
 		<jstl:out value="${sponsorship.creditCard.expirationYear}"/>
 	</p>
-	
-	<p>
-		<strong><spring:message code="sponsorship.creditcard.cvv"/> </strong>
-		<jstl:out value="${sponsorship.creditCard.cvvCode}"/>
-	</p>
 </fieldset>
 
 
