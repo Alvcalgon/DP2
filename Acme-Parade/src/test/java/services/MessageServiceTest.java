@@ -21,7 +21,7 @@ import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+	"classpath:spring/junit.xml"
 })
 @Transactional
 public class MessageServiceTest extends AbstractTest {
@@ -487,7 +487,7 @@ public class MessageServiceTest extends AbstractTest {
 		outBox = this.boxService.findOutBoxFromActor(adminId);
 		Assert.isTrue(outBox.getMessages().contains(broadcast));
 
-		all = this.actorService.findAll();
+		all = broadcast.getRecipients();
 		for (final Actor a : all) {
 			notificationBox = this.boxService.findNotificationBoxFromActor(a.getId());
 
@@ -521,7 +521,7 @@ public class MessageServiceTest extends AbstractTest {
 		outBox = this.boxService.findOutBoxFromActor(adminId);
 		Assert.isTrue(outBox.getMessages().contains(broadcast));
 
-		all = this.actorService.findAll();
+		all = broadcast.getRecipients();
 		for (final Actor a : all) {
 			spamBox = this.boxService.findSpamBoxFromActor(a.getId());
 

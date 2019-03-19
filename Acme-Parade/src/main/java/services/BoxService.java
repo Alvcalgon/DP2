@@ -137,6 +137,15 @@ public class BoxService {
 		this.boxRepository.delete(box);
 	}
 
+	// This method is called when a user want to remove this data from the system
+	public void deleteBoxesFromActor(final Actor actor) {
+		Collection<Box> boxes;
+
+		boxes = this.findBoxesByActor(actor.getId());
+
+		this.boxRepository.delete(boxes);
+	}
+
 	public Collection<Box> findRootBoxesByActor(final int actorId) {
 		Collection<Box> results;
 

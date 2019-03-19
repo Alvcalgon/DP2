@@ -18,7 +18,7 @@ import domain.Box;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+	"classpath:spring/junit.xml"
 })
 @Transactional
 public class BoxServiceTest extends AbstractTest {
@@ -41,9 +41,6 @@ public class BoxServiceTest extends AbstractTest {
 
 		descendant = new ArrayList<Box>();
 		descendant.addAll(this.boxService.descendantBoxes(box));
-
-		for (final Box b : descendant)
-			System.out.println(b.getName());
 
 		Assert.isTrue(descendant.size() > 0);
 
