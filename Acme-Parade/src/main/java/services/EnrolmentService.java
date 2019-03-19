@@ -79,6 +79,24 @@ public class EnrolmentService {
 		return saved;
 	}
 
+	protected void deleteEnrolments(final Member member) {
+		Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentRepository.findByMemberId(member.getId());
+		Assert.notNull(enrolments);
+
+		this.enrolmentRepository.deleteInBatch(enrolments);
+	}
+
+	protected void deleteEnrolments(final Brotherhood brotherhood) {
+		Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentRepository.findByBrotherhoodId(brotherhood.getId());
+		Assert.notNull(enrolments);
+
+		this.enrolmentRepository.deleteInBatch(enrolments);
+	}
+
 	public Enrolment findOne(final int enrolmentId) {
 		Enrolment result;
 
