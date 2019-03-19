@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
@@ -119,6 +120,21 @@ public class SponsorServiceTest extends AbstractTest {
 
 		sponsor = this.sponsorRepository.findOne(saved.getId());
 		Assert.isTrue(saved.equals(sponsor));
+	}
+
+	/*
+	 * Requirement tested: Acme-Parade Req 12.c (A-level): The top-5 sponsors in terms of number of active sponsorships.
+	 * Analysis of sentence coverage: 100%
+	 * Analysis of data coverage: Intentionally blank 100%
+	 */
+	@Test
+	public void testDataSponsorshipPerSponsor() {
+		Collection<Sponsor> list5;
+
+		list5 = this.sponsorService.topFiveSponsors();
+
+		Assert.isTrue(list5.size() == 5);
+		Assert.isTrue(!list5.isEmpty());
 	}
 
 }
