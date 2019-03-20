@@ -4545,8 +4545,8 @@
 
 	<bean id="request6" class="domain.Request">
 		<property name="status" value="APPROVED" />
-		<property name="rowParade" value="1" />
-		<property name="columnParade" value="3" />
+		<property name="rowParade" value="2" />
+		<property name="columnParade" value="1" />
 		<property name="member" ref="member7" />
 		<property name="parade" ref="parade4" />
 	</bean>
