@@ -58,6 +58,8 @@ public class SegmentService {
 		Assert.notNull(parade);
 		this.paradeService.checkParadeByBrotherhood(parade);
 		this.utilityService.checkMoment(segment.getReachingOrigin(), segment.getReachingDestination());
+		Assert.isTrue(segment.getOrigin().getLatitude() != segment.getDestination().getLatitude());
+		Assert.isTrue(segment.getOrigin().getLongitude() != segment.getDestination().getLongitude());
 
 		List<Segment> segments;
 		Segment result, previousSegment, nextSegment;
