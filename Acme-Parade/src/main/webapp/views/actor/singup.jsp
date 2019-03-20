@@ -175,7 +175,7 @@
 		<form:checkbox path="checkBoxDataProcessesAccepted" />
 		<spring:message code="actor.checkBox" />
 		<a href="welcome/dataProcesses.do"><spring:message code="actor.dataProcesses"/></a>
-		<form:errors path="checkBoxAccepted" cssClass="error" />
+		<form:errors path="checkBoxDataProcessesAccepted" cssClass="error" />
 	</div>
 	<br>
 
