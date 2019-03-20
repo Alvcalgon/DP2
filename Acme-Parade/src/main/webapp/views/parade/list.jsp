@@ -131,14 +131,7 @@
 		</display:column>
 		
 	</jstl:if>
-	
-		<display:column style="background-color:${colorValue }">
-			<jstl:if test="${!rowSubmitted.isFinalMode && isOwner}">
-				<a href="parade/brotherhood/makeFinal.do?paradeId=${rowSubmitted.id}">
-					<spring:message code="parade.makeFinal" />
-				</a>
-			</jstl:if>
-		</display:column>
+
 		
 		<display:column style="background-color:${colorValue }">
 			<jstl:if test="${isOwner}">
@@ -236,13 +229,6 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">	
-		<display:column style="background-color:${colorValue }" >
-			<jstl:if test="${!rowAccepted.isFinalMode && isOwner}">
-				<a href="parade/brotherhood/makeFinal.do?paradeId=${rowAccepted.id}">
-					<spring:message code="parade.makeFinal" />
-				</a>
-			</jstl:if>
-		</display:column>
 
 	<jstl:if test="${isOwner}">
 		<display:column style="background-color:${colorValue }">

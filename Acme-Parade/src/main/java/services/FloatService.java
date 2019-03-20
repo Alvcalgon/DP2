@@ -129,8 +129,6 @@ public class FloatService {
 		result.setTitle(floatForm.getTitle());
 		result.setDescription(floatForm.getDescription());
 
-		this.utilityService.checkPicture(result.getPictures());
-
 		this.validator.validate(result, binding);
 
 		return result;
