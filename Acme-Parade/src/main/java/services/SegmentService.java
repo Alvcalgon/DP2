@@ -1,14 +1,12 @@
 
 package services;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -64,6 +62,8 @@ public class SegmentService {
 		List<Segment> segments;
 		Segment result, previousSegment, nextSegment;
 		int pos, tam;
+		Long reachingOriginMs, reachingDestinationMs;
+		double lat_origin, long_origin, lat_dest, long_dest;
 
 		segments = this.findOrderedSegments(parade.getId());
 
@@ -85,9 +85,18 @@ public class SegmentService {
 
 			previousSegment = segments.get(tam - 1);
 
+			reachingOriginMs = segment.getReachingOrigin().getTime();
+			reachingDestinationMs = previousSegment.getReachingDestination().getTime();
+
+			lat_origin = segment.getOrigin().getLatitude();
+			long_origin = segment.getOrigin().getLongitude();
+
+			lat_dest = previousSegment.getDestination().getLatitude();
+			long_dest = previousSegment.getDestination().getLongitude();
+
 			// The segments must be contiguous
-			Assert.isTrue(previousSegment.getReachingDestination().equals(segment.getReachingOrigin()));
-			Assert.isTrue(previousSegment.getDestination().equals(segment.getOrigin()));
+			Assert.isTrue(reachingDestinationMs.equals(reachingOriginMs));
+			Assert.isTrue(lat_dest == lat_origin && long_origin == long_dest);
 
 			result = this.segmentRepository.save(segment);
 			this.paradeService.addSegment(parade, result);
@@ -135,7 +144,6 @@ public class SegmentService {
 		}
 
 		return result;
-
 	}
 
 	public void delete(final Segment segment) {
@@ -187,6 +195,7 @@ public class SegmentService {
 
 		return segmentsOrdered;
 	}
+
 	public Boolean isDeletable(final Segment segment) {
 		Boolean result;
 		Parade parade;
@@ -203,7 +212,6 @@ public class SegmentService {
 	}
 
 	// Private methods ---------------------
-
 	private void removeSegmentToParade(final Segment segment) {
 		Collection<Segment> segments;
 		Parade parade;
@@ -212,82 +220,6 @@ public class SegmentService {
 
 		segments = parade.getSegments();
 		segments.remove(segment);
-
-	}
-
-	private void checkSegment(final Segment segment, final Parade parade) {
-		if (!segment.getReachingDestination().after(segment.getReachingOrigin()))
-			throw new DataIntegrityViolationException("Invalid date");
-
-		if (!segment.getReachingDestination().after(parade.getMoment()) || !segment.getReachingOrigin().after(parade.getMoment()))
-			throw new DataIntegrityViolationException("Invalid dates");
-	}
-
-	private void checkSegmentEdit(final Segment segment, final Parade parade) {
-		Collection<Segment> segmentsParadeCollection;
-		Segment segmentChecked;
-
-		segmentsParadeCollection = parade.getSegments();
-
-		if (!segmentsParadeCollection.isEmpty()) {
-			java.util.List<Segment> segmentsParade;
-			segmentsParade = this.findOrderedSegments(parade.getId());
-
-			//We run the path to check the data of the segments
-
-			int i = 0;
-			for (final Segment s : segmentsParade) {
-
-				if (s.equals(segment))
-					segmentChecked = segment;
-				else
-					segmentChecked = s;
-
-				if (i == 0) {
-					if (!segmentChecked.getReachingDestination().equals(segmentsParade.get(i + 1).getReachingOrigin()) || segmentChecked.getDestination().equals(segmentsParade.get(i + 1).getOrigin()))
-						throw new DataIntegrityViolationException("Invalid data");
-				} else if (i > 0 && i < segmentsParade.size() - 1) {
-					if ((segmentChecked.getReachingDestination().compareTo(segmentsParade.get(i + 1).getReachingOrigin())) != 0 || (segmentChecked.getReachingOrigin().compareTo(segmentsParade.get(i - 1).getReachingDestination())) != 0
-						|| (segmentChecked.getDestination().getLatitude() != (segmentsParade.get(i + 1).getOrigin().getLatitude())) || (segmentChecked.getDestination().getLongitude() != (segmentsParade.get(i + 1).getOrigin().getLongitude()))
-						|| (segmentChecked.getOrigin().getLatitude() != (segmentsParade.get(i - 1).getDestination().getLatitude())) || (segmentChecked.getOrigin().getLongitude()) != (segmentsParade.get(i - 1).getDestination().getLongitude()))
-						throw new DataIntegrityViolationException("Invalid data");
-				} else if (i == segmentsParade.size() - 1)
-					if ((segmentChecked.getReachingOrigin().compareTo(segmentsParade.get(i - 1).getReachingDestination())) != 0 || segmentChecked.getOrigin().getLatitude() != (segmentsParade.get(i - 1).getDestination().getLatitude())
-						|| segmentChecked.getOrigin().getLongitude() != (segmentsParade.get(i - 1).getDestination().getLongitude()))
-						throw new DataIntegrityViolationException("Invalid data");
-
-				i = i + 1;
-			}
-
-		}
-
-	}
-	private void checkSegmentCreate(final Segment segment, final Parade parade) {
-
-		// check that the date of the current segment is between the dates of the previous segment and the subsequent segment (depends on your position on the path)
-		Collection<Segment> segmentsParadeCollection;
-		Segment segmentLast;
-		final SimpleDateFormat formatter;
-		final String segementOriginString;
-		final String segmentLastDestinationString;
-		final int tamaño;
-
-		segmentsParadeCollection = parade.getSegments();
-		if (!segmentsParadeCollection.isEmpty()) {
-			java.util.List<Segment> segmentsParade;
-
-			segmentsParade = this.findOrderedSegments(parade.getId());
-			tamaño = segmentsParade.size();
-			segmentLast = segmentsParade.get(tamaño - 1); // take the last segment
-			formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-			segementOriginString = formatter.format(segment.getReachingOrigin());
-			segmentLastDestinationString = formatter.format(segmentLast.getReachingDestination());
-
-			if (!segementOriginString.equals(segmentLastDestinationString) || !(segment.getOrigin().getLatitude() == (segmentLast.getDestination().getLatitude())) || !(segment.getOrigin().getLongitude() == (segmentLast.getDestination().getLongitude())))
-				throw new DataIntegrityViolationException("Invalid data");
-
-		}
-
 	}
 
 	private void checkPrincipalBySegment(final int segmentId) {
@@ -297,7 +229,6 @@ public class SegmentService {
 		principal = this.brotherhoodService.findByPrincipal();
 
 		Assert.isTrue(this.brotherhoodService.findBrotherhoodBySegment(segmentId).equals(principal.getId()));
-
 	}
 
 }

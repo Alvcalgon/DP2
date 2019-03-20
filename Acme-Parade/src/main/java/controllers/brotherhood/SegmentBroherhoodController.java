@@ -107,7 +107,7 @@ public class SegmentBroherhoodController extends AbstractController {
 					result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 
 			} catch (final Throwable oops) {
-				result = new ModelAndView("redirect:/error.do");
+				result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 			}
 		return result;
 	}
