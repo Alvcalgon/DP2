@@ -336,4 +336,121 @@ public class SegmentServiceTest extends AbstractTest {
 
 		super.unauthenticate();
 	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Update segment)
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test
+	public void update_positive_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade;
+		Segment segment;
+		DateFormat formatter;
+		final Date dateReachingDestination;
+		String reachingDestination;
+
+		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+		segment = this.segmentService.findOne(super.getEntityId("segment3"));
+
+		reachingDestination = "2020-02-02 16:30";
+
+		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		try {
+			dateReachingDestination = formatter.parse(reachingDestination);
+
+			segment.setReachingDestination(dateReachingDestination);
+
+			this.segmentService.save(segment, parade);
+		} catch (final Throwable oops) {
+			Assert.isNull(oops);
+		}
+
+		super.unauthenticate();
+
+	}
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Update segment)
+	 * The business rule that is intended to be broken: Segment::reachingDestination is before
+	 * to reachingOrigin
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = DataIntegrityViolationException.class)
+	public void update_negative_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade;
+		Segment segment;
+		DateFormat formatter;
+		Date dateReachingDestination;
+		String reachingDestination;
+
+		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+		segment = this.segmentService.findOne(super.getEntityId("segment3"));
+
+		reachingDestination = "2020-02-02 11:30:00";
+		dateReachingDestination = null;
+
+		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		try {
+			dateReachingDestination = formatter.parse(reachingDestination);
+		} catch (final Throwable oops) {
+
+		}
+
+		segment.setReachingDestination(dateReachingDestination);
+
+		this.segmentService.save(segment, parade);
+
+		super.unauthenticate();
+
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Delete segment)
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test
+	public void delete_positive_test() {
+		super.authenticate("brotherhood1");
+
+		Parade parade;
+		Segment segment;
+
+		parade = this.paradeService.findOne(super.getEntityId("parade1"));
+		segment = this.segmentService.findOne(super.getEntityId("segment3"));
+
+		this.segmentService.delete(segment);
+
+		Assert.isTrue(!parade.getSegments().contains(segment));
+
+		super.unauthenticate();
+
+	}
+
+	/**
+	 * Requirement tested: Level B - requirement 3.3 (Delete segment)
+	 * The business rule that is intended to be broken: Brotherhoods try to delete a segment that not
+	 * belongs to him/her parades.
+	 * Analysis of data coverage: Sequence
+	 * Analysis of data coverage: Intentionally blank
+	 */
+	@Test(expected = NullPointerException.class)
+	public void delete_negative_test() {
+		super.authenticate("brotherhood1");
+
+		Segment segment;
+
+		segment = this.segmentService.findOne(super.getEntityId("segment4"));
+
+		this.segmentService.delete(segment);
+
+		super.unauthenticate();
+
+	}
+
 }
