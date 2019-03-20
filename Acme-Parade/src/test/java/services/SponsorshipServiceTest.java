@@ -568,4 +568,34 @@ public class SponsorshipServiceTest extends AbstractTest {
 		Assert.isNull(sponsorship);
 	}
 
+	/*
+	 * Requirement tested: Acme-Parade Req 12.a (A-level): The ratio of active sponsorships.
+	 * Analysis of sentence coverage: 100%
+	 * Analysis of data coverage: Intentionally blank 100%
+	 */
+	@Test
+	public void testRatioActiveSponsorship() {
+		Double data;
+
+		data = this.sponsorshipService.ratioActiveSponsorship();
+
+		Assert.isTrue(data == 0.3913);
+	}
+
+	/*
+	 * Requirement tested: Acme-Parade Req 12.b (A-level): The average, the minimum, the maximum, and the standard deviation of ac-tive sponsorships per sponsor.
+	 * Analysis of sentence coverage: 100%
+	 * Analysis of data coverage: Intentionally blank 100%
+	 */
+	@Test
+	public void testDataSponsorshipPerSponsor() {
+		Double[] data;
+
+		data = this.sponsorshipService.dataSponsorshipPerSponsor();
+
+		Assert.isTrue(data[0] == 0.9);
+		Assert.isTrue(data[1] == 0.0);
+		Assert.isTrue(data[2] == 3.0);
+		Assert.isTrue(data[3] == 1.04403);
+	}
 }

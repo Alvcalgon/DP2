@@ -160,7 +160,7 @@
 
 <jstl:if test="${sponsorship ne null}">
 	<div>
-		<a href="${sponsorship.targetURL}"><img src="${sponsorship.banner}" alt="Sponsorship banner" /></a>
+		<a href="${sponsorship.targetURL}"><img src="${sponsorship.banner}" alt="Sponsorship banner" height="275px" width="525px"/></a>
 	</div>
 </jstl:if>
 	

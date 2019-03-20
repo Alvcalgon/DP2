@@ -192,12 +192,13 @@ public class SponsorService {
 
 	private void validateRegistration(final Sponsor sponsor, final RegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
-		boolean checkBox;
+		boolean checkBox, checkBoxData;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
+		checkBoxData = registrationForm.getCheckBoxDataProcessesAccepted();
 
 		this.validateEmail(sponsor.getEmail(), binding);
 		if (username.trim().equals(""))
@@ -209,7 +210,9 @@ public class SponsorService {
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
 		if (checkBox == false)
-			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
+			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)
@@ -288,6 +291,7 @@ public class SponsorService {
 		registrationForm.setPhoneNumber(sponsor.getPhoneNumber());
 		registrationForm.setAddress(sponsor.getAddress());
 		registrationForm.setCheckBoxAccepted(false);
+		registrationForm.setCheckBoxDataProcessesAccepted(false);
 
 		return registrationForm;
 	}

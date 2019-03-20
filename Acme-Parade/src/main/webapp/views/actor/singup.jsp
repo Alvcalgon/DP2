@@ -170,6 +170,14 @@
 		<form:errors path="checkBoxAccepted" cssClass="error" />
 	</div>
 	<br>
+	
+	<div>
+		<form:checkbox path="checkBoxDataProcessesAccepted" />
+		<spring:message code="actor.checkBox" />
+		<a href="welcome/dataProcesses.do"><spring:message code="actor.dataProcesses"/></a>
+		<form:errors path="checkBoxDataProcessesAccepted" cssClass="error" />
+	</div>
+	<br>
 
 	<acme:submit name="save" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
 	<acme:cancel url="welcome/index.do" code="actor.cancel"/>

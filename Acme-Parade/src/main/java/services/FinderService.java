@@ -91,6 +91,13 @@ public class FinderService {
 		this.paradeService.searchParadeFinder(saved, pageable);
 	}
 
+	protected void deleteFinder(final Member member) {
+		Finder finder;
+
+		finder = this.finderRepository.findByMemberId(member.getId());
+		this.finderRepository.delete(finder);
+	}
+
 	// Other business methods -----------------------------
 
 	public Finder evaluateSearch(final Finder finder) {

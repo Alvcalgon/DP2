@@ -18,6 +18,7 @@ import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import security.LoginService;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Parade;
@@ -107,6 +108,7 @@ public class RequestService {
 
 	public Request create(final Parade parade) {
 		Assert.notNull(parade);
+		Assert.isTrue(parade.getStatus() == "accepted" && parade.getIsFinalMode());
 		this.checkNoExistRequestMemberParade(parade);
 		this.checkPrincipalIsMemberOfBrotherhoodOfParade(parade);
 		Request result;
@@ -201,6 +203,17 @@ public class RequestService {
 		if (request.getStatus().equals("APPROVED"))
 			this.paradeService.removeToMatriz(request.getParade(), request.getRowParade(), request.getColumnParade());
 		this.requestRepository.delete(request);
+	}
+
+	public void deleteRequests(final Actor actor) {
+		if (actor instanceof Member) {
+			final Collection<Request> requestsMember = this.findRequestByMemberId(actor.getId());
+			this.requestRepository.deleteInBatch(requestsMember);
+		}
+		if (actor instanceof Brotherhood) {
+			final Collection<Request> requestsBrotherhood = this.findRequestByBrotherhoodId(actor.getId());
+			this.requestRepository.deleteInBatch(requestsBrotherhood);
+		}
 	}
 
 	public RequestForm createRequestForm(final Request request) {
@@ -390,6 +403,14 @@ public class RequestService {
 
 	}
 
+	public Collection<Request> findRequestByBrotherhoodId(final int id) {
+		Collection<Request> requests;
+
+		requests = this.requestRepository.findRequestByBrotherhoodId(id);
+
+		return requests;
+	}
+
 	public Collection<Request> findPendingRequestByBrotherhood() {
 		Collection<Request> requests;
 		Brotherhood brotherhood;
@@ -435,6 +456,15 @@ public class RequestService {
 		Collection<Request> result;
 
 		result = this.requestRepository.findRequestByMemberId(memberId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Request> findRequestByMemberIdBrotherhoodId(final int memberId, final int brotherhoodId) {
+		Collection<Request> result;
+
+		result = this.requestRepository.findRequestByMemberIdBrotherhoodId(memberId, brotherhoodId);
 		Assert.notNull(result);
 
 		return result;

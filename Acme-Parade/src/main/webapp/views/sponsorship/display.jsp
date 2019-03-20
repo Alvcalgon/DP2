@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
@@ -35,7 +36,7 @@
 	
 	<p>
 		<strong><spring:message code="sponsorship.banner"/> </strong>
-		<img alt="Sponsorship banner" src="${sponsorship.banner}">
+		<img alt="Sponsorship banner" src="${sponsorship.banner}" height="275px" width="525px">
 	</p>
 </fieldset>
 
@@ -53,8 +54,9 @@
 	</p>
 	
 	<p>
+		<jstl:set var="length" value="${fn:length(sponsorship.creditCard.number)}"/>
 		<strong><spring:message code="sponsorship.creditcard.number"/> </strong>
-		<jstl:out value="${sponsorship.creditCard.number}"/>
+		<jstl:out value="****${fn:substring(sponsorship.creditCard.number, length - 4, length)}"/>
 	</p>
 	
 	<p>
@@ -65,11 +67,6 @@
 	<p>
 		<strong><spring:message code="sponsorship.creditcard.expiration.year"/> </strong>
 		<jstl:out value="${sponsorship.creditCard.expirationYear}"/>
-	</p>
-	
-	<p>
-		<strong><spring:message code="sponsorship.creditcard.cvv"/> </strong>
-		<jstl:out value="${sponsorship.creditCard.cvvCode}"/>
 	</p>
 </fieldset>
 

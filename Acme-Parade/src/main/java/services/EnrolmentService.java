@@ -79,6 +79,24 @@ public class EnrolmentService {
 		return saved;
 	}
 
+	protected void deleteEnrolments(final Member member) {
+		Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentRepository.findByMemberId(member.getId());
+		Assert.notNull(enrolments);
+
+		this.enrolmentRepository.deleteInBatch(enrolments);
+	}
+
+	protected void deleteEnrolments(final Brotherhood brotherhood) {
+		Collection<Enrolment> enrolments;
+
+		enrolments = this.enrolmentRepository.findByBrotherhoodId(brotherhood.getId());
+		Assert.notNull(enrolments);
+
+		this.enrolmentRepository.deleteInBatch(enrolments);
+	}
+
 	public Enrolment findOne(final int enrolmentId) {
 		Enrolment result;
 
@@ -260,7 +278,7 @@ public class EnrolmentService {
 	private void manageExitOfMember(final Enrolment enrolment) {
 		Collection<Request> requests;
 
-		requests = this.requestService.findRequestByMemberId(enrolment.getMember().getId());
+		requests = this.requestService.findRequestByMemberIdBrotherhoodId(enrolment.getMember().getId(), enrolment.getBrotherhood().getId());
 		for (final Request r : requests)
 			this.requestService.deleteDropOut(r);
 

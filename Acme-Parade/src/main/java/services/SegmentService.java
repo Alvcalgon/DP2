@@ -233,4 +233,8 @@ public class SegmentService {
 		Assert.isTrue(this.brotherhoodService.findBrotherhoodBySegment(segmentId).equals(principal.getId()));
 	}
 
+	protected void flush() {
+		this.segmentRepository.flush();
+	}
+
 }

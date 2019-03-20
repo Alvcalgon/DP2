@@ -222,12 +222,13 @@ public class MemberService {
 
 	private void validateRegistration(final Member member, final RegistrationForm registrationForm, final BindingResult binding) {
 		String password, confirmPassword, username;
-		boolean checkBox;
+		boolean checkBox, checkBoxData;
 
 		password = registrationForm.getPassword();
 		confirmPassword = registrationForm.getConfirmPassword();
 		username = registrationForm.getUsername();
 		checkBox = registrationForm.getCheckBoxAccepted();
+		checkBoxData = registrationForm.getCheckBoxDataProcessesAccepted();
 
 		this.validateEmail(member.getEmail(), binding);
 		if (username.trim().equals(""))
@@ -239,7 +240,9 @@ public class MemberService {
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
 		if (checkBox == false)
-			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions");
+			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)
@@ -318,6 +321,7 @@ public class MemberService {
 		registrationForm.setPhoneNumber(member.getPhoneNumber());
 		registrationForm.setAddress(member.getAddress());
 		registrationForm.setCheckBoxAccepted(false);
+		registrationForm.setCheckBoxDataProcessesAccepted(false);
 
 		return registrationForm;
 	}

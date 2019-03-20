@@ -4,9 +4,9 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-
-import org.hibernate.validator.constraints.Range;
 
 @Embeddable
 @Access(AccessType.PROPERTY)
@@ -19,7 +19,8 @@ public class GPSCoordinates {
 
 
 	@Digits(integer = 8, fraction = 6)
-	@Range(min = -90, max = 90)
+	@DecimalMax("90.0")
+	@DecimalMin("-90.0")
 	public double getLatitude() {
 		return this.latitude;
 	}
@@ -29,7 +30,8 @@ public class GPSCoordinates {
 	}
 
 	@Digits(integer = 9, fraction = 6)
-	@Range(min = -180, max = 180)
+	@DecimalMax("180.0")
+	@DecimalMin("-180.0")
 	public double getLongitude() {
 		return this.longitude;
 	}

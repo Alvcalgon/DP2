@@ -238,6 +238,9 @@ public class ParadeService {
 
 		Parade paradeCopied;
 		Parade paradeSaved;
+		final Integer[][] matrizParade;
+		final int rowLimit;
+		final int columnLimit;
 
 		paradeCopied = this.create();
 
@@ -250,6 +253,16 @@ public class ParadeService {
 		paradeCopied.setMatrizParade(parade.getMatrizParade());
 		paradeCopied.setReasonWhy(null);
 		paradeCopied.setTitle(parade.getTitle());
+
+		rowLimit = this.customisationService.find().getRowLimit();
+		columnLimit = this.customisationService.find().getColumnLimit();
+		matrizParade = new Integer[rowLimit][columnLimit];
+
+		for (int i = 0; i < matrizParade.length; i++)
+			for (int j = 0; j < matrizParade[0].length; j++)
+				matrizParade[i][j] = 0;
+
+		paradeCopied.setMatrizParade(matrizParade);
 
 		paradeSaved = this.paradeRepository.save(paradeCopied);
 
@@ -472,7 +485,7 @@ public class ParadeService {
 	}
 	private void checkReasonWhy(final Parade parade, final BindingResult binding) {
 		if (parade.getReasonWhy().isEmpty())
-			binding.rejectValue("reasonWhy", "parade.error.blank", "Can not be blank");
+			binding.rejectValue("reasonWhy", "parade.commit.reasonWhy");
 	}
 
 	public SortedMap<Integer, List<Integer>> positionsFree(final Parade parade) {

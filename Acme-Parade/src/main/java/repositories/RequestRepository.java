@@ -27,6 +27,9 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("select r from Request r where r.member.id = ?1 and r.status='REJECTED'")
 	Collection<Request> findRejectedRequestByMember(int id);
 
+	@Query("select distinct r from Request r join r.parade p join p.floats f where f.brotherhood.id = ?1")
+	Collection<Request> findRequestByBrotherhoodId(int id);
+
 	@Query("select distinct r from Request r join r.parade p join p.floats f where f.brotherhood.id = ?1 and r.status='PENDING'")
 	Collection<Request> findPendingRequestByBrotherhood(int id);
 
@@ -35,6 +38,9 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 
 	@Query("select distinct r from Request r join r.parade p join p.floats f where f.brotherhood.id = ?1 and r.status='REJECTED'")
 	Collection<Request> findRejectedRequestByBrotherhood(int id);
+
+	@Query("select distinct r from Request r join r.parade.floats f where r.member.id = ?1 and f.brotherhood.id = ?2")
+	Collection<Request> findRequestByMemberIdBrotherhoodId(int memberId, int brotherhoodId);
 
 	@Query("select r from Request r where r.parade.id=?1")
 	Collection<Request> findRequestByParade(int paradeId);
