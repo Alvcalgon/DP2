@@ -50,98 +50,100 @@ public class ChapterServiceTest extends AbstractTest {
 	/*
 	 * REQUIREMENT TESTED: An actor who is not authenticated must be able to:
 	 * Register to the system as chapter.
-	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: Approximately 77% of sentence coverage,
-	 * since it has been covered 14 lines of code of 18 possible.
-	 * 
-	 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-	 * actors have a lot of attributes with some restrictions.
 	 */
 	@Test
-	public void testRegisterChapter() {
-		Chapter chapter, saved;
-		Area area;
-		UserAccount userAccount;
-		Authority auth;
-		int areaId;
+	public void registerChapterDriver() {
+		final Object testingData[][] = {
+			/*
+			 * ANALISYS OF SENTENCE COVERAGE: Approximately 80% of sentence coverage,
+			 * since it has been covered 16 lines of code of 20 possible.
+			 * 
+			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
+			 * actors have a lot of attributes with some restrictions.
+			 */
+			{
+				"area3", null
+			},
 
-		areaId = this.getEntityId("area3");
-		area = this.areaRepository.findOne(areaId);
-		auth = new Authority();
-		auth.setAuthority("CHAPTER");
-		userAccount = new UserAccount();
+			/*
+			 * ANALISYS OF SENTENCE COVERAGE: Approximately 75% of sentence coverage,
+			 * since it has been covered 15 lines of code of 20 possible.
+			 * 
+			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
+			 * actors have a lot of attributes with some restrictions.
+			 */
+			{
+				null, null
+			},
 
-		userAccount.setAuthorities(Arrays.asList(auth));
-		userAccount.setUsername("testingUsername");
-		userAccount.setPassword("testingPassword");
+			/*
+			 * BUSINESS RULE UNDER TEST: No area can be coordinated by more than one
+			 * chapter.
+			 * 
+			 * ANALISYS OF SENTENCE COVERAGE: Approximately 20% of sentence coverage,
+			 * since it has been covered 4 lines of code of 20 possible.
+			 * 
+			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
+			 * actors have a lot of attributes with some restrictions.
+			 */
+			{
+				"area1", IllegalArgumentException.class
+			}
+		};
 
-		chapter = this.chapterService.create();
-		chapter.setAddress("C/Test nº99");
-		chapter.setArea(area);
-		chapter.setEmail("emailTest@gmail.com");
-		chapter.setName("TestingName");
-		chapter.setMiddleName("TestingMiddleName");
-		chapter.setSurname("TestingSurname");
-		chapter.setPhoto("http://www.photourl12.com");
-		chapter.setPhoneNumber("123 123123123");
-		chapter.setTitle("TestingTitle");
-		chapter.setUserAccount(userAccount);
-
-		saved = this.chapterService.save(chapter);
-		this.chapterRepository.flush();
-
-		chapter = this.chapterRepository.findOne(saved.getId());
-		Assert.isTrue(saved.equals(chapter));
+		for (int i = 0; i < testingData.length; i++)
+			this.registerChapterTemplate((String) testingData[i][0], ((Class<?>) testingData[i][1]));
 	}
 
-	/*
-	 * REQUIREMENT TESTED: An actor who is not authenticated must be able to:
-	 * Register to the system as chapter.
-	 * 
-	 * BUSINESS RULE UNDER TEST: No area can be co-ordinated by more than one
-	 * chapter.
-	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: Approximately 77% of sentence coverage,
-	 * since it has been covered 14 lines of code of 18 possible.
-	 * 
-	 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-	 * actors have a lot of attributes with some restrictions.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testRegisterChapterInvalidArea() {
+	protected void registerChapterTemplate(final String areaName, final Class<?> expected) {
+		Class<?> caught;
 		Chapter chapter, saved;
 		Area area;
 		UserAccount userAccount;
 		Authority auth;
 		int areaId;
 
-		areaId = this.getEntityId("area1");
-		area = this.areaRepository.findOne(areaId);
-		auth = new Authority();
-		auth.setAuthority("CHAPTER");
-		userAccount = new UserAccount();
+		super.startTransaction();
 
-		userAccount.setAuthorities(Arrays.asList(auth));
-		userAccount.setUsername("testingUsername");
-		userAccount.setPassword("testingPassword");
+		caught = null;
+		area = null;
+		try {
+			if (areaName != null) {
+				areaId = this.getEntityId(areaName);
+				area = this.areaRepository.findOne(areaId);
+			}
 
-		chapter = this.chapterService.create();
-		chapter.setAddress("C/Test nº99");
-		chapter.setArea(area);
-		chapter.setEmail("emailTest@gmail.com");
-		chapter.setName("TestingName");
-		chapter.setMiddleName("TestingMiddleName");
-		chapter.setSurname("TestingSurname");
-		chapter.setPhoto("http://www.photourl12.com");
-		chapter.setPhoneNumber("123 123123123");
-		chapter.setTitle("TestingTitle");
-		chapter.setUserAccount(userAccount);
+			auth = new Authority();
+			auth.setAuthority("CHAPTER");
+			userAccount = new UserAccount();
 
-		saved = this.chapterService.save(chapter);
-		this.chapterRepository.flush();
+			userAccount.setAuthorities(Arrays.asList(auth));
+			userAccount.setUsername("testingUsername");
+			userAccount.setPassword("testingPassword");
 
-		chapter = this.chapterRepository.findOne(saved.getId());
-		Assert.isTrue(saved.equals(chapter));
+			chapter = this.chapterService.create();
+			chapter.setAddress("C/Test nº99");
+			chapter.setArea(area);
+			chapter.setEmail("emailTest@gmail.com");
+			chapter.setName("TestingName");
+			chapter.setMiddleName("TestingMiddleName");
+			chapter.setSurname("TestingSurname");
+			chapter.setPhoto("http://www.photourl12.com");
+			chapter.setPhoneNumber("123 123123123");
+			chapter.setTitle("TestingTitle");
+			chapter.setUserAccount(userAccount);
+
+			saved = this.chapterService.save(chapter);
+			this.chapterRepository.flush();
+
+			chapter = this.chapterRepository.findOne(saved.getId());
+			Assert.isTrue(saved.equals(chapter));
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+
+		super.rollbackTransaction();
+		super.checkExceptions(expected, caught);
 	}
 
 	/*
