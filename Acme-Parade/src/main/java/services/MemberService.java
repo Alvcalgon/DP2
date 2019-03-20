@@ -42,6 +42,12 @@ public class MemberService {
 	@Autowired
 	private FinderService		finderService;
 
+	@Autowired
+	private RequestService		requestService;
+
+	@Autowired
+	private EnrolmentService	enrolmentService;
+
 
 	// Constructors -------------------------------
 
@@ -91,6 +97,23 @@ public class MemberService {
 			this.finderService.assignNewFinder(result);
 
 		return result;
+	}
+
+	public void delete(final Member member) {
+		Assert.notNull(member);
+		Assert.isTrue(member.getId() != 0);
+
+		// Delete request
+		this.requestService.deleteRequests(member);
+
+		// Delete enrolments
+		this.enrolmentService.deleteEnrolments(member);
+
+		// Delete finder
+		this.finderService.deleteFinder(member);
+
+		// Delete UserAccount, Boxes and Social Profiles
+		this.actorService.delete(member);
 	}
 
 	// Other business methods ---------------------
@@ -239,8 +262,10 @@ public class MemberService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false || checkBoxData == false)
+		if (checkBox == false)
 			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)

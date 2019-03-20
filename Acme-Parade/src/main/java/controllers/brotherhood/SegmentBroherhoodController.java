@@ -89,7 +89,7 @@ public class SegmentBroherhoodController extends AbstractController {
 		else
 			try {
 				if (segment.getId() == 0)
-					parade = this.paradeService.findOne(paradeId);
+					parade = this.paradeService.findOneToEdit(paradeId);
 				else
 					parade = this.paradeService.findBySegment(segment.getId());
 
@@ -106,8 +106,8 @@ public class SegmentBroherhoodController extends AbstractController {
 				else
 					result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 
-			} catch (final Exception e) {
-				result = new ModelAndView("redirect:../../error.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 			}
 		return result;
 	}

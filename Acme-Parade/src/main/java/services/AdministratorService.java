@@ -86,6 +86,15 @@ public class AdministratorService {
 		return result;
 	}
 
+	public void delete(final Administrator administrator) {
+		Assert.notNull(administrator);
+		Assert.isTrue(!administrator.getUserAccount().getUsername().equals("system"));
+		Assert.isTrue(administrator.getId() != 0);
+
+		this.actorService.delete(administrator);
+
+	}
+
 	// Other business methods ---------------------
 	public Administrator findSystem() {
 		Administrator result;
@@ -210,8 +219,10 @@ public class AdministratorService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false || checkBoxData == false)
+		if (checkBox == false)
 			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)

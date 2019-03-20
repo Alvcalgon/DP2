@@ -15,6 +15,7 @@ import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -45,6 +46,9 @@ public class ActorService {
 
 	@Autowired
 	private AdministratorService	administratorService;
+
+	@Autowired
+	private UserAccountService		userAccountService;
 
 
 	// Constructors -------------------------------
@@ -78,6 +82,18 @@ public class ActorService {
 
 		return result;
 
+	}
+
+	public void delete(final Actor actor) {
+
+		// Delete UserAccount
+		this.userAccountService.deleteUserAccount(actor);
+
+		// Delete boxes
+
+		// Delete social profiles
+
+		this.actorRepository.delete(actor);
 	}
 
 	public Collection<Actor> findAll() {

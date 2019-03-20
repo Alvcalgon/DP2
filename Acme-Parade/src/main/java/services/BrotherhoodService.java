@@ -51,6 +51,18 @@ public class BrotherhoodService {
 	@Autowired
 	private UtilityService			utilityService;
 
+	@Autowired
+	private ParadeService			paradeService;
+
+	@Autowired
+	private FloatService			floatService;
+
+	@Autowired
+	private RequestService			requestService;
+
+	@Autowired
+	private EnrolmentService		enrolmentService;
+
 
 	// Constructors -------------------------------
 
@@ -106,6 +118,27 @@ public class BrotherhoodService {
 		result = (Brotherhood) this.actorService.save(brotherhood);
 
 		return result;
+	}
+
+	public void delete(final Brotherhood brotherhood) {
+		Assert.notNull(brotherhood);
+		Assert.isTrue(brotherhood.getId() != 0);
+
+		// Delete parades
+		this.paradeService.deleteParadeBrotherhood(brotherhood);
+
+		// Delete floats
+		this.floatService.deleteFloatBrotherhood(brotherhood);
+
+		// Delete request
+		this.requestService.deleteRequests(brotherhood);
+
+		// Delete enrolments
+		this.enrolmentService.deleteEnrolments(brotherhood);
+
+		// Delete UserAccount, boxes and social profiles
+		this.actorService.delete(brotherhood);
+
 	}
 
 	// Other business methods ---------------------
@@ -279,8 +312,10 @@ public class BrotherhoodService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false || checkBoxData == false)
+		if (checkBox == false)
 			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)

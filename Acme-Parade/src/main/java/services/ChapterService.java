@@ -107,6 +107,18 @@ public class ChapterService {
 		return result;
 	}
 
+	public void delete(final Chapter chapter) {
+		Assert.notNull(chapter);
+		Assert.isTrue(chapter.getId() != 0);
+
+		// Delete proclaims
+
+		// Uncoordinate him/her area
+
+		// Delete UserAccount, boxes and social profiles
+		this.actorService.delete(chapter);
+	}
+
 	// Other business methods -----------------
 	public void selfAssignedArea(final Area area) {
 		Assert.notNull(area);
@@ -262,8 +274,10 @@ public class ChapterService {
 		}
 		if (!password.equals(confirmPassword))
 			binding.rejectValue("confirmPassword", "user.missmatch.password", "Does not match with password");
-		if (checkBox == false || checkBoxData == false)
+		if (checkBox == false)
 			binding.rejectValue("checkBoxAccepted", "actor.checkBox.agree", "Must agree terms and conditions and data processes");
+		if (checkBoxData == false)
+			binding.rejectValue("checkBoxDataProcessesAccepted", "actor.checkBoxData.agree", "Must agree data processes");
 		if (this.userAccountService.existUsername(username))
 			binding.rejectValue("username", "actor.username.used", "Username already in use");
 		if (password.length() < 5 || password.length() > 32)

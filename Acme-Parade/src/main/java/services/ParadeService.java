@@ -425,6 +425,10 @@ public class ParadeService {
 
 	}
 
+	protected void addSegment(final Parade parade, final Segment segment) {
+		parade.getSegments().add(segment);
+	}
+
 	protected void searchParadeFinder(final Finder finder, final Pageable pageable) {
 		Page<Parade> parades;
 

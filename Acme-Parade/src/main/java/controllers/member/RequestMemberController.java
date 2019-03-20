@@ -22,13 +22,13 @@ import domain.Request;
 public class RequestMemberController extends AbstractController {
 
 	@Autowired
-	private RequestService		requestService;
+	private RequestService	requestService;
 
 	@Autowired
 	private ParadeService	paradeService;
 
 	@Autowired
-	private MemberService		memberService;
+	private MemberService	memberService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -72,7 +72,7 @@ public class RequestMemberController extends AbstractController {
 			try {
 				final Parade parade;
 
-				parade = this.paradeService.findOne(paradeId);
+				parade = this.paradeService.findOneToDisplay(paradeId);
 				request = this.requestService.create(parade);
 				this.requestService.saveNew(request);
 				result = new ModelAndView("redirect:/request/member/list.do");
