@@ -48,8 +48,8 @@ public class ProclaimServiceTest extends AbstractTest {
 
 	/*
 	 * A: Req 12: Chapters can publish proclaims. For every proclaim, the system must store the moment when its published and a piece of text that cant be longer than 250 characters.
-	 * C: 100%(11/11) Recorre 11 lineas de código de las 11 posibles
-	 * D:Intencionadamente en blanco; no hay datos que checkear
+	 * C: 100%(22 lines /22 lines)
+	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
 	public void create_positive_test() {
@@ -69,8 +69,8 @@ public class ProclaimServiceTest extends AbstractTest {
 	/*
 	 * A: Req 12: Chapters can publish proclaims. For every proclaim, the system must store the moment when its published and a piece of text that cant be longer than 250 characters.
 	 * B: Insertamos una fecha que no sea past
-	 * C: 54.5%(6/11) Recorre 6 lineas de código de las 11 posibles
-	 * D:Intencionadamente en blanco; no hay datos que checkear
+	 * C: 50%(11 lines/22 lines)
+	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void create_negative_test() {
@@ -90,9 +90,9 @@ public class ProclaimServiceTest extends AbstractTest {
 
 	/*
 	 * A: Req 17.1: Publish a proclaim. Note that once a proclaim is published, theres no way to update or delete it, so double confirmation prior to publication is a must.
-	 * B: El proclaim no se puede editar
-	 * C: 100%(11/11) Recorre 11 lineas de código de las 11 posibles
-	 * D:Intencionadamente en blanco; no hay datos que checkear
+	 * B: El proclaim no se puede editar. Su id!=0
+	 * C: 54.54%(12 lines /22 lines)
+	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void edit_negative_test() {
