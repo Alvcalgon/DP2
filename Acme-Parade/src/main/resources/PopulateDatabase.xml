@@ -4050,13 +4050,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>1</value>
+					<value>1</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4066,7 +4072,7 @@
 				<ref bean="float5" />
 			</list>
 		</property>
-		<property name="status" value="submitted" />
+		<property name="status" value="accepted" />
 		<property name="segments">
 			<list>
 				<ref bean="segment8" />
@@ -4085,13 +4091,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>1</value>
+					<value>1</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>1</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4138,8 +4150,7 @@
 				<ref bean="float6" />
 			</list>
 		</property>
-		<property name="status" value="rejected" />
-		<property name="reasonWhy" value="no es adecuado" />
+		<property name="status" value="accepted" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4157,13 +4168,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4193,13 +4210,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4209,7 +4232,8 @@
 				<ref bean="float5" />
 			</list>
 		</property>
-		<property name="status" value="accepted" />
+		<property name="status" value="rejected" />
+		<property name="reasonWhy" value="no es adecuado" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4229,13 +4253,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-			<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4266,13 +4296,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
@@ -4282,7 +4318,8 @@
 				<ref bean="float3" />
 			</list>
 		</property>
-		<property name="status" value="accepted" />
+		<property name="status" value="rejected" />
+		<property name="reasonWhy" value="no es adecuado" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4302,13 +4339,19 @@
 		<property name="matrizParade">
 			<list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 				<list>
-					<null></null>
+					<value>0</value>
+					<value>0</value>
+					<value>0</value>
 				</list>
 			</list>
 		</property>
