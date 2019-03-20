@@ -72,10 +72,9 @@ public class ProclaimServiceTest extends AbstractTest {
 	 * C: 54.5%(6/11) Recorre 6 lineas de código de las 11 posibles
 	 * D:Intencionadamente en blanco; no hay datos que checkear
 	 */
-	@Test
-	//TODO no comprueba los characters máximos
+	@Test(expected = IllegalArgumentException.class)
 	public void create_negative_test() {
-		super.authenticate("chapter1");
+		super.authenticate("brotherhood1");
 
 		Proclaim proclaim;
 
