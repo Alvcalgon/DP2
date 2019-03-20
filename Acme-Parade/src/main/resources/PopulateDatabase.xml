@@ -4276,7 +4276,7 @@
 				
 			</list>
 		</property>
-		<property name="status" value="accepted" />
+		<property name="status" value="submitted" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4318,8 +4318,7 @@
 				<ref bean="float3" />
 			</list>
 		</property>
-		<property name="status" value="rejected" />
-		<property name="reasonWhy" value="no es adecuado" />
+		<property name="status" value="submitted" />
 		<property name="segments">
 			<list>
 				<null></null>
@@ -4360,7 +4359,7 @@
 				<ref bean="float6" />
 			</list>
 		</property>
-		<property name="status" value="accepted" />
+		<property name="status" value="submitted" />
 		<property name="segments">
 			<list>
 				<null></null>
