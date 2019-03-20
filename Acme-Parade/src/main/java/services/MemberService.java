@@ -42,6 +42,12 @@ public class MemberService {
 	@Autowired
 	private FinderService		finderService;
 
+	@Autowired
+	private RequestService		requestService;
+
+	@Autowired
+	private EnrolmentService	enrolmentService;
+
 
 	// Constructors -------------------------------
 
@@ -91,6 +97,23 @@ public class MemberService {
 			this.finderService.assignNewFinder(result);
 
 		return result;
+	}
+
+	public void delete(final Member member) {
+		Assert.notNull(member);
+		Assert.isTrue(member.getId() != 0);
+
+		// Delete request
+		this.requestService.deleteRequests(member);
+
+		// Delete enrolments
+		this.enrolmentService.deleteEnrolments(member);
+
+		// Delete finder
+		this.finderService.deleteFinder(member);
+
+		// Delete UserAccount, Boxes and Social Profiles
+		this.actorService.delete(member);
 	}
 
 	// Other business methods ---------------------
