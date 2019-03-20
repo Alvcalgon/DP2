@@ -137,14 +137,27 @@ public class RequestService {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		//		if (request.getStatus().equals("APPROVED"))
-		//			this.checkPositionIsFree(request);
+		if (request.getStatus().equals("APPROVED"))
+			this.checkPositionFree(request);
 		final Request result;
 
 		result = this.requestRepository.save(request);
 
 		return result;
 	}
+
+	private void checkPositionFree(final Request request) {
+		final Integer[][] matrizParade;
+		Integer row, column;
+
+		matrizParade = request.getParade().getMatrizParade();
+		row = request.getRowParade() - 1;
+		column = request.getRowParade() - 1;
+
+		Assert.isTrue(matrizParade[row][column] == 0);
+
+	}
+
 	public Request saveEditApproved(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(!(request.getId() == 0));

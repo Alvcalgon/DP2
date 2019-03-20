@@ -646,5 +646,4 @@ public class ParadeService {
 		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(parade).equals(brotherhood));
 
 	}
-
 }

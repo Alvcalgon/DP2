@@ -118,15 +118,15 @@ public class RequestServiceTest extends AbstractTest {
 			{
 				"brotherhood3", "request1", 3, 3, "PENDING", IllegalArgumentException.class
 			},
-			//			/*
-			//			 * A: Acme-Madrugá Req.7 Editar una solicitud
-			//			 * B:Test negativo: Editar una solicitud poniendole una posicion que ya está asignada
-			//			 * C:
-			//			 * D:
-			//			 */
-			//			{
-			//				"brotherhood2", "request6", 2, 1, IllegalArgumentException.class
-			//			},
+			/*
+			 * A: Acme-Madrugá Req.7 Editar una solicitud
+			 * B:Test negativo: Editar una solicitud poniendole una posicion que ya está asignada
+			 * C:
+			 * D:
+			 */
+			{
+				"brotherhood2", "request6", 2, 1, "APPROVED", null
+			},
 
 			/*
 			 * A: Acme-Madrugá Req.7 Editar una solicitud
