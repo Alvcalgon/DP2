@@ -1,6 +1,8 @@
 
 package controllers.authenticated;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -125,6 +127,30 @@ public class ActorMultiUserController extends ActorAbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "deleteAdmin")
+	public ModelAndView deleteAdministrator(final RegistrationForm registrationForm, final BindingResult binding, final HttpSession session) {
+		ModelAndView result;
+		Administrator administrator;
+
+		administrator = this.administratorService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Administrator");
+		} else
+			try {
+				this.administratorService.delete(administrator);
+				session.invalidate();
+				result = new ModelAndView("/welcome/index");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Administrator");
+			}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveBrotherhood")
 	public ModelAndView saveBrotherhood(@ModelAttribute("registrationForm") final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
@@ -139,6 +165,29 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.brotherhoodService.save(brotherhood);
 				result = new ModelAndView("redirect:/actor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(brotherhoodRegistrationForm, "actor.commit.error");
+				result.addObject("rol", "Brotherhood");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "deleteBrotherhood")
+	public ModelAndView deleteBrotherhood(@ModelAttribute("registrationForm") final BrotherhoodRegistrationForm brotherhoodRegistrationForm, final BindingResult binding, final HttpSession session) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		brotherhood = this.brotherhoodService.reconstruct(brotherhoodRegistrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(brotherhoodRegistrationForm);
+			result.addObject("rol", "Brotherhood");
+		} else
+			try {
+				this.brotherhoodService.delete(brotherhood);
+				session.invalidate();
+				result = new ModelAndView("welcome/index");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(brotherhoodRegistrationForm, "actor.commit.error");
 				result.addObject("rol", "Brotherhood");
@@ -169,6 +218,29 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "deleteMember")
+	public ModelAndView deleteMember(final RegistrationForm registrationForm, final BindingResult binding, final HttpSession session) {
+		ModelAndView result;
+		Member member;
+
+		member = this.memberService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Member");
+		} else
+			try {
+				this.memberService.delete(member);
+				session.invalidate();
+				result = new ModelAndView("welcome/index");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Member");
+			}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveChapter")
 	public ModelAndView saveChapter(@ModelAttribute("registrationForm") final ChapterRegistrationForm chapterRegistrationForm, final BindingResult binding) {
 		ModelAndView result;
@@ -191,6 +263,29 @@ public class ActorMultiUserController extends ActorAbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "deleteChapter")
+	public ModelAndView deleteChapter(@ModelAttribute("registrationForm") final ChapterRegistrationForm chapterRegistrationForm, final BindingResult binding, final HttpSession session) {
+		ModelAndView result;
+		Chapter chapter;
+
+		chapter = this.chapterService.reconstruct(chapterRegistrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(chapterRegistrationForm);
+			result.addObject("rol", "Chapter");
+		} else
+			try {
+				this.chapterService.delete(chapter);
+				session.invalidate();
+				result = new ModelAndView("welcome/index");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(chapterRegistrationForm, "actor.commit.error");
+				result.addObject("rol", "Chapter");
+			}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveSponsor")
 	public ModelAndView saveSponsor(final RegistrationForm registrationForm, final BindingResult binding) {
 		ModelAndView result;
@@ -205,6 +300,29 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.sponsorService.save(sponsor);
 				result = new ModelAndView("redirect:/actor/display.do");
+			} catch (final Throwable oops) {
+				result = this.createModelAndView(registrationForm, "actor.commit.error");
+				result.addObject("rol", "Sponsor");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "deleteSponsor")
+	public ModelAndView deleteSponsor(final RegistrationForm registrationForm, final BindingResult binding, final HttpSession session) {
+		ModelAndView result;
+		Sponsor sponsor;
+
+		sponsor = this.sponsorService.reconstruct(registrationForm, binding);
+
+		if (binding.hasErrors()) {
+			result = this.createModelAndView(registrationForm);
+			result.addObject("rol", "Sponsor");
+		} else
+			try {
+				this.sponsorService.delete(sponsor);
+				session.invalidate();
+				result = new ModelAndView("welcome/index");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
 				result.addObject("rol", "Sponsor");

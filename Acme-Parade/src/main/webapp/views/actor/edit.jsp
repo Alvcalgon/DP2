@@ -117,18 +117,23 @@
  	<jstl:choose>
 		<jstl:when test="${rol == 'Administrator'}">
 			<acme:submit name="saveAdmin" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+			<acme:submit name="deleteAdmin" code="actor.delete" onclick="return confirm('<spring:message code="actor.confirm.delete" />')"/>
 		</jstl:when>
 		<jstl:when test="${rol == 'Brotherhood'}">
 			<acme:submit name="saveBrotherhood" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+			<acme:submit name="deleteBrotherhood" code="actor.delete" onclick="return confirm('<spring:message code="actor.confirm.delete" />')"/>
 		</jstl:when>
 		<jstl:when test="${rol == 'Member'}">
 			<acme:submit name="saveMember" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+			<acme:submit name="deleteMember" code="actor.delete" onclick="return confirm('<spring:message code="actor.confirm.delete" />')"/>
 		</jstl:when>
 		<jstl:when test="${rol == 'Chapter'}">
 			<acme:submit name="saveChapter" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+			<acme:submit name="deleteChapter" code="actor.delete" onclick="return confirm('<spring:message code="actor.confirm.delete" />')"/>
 		</jstl:when>
 		<jstl:when test="${rol == 'Sponsor'}">
 			<acme:submit name="saveSponsor" code="actor.save" onclick="javascript: return checkTelephone('${confirmTelephone}');"/>
+			<acme:submit name="deleteSponsor" code="actor.delete" onclick="return confirm('<spring:message code="actor.confirm.delete" />')"/>
 		</jstl:when>
 	</jstl:choose>
 	
