@@ -536,17 +536,36 @@ public class MessageService {
 
 	// This method id used when an actor want to delete all his or her data.
 	public void deleteMessagesFromActor(final Actor actor) {
-		Collection<Message> messages;
+		Collection<Message> sentMessages, receivedMessages;
 
-		messages = this.findMessagesFromActor(actor.getId());
+		sentMessages = this.findSentMessagesByActor(actor.getId());
 
-		this.messageRepository.delete(messages);
+		this.messageRepository.delete(sentMessages);
+
+		receivedMessages = this.findReceivedMessagesByActor(actor.getId());
+
+		for (final Message m : receivedMessages)
+			// If the message has as unique recipient the actor, then the message
+			// is deleted
+			if (m.getRecipients().size() == 1)
+				this.messageRepository.delete(m);
+			else
+				m.getRecipients().remove(actor);
+
 	}
 
-	private Collection<Message> findMessagesFromActor(final int actorId) {
+	private Collection<Message> findSentMessagesByActor(final int actorId) {
 		Collection<Message> results;
 
-		results = this.messageRepository.findMessagesFromActor(actorId);
+		results = this.messageRepository.findSentMessagesByActor(actorId);
+
+		return results;
+	}
+
+	private Collection<Message> findReceivedMessagesByActor(final int actorId) {
+		Collection<Message> results;
+
+		results = this.messageRepository.findReceivedMessagesByActor(actorId);
 
 		return results;
 	}
