@@ -25,6 +25,7 @@
 	<display:column property="text" titleKey="proclaim.text" />
 	<display:column property="publishedMoment" titleKey="proclaim.publishedMoment" format="${w_format}" sortable="true" />
 </display:table>
+<br />
 
 <security:authorize access="hasRole('CHAPTER')">
 	<a href="proclaim/chapter/create.do">
