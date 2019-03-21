@@ -118,6 +118,14 @@ public class ProclaimService {
 		return result;
 	}
 
+	public void deleteProclaims(final Chapter chapter) {
+		Collection<Proclaim> proclaims;
+
+		proclaims = this.findByChapterId(chapter.getId());
+
+		this.proclaimRepository.delete(proclaims);
+	}
+
 	private void checkByPrincipal(final Proclaim proclaim) {
 		Chapter principal;
 
