@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AreaService;
+import services.CustomisationService;
 import services.FinderService;
 import controllers.AbstractController;
+import domain.Customisation;
 import domain.Finder;
 
 @Controller
@@ -22,10 +24,13 @@ public class FinderMemberController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private FinderService	finderService;
+	private FinderService			finderService;
 
 	@Autowired
-	private AreaService		areaService;
+	private AreaService				areaService;
+
+	@Autowired
+	private CustomisationService	customisationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -35,6 +40,26 @@ public class FinderMemberController extends AbstractController {
 	}
 
 	// Controller methods -----------------------------------------------------		
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display() {
+		ModelAndView result;
+		Customisation customisation;
+		int numberOfResults;
+		Finder finder;
+
+		customisation = this.customisationService.find();
+		numberOfResults = customisation.getMaxNumberResults();
+		finder = this.finderService.findByMemberPrincipal();
+		finder = this.finderService.evaluateSearch(finder);
+
+		result = new ModelAndView("finder/display");
+		result.addObject("requestURI", "finder/member/display.do");
+		result.addObject("finder", finder);
+		result.addObject("numberOfResults", numberOfResults);
+
+		return result;
+	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
@@ -55,7 +80,7 @@ public class FinderMemberController extends AbstractController {
 		finder = this.finderService.findByMemberPrincipal();
 		this.finderService.clear(finder);
 
-		result = new ModelAndView("redirect:/parade/member/listFinder.do");
+		result = new ModelAndView("redirect:display.do");
 
 		return result;
 	}
@@ -71,7 +96,7 @@ public class FinderMemberController extends AbstractController {
 		else
 			try {
 				this.finderService.save(finderRec);
-				result = new ModelAndView("redirect:/parade/member/listFinder.do");
+				result = new ModelAndView("redirect:display.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(finderRec, "finder.commit.error");
 			}
