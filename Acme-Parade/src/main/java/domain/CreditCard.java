@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
@@ -45,6 +46,7 @@ public class CreditCard {
 
 	@NotBlank
 	@CreditCardNumber
+	@Pattern(regexp = "//d+")
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;
