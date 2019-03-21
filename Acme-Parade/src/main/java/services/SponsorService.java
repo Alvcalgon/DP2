@@ -90,6 +90,14 @@ public class SponsorService {
 		return result;
 	}
 
+	public void delete(final Sponsor sponsor) {
+		Assert.notNull(sponsor);
+		Assert.isTrue(sponsor.getId() != 0);
+
+		// Delete sponsorships
+
+	}
+
 	// Other business methods -----------------
 
 	protected Sponsor findByPrincipal() {

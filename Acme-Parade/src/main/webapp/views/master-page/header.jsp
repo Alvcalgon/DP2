@@ -50,7 +50,7 @@
 				</ul>
 			</li>
 			
-			<li><a class="fNiv" href="parade/member/listFinder.do"><spring:message code="master.page.finder.parade" /></a></li>
+			<li><a class="fNiv" href="finder/member/display.do"><spring:message code="master.page.finder.parade" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CHAPTER')">

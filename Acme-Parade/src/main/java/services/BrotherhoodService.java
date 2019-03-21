@@ -51,6 +51,18 @@ public class BrotherhoodService {
 	@Autowired
 	private UtilityService			utilityService;
 
+	@Autowired
+	private ParadeService			paradeService;
+
+	@Autowired
+	private FloatService			floatService;
+
+	@Autowired
+	private RequestService			requestService;
+
+	@Autowired
+	private EnrolmentService		enrolmentService;
+
 
 	// Constructors -------------------------------
 
@@ -106,6 +118,27 @@ public class BrotherhoodService {
 		result = (Brotherhood) this.actorService.save(brotherhood);
 
 		return result;
+	}
+
+	public void delete(final Brotherhood brotherhood) {
+		Assert.notNull(brotherhood);
+		Assert.isTrue(brotherhood.getId() != 0);
+
+		// Delete parades
+		this.paradeService.deleteParadeBrotherhood(brotherhood);
+
+		// Delete floats
+		this.floatService.deleteFloatBrotherhood(brotherhood);
+
+		// Delete request
+		this.requestService.deleteRequests(brotherhood);
+
+		// Delete enrolments
+		this.enrolmentService.deleteEnrolments(brotherhood);
+
+		// Delete UserAccount, boxes and social profiles
+		this.actorService.delete(brotherhood);
+
 	}
 
 	// Other business methods ---------------------

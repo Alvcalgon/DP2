@@ -12,7 +12,6 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"
@@ -20,42 +19,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-
-<spring:message code="parade.formatDate" var="dateFormat"/>
-
-
-<!-- ---------------------------------FINDER CONFIGURATION-------------------------------------- -->
-<jstl:if test="${finder ne null}">
-	<fieldset>
-		<legend><spring:message code="parade.finder.parameters"/></legend>
-		
-		<p style="color:blue;"><spring:message code="parade.finder.warning"/><jstl:out value="${numberOfResults}"/></p>
-		
-		<ul>
-			<li>
-				<strong><spring:message code="parade.finder.keyword"/>: </strong>
-				<jstl:out value="${finder.keyword}"/>
-			</li>
-			<li>
-				<strong><spring:message code="parade.finder.area"/>: </strong>
-				<jstl:out value="${finder.area}"/>
-			</li>
-			<li>
-				<strong><spring:message code="parade.finder.minimum.date"/>: </strong>
-				<fmt:formatDate value="${finder.minimumDate}" pattern="${dateFormat}"/>
-			</li>
-			<li>
-				<strong><spring:message code="parade.finder.maximum.date"/>: </strong>
-				<fmt:formatDate value="${finder.maximumDate}" pattern="${dateFormat}"/>
-			</li>
-		</ul>
-		<div>
-			<a href="finder/member/edit.do"><spring:message code="parade.finder.edit"/></a>
-			&nbsp;
-			<a href="finder/member/clear.do"><spring:message code="parade.finder.clear"/></a>
-		</div>
-	</fieldset>
-</jstl:if>
 
 <!-- ---------------------------------NOTFINAL LIST-------------------------------------- -->
 <jstl:if test="${isOwner}">
@@ -131,14 +94,7 @@
 		</display:column>
 		
 	</jstl:if>
-	
-		<display:column style="background-color:${colorValue }">
-			<jstl:if test="${!rowSubmitted.isFinalMode && isOwner}">
-				<a href="parade/brotherhood/makeFinal.do?paradeId=${rowSubmitted.id}">
-					<spring:message code="parade.makeFinal" />
-				</a>
-			</jstl:if>
-		</display:column>
+
 		
 		<display:column style="background-color:${colorValue }">
 			<jstl:if test="${isOwner}">
@@ -236,13 +192,6 @@
 	</display:column>
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">	
-		<display:column style="background-color:${colorValue }" >
-			<jstl:if test="${!rowAccepted.isFinalMode && isOwner}">
-				<a href="parade/brotherhood/makeFinal.do?paradeId=${rowAccepted.id}">
-					<spring:message code="parade.makeFinal" />
-				</a>
-			</jstl:if>
-		</display:column>
 
 	<jstl:if test="${isOwner}">
 		<display:column style="background-color:${colorValue }">

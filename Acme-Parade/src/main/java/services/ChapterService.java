@@ -107,6 +107,18 @@ public class ChapterService {
 		return result;
 	}
 
+	public void delete(final Chapter chapter) {
+		Assert.notNull(chapter);
+		Assert.isTrue(chapter.getId() != 0);
+
+		// Delete proclaims
+
+		// Uncoordinate him/her area
+
+		// Delete UserAccount, boxes and social profiles
+		this.actorService.delete(chapter);
+	}
+
 	// Other business methods -----------------
 	public void selfAssignedArea(final Area area) {
 		Assert.notNull(area);
