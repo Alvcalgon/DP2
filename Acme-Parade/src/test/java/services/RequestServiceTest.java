@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Parade;
@@ -220,17 +219,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:20% 1/5
 			 */
 			{
-				"brotherhood1", "request01", null, "APPROVED", IllegalArgumentException.class
-			},
-
-			/*
-			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado de una request
-			 * B: Test negativo: Cambiar el estado a una request ya aprobada
-			 * C:22/36 Recorre de las 36 líneas totales
-			 * D:20% 1/5
-			 */
-			{
-				"brotherhood1", "request1", null, "APPROVED", IllegalArgumentException.class
+				"brotherhood2", "request01", null, "APPROVED", IllegalArgumentException.class
 			},
 
 			/*
@@ -240,7 +229,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:20% 1/5
 			 */
 			{
-				"brotherhood2", "request01", "", "REJECTED", IllegalArgumentException.class
+				"brotherhood1", "request01", "", "REJECTED", IllegalArgumentException.class
 			},
 
 		};

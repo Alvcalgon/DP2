@@ -187,7 +187,7 @@ public class RequestService {
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		Assert.isTrue(request.getStatus().equals("PENDING"));
+		//Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 		Integer[][] matrizParade;
 
@@ -211,11 +211,11 @@ public class RequestService {
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		Assert.isTrue(!(request.getStatus().equals("APPROVED")));
+		//Assert.isTrue(!(request.getStatus().equals("APPROVED")));
 		Assert.notNull(request.getReasonWhy());
 		Assert.isTrue(!(request.getReasonWhy().equals("")));
-		Assert.isTrue(request.getColumnParade().equals(null));
-		Assert.isTrue(request.getRowParade().equals(null));
+		Assert.isTrue(request.getColumnParade() == (null));
+		Assert.isTrue(request.getRowParade() == (null));
 		final Request result;
 
 		request.setStatus("REJECTED");
