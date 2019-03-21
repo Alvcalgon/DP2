@@ -101,50 +101,62 @@ public class RequestServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
+			 * A: Acme-Madrugá Req.7,10.6 Editar row y column de una solicitud aprobada
 			 * C:100%23/23 Recorre 23 de las 23 líneas totales
 			 * D:14.25% 1/7
 			 */
 			{
-				"brotherhood1", "request1", 3, 3, "APPROVED", null
+				"brotherhood1", "request1", 3, 3, null, null
 			},
+
 			/*
+			 * EL TEST HACE QUE NO PODAMOS MIRAR EL OBJETO EN EL POPULATE PARA COMPROBAR EL STATUS QUE TENÍAMOS
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
-			 * B:Test negativo: Editar una solicitud que es de otra hermandad
+			 * B:Test negativo: Editar row y column una solicitud aprobada que es de otra hermandad
 			 * C:87%20/23 Recorre 20 de las 23 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood3", "request1", 3, 3, "PENDING", IllegalArgumentException.class
+				"brotherhood3", "request1", 3, 3, null, IllegalArgumentException.class
 			},
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
-			 * B:Test negativo: Editar una solicitud que es de otra hermandad
+			 * B:Test negativo: Editar row y column de una solicitud aprobada a unas posiciones ocupadas en la parade
 			 * C:20/23 Recorre 20 de las 23 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood2", "request6", 2, 1, "APPROVED", IllegalArgumentException.class
+				"brotherhood2", "request6", 2, 1, null, IllegalArgumentException.class
+			},
+			/*
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
+			 * B:Test negativo: Editar reasonWhy de una solicitud aprobada
+			 * C:20/23 Recorre 20 de las 23 líneas totales
+			 * D:14.25%1/7
+			 */
+			{
+				"brotherhood2", "request6", 2, 2, "Reason why escrito", IllegalArgumentException.class
 			},
 
 			/*
+			 * EL TEST HACE QUE NO PODAMOS MIRAR EL OBJETO EN EL POPULATE PARA COMPROBAR EL STATUS QUE TENÍAMOS
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
-			 * B:Test negativo: Editar una solicitud con estado aceptado
+			 * B:Test negativo: Editar row y column de una solicitud con estado denegado
 			 * C:87%20/23 Recorre 20 de las 23 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood3", "request1", 1, 1, "REJECTED", IllegalArgumentException.class
+				"brotherhood2", "request9", 1, 1, "El estado es denegado", IllegalArgumentException.class
 			},
 
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
-			 * B:Test negativo: Un miembro no puede editar
+			 * B:Test negativo: Editar dejar vacío el reason why una solicitud con estado denegado
 			 * C:34% 8/23 Recorre 8 de las 23 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
-				"member1", "request1", 1, 1, "REJECTED", IllegalArgumentException.class
+				"brotherhood2", "request9", null, null, "", IllegalArgumentException.class
 			},
 
 		};
@@ -153,7 +165,7 @@ public class RequestServiceTest extends AbstractTest {
 			this.templateEdit((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Integer) testingData[i][2], (Integer) testingData[i][3], (String) testingData[i][4], (Class<?>) testingData[i][5]);
 
 	}
-	protected void templateEdit(final String username, final int requestId, final Integer column, final Integer row, final String status, final Class<?> expected) {
+	protected void templateEdit(final String username, final int requestId, final Integer column, final Integer row, final String reasonWhy, final Class<?> expected) {
 		Class<?> caught;
 		Request request;
 
@@ -166,7 +178,7 @@ public class RequestServiceTest extends AbstractTest {
 			request = this.requestService.findOne(requestId);
 			request.setColumnParade(column);
 			request.setRowParade(row);
-			request.setStatus(status);
+			request.setReasonWhy(reasonWhy);
 			this.requestService.saveEdit(request);
 			this.requestService.flush();
 
@@ -189,7 +201,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:20% 1/5
 			 */
 			{
-				"brotherhood2", "request01", null, "APPROVED", null
+				"brotherhood1", "request01", null, "APPROVED", null
 			},
 
 			/*
@@ -198,7 +210,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:20% 1/5
 			 */
 			{
-				"brotherhood2", "request01", "Es inapropiado", "REJECTED", null
+				"brotherhood1", "request01", "Es inapropiado", "REJECTED", null
 			},
 
 			/*
@@ -228,7 +240,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:20% 1/5
 			 */
 			{
-				"brotherhood2", "request01", "", "REJECTED", null
+				"brotherhood2", "request01", "", "REJECTED", IllegalArgumentException.class
 			},
 
 		};

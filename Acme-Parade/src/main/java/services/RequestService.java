@@ -127,6 +127,33 @@ public class RequestService {
 	public Request saveNew(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() == 0);
+		Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.isNull(request.getReasonWhy());
+		Assert.isNull(request.getRowParade());
+		Assert.isNull(request.getColumnParade());
+		final Request result;
+
+		result = this.requestRepository.save(request);
+
+		return result;
+	}
+	public Request saveEdit(final Request request) {
+		Assert.notNull(request);
+		Assert.isTrue(request.getId() != 0);
+		this.checkPrincipalIsBrotherhoodOfRequest(request);
+		this.checkNotChangeStatus(request);
+
+		if (request.getStatus().equals("APPROVED")) {
+			this.checkPositionFree(request);
+			Assert.isNull(request.getReasonWhy());
+		}
+		if (request.getStatus().equals("REJECTED")) {
+			Assert.isNull(request.getColumnParade());
+			Assert.isNull(request.getRowParade());
+			Assert.isTrue(!(request.getReasonWhy().equals("")));
+			Assert.isTrue(!(request.getReasonWhy().equals(null)));
+		}
+
 		final Request result;
 
 		result = this.requestRepository.save(request);
@@ -134,17 +161,13 @@ public class RequestService {
 		return result;
 	}
 
-	public Request saveEdit(final Request request) {
-		Assert.notNull(request);
-		Assert.isTrue(request.getId() != 0);
-		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		if (request.getStatus().equals("APPROVED"))
-			this.checkPositionFree(request);
-		final Request result;
+	private void checkNotChangeStatus(final Request request) {
+		Request populateRequest;
 
-		result = this.requestRepository.save(request);
+		populateRequest = this.requestRepository.findOne(request.getId());
 
-		return result;
+		Assert.isTrue(populateRequest.getStatus().equals(request.getStatus()));
+
 	}
 
 	private void checkPositionFree(final Request request) {
@@ -189,6 +212,10 @@ public class RequestService {
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		Assert.isTrue(!(request.getStatus().equals("APPROVED")));
+		Assert.notNull(request.getReasonWhy());
+		Assert.isTrue(!(request.getReasonWhy().equals("")));
+		Assert.isTrue(request.getColumnParade().equals(null));
+		Assert.isTrue(request.getRowParade().equals(null));
 		final Request result;
 
 		request.setStatus("REJECTED");

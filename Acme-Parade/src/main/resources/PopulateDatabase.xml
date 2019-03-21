@@ -4028,8 +4028,8 @@
 		</property>
 		<property name="floats">
 			<list>
-				<ref bean="float4" />
-				<ref bean="float5" />
+				<ref bean="float2" />
+				<ref bean="float3" />
 			</list>
 		</property>
 		<property name="status" value="accepted" />
@@ -4555,7 +4555,7 @@
 		<property name="status" value="APPROVED" />
 		<property name="rowParade" value="1" />
 		<property name="columnParade" value="2" />
-		<property name="member" ref="member10" />
+		<property name="member" ref="member12" />
 		<property name="parade" ref="parade5" />
 	</bean>
 
