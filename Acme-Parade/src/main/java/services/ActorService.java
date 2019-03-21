@@ -90,6 +90,10 @@ public class ActorService {
 		this.userAccountService.deleteUserAccount(actor);
 
 		// Delete boxes
+		this.boxService.deleteBoxesFromActor(actor);
+
+		// Delete messages
+		this.messageService.deleteMessagesFromActor(actor);
 
 		// Delete social profiles
 
