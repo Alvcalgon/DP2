@@ -34,28 +34,28 @@ public class RequestServiceTest extends AbstractTest {
 	public void driverCreate() {
 		final Object testingData[][] = {
 			/*
-			 * A: Acme-Madrugá Req.7 Crear una solicitud para el desfile
+			 * A: Acme-Madrugá Req.7,11.1 Crear una solicitud
 			 * B: Test positivo
-			 * C:
-			 * D:
+			 * C: 100%. 65/65 Recorre 65 de las 65 líneas de código totales
+			 * D: Intencionadamente en blanco. No se comprueban datos
 			 */
 			{
 				"member12", "parade1", null
 			},
 			/*
-			 * A: Acme-Madrugá Req.7
+			 * A: Acme-Madrugá Req.7,11.1 Crear una solicitud
 			 * B: Test negativo: Solicitar a un desfile de una hermandad a la que no pertenece el miembro
-			 * C:
-			 * D:
+			 * C: 68%. 44/65 Recorre 44 de las 65 líneas totales
+			 * D:Intencionadamente en blanco. No se comprueban datos
 			 */
 			{
 				"member2", "parade1", IllegalArgumentException.class
 			},
 			/*
-			 * A: Acme-Madrugá Req.7
+			 * A: Acme-Madrugá Req.7,11.1 Crear una solicitud
 			 * B: Test negativo: Solicitar a un desfile en el que ya tiene una solicitud
-			 * C:
-			 * D:
+			 * C: 29.2%. 19/65 Recorre 19 de las 65 líneas totales
+			 * D:Intencionadamente en blanco. No se comprueban datos
 			 */
 			{
 				"member1", "parade1", IllegalArgumentException.class
@@ -101,48 +101,47 @@ public class RequestServiceTest extends AbstractTest {
 	public void driverEdit() {
 		final Object testingData[][] = {
 			/*
-			 * A: Acme-Madrugá Req.7 Editar una solicitud
-			 * B:
-			 * C:
-			 * D:
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
+			 * C:100%23/23 Recorre 23 de las 23 líneas totales
+			 * D:14.25% 1/7
 			 */
 			{
 				"brotherhood1", "request1", 3, 3, "APPROVED", null
 			},
 			/*
-			 * A: Acme-Madrugá Req.7 Editar una solicitud
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar una solicitud que es de otra hermandad
-			 * C:
-			 * D:
+			 * C:87%20/23 Recorre 20 de las 23 líneas totales
+			 * D:14.25%1/7
 			 */
 			{
 				"brotherhood3", "request1", 3, 3, "PENDING", IllegalArgumentException.class
 			},
 			/*
-			 * A: Acme-Madrugá Req.7 Editar una solicitud
-			 * B:Test negativo: Editar una solicitud poniendole una posicion que ya está asignada
-			 * C:
-			 * D:
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
+			 * B:Test negativo: Editar una solicitud que es de otra hermandad
+			 * C:20/23 Recorre 20 de las 23 líneas totales
+			 * D:14.25%1/7
 			 */
 			{
 				"brotherhood2", "request6", 2, 1, "APPROVED", IllegalArgumentException.class
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.7 Editar una solicitud
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar una solicitud con estado aceptado
-			 * C:
-			 * D:
+			 * C:87%20/23 Recorre 20 de las 23 líneas totales
+			 * D:14.25%1/7
 			 */
 			{
 				"brotherhood3", "request1", 1, 1, "REJECTED", IllegalArgumentException.class
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.11.1 Editar una solicitud
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Un miembro no puede editar
-			 * C:
-			 * D:
+			 * C:34% 8/23 Recorre 8 de las 23 líneas totales
+			 * D:14.25%1/7
 			 */
 			{
 				"member1", "request1", 1, 1, "REJECTED", IllegalArgumentException.class
@@ -185,50 +184,48 @@ public class RequestServiceTest extends AbstractTest {
 	public void driverChangeStatus() {
 		final Object testingData[][] = {
 			/*
-			 * A: Acme-Madrugá Req.7 Cambiar el estado a aceptado
-			 * B:
-			 * C:
-			 * D:
+			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado a aceptado
+			 * C:100% 36/36 Recorre de las 36 líneas totales
+			 * D:20% 1/5
 			 */
 			{
 				"brotherhood2", "request01", null, "APPROVED", null
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.7 Cambiar el estado a rechazado y ponerle motivo de cancelación
-			 * B:
-			 * C:
-			 * D:
+			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado a rechazado y ponerle motivo de cancelación
+			 * C:100% 27/27 Recorre de las 27 líneas totales
+			 * D:20% 1/5
 			 */
 			{
 				"brotherhood2", "request01", "Es inapropiado", "REJECTED", null
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.7 Cambiar el estado
-			 * B: Test negativo: El autenticado no es el dueño de la parade a la que hace referencia la request
-			 * C:
-			 * D:
+			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado de una request
+			 * B: El autenticado no es el dueño de la parade a la que hace referencia la request
+			 * C:6.11% 21/36 Recorre de las 36 líneas totales
+			 * D:20% 1/5
 			 */
 			{
 				"brotherhood1", "request01", null, "APPROVED", IllegalArgumentException.class
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.7 Cambiar el estado
+			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado de una request
 			 * B: Test negativo: Cambiar el estado a una request ya aprobada
-			 * C:
-			 * D:
+			 * C:22/36 Recorre de las 36 líneas totales
+			 * D:20% 1/5
 			 */
 			{
 				"brotherhood1", "request1", null, "APPROVED", IllegalArgumentException.class
 			},
 
 			/*
-			 * A: Acme-Madrugá Req.7 Cambiar el estado
+			 * A: Acme-Madrugá Req.7, 10.6 Cambiar el estado
 			 * B: Test negativo: Cambiar el estado a rechazado y dejar en blanco el motivo de cancelación
-			 * C:
-			 * D:
+			 * C: 0% 0/27 Recorre de las 27 líneas totales
+			 * D:20% 1/5
 			 */
 			{
 				"brotherhood2", "request01", "", "REJECTED", null
@@ -272,10 +269,10 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Ver el request de otro usuario
-	 * B:
-	 * C:
-	 * D:
+	 * A:Acme-Madrugá Req.7,11.1 Mostrar una solicitud
+	 * B:Ver el request de otro usuario
+	 * C:96.7% 30/31 Recorre 30 de las 31 líneas totales
+	 * D: Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void displayMember_negative_test() {
@@ -290,10 +287,9 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Ver el request de otro usuario
-	 * B:
-	 * C:
-	 * D:
+	 * A:Acme-Madrugá Req.7,11.1 Mostrar una solicitud
+	 * C:96.7% 30/31 Recorre 30 de las 31 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test
 	public void displayMember_positive_test() {
@@ -308,10 +304,10 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Ver el request de otro usuario
-	 * B:
-	 * C:
-	 * D:
+	 * A:Acme-Madrugá Req.7,10.6 Mostrar una solicitud
+	 * B:Ver el request de otro usuario y el autenticado es una hermandad
+	 * C:95.8%23/24 Recorre 23 de las 24 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void displayBrotherhood_negative_test() {
@@ -326,10 +322,9 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Ver el request de otro usuario
-	 * B:
-	 * C:
-	 * D:
+	 * A: Acme-Madrugá Req.7,10.6 Mostrar una solicitud
+	 * C:100%24/24 Recorre 24 de las 24 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test
 	public void displayBrotherhood_positive_test() {
@@ -344,10 +339,9 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Borrar
-	 * B:
-	 * C:
-	 * D:
+	 * A: Acme-Madrugá Req.7,11.1 Borrar una solicitud
+	 * C:100%30/30 Recorre 30 de las 30 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test
 	public void delete_positive_test() {
@@ -365,10 +359,10 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Borrar con estado a aproved
-	 * B:
-	 * C:
-	 * D:
+	 * A: Acme-Madrugá Req.7,11.1 Borrar una solicitud
+	 * B:Borrar una request con estado approved
+	 * C:12.5% 3/24 Recorre 3 de las 24 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void delete_negativo_test() {
@@ -386,10 +380,10 @@ public class RequestServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A:Borrar uno que no es suyo
-	 * B:
-	 * C:
-	 * D:
+	 * A: Acme-Madrugá Req.7,11.1 Borrar una solicitud
+	 * B:Borrar una request de otro usuario
+	 * C:95.8% 23/24 Recorre 23 de las 24 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void delete_negative1_test() {
@@ -399,6 +393,27 @@ public class RequestServiceTest extends AbstractTest {
 		Request request;
 
 		requestId = super.getEntityId("request01");
+		request = this.requestService.findOne(requestId);
+
+		this.requestService.deleteCancel(request);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Acme-Madrugá Req.7,11.1 Borrar una solicitud
+	 * B:No se puede borrar una request con estado rejected
+	 * C:12.5% 3/24 Recorre 3 de las 24 líneas totales
+	 * D:Intencionadamente en blanco. No se comprueban datos
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void delete_negative2_test() {
+		super.authenticate("member11");
+
+		int requestId;
+		Request request;
+
+		requestId = super.getEntityId("request9");
 		request = this.requestService.findOne(requestId);
 
 		this.requestService.deleteCancel(request);
