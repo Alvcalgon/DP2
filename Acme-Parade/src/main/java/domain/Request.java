@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "status")
+	@Index(columnList = "status"), @Index(columnList = "member, status")
 }, uniqueConstraints = {
 	@UniqueConstraint(columnNames = {
 		"parade", "member"
@@ -82,7 +82,7 @@ public class Request extends DomainEntity {
 
 	//Relationships ----------------------------------------------------
 
-	private Member		member;
+	private Member	member;
 	private Parade	parade;
 
 

@@ -20,7 +20,7 @@ import org.hibernate.validator.constraints.SafeHtml;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "name, isSystemBox")
+	@Index(columnList = "actor, name, isSystemBox"), @Index(columnList = "actor, parent")
 }, uniqueConstraints = @UniqueConstraint(columnNames = {
 	"name", "parent"
 }))

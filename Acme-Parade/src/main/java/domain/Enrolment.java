@@ -20,7 +20,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "dropOutMoment, registeredMoment, position")
+	@Index(columnList = "brotherhood, dropOutMoment, registeredMoment"), @Index(columnList = "brotherhood, dropOutMoment, registeredMoment, member"), @Index(columnList = "brotherhood, dropOutMoment, registeredMoment, member, position"),
+	@Index(columnList = "registeredMoment, member"), @Index(columnList = "registeredMoment, dropOutMoment, member"), @Index(columnList = "dropOutMoment, registeredMoment")
 })
 public class Enrolment extends DomainEntity {
 
