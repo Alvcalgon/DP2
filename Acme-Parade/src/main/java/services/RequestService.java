@@ -108,7 +108,7 @@ public class RequestService {
 
 	public Request create(final Parade parade) {
 		Assert.notNull(parade);
-		Assert.isTrue(parade.getStatus() == "accepted" && parade.getIsFinalMode());
+		Assert.isTrue(parade.getStatus().equals("accepted") && parade.getIsFinalMode());
 		this.checkNoExistRequestMemberParade(parade);
 		this.checkPrincipalIsMemberOfBrotherhoodOfParade(parade);
 		Request result;
