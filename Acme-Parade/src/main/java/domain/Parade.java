@@ -26,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "isFinalMode, ticker, title, description, moment")
+	@Index(columnList = "moment"), @Index(columnList = "isFinalMode"), @Index(columnList = "status"), @Index(columnList = "isFinalMode, status"), @Index(columnList = "description, isFinalMode, moment, status, ticker, title")
 })
 public class Parade extends DomainEntity {
 

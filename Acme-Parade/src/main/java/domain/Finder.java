@@ -98,7 +98,7 @@ public class Finder extends DomainEntity {
 
 	//Relationships ----------------------------------------------------
 
-	private Member					member;
+	private Member				member;
 	private Collection<Parade>	parades;
 
 
