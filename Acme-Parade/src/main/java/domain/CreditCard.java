@@ -46,7 +46,7 @@ public class CreditCard {
 
 	@NotBlank
 	@CreditCardNumber
-	@Pattern(regexp = "//d+")
+	@Pattern(regexp = "\\d+")
 	@SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
 	public String getNumber() {
 		return this.number;
