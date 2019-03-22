@@ -28,7 +28,7 @@
 	</p>
 
 	<p> We use your personal information to provide functionality, analyze performance,
-		resolve errors and improve the usability and effectiveness of the Amazon Services.
+		resolve errors and improve the usability and effectiveness of the Acme-Madrugá Services.
 	</p>
 	
 	<p>

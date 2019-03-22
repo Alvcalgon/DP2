@@ -3,8 +3,6 @@ package controllers.brotherhood;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -74,17 +72,19 @@ public class ParadeBroherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Parade parade, final BindingResult binding) {
+	public ModelAndView save(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		Parade saved;
+		Parade paradeRec;
 
+		paradeRec = this.paradeService.reconstructSave(parade, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(parade);
 		else
 			try {
 
-				saved = this.paradeService.save(parade);
+				saved = this.paradeService.save(paradeRec);
 				brotherhood = this.brotherhoodService.findBrotherhoodByParade(saved.getId());
 				result = new ModelAndView("redirect:../list.do?brotherhoodId=" + brotherhood.getId());
 			} catch (final IllegalArgumentException invalidMoment) {

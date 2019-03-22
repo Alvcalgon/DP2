@@ -113,7 +113,7 @@ public class ParadeChapterController extends AbstractController {
 		ModelAndView result;
 		Parade paradeRec;
 
-		paradeRec = this.paradeService.reconstruct(parade, binding);
+		paradeRec = this.paradeService.reconstructReject(parade, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(parade);
 		else
