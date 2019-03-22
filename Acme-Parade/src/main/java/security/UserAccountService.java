@@ -58,12 +58,4 @@ public class UserAccountService {
 		return result;
 	}
 
-	public void deleteUserAccount(final Actor actor) {
-		UserAccount userAccount;
-
-		userAccount = this.findByActor(actor);
-
-		this.userAccountRepository.delete(userAccount);
-	}
-
 }

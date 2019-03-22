@@ -49,6 +49,9 @@ public class ChapterService {
 	@Autowired
 	private ParadeService		paradeService;
 
+	@Autowired
+	private ProclaimService		proclaimService;
+
 
 	// Constructors ---------------------------
 	public ChapterService() {
@@ -112,10 +115,9 @@ public class ChapterService {
 		Assert.isTrue(chapter.getId() != 0);
 
 		// Delete proclaims
+		this.proclaimService.deleteProclaims(chapter);
 
-		// Uncoordinate him/her area
-
-		// Delete UserAccount, boxes and social profiles
+		// Delete boxes, messages and social profiles
 		this.actorService.delete(chapter);
 	}
 

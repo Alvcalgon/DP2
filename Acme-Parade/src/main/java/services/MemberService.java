@@ -112,7 +112,7 @@ public class MemberService {
 		// Delete finder
 		this.finderService.deleteFinder(member);
 
-		// Delete UserAccount, Boxes and Social Profiles
+		// Delete boxes, messages and social profiles
 		this.actorService.delete(member);
 	}
 

@@ -136,7 +136,7 @@ public class BrotherhoodService {
 		// Delete enrolments
 		this.enrolmentService.deleteEnrolments(brotherhood);
 
-		// Delete UserAccount, boxes and social profiles
+		// Delete boxes, messages and social profiles
 		this.actorService.delete(brotherhood);
 
 	}

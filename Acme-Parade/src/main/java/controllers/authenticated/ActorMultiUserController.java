@@ -142,7 +142,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.administratorService.delete(administrator);
 				session.invalidate();
-				result = new ModelAndView("/welcome/index");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
 				result.addObject("rol", "Administrator");
@@ -187,7 +187,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.brotherhoodService.delete(brotherhood);
 				session.invalidate();
-				result = new ModelAndView("welcome/index");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(brotherhoodRegistrationForm, "actor.commit.error");
 				result.addObject("rol", "Brotherhood");
@@ -232,7 +232,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.memberService.delete(member);
 				session.invalidate();
-				result = new ModelAndView("welcome/index");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
 				result.addObject("rol", "Member");
@@ -277,7 +277,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.chapterService.delete(chapter);
 				session.invalidate();
-				result = new ModelAndView("welcome/index");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(chapterRegistrationForm, "actor.commit.error");
 				result.addObject("rol", "Chapter");
@@ -322,7 +322,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 			try {
 				this.sponsorService.delete(sponsor);
 				session.invalidate();
-				result = new ModelAndView("welcome/index");
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(registrationForm, "actor.commit.error");
 				result.addObject("rol", "Sponsor");
