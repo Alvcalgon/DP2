@@ -61,10 +61,4 @@
 			<acme:cancel code="request.cancel" url="request/brotherhood/list.do" />
 		</div>
 	</jstl:if>
-	<br />
-
-	<!-- Buttons -->
-
-
-
 </form:form>

@@ -33,7 +33,7 @@ public class ProclaimServiceTest extends AbstractTest {
 	/*
 	 * A: Requirement tested: level A: requirement 14.2: browse the proclaims
 	 * of the chapter.
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 3/3 -> 100% executed code lines
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test

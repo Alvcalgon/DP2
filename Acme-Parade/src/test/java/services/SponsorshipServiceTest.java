@@ -37,7 +37,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	/*
 	 * A: Requirement tested: level A: requirement 16.1 (Display a sponsorship).
 	 * B: The business rule that is intended to be broken: a sponsor try to display a other people's sponsorship.
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 5/6 -> 83.33% of executed lines codes .
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -57,7 +57,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirement 16.1 (Display a sponsorship).
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 6/6 -> 100% of executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
@@ -77,7 +77,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirement 16.1 (Listing sponsorships).
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 13/13 -> 100% executed code lines
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
@@ -96,7 +96,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirement 11:
-	 * C: Analysis of sentence coverage: Sequence
+	 * C: Analysis of sentence coverage: 6/6 -> 100% executed code lines
 	 * D: Analysis of data coverage: intentionally blank
 	 */
 	@Test
@@ -123,7 +123,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	/*
 	 * A: Requirement tested: level A: requirements 13, 16.1 (Edit a sponsorship).
 	 * B: The business rule that is intended to be broken: a sponsor try to edit a other people's sponsorship.
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 22/29 -> 75.86% executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -147,7 +147,42 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirements 13, 16.1 (Edit a sponsorship).
-	 * C: Analysis of sentence coverage: Sequence.
+	 * B: The business rule that is intended to be broken: a sponsor try to edit a sponsorship
+	 * with an expired credit card.
+	 * C: Analysis of sentence coverage: 16/29 -> 55.17% executed code lines.
+	 * D: Analysis of data coverage: intentionally blank.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void save_negative_test_dos() {
+		super.authenticate("sponsor2");
+
+		int sponsorshipId;
+		Sponsorship sponsorship, saved;
+		CreditCard creditCard;
+
+		sponsorshipId = super.getEntityId("sponsorship1");
+		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+
+		creditCard = new CreditCard();
+		creditCard.setHolder("holder");
+		creditCard.setMake("VISA");
+		creditCard.setExpirationMonth("01");
+		creditCard.setExpirationYear("19");
+		creditCard.setNumber("5431423328867769");
+		creditCard.setCvvCode(774);
+
+		sponsorship.setCreditCard(creditCard);
+
+		saved = this.sponsorshipService.save(sponsorship);
+
+		Assert.isNull(saved);
+
+		super.unauthenticate();
+	}
+
+	/*
+	 * A: Requirement tested: level A: requirements 13, 16.1 (Edit a sponsorship).
+	 * C: Analysis of sentence coverage: 29/29 -> 100% executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
@@ -177,7 +212,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::banner.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::banner is null.
 			 */
 			{
@@ -186,7 +221,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::banner.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::banner is empty string.
 			 */
 			{
@@ -195,7 +230,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::targetURL.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::targetURL is null.
 			 */
 			{
@@ -204,7 +239,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::targetURL.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::targetURL is empty string.
 			 */
 			{
@@ -213,7 +248,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::holder.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::holder is null.
 			 */
 			{
@@ -222,7 +257,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::holder.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::holder is empty string.
 			 */
 			{
@@ -231,7 +266,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::make.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::make is null.
 			 */
 			{
@@ -240,7 +275,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::make.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::make is empty string.
 			 */
 			{
@@ -249,7 +284,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::number is null .
 			 */
 			{
@@ -258,7 +293,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::number is a empty string.
 			 */
 			{
@@ -267,7 +302,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::number is a invalid value.
 			 */
 			{
@@ -276,7 +311,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is null.
 			 */
 			{
@@ -285,7 +320,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is empty string.
 			 */
 			{
@@ -294,7 +329,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 0.
 			 */
 
@@ -304,7 +339,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 13.
 			 */
 			{
@@ -314,7 +349,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is null.
 			 */
 			{
@@ -323,7 +358,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is empty string.
 			 */
 			{
@@ -332,7 +367,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: 0.0.
 			 */
 			{
@@ -341,7 +376,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: -0.0.
 			 */
 			{
@@ -350,7 +385,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::cvvCode.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 99.
 			 */
 			{
@@ -359,7 +394,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::cvvCode.
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 1000.
 			 */
 			{
@@ -367,7 +402,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			},
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
-			 * C: Analysis of sentence coverage: Sequence.
+			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
 			 * D: Analysis of data coverage: every attribute of sponsorship and sponsorship::creditCard have a valid value.
 			 */
 			{
@@ -425,7 +460,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	/*
 	 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Remove a sponsorship)
 	 * B: The business rule that is intended to be broken: a sponsor try to remove a other people's sponsorship
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 11/14 -> 78.57% executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
@@ -451,7 +486,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Remove a sponsorship)
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 14/14 -> 100% executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
@@ -477,7 +512,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	/*
 	 * A: Requirement tested: level A: requirement 16.1 (Reactivate a deactivated sponsorship)
-	 * C: Analysis of sentence coverage: Sequence.
+	 * C: Analysis of sentence coverage: 14/14 -> 100% executed code lines..
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test
@@ -501,7 +536,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	/*
 	 * A: Requirement tested: level A: requirement 18.1: Launch a process
 	 * that automatically deactivates the sponsorships whose credit cards have expired
-	 * C: Analysis of sentence coverage: Loop.
+	 * C: Analysis of sentence coverage: 19/19 -> 100% executed code lines..
 	 * In this case, there are two sponsorships with a expired credit card, so sponsorship::isActive
 	 * will be false.
 	 * D: Analysis of data coverage: intentionally blank.
@@ -536,6 +571,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 * A: Requirement tested: level A: requirement 20: Every a time a parade with sponsorships is displayed, a
 	 * random sponsorship must be selected...
 	 * C: Analysis of sentence coverage: Conditional: the if condition is true, that is, the number of sponsorship
+	 * 64/65 -> 98.46% executed code lines.
 	 * of parade1 is more than zero.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
@@ -555,6 +591,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 * random sponsorship must be selected...
 	 * C: Analysis of sentence coverage: Conditional: the if condition is false, that is, the number of sponsorship
 	 * of parade4 is zero.
+	 * 13/65 -> 20% executed code lines.
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test

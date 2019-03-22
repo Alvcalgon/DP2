@@ -185,11 +185,12 @@ public class BoxService {
 			result = new Box();
 			result.setId(storedBox.getId());
 			result.setVersion(storedBox.getVersion());
+			result.setIsSystemBox(storedBox.getIsSystemBox());
 			result.setActor(storedBox.getActor());
 			result.setMessages(storedBox.getMessages());
 		}
 
-		result.setName(box.getName());
+		result.setName(box.getName().trim());
 		result.setParent(box.getParent());
 
 		this.validator.validate(result, binding);
