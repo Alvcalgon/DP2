@@ -143,4 +143,13 @@ public class SocialProfileService {
 		return result;
 	}
 
+	// This method is called when a user want to remove this data from the system
+	public void deleteSocialProfiles(final Actor actor) {
+		Collection<SocialProfile> socialProfiles;
+
+		socialProfiles = this.findSocialProfilesByActor(actor.getId());
+
+		this.socialProfileRepository.deleteInBatch(socialProfiles);
+	}
+
 }

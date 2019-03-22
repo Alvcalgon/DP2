@@ -554,7 +554,7 @@ public class MessageService {
 
 	}
 
-	private Collection<Message> findSentMessagesByActor(final int actorId) {
+	public Collection<Message> findSentMessagesByActor(final int actorId) {
 		Collection<Message> results;
 
 		results = this.messageRepository.findSentMessagesByActor(actorId);
@@ -562,7 +562,7 @@ public class MessageService {
 		return results;
 	}
 
-	private Collection<Message> findReceivedMessagesByActor(final int actorId) {
+	public Collection<Message> findReceivedMessagesByActor(final int actorId) {
 		Collection<Message> results;
 
 		results = this.messageRepository.findReceivedMessagesByActor(actorId);
