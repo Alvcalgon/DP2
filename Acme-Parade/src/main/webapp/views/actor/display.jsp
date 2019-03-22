@@ -198,6 +198,22 @@
 	
 	<jstl:if test="${isAuthorized == true}">
 	<a href="actor/administrator,brotherhood,chapter,member,sponsor/edit.do?actorId=${actor.id}"><spring:message code="actor.edit"/></a>
+	<br>
+	<jstl:if test="${actor.userAccount.authorities=='[BROTHERHOOD]'}">
+	<a href="exportData/brotherhood/export.do"><spring:message code="actor.exportData" /> </a>
+	</jstl:if>
+	<jstl:if test="${actor.userAccount.authorities=='[MEMBER]'}">
+	<a href="exportData/member/export.do"><spring:message code="actor.exportData" /> </a>
+	</jstl:if>
+	<jstl:if test="${actor.userAccount.authorities=='[CHAPTER]'}">
+	<a href="exportData/chapter/export.do"><spring:message code="actor.exportData" /> </a>
+	</jstl:if>
+	<jstl:if test="${actor.userAccount.authorities=='[SPONSOR]'}">
+	<a href="exportData/sponsor/export.do"><spring:message code="actor.exportData" /> </a>
+	</jstl:if>
+	<jstl:if test="${actor.userAccount.authorities=='[ADMIN]'}">
+	<a href="exportData/admin/export.do"><spring:message code="actor.exportData" /> </a>
+	</jstl:if>
 	</jstl:if>
 </fieldset>
 

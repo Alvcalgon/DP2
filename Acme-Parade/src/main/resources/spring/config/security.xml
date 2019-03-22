@@ -66,6 +66,12 @@
 
 		<security:intercept-url pattern="/box/**" access="isAuthenticated()" /> 
 		
+		<security:intercept-url pattern="/exportData/brotherhood/export.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/exportData/member/export.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/exportData/chapter/export.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/exportData/sponsor/export.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/exportData/administrator/export.do" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/message/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/message/administrator,brotherhood,chapter,member,sponsor/**" access="isAuthenticated()" />
 
