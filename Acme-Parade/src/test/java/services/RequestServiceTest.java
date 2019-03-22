@@ -102,7 +102,7 @@ public class RequestServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar row y column de una solicitud aprobada
-			 * C:100%23/23 Recorre 23 de las 23 líneas totales
+			 * C:100% 41/41 Recorre de las 41 líneas totales
 			 * D:14.25% 1/7
 			 */
 			{
@@ -110,10 +110,9 @@ public class RequestServiceTest extends AbstractTest {
 			},
 
 			/*
-			 * EL TEST HACE QUE NO PODAMOS MIRAR EL OBJETO EN EL POPULATE PARA COMPROBAR EL STATUS QUE TENÍAMOS
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar row y column una solicitud aprobada que es de otra hermandad
-			 * C:87%20/23 Recorre 20 de las 23 líneas totales
+			 * C:51.2% 21/41 Recorre 21 de las 41 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
@@ -122,7 +121,7 @@ public class RequestServiceTest extends AbstractTest {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar row y column de una solicitud aprobada a unas posiciones ocupadas en la parade
-			 * C:20/23 Recorre 20 de las 23 líneas totales
+			 * C:51.2% 21/41 Recorre 21 de las 41 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
@@ -131,7 +130,7 @@ public class RequestServiceTest extends AbstractTest {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar reasonWhy de una solicitud aprobada
-			 * C:20/23 Recorre 20 de las 23 líneas totales
+			 * C:63.4% 26/41 Recorre 26 de las 41 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
@@ -139,10 +138,9 @@ public class RequestServiceTest extends AbstractTest {
 			},
 
 			/*
-			 * EL TEST HACE QUE NO PODAMOS MIRAR EL OBJETO EN EL POPULATE PARA COMPROBAR EL STATUS QUE TENÍAMOS
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar row y column de una solicitud con estado denegado
-			 * C:87%20/23 Recorre 20 de las 23 líneas totales
+			 * C:58.5% 24/41 Recorre 24 de las 41 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
@@ -152,7 +150,7 @@ public class RequestServiceTest extends AbstractTest {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
 			 * B:Test negativo: Editar dejar vacío el reason why una solicitud con estado denegado
-			 * C:34% 8/23 Recorre 8 de las 23 líneas totales
+			 * C:92.6% 38/41 Recorre 38 de las 41 líneas totales
 			 * D:14.25%1/7
 			 */
 			{
