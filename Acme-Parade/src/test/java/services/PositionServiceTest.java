@@ -181,11 +181,6 @@ public class PositionServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	//TODO: Borrar del BD un objeto correctamente: tal y como está
-	// hecho el populateDatabase.xml, no se puede borrar ningun objeto
-	// de la entidad Position porque todas estan asociadas a algun
-	// enrolment.
-
 	private Collection<TranslationPosition> find_invalid_TP() {
 		List<TranslationPosition> results;
 

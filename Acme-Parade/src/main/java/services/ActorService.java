@@ -84,7 +84,6 @@ public class ActorService {
 	}
 
 	public void delete(final Actor actor) {
-
 		// Delete messages
 		this.messageService.deleteMessagesFromActor(actor);
 

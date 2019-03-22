@@ -143,7 +143,7 @@ public class BoxService {
 
 		boxes = this.findBoxesByActor(actor.getId());
 
-		this.boxRepository.delete(boxes);
+		this.boxRepository.deleteInBatch(boxes);
 	}
 
 	public Collection<Box> findRootBoxesByActor(final int actorId) {
@@ -313,6 +313,14 @@ public class BoxService {
 			for (final Box b : childBoxes)
 				results.addAll(this.descendantBoxes(b));
 		}
+
+		return results;
+	}
+
+	protected Collection<Box> findBoxesByMessage(final int messageId) {
+		Collection<Box> results;
+
+		results = this.boxRepository.findBoxesByMessage(messageId);
 
 		return results;
 	}
