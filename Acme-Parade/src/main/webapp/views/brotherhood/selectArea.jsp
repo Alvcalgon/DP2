@@ -19,15 +19,11 @@
 
 
 <form:form action="brotherhood/brotherhood/selectArea.do" modelAttribute="brotherhoodForm">
-	 <form:label path="area">
-		<spring:message code="brotherhood.areas"/>:
-	</form:label>
-	<form:select path="area" multiple="false" size="1">
-		<form:option label="----" value="0"/>
-		<form:options items="${areas}" itemLabel="name" itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="area"/>
-	<br/>
+
+		
+	<acme:select items="${areas}" itemLabel="name" code="brotherhood.areas" path="area"/>
+		
+
 	
 	<acme:submit name="save" code="area.save" />
 	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do"
