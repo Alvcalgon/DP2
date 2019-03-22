@@ -197,7 +197,7 @@ public class RequestServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado a aceptado
-			 * C:100% 36/36 Recorre de las 36 líneas totales
+			 * C:100% 40/40 Recorre 40 de las 40 líneas totales
 			 * D:20% 1/5
 			 */
 			{
@@ -206,7 +206,7 @@ public class RequestServiceTest extends AbstractTest {
 
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado a rechazado y ponerle motivo de cancelación
-			 * C:100% 27/27 Recorre de las 27 líneas totales
+			 * C:100% 31/31 Recorre 31 de las 31 líneas totales
 			 * D:20% 1/5
 			 */
 			{
@@ -216,7 +216,7 @@ public class RequestServiceTest extends AbstractTest {
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Cambiar el estado de una request
 			 * B: El autenticado no es el dueño de la parade a la que hace referencia la request
-			 * C:6.11% 21/36 Recorre de las 36 líneas totales
+			 * C:6.11% 21/40 Recorre 21 de las 40 líneas totales
 			 * D:20% 1/5
 			 */
 			{
@@ -226,7 +226,7 @@ public class RequestServiceTest extends AbstractTest {
 			/*
 			 * A: Acme-Madrugá Req.7, 10.6 Cambiar el estado
 			 * B: Test negativo: Cambiar el estado a rechazado y dejar en blanco el motivo de cancelación
-			 * C: 0% 0/27 Recorre de las 27 líneas totales
+			 * C: 77.4% 24/31 Recorre 24 de las 31 líneas totales
 			 * D:20% 1/5
 			 */
 			{
