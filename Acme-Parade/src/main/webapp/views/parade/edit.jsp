@@ -19,13 +19,6 @@
 
 <form:form action="parade/brotherhood/edit.do" modelAttribute="parade">
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="isFinalMode"/>
-	<form:hidden path = "ticker"/>
-	<form:hidden path = "matrizParade"/>
-	<form:hidden path = "status"/>
-	<form:hidden path = "reasonWhy"/>
-	<form:hidden path = "segments"/>
 	
 	<acme:textbox code="parade.title" path="title"/>
 	

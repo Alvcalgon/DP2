@@ -68,6 +68,9 @@ public class ParadeService {
 	private AreaService				areaService;
 
 	@Autowired
+	private FloatService			floatService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -105,6 +108,7 @@ public class ParadeService {
 
 	public Parade save(final Parade parade) {
 		Assert.notNull(parade);
+		this.floatService.checkFloatByPrincipal(parade.getFloats().iterator().next());
 
 		final Parade result;
 		Brotherhood brotherhood;
@@ -130,7 +134,6 @@ public class ParadeService {
 
 		return result;
 	}
-
 	public Parade saveRejected(final Parade parade) {
 		Assert.notNull(parade);
 
@@ -458,7 +461,35 @@ public class ParadeService {
 		return result;
 	}
 
-	public Parade reconstruct(final Parade parade, final BindingResult binding) {
+	public Parade reconstructSave(final Parade parade, final BindingResult binding) {
+		Parade result, paradeStored;
+
+		if (parade.getId() != 0) {
+			result = new Parade();
+			paradeStored = this.findOne(parade.getId());
+			result.setTicker(paradeStored.getTicker());
+			result.setIsFinalMode(paradeStored.getIsFinalMode());
+			result.setMatrizParade(paradeStored.getMatrizParade());
+			result.setStatus(paradeStored.getStatus());
+			result.setReasonWhy(paradeStored.getReasonWhy());
+			result.setVersion(paradeStored.getVersion());
+			result.setSegments(paradeStored.getSegments());
+
+		} else
+			result = this.create();
+
+		result.setId(parade.getId());
+		result.setTitle(parade.getTitle());
+		result.setDescription(parade.getDescription());
+		result.setMoment(parade.getMoment());
+		result.setFloats(parade.getFloats());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+
+	public Parade reconstructReject(final Parade parade, final BindingResult binding) {
 		Parade result, paradeStored;
 
 		result = new Parade();

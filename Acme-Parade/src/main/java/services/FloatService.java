@@ -156,7 +156,7 @@ public class FloatService {
 		this.floatRepository.delete(floats);
 	}
 
-	private void checkFloatByPrincipal(final Float floatt) {
+	protected void checkFloatByPrincipal(final Float floatt) {
 
 		Brotherhood brotherhood;
 
