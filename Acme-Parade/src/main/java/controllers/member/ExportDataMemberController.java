@@ -31,12 +31,16 @@ public class ExportDataMemberController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
+
 	@Autowired
 	private SocialProfileService	socialProfileService;
+
 	@Autowired
 	private MessageService			messageService;
+
 	@Autowired
 	private BoxService				boxService;
+
 	@Autowired
 	private MemberService			memberService;
 

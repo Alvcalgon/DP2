@@ -212,7 +212,7 @@
 	<a href="exportData/sponsor/export.do"><spring:message code="actor.exportData" /> </a>
 	</jstl:if>
 	<jstl:if test="${actor.userAccount.authorities=='[ADMIN]'}">
-	<a href="exportData/admin/export.do"><spring:message code="actor.exportData" /> </a>
+	<a href="exportData/administrator/export.do"><spring:message code="actor.exportData" /> </a>
 	</jstl:if>
 	</jstl:if>
 </fieldset>

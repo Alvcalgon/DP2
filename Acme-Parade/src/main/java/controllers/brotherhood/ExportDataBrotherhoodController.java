@@ -42,18 +42,25 @@ public class ExportDataBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
+
 	@Autowired
 	private SocialProfileService	socialProfileService;
+
 	@Autowired
 	private MessageService			messageService;
+
 	@Autowired
 	private BoxService				boxService;
+
 	@Autowired
 	private FloatService			floatService;
+
 	@Autowired
 	private ParadeService			paradeService;
+
 	@Autowired
 	private HistoryService			historyService;
+
 	@Autowired
 	private MemberService			memberService;
 

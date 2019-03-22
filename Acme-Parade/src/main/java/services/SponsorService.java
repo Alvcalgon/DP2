@@ -100,7 +100,7 @@ public class SponsorService {
 
 	// Other business methods -----------------
 
-	protected Sponsor findByPrincipal() {
+	public Sponsor findByPrincipal() {
 		Sponsor result;
 		UserAccount userAccount;
 
