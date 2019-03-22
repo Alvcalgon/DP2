@@ -96,8 +96,10 @@ public class SponsorService {
 
 		// Delete sponsorships
 
-	}
+		// Delete boxes, messages and social profiles
+		this.actorService.delete(sponsor);
 
+	}
 	// Other business methods -----------------
 
 	public Sponsor findByPrincipal() {

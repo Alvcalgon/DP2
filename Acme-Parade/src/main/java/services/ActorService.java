@@ -15,7 +15,6 @@ import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import security.UserAccountService;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -48,7 +47,7 @@ public class ActorService {
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private UserAccountService		userAccountService;
+	private SocialProfileService	socialProfileService;
 
 
 	// Constructors -------------------------------
@@ -86,9 +85,6 @@ public class ActorService {
 
 	public void delete(final Actor actor) {
 
-		// Delete UserAccount
-		this.userAccountService.deleteUserAccount(actor);
-
 		// Delete messages
 		this.messageService.deleteMessagesFromActor(actor);
 
@@ -96,6 +92,7 @@ public class ActorService {
 		this.boxService.deleteBoxesFromActor(actor);
 
 		// Delete social profiles
+		this.socialProfileService.deleteSocialProfiles(actor);
 
 		this.actorRepository.delete(actor);
 	}
