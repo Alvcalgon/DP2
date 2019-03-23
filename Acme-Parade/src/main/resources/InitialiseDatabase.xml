@@ -22,7 +22,20 @@
 			</list>
 		</property>
 	</bean>
-
+	
+	<bean id="userAccount20" class="security.UserAccount">
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+		<property name="isBanned" value="false" />
+	</bean>
+	
 	<bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="member1" />
 		<property name="password" value="c7764cfed23c5ca3bb393308a0da2306" />
@@ -70,20 +83,7 @@
 			</list>
 		</property>
 	</bean>
-	
-	<bean id="userAccount20" class="security.UserAccount">
-		<property name="username" value="system" />
-		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-		<property name="isBanned" value="false" />
-	</bean>
-	
+		
 	<bean id="userAccount21" class="security.UserAccount">
 		<property name="username" value="sponsor1" />
 		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
@@ -140,7 +140,7 @@
 	</bean>
 	
 	<!-- Administrator -->
-<bean id="administrator1" class="domain.Administrator">
+	<bean id="administrator1" class="domain.Administrator">
 		<property name="name" value="Fernando" />
 		<property name="middleName" value="" />
 		<property name="surname" value="Ruiz" />
@@ -152,6 +152,7 @@
 		<property name="score" value="0.2" />
 		<property name="userAccount" ref="userAccount1" />
 	</bean>
+	
 
 	<bean id="system" class="domain.Administrator">
 		<property name="name" value="System" />
@@ -159,6 +160,8 @@
 		<property name="email" value="system@" />
 		<property name="userAccount" ref="userAccount20" />
 	</bean>
+	
+	
 	<!-- Area -->
 	<bean id="area1" class="domain.Area">
 		<property name="name" value="area1" />
@@ -171,6 +174,7 @@
 		<property name="pictures"
 			value="https://static.leonoticias.com/www/multimedia/201708/22/media/cortadas/mapacorres-kUUB-U40613444838HhE-624x385@Leonoticias.jpg" />
 	</bean>
+	
 	<!-- Box -->
 	<bean id="box1" class="domain.Box">
 		<property name="name" value="in box" />
@@ -319,6 +323,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+			
 				<null></null>
 			</list>
 		</property>
@@ -341,6 +346,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				
 				<null></null>
 			</list>
 		</property>
@@ -445,7 +451,7 @@
 		</property>
 		<property name="actor" ref="brotherhood2" />
 	</bean>
-
+	
 	<bean id="box96" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
@@ -500,8 +506,8 @@
 		</property>
 		<property name="actor" ref="system" />
 	</bean>
-
-<bean id="box101" class="domain.Box">
+	
+	<bean id="box101" class="domain.Box">
 		<property name="name" value="in box" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -720,7 +726,6 @@
 		</property>
 		<property name="actor" ref="chapter2" />
 	</bean>
-		
 
 	<!-- Brotherhood -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
@@ -756,9 +761,8 @@
 			value="https://img.milanuncios.com/fg/2182/56/218256741_1.jpg" />
 		<property name="area" ref="area2" />
 	</bean>
-	
+
 	<!-- Chapter -->
-	
 	<bean id="chapter1" class="domain.Chapter">
 		<property name="name" value="Alfonso" />
 		<property name="middleName" value="" />
@@ -770,6 +774,7 @@
 		<property name="address" value="Calle Principal 2" />
 		<property name="userAccount" ref="userAccount23" />
 		<property name="title" value="Chapter 1" />
+		<property name="area" ref="area1" />
 	</bean>
 
 
@@ -784,13 +789,14 @@
 		<property name="address" value="Calle Secundaria 2" />
 		<property name="userAccount" ref="userAccount24" />
 		<property name="title" value="Chapter 2" />
+		<property name="area" ref="area2" />
 	</bean>
 	
-
+	
 	<!-- Customisation -->
 	<bean id="customisation1" class="domain.Customisation">
 		<property name="name" value="Acme Madrugá" />
-		<property name="banner" value="https://image.ibb.co/iuaDgV/Untitled.png" />
+		<property name="banner" value="https://i.ibb.co/Thcj1dW/acme-parade-1.jpg" />
 		<property name="englishWelcomeMessage"
 			value="Welcome to Acme Madrugá! the site to organise your parades." />
 		<property name="spanishWelcomeMessage"
@@ -811,9 +817,8 @@
 		<property name="fare" value="500.0" />
 	</bean>
 
-
 	<!-- Finder -->
-<bean id="finder1" class="domain.Finder">
+	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="" />
 		<property name="area" value="area" />
 		<property name="minimumDate" value="2018/10/05" />
@@ -822,7 +827,7 @@
 		<property name="member" ref="member1" />
 		<property name="parades">
 			<list>
-				<null></null>
+			<null></null>
 			</list>
 		</property>
 	</bean>
@@ -836,10 +841,11 @@
 		<property name="member" ref="member2" />
 		<property name="parades">
 			<list>
-				<null></null>
+			<null></null>
 			</list>
 		</property>
 	</bean>
+
 
 	<!-- Member -->
 	<bean id="member1" class="domain.Member">
@@ -865,6 +871,7 @@
 		<property name="address" value="Calle Niebla 6" />
 		<property name="userAccount" ref="userAccount3" />
 	</bean>
+
 
 	<!-- Position -->
 	<bean id="position1" class="domain.Position">
@@ -929,7 +936,6 @@
 			</list>
 		</property>
 	</bean>
-
 <!-- Sponsor -->
 	
 	<bean id="sponsor1" class="domain.Sponsor">
@@ -956,7 +962,6 @@
 		<property name="userAccount" ref="userAccount22" />
 	</bean>
 	
-
 	<!-- Translation position -->
 	<bean id="translationPosition1" class="domain.TranslationPosition">
 		<property name="name" value="President" />
@@ -1027,5 +1032,4 @@
 		<property name="name" value="Vocal" />
 		<property name="language" value="es" />
 	</bean>
-
 </beans>
