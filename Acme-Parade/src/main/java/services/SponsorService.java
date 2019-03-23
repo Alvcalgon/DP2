@@ -42,6 +42,9 @@ public class SponsorService {
 	@Autowired
 	private UserAccountService	userAccountService;
 
+	@Autowired
+	private SponsorshipService	sponsorshipService;
+
 
 	// Constructors ---------------------------
 
@@ -95,6 +98,7 @@ public class SponsorService {
 		Assert.isTrue(sponsor.getId() != 0);
 
 		// Delete sponsorships
+		this.sponsorshipService.deleteSponsorships(sponsor);
 
 		// Delete boxes, messages and social profiles
 		this.actorService.delete(sponsor);

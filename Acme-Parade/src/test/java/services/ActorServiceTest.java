@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Administrator;
 import domain.Message;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,6 +39,9 @@ public class ActorServiceTest extends AbstractTest {
 
 	@Autowired
 	private UtilityService			utilityService;
+
+	@Autowired
+	private AdministratorService	administratorService;
 
 
 	// Tests ----------------------------------------------
@@ -180,6 +184,24 @@ public class ActorServiceTest extends AbstractTest {
 
 		results.add(positive); //2
 		results.add(negative);	// 1
+	}
+
+	@Test
+	public void delete_test() {
+		super.authenticate("admin1");
+
+		final int adminId = super.getEntityId("administrator1");
+		Administrator administrator, deleted;
+
+		administrator = this.administratorService.findOne(adminId);
+
+		this.actorService.delete(administrator);
+
+		deleted = this.administratorService.findOne(adminId);
+
+		Assert.isNull(deleted);
+
+		super.unauthenticate();
 	}
 
 	private Double max(final Integer n, final Integer p) {

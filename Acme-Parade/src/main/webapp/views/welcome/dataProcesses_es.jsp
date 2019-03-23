@@ -28,7 +28,7 @@
 	</p>
 
 	<p> Utilizamos tu información personal para aportar funcionalidad, analizar el rendimiento, 
-		resolver errores y mejorar la usabilidad y efectividad de los Servicios de Amazon.
+		resolver errores y mejorar la usabilidad y efectividad de los Servicios de Acme-Madrugá.
 	</p>
 	
 	<p>

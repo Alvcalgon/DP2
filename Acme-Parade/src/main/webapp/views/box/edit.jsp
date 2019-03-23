@@ -23,7 +23,6 @@
 <form:form action="box/administrator,brotherhood,chapter,member,sponsor/edit.do" modelAttribute="box" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="isSystemBox" />
 	
 	<acme:textbox code="box.name" path="name"/>
 	<acme:select code="box.parent"

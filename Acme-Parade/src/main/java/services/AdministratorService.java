@@ -60,7 +60,7 @@ public class AdministratorService {
 		Administrator result;
 
 		result = this.administratorRepository.findOne(adminId);
-		Assert.notNull(result);
+		//Assert.notNull(result);
 
 		return result;
 	}

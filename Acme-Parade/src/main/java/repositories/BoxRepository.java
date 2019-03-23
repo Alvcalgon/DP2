@@ -41,4 +41,7 @@ public interface BoxRepository extends JpaRepository<Box, Integer> {
 
 	@Query("select count(b) from Box b join b.messages m where m.id=?1")
 	Integer numberOfBoxesThatContaintAMessage(int messageId);
+
+	@Query("select b from Box b join b.messages m where m.id=?1")
+	Collection<Box> findBoxesByMessage(int messageId);
 }

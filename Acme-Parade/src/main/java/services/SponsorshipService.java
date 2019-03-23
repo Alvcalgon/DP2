@@ -92,6 +92,14 @@ public class SponsorshipService {
 		return saved;
 	}
 
+	protected void deleteSponsorships(final Sponsor sponsor) {
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = this.sponsorshipRepository.findAllBySponsorId(sponsor.getId());
+
+		this.sponsorshipRepository.deleteInBatch(sponsorships);
+	}
+
 	public Sponsorship findOne(final int sponsorshipId) {
 		Sponsorship result;
 
