@@ -109,8 +109,13 @@ public class LinkRecordService {
 
 	public void deleteLinkRecordsLinkedWithBrotherhood(final Brotherhood brotherhood) {
 		Collection<LinkRecord> linkRecords;
+		History history;
 
 		linkRecords = this.linkRecordRepository.linkRecordsLinkedWithBrotherhood(brotherhood.getId());
+		for (final LinkRecord l : linkRecords) {
+			history = this.historyService.findHistoryByLinkRecord(l.getId());
+			this.historyService.removeLinkRecord(history, l);
+		}
 
 		this.linkRecordRepository.delete(linkRecords);
 	}
