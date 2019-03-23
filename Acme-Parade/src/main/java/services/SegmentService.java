@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -57,9 +58,18 @@ public class SegmentService {
 		Assert.notNull(segment);
 		Assert.notNull(parade);
 		this.paradeService.checkParadeByBrotherhood(parade);
-		this.utilityService.checkMoment(segment.getReachingOrigin(), segment.getReachingDestination());
-		Assert.isTrue(segment.getOrigin().getLatitude() != segment.getDestination().getLatitude());
-		Assert.isTrue(segment.getOrigin().getLongitude() != segment.getDestination().getLongitude());
+		try {
+			this.utilityService.checkMoment(segment.getReachingOrigin(), segment.getReachingDestination());
+		} catch (final Exception e) {
+			throw new DataIntegrityViolationException("Invalid dates");
+		}
+
+		try {
+			if (segment.getOrigin().getLatitude() == segment.getDestination().getLatitude())
+				Assert.isTrue(segment.getOrigin().getLongitude() != segment.getDestination().getLongitude());
+		} catch (final Exception e) {
+			throw new DataIntegrityViolationException("Invalid gps");
+		}
 
 		List<Segment> segments;
 		Segment result, previousSegment, nextSegment;
@@ -76,14 +86,22 @@ public class SegmentService {
 
 		// The parade has not any segment yet, so this segment is the first in the path
 		if (pos == -1 && tam == 0) {
-			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+			try {
+				Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid date");
+			}
 
 			result = this.segmentRepository.save(segment);
 			this.paradeService.addSegment(parade, result);
 
 			// The segment is been inserted and the parade has, at least, one segment in the path
 		} else if (pos == -1 && tam > 0) {
-			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+			//			try {
+			//				this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+			//			} catch (final Exception e) {
+			//				throw new DataIntegrityViolationException("Invalid date");
+			//			}
 
 			previousSegment = segments.get(tam - 1);
 
@@ -97,23 +115,34 @@ public class SegmentService {
 			long_dest = previousSegment.getDestination().getLongitude();
 
 			// The segments must be contiguous
-			Assert.isTrue(reachingDestinationMs.equals(reachingOriginMs));
-			Assert.isTrue(lat_dest == lat_origin && long_origin == long_dest);
+			try {
+				Assert.isTrue(reachingDestinationMs.equals(reachingOriginMs));
+				Assert.isTrue(lat_dest == lat_origin && long_origin == long_dest);
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid data");
+			}
 
 			result = this.segmentRepository.save(segment);
 			this.paradeService.addSegment(parade, result);
 
 			// The first segment is been edited and path has not other segments.	
 		} else if (pos == 0 && tam == 1) {
-			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+			try {
+				Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid date");
+			}
 
 			result = this.segmentRepository.save(segment);
 
 			// The first segment is been edited and path has another segments. So we
 			// must update the second segment
 		} else if (pos == 0 && tam > 1) {
-			Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
-
+			try {
+				Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid date");
+			}
 			nextSegment = segments.get(1);
 			nextSegment.setOrigin(segment.getDestination());
 			nextSegment.setReachingOrigin(segment.getReachingDestination());
@@ -122,7 +151,12 @@ public class SegmentService {
 
 			// The last segment is been edited
 		} else if (pos == (tam - 1) && tam > 1) {
-			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+
+			try {
+				this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid date");
+			}
 
 			previousSegment = segments.get(pos - 1);
 			previousSegment.setDestination(segment.getOrigin());
@@ -132,7 +166,12 @@ public class SegmentService {
 
 			// The segment doesn't take up the first position nor last position 
 		} else if (pos > 0 && pos < (tam - 1)) {
-			this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+
+			try {
+				this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+			} catch (final Exception e) {
+				throw new DataIntegrityViolationException("Invalid date");
+			}
 
 			nextSegment = segments.get(pos + 1);
 			nextSegment.setOrigin(segment.getDestination());

@@ -129,6 +129,8 @@ public class ParadeService {
 
 		if (parade.getId() == 0)
 			parade.setTicker(this.utilityService.generateValidTicker(parade.getMoment()));
+		else
+			this.checkBrotherhoodByParade(parade);
 
 		result = this.paradeRepository.save(parade);
 

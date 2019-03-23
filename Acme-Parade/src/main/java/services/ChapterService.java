@@ -113,6 +113,7 @@ public class ChapterService {
 	public void delete(final Chapter chapter) {
 		Assert.notNull(chapter);
 		Assert.isTrue(chapter.getId() != 0);
+		Assert.isTrue(this.findByPrincipal().equals(chapter));
 
 		// Delete proclaims
 		this.proclaimService.deleteProclaims(chapter);

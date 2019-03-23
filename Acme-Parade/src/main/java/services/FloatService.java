@@ -58,6 +58,7 @@ public class FloatService {
 	}
 	public Float save(final Float floatt) {
 		Assert.notNull(floatt);
+		this.checkFloatByPrincipal(floatt);
 
 		Float result;
 

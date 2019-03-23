@@ -133,7 +133,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Administrator administrator;
 
-		administrator = this.administratorService.reconstruct(registrationForm, binding);
+		administrator = this.administratorService.findOneToDisplayEdit(registrationForm.getId());
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(registrationForm);
@@ -178,7 +178,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
-		brotherhood = this.brotherhoodService.reconstruct(brotherhoodRegistrationForm, binding);
+		brotherhood = this.brotherhoodService.findOneToDisplayEdit(brotherhoodRegistrationForm.getId());
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(brotherhoodRegistrationForm);
@@ -223,7 +223,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Member member;
 
-		member = this.memberService.reconstruct(registrationForm, binding);
+		member = this.memberService.findOneToDisplayEdit(registrationForm.getId());
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(registrationForm);
@@ -268,7 +268,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Chapter chapter;
 
-		chapter = this.chapterService.reconstruct(chapterRegistrationForm, binding);
+		chapter = this.chapterService.findOneToDisplayEdit(chapterRegistrationForm.getId());
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(chapterRegistrationForm);
@@ -313,7 +313,7 @@ public class ActorMultiUserController extends ActorAbstractController {
 		ModelAndView result;
 		Sponsor sponsor;
 
-		sponsor = this.sponsorService.reconstruct(registrationForm, binding);
+		sponsor = this.sponsorService.findOneToDisplayEdit(registrationForm.getId());
 
 		if (binding.hasErrors()) {
 			result = this.createModelAndView(registrationForm);

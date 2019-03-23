@@ -96,6 +96,7 @@ public class SponsorService {
 	public void delete(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
 		Assert.isTrue(sponsor.getId() != 0);
+		Assert.isTrue(this.findByPrincipal().equals(sponsor));
 
 		// Delete sponsorships
 		this.sponsorshipService.deleteSponsorships(sponsor);

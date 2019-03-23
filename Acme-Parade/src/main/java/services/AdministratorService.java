@@ -90,6 +90,7 @@ public class AdministratorService {
 		Assert.notNull(administrator);
 		Assert.isTrue(!administrator.getUserAccount().getUsername().equals("system"));
 		Assert.isTrue(administrator.getId() != 0);
+		Assert.isTrue(this.findByPrincipal().equals(administrator));
 
 		this.actorService.delete(administrator);
 
