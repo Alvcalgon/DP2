@@ -103,6 +103,8 @@ public class SegmentBroherhoodController extends AbstractController {
 					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.date");
 				else if (ex.getMessage().equals("Invalid dates"))
 					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.dates");
+				else if (ex.getMessage().equals("Invalid gps"))
+					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.gps");
 				else
 					result = this.createEditModelAndView(segment, paradeId, "segment.commit.error");
 
