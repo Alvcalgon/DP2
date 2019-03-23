@@ -102,6 +102,7 @@ public class MemberService {
 	public void delete(final Member member) {
 		Assert.notNull(member);
 		Assert.isTrue(member.getId() != 0);
+		Assert.isTrue(this.findByPrincipal().equals(member));
 
 		// Delete request
 		this.requestService.deleteRequests(member);

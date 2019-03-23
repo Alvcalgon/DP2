@@ -63,6 +63,12 @@ public class BrotherhoodService {
 	@Autowired
 	private EnrolmentService		enrolmentService;
 
+	@Autowired
+	private HistoryService			historyService;
+
+	@Autowired
+	private LinkRecordService		linkRecordService;
+
 
 	// Constructors -------------------------------
 
@@ -123,6 +129,7 @@ public class BrotherhoodService {
 	public void delete(final Brotherhood brotherhood) {
 		Assert.notNull(brotherhood);
 		Assert.isTrue(brotherhood.getId() != 0);
+		Assert.isTrue(this.findByPrincipal().equals(brotherhood));
 
 		// Delete parades
 		this.paradeService.deleteParadeBrotherhood(brotherhood);
@@ -135,6 +142,10 @@ public class BrotherhoodService {
 
 		// Delete enrolments
 		this.enrolmentService.deleteEnrolments(brotherhood);
+
+		// Delete history and record
+		this.linkRecordService.deleteLinkRecordsLinkedWithBrotherhood(brotherhood);
+		this.historyService.deleteHistory(brotherhood);
 
 		// Delete boxes, messages and social profiles
 		this.actorService.delete(brotherhood);
