@@ -18,19 +18,12 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="brotherhood/brotherhood/selectArea.do" modelAttribute="brotherhoodForm">
-
-		
+<form:form action="brotherhood/brotherhood/selectArea.do" modelAttribute="brotherhoodForm">	
 	<acme:select items="${areas}" itemLabel="name" code="brotherhood.areas" path="area"/>
-		
-
+	<br />
 	
 	<acme:submit name="save" code="area.save" />
-	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do"
-			code="area.cancel" />
-		<br />
-		
-
+	<acme:cancel url="/enrolment/brotherhood/listMemberRequest.do" code="area.cancel" />
 </form:form>
 
 
