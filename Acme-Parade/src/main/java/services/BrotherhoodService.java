@@ -131,14 +131,14 @@ public class BrotherhoodService {
 		Assert.isTrue(brotherhood.getId() != 0);
 		Assert.isTrue(this.findByPrincipal().equals(brotherhood));
 
+		// Delete request
+		this.requestService.deleteRequests(brotherhood);
+
 		// Delete parades
 		this.paradeService.deleteParadeBrotherhood(brotherhood);
 
 		// Delete floats
 		this.floatService.deleteFloatBrotherhood(brotherhood);
-
-		// Delete request
-		this.requestService.deleteRequests(brotherhood);
 
 		// Delete enrolments
 		this.enrolmentService.deleteEnrolments(brotherhood);

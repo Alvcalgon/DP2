@@ -224,6 +224,14 @@ public class SponsorshipService {
 		sponsorship.setIsActive(false);
 	}
 
+	protected void removeSponsorshipFromParade(final Parade parade) {
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = this.sponsorshipRepository.findSponsorshipsByParade(parade.getId());
+
+		this.sponsorshipRepository.delete(sponsorships);
+	}
+
 	private Collection<Sponsorship> findAllActive() {
 		Collection<Sponsorship> result;
 

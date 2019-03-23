@@ -254,7 +254,7 @@ public class RequestService {
 		}
 		if (actor instanceof Brotherhood) {
 			final Collection<Request> requestsBrotherhood = this.findRequestByBrotherhoodId(actor.getId());
-			this.requestRepository.deleteInBatch(requestsBrotherhood);
+			this.requestRepository.delete(requestsBrotherhood);
 		}
 	}
 

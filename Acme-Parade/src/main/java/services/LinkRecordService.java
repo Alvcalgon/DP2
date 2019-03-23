@@ -112,7 +112,7 @@ public class LinkRecordService {
 
 		linkRecords = this.linkRecordRepository.linkRecordsLinkedWithBrotherhood(brotherhood.getId());
 
-		this.linkRecordRepository.deleteInBatch(linkRecords);
+		this.linkRecordRepository.delete(linkRecords);
 	}
 
 	// Other business methods --------------------------

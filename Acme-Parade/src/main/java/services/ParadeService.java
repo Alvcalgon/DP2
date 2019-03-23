@@ -71,6 +71,9 @@ public class ParadeService {
 	private FloatService			floatService;
 
 	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -672,6 +675,10 @@ public class ParadeService {
 		Collection<Parade> parades;
 
 		parades = this.findParadeByBrotherhood(brotherhood.getId());
+		for (final Parade p : parades) {
+			this.finderService.deleteFromFinders(p);
+			this.sponsorshipService.removeSponsorshipFromParade(p);
+		}
 
 		this.paradeRepository.delete(parades);
 	}
