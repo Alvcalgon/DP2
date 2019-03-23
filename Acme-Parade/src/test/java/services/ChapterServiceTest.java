@@ -48,43 +48,54 @@ public class ChapterServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is not authenticated must be able to:
+	 * A: An actor who is not authenticated must be able to:
 	 * Register to the system as chapter.
+	 * 
+	 * B: -
+	 * 
+	 * C: Approximately 80% of sentence coverage, since it has been
+	 * covered 16 lines of code of 20 possible.
+	 * 
+	 * D: Approximately 7% of data coverage, because actors have a lot
+	 * of attributes with several restrictions.
 	 */
 	@Test
 	public void registerChapterDriver() {
 		final Object testingData[][] = {
 			/*
-			 * ANALISYS OF SENTENCE COVERAGE: Approximately 80% of sentence coverage,
-			 * since it has been covered 16 lines of code of 20 possible.
+			 * B: Positive test
 			 * 
-			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-			 * actors have a lot of attributes with some restrictions.
+			 * C: Approximately 80% of sentence coverage, since it has been
+			 * covered 16 lines of code of 20 possible.
+			 * 
+			 * D: Approximately 5% of data coverage, because actors have a lot
+			 * of attributes with several restrictions.
 			 */
 			{
 				"area3", null
 			},
 
 			/*
-			 * ANALISYS OF SENTENCE COVERAGE: Approximately 75% of sentence coverage,
-			 * since it has been covered 15 lines of code of 20 possible.
+			 * B: Positive test
 			 * 
-			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-			 * actors have a lot of attributes with some restrictions.
+			 * C: Approximately 75% of sentence coverage, since it has been
+			 * covered 15 lines of code of 20 possible.
+			 * 
+			 * D: Approximately 5% of data coverage, because actors have a lot
+			 * of attributes with several restrictions.
 			 */
 			{
 				null, null
 			},
 
 			/*
-			 * BUSINESS RULE UNDER TEST: No area can be coordinated by more than one
-			 * chapter.
+			 * B: No area can be coordinated by more than one chapter.
 			 * 
-			 * ANALISYS OF SENTENCE COVERAGE: Approximately 20% of sentence coverage,
-			 * since it has been covered 4 lines of code of 20 possible.
+			 * C: Approximately 20% of sentence coverage, since it has been
+			 * covered 4 lines of code of 20 possible.
 			 * 
-			 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-			 * actors have a lot of attributes with some restrictions.
+			 * D: Approximately 5% of data coverage, because actors have a lot
+			 * of attributes with several restrictions.
 			 */
 			{
 				"area1", IllegalArgumentException.class
@@ -147,13 +158,15 @@ public class ChapterServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The chapters that coordinate at least 10% more parades than average.
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testChaptersCoordinateLeast10MoreParadasThanAverage() {
