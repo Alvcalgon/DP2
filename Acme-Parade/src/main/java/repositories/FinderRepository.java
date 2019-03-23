@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Finder;
+import domain.Parade;
 
 @Repository
 public interface FinderRepository extends JpaRepository<Finder, Integer> {
@@ -20,5 +21,8 @@ public interface FinderRepository extends JpaRepository<Finder, Integer> {
 
 	@Query("select f from Finder f where f.member.id = ?1")
 	Finder findByMemberId(int memberId);
+
+	@Query("select f from Finder f where ?1 member of f.parades")
+	Collection<Finder> findAllByParade(Parade parade);
 
 }

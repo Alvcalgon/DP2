@@ -191,6 +191,15 @@ public class FinderService {
 		this.save(finder);
 	}
 
+	protected void deleteFromFinders(final Parade parade) {
+		Collection<Finder> finders;
+
+		finders = this.finderRepository.findAllByParade(parade);
+
+		for (final Finder f : finders)
+			f.getParades().remove(parade);
+	}
+
 	protected void flush() {
 		this.finderRepository.flush();
 	}
