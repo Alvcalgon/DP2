@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.LinkRecordRepository;
+import domain.Brotherhood;
 import domain.History;
 import domain.LinkRecord;
 
@@ -104,6 +105,14 @@ public class LinkRecordService {
 
 		this.historyService.removeLinkRecord(history, linkRecord);
 		this.linkRecordRepository.delete(linkRecord);
+	}
+
+	public void deleteLinkRecordsLinkedWithBrotherhood(final Brotherhood brotherhood) {
+		Collection<LinkRecord> linkRecords;
+
+		linkRecords = this.linkRecordRepository.linkRecordsLinkedWithBrotherhood(brotherhood.getId());
+
+		this.linkRecordRepository.deleteInBatch(linkRecords);
 	}
 
 	// Other business methods --------------------------

@@ -77,6 +77,13 @@ public class HistoryService {
 		return result;
 	}
 
+	public void deleteHistory(final Brotherhood brotherhood) {
+		History history;
+
+		history = this.findHistoryByBrotherhood(brotherhood.getId());
+		this.historyRepository.delete(history);
+	}
+
 	// Other business methods --------------------------
 
 	protected void addPeriodRecord(final History history, final PeriodRecord periodRecord) {
@@ -194,4 +201,5 @@ public class HistoryService {
 
 		return brotherhoods;
 	}
+
 }

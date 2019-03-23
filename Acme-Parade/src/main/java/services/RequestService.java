@@ -137,9 +137,11 @@ public class RequestService {
 
 		return result;
 	}
+
 	public Request saveEdit(final Request request) {
 		Assert.notNull(request);
 		Assert.isTrue(request.getId() != 0);
+		Assert.isTrue(!(request.getStatus().equals("PENDING")));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		this.checkNotChangeStatus(request);
 
@@ -187,7 +189,7 @@ public class RequestService {
 		Assert.isTrue(!(request.getId() == 0));
 		Assert.isTrue(LoginService.getPrincipal().getAuthorities().toString().equals("[BROTHERHOOD]"));
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
-		//Assert.isTrue(request.getStatus().equals("PENDING"));
+		Assert.isTrue(request.getStatus().equals("PENDING"));
 		final Request result;
 		Integer[][] matrizParade;
 
@@ -260,13 +262,8 @@ public class RequestService {
 		RequestForm result;
 
 		result = new RequestForm();
-		result.setColumnParade(request.getColumnParade());
 		result.setId(request.getId());
-		result.setRowParade(request.getRowParade());
 		result.setReasonWhy(request.getReasonWhy());
-		result.setStatus(request.getStatus());
-		result.setParade(request.getParade());
-		result.setMember(request.getMember());
 
 		return result;
 	}
@@ -280,7 +277,7 @@ public class RequestService {
 		result = new Request();
 		requestStored = this.findOneToBrotherhood(requestForm.getId());
 		position = requestForm.getPositionParade();
-		positionsMap = this.paradeService.positionsFree(requestForm.getParade());
+		positionsMap = this.paradeService.positionsFree(requestStored.getParade());
 		row = positionsMap.get(position).get(0);
 		column = positionsMap.get(position).get(1);
 

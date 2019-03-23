@@ -24,13 +24,8 @@
 <form:form action="request/brotherhood/edit.do"
 	modelAttribute="requestForm">
 	<form:hidden path="id" />
-	<form:hidden path="status" />
-	<form:hidden path="member" />
-	<form:hidden path="parade" />
-	<form:hidden path="rowParade" />
-	<form:hidden path="columnParade" />
 
-	<jstl:if test="${requestForm.status=='APPROVED'}">
+	<jstl:if test="${request.status=='APPROVED'}">
 		<form:label path="positionParade">
 			<spring:message code="request.positionParade" />:
 		</form:label>
@@ -51,7 +46,7 @@
 		</div>
 	</jstl:if>
 
-	<jstl:if test="${requestForm.status!='APPROVED'}">
+	<jstl:if test="${request.status!='APPROVED'}">
 
 		<acme:textarea code="request.reasonWhyText" path="reasonWhy" />
 

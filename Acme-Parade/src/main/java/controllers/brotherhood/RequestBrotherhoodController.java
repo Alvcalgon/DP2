@@ -206,14 +206,17 @@ public class RequestBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		int brotherhoodId;
 		SortedMap<Integer, List<Integer>> positionsMap;
+		Request request;
 
 		brotherhoodId = this.brotherhoodService.findByPrincipal().getId();
-		positionsMap = this.paradeService.positionsFree(requestForm.getParade());
+		request = this.requestService.findOne(requestForm.getId());
+		positionsMap = this.paradeService.positionsFree(request.getParade());
 
 		result = new ModelAndView("request/edit");
 		result.addObject("requestForm", requestForm);
 		result.addObject("messageCode", messageCode);
 		result.addObject("brotherhoodId", brotherhoodId);
+		result.addObject("request", request);
 		result.addObject("positions", positionsMap);
 
 		return result;
