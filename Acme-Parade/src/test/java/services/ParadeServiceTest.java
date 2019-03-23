@@ -56,14 +56,16 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The average, the minimum, the maximum and the standard deviation of
 	 * the number of parades co-ordinated by the chapter.
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testDataNumerParadesCoordinatedByChapters() {
@@ -78,13 +80,15 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The ratio of parades in draft mode vs parades y final mode.
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testRatioParadesDraftModeVSParadesFinalMode() {
@@ -96,13 +100,15 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The ratio of parades in final mode grouped by status. [SUBMITTED]
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testRatioSubmittedParadesFinalMode() {
@@ -114,13 +120,15 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The ratio of parades in final mode grouped by status. [ACCEPTED]
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testRatioAcceptedParadesFinalMode() {
@@ -132,13 +140,15 @@ public class ParadeServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is authenticated as an administrator
-	 * must be able to display a dashboard with the following information:
+	 * A: An actor who is authenticated as an administrator must be able to
+	 * display a dashboard with the following information:
 	 * The ratio of parades in final mode grouped by status. [REJECTED]
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: 100% of sentence coverage.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: 100% of data coverage.
+	 * C: 100% of sentence coverage.
+	 * 
+	 * D: 100% of data coverage.
 	 */
 	@Test
 	public void testRatioRejectedParadesFinalMode() {

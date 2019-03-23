@@ -41,14 +41,16 @@ public class SponsorServiceTest extends AbstractTest {
 	// Tests ------------------------------------------------------------------
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is not authenticated must be able to:
+	 * A: An actor who is not authenticated must be able to:
 	 * Register as a sponsor.
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: Approximately 77% of sentence coverage,
-	 * since it has been covered 14 lines of code of 18 possible.
+	 * B: Positive test
 	 * 
-	 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-	 * actors have a lot of attributes with some restrictions.
+	 * C: Approximately 77% of sentence coverage, since it has been covered 14
+	 * lines of code of 18 possible.
+	 * 
+	 * D: Approximately 5% of data coverage, because actors have a lot of
+	 * attributes with some restrictions.
 	 */
 	@Test
 	public void testRegisterSponsor() {
@@ -82,14 +84,16 @@ public class SponsorServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * REQUIREMENT TESTED: An actor who is not authenticated must be able to:
+	 * A: An actor who is not authenticated must be able to:
 	 * Register as a sponsor.
 	 * 
-	 * ANALISYS OF SENTENCE COVERAGE: Approximately 77% of sentence coverage,
-	 * since it has been covered 14 lines of code of 18 possible.
+	 * B: Photo must be a valid URL
 	 * 
-	 * ANALISYS OF DATA COVERAGE: Approximately 10% of data coverage, because
-	 * actors have a lot of attributes with some restrictions.
+	 * C: Approximately 77% of sentence coverage, since it has been covered 14
+	 * lines of code of 18 possible.
+	 * 
+	 * D: Approximately 5% of data coverage, because actors have a lot of
+	 * attributes with some restrictions.
 	 */
 	@Test(expected = ConstraintViolationException.class)
 	public void testRegisterSponsorInvalidPhoto() {
