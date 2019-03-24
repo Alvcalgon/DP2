@@ -29,7 +29,6 @@ import domain.Chapter;
 import domain.Finder;
 import domain.Float;
 import domain.Parade;
-import domain.Request;
 import domain.Segment;
 
 @Service
@@ -158,13 +157,8 @@ public class ParadeService {
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
 		this.checkBrotherhoodByParade(parade);
 
-		Collection<Request> requests;
-
-		requests = this.requestService.findRequestByParade(parade.getId());
-
-		for (final Request r : requests)
-			this.requestService.deleteRequest(r);
-
+		this.sponsorshipService.removeSponsorshipFromParade(parade);
+		this.requestService.deleteRequestToParade(parade);
 		this.finderService.removeParadeToFinder(parade);
 
 		this.paradeRepository.delete(parade);
@@ -281,7 +275,7 @@ public class ParadeService {
 	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);
-		Assert.isTrue(parade.getStatus().equals(""));
+		Assert.isTrue(parade.getStatus().equals("submitted"));
 
 		parade.setStatus("accepted");
 

@@ -235,8 +235,11 @@ public class RequestService {
 		this.requestRepository.delete(request);
 	}
 
-	public void deleteRequest(final Request request) {
-		this.requestRepository.delete(request);
+	public void deleteRequestToParade(final Parade parade) {
+		Collection<Request> requests;
+
+		requests = this.findRequestByParade(parade.getId());
+		this.requestRepository.delete(requests);
 	}
 
 	public void deleteDropOut(final Request request) {

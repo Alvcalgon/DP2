@@ -49,9 +49,9 @@
 		 itemLabel="title" code="parade.floats" path="floats"/>
 		 
 
-	<input type="submit" name="save" value="<spring:message code="parade.save" />" />
+	<acme:submit name="save" code="parade.save"/>	
 	<jstl:if test="${parade.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="parade.delete" />" onclick="return confirm('<spring:message code="parade.confirm.delete" />')" />
+		<acme:submit name="delete" code="parade.delete"/>	
 	</jstl:if>
 	<acme:cancel url="parade/list.do?brotherhoodId=${owner.id}" code="parade.cancel"/>
 	<br />
