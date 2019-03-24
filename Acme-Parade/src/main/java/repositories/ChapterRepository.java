@@ -17,6 +17,6 @@ public interface ChapterRepository extends JpaRepository<Chapter, Integer> {
 
 	// Req 8.1.3 Chapters coordinate at least 10% more parades than average
 	@Query("select c from Chapter c where (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = c.area.id) > 1.1*(select avg(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)) from Area a where a in (select c.area from Chapter c))")
-	Collection<Chapter> chaptersCoordinateLeast10MoreParadasThanAverage(double avg);
+	Collection<Chapter> chaptersCoordinateLeast10MoreParadasThanAverage();
 
 }
