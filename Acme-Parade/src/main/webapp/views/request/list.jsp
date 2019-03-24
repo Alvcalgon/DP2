@@ -64,7 +64,7 @@
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<display:column style="background-color:${colorValue }"
-				property="member.name" titleKey="request.member" />
+				property="member.fullname" titleKey="request.member" />
 		</security:authorize>
 
 	</display:table>
@@ -104,7 +104,7 @@
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<display:column style="background-color:${colorValue }"
-				property="member.name" titleKey="request.member" />
+				property="member.fullname" titleKey="request.member" />
 		</security:authorize>
 
 	</display:table>
@@ -142,7 +142,7 @@
 
 		<security:authorize access="hasRole('BROTHERHOOD')">
 			<display:column style="background-color:${colorValue }"
-				property="member.name" titleKey="request.member" />
+				property="member.fullname" titleKey="request.member" />
 		</security:authorize>
 
 	</display:table>
