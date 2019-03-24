@@ -104,10 +104,12 @@ public class ParadeBroherhoodController extends AbstractController {
 	public ModelAndView delete(final Parade parade, final BindingResult binding) {
 		ModelAndView result;
 		int brotherhoodId;
+		Parade paradeBbdd;
 
 		try {
+			paradeBbdd = this.paradeService.findOne(parade.getId());
 			brotherhoodId = this.brotherhoodService.findBrotherhoodByParade(parade.getId()).getId();
-			this.paradeService.delete(parade);
+			this.paradeService.delete(paradeBbdd);
 			result = new ModelAndView("redirect:../../parade/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(parade, "parade.delete.error");
