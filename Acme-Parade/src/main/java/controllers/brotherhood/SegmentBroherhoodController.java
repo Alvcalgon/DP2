@@ -95,7 +95,7 @@ public class SegmentBroherhoodController extends AbstractController {
 
 				this.segmentService.save(segment, parade);
 				principal = this.brotherhoodService.findByPrincipal();
-				result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + principal.getId());
+				result = new ModelAndView("redirect:/parade/display.do?paradeId=" + parade.getId());
 			} catch (final DataIntegrityViolationException ex) {
 				if (ex.getMessage().equals("Invalid data"))
 					result = this.createEditModelAndView(segment, paradeId, "segment.invalid.data");
