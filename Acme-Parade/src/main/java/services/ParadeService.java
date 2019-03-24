@@ -141,6 +141,7 @@ public class ParadeService {
 	public Parade saveRejected(final Parade parade) {
 		Assert.notNull(parade);
 
+		Assert.isTrue(parade.getStatus().equals("submitted"));
 		final Parade result;
 		this.checkChapter(parade);
 
@@ -197,6 +198,7 @@ public class ParadeService {
 
 		result = this.paradeRepository.findOne(paradeId);
 
+		Assert.isTrue(result.getStatus().equals("submitted"));
 		Assert.notNull(result);
 		this.checkChapter(result);
 
