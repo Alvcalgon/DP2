@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
@@ -85,7 +86,7 @@ public class PeriodRecordServiceTest extends AbstractTest {
 			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
-				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", IllegalArgumentException.class
+				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
@@ -103,7 +104,7 @@ public class PeriodRecordServiceTest extends AbstractTest {
 			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
-				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 1700, "http://asdf.com", IllegalArgumentException.class
+				"brotherhood1", "title periodRecord test", "text periodRecord test", 1966, 1700, "http://asdf.com", DataIntegrityViolationException.class
 			},
 
 		};
@@ -201,7 +202,7 @@ public class PeriodRecordServiceTest extends AbstractTest {
 			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
-				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", IllegalArgumentException.class
+				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 1966, 2000, "esto no es foto", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede crear periodRecord
@@ -219,7 +220,7 @@ public class PeriodRecordServiceTest extends AbstractTest {
 			 * D:9%, (1/11) hay 11 atributos, 2 pueden tomar valores en blanco o no, 1 en blanco o no y no cumplir el formato y dos pueden ser mayor o menor a 1
 			 */
 			{
-				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 2000, 21, "http://asdf.com", IllegalArgumentException.class
+				"brotherhood1", "periodRecord1", "title periodRecord test", "text periodRecord test", 2000, 21, "http://asdf.com", DataIntegrityViolationException.class
 			},
 
 			/*

@@ -14,8 +14,6 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Brotherhood;
-import domain.History;
-import domain.MiscellaneousRecord;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -26,12 +24,10 @@ public class HistoryServiceTest extends AbstractTest {
 
 	// Services under test --------------------------
 	@Autowired
-	private HistoryService				historyService;
+	private HistoryService	historyService;
+
 
 	// Other supporting services --------------------
-	@Autowired
-	private MiscellaneousRecordService	miscellaneousRecordService;
-
 
 	// Suite test -----------------------------------
 
@@ -64,39 +60,6 @@ public class HistoryServiceTest extends AbstractTest {
 
 		Assert.notNull(brotherhood);
 		Assert.isTrue(brotherhood.size() == 1);
-	}
-
-	/*
-	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
-	 * C: 100% se ha recorrido todas las líneas de código del método
-	 * D:Analysis of data coverage: intentionally blank
-	 */
-	@Test
-	public void brotherhoohsLargestHistoryAvg_positive_test() {
-		Collection<Brotherhood> brotherhood;
-		History history;
-		final Collection<MiscellaneousRecord> miscellaneousRecords;
-		final MiscellaneousRecord miscellaneousRecord;
-
-		brotherhood = this.historyService.findBrotherhoohsLargestHistoryAvg();
-		history = this.historyService.findOne(super.getEntityId("history1"));
-		miscellaneousRecord = this.miscellaneousRecordService.findOne(super.getEntityId("miscellaneousRecord1"));
-		miscellaneousRecords = history.getMiscellaneousRecords();
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-		miscellaneousRecords.add(miscellaneousRecord);
-
-		Assert.isTrue(brotherhood.contains(history.getBrotherhood()));
 	}
 
 }
