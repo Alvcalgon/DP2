@@ -145,7 +145,8 @@ public class BrotherhoodService {
 
 		// Delete history and record
 		this.linkRecordService.deleteLinkRecordsLinkedWithBrotherhood(brotherhood);
-		this.historyService.deleteHistory(brotherhood);
+		if (this.historyService.findHistoryByBrotherhood(brotherhood.getId()) != null)
+			this.historyService.deleteHistory(brotherhood);
 
 		// Delete boxes, messages and social profiles
 		this.actorService.delete(brotherhood);
