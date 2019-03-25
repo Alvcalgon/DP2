@@ -207,6 +207,34 @@ public class SegmentService {
 
 		return result;
 	}
+	public Segment findOneToDisplayChapter(final int segmentId) {
+		Segment result;
+		Parade parade;
+
+		parade = this.paradeService.findBySegment(segmentId);
+		result = this.segmentRepository.findOne(segmentId);
+
+		Assert.notNull(result);
+		Assert.isTrue(parade.getIsFinalMode());
+		this.paradeService.checkChapter(parade);
+
+		return result;
+	}
+
+	public Segment findOneToDisplay(final int segmentId) {
+		Segment result;
+		Parade parade;
+
+		parade = this.paradeService.findBySegment(segmentId);
+		result = this.segmentRepository.findOne(segmentId);
+
+		Assert.notNull(result);
+		Assert.isTrue(parade.getIsFinalMode());
+		Assert.isTrue(parade.getStatus().equals("accepted"));
+
+		return result;
+
+	}
 
 	public Collection<Segment> findAll() {
 		Collection<Segment> results;
