@@ -77,11 +77,7 @@ public class ExportDataBrotherhoodController extends AbstractController {
 		final Collection<Float> floats = this.floatService.findFloatByBrotherhood(actor.getId());
 		final Collection<Parade> parades = this.paradeService.findParadeByBrotherhood(actor.getId());
 		final History history = this.historyService.findHistoryByBrotherhood(actor.getId());
-		final InceptionRecord inceptionRecord = history.getInceptionRecord();
-		final Collection<PeriodRecord> periodRecords = history.getPeriodRecords();
-		final Collection<MiscellaneousRecord> miscellaneousRecords = history.getMiscellaneousRecords();
-		final Collection<LegalRecord> legalRecords = history.getLegalRecords();
-		final Collection<LinkRecord> linkRecords = history.getLinkRecords();
+
 		final Collection<Member> members = this.memberService.findEnroledMemberByBrotherhood(actor.getId());
 
 		String data = "Data of your user account:\r\n";
@@ -177,60 +173,73 @@ public class ExportDataBrotherhoodController extends AbstractController {
 
 		data += "History:\r\n\r\n";
 
-		data += "Inception Record:\r\n\r\n";
+		try {
+			if (!(history.equals(null))) {
+				final InceptionRecord inceptionRecord = history.getInceptionRecord();
+				final Collection<PeriodRecord> periodRecords = history.getPeriodRecords();
+				final Collection<MiscellaneousRecord> miscellaneousRecords = history.getMiscellaneousRecords();
+				final Collection<LegalRecord> legalRecords = history.getLegalRecords();
+				final Collection<LinkRecord> linkRecords = history.getLinkRecords();
 
-		data += "Title: " + inceptionRecord.getTitle() + " \r\n" + "Text: " + inceptionRecord.getText() + " \r\n" + "Photos: " + inceptionRecord.getPhotos() + "\r\n";
+				data += "Inception Record:\r\n\r\n";
 
-		data += "\r\n";
-		data += "- - - -";
-		data += "\r\n\r\n";
+				data += "Title: " + inceptionRecord.getTitle() + " \r\n" + "Text: " + inceptionRecord.getText() + " \r\n" + "Photos: " + inceptionRecord.getPhotos() + "\r\n";
 
-		data += "Period Record:\r\n\r\n";
-		Integer pr = 0;
-		for (final PeriodRecord periodRecord : periodRecords) {
-			data += "Title: " + periodRecord.getTitle() + " \r\n" + "Text: " + periodRecord.getText() + " \r\n" + "Photos: " + periodRecord.getPhotos() + " \r\n" + "End Year: " + periodRecord.getEndYear() + " \r\n" + "Start Year: "
-				+ periodRecord.getStartYear() + "\r\n";
-			pr++;
-			if (pr < periodRecords.size())
-				data += "\r\n" + "......................." + "\r\n\r\n";
-		}
+				data += "\r\n";
+				data += "- - - -";
+				data += "\r\n\r\n";
 
-		data += "\r\n";
-		data += "- - - -";
-		data += "\r\n\r\n";
+				data += "Period Record:\r\n\r\n";
+				Integer pr = 0;
+				for (final PeriodRecord periodRecord : periodRecords) {
+					data += "Title: " + periodRecord.getTitle() + " \r\n" + "Text: " + periodRecord.getText() + " \r\n" + "Photos: " + periodRecord.getPhotos() + " \r\n" + "End Year: " + periodRecord.getEndYear() + " \r\n" + "Start Year: "
+						+ periodRecord.getStartYear() + "\r\n";
+					pr++;
+					if (pr < periodRecords.size())
+						data += "\r\n" + "......................." + "\r\n\r\n";
+				}
 
-		data += "Miscellaneous Record:\r\n\r\n";
-		Integer mr = 0;
-		for (final MiscellaneousRecord miscellaneousRecord : miscellaneousRecords) {
-			data += "Title: " + miscellaneousRecord.getTitle() + " \r\n" + "Text: " + miscellaneousRecord.getText() + "\r\n";
-			mr++;
-			if (mr < miscellaneousRecords.size())
-				data += "\r\n" + "......................." + "\r\n\r\n";
-		}
+				data += "\r\n";
+				data += "- - - -";
+				data += "\r\n\r\n";
 
-		data += "\r\n";
-		data += "- - - -";
-		data += "\r\n\r\n";
+				data += "Miscellaneous Record:\r\n\r\n";
+				Integer mr = 0;
+				for (final MiscellaneousRecord miscellaneousRecord : miscellaneousRecords) {
+					data += "Title: " + miscellaneousRecord.getTitle() + " \r\n" + "Text: " + miscellaneousRecord.getText() + "\r\n";
+					mr++;
+					if (mr < miscellaneousRecords.size())
+						data += "\r\n" + "......................." + "\r\n\r\n";
+				}
 
-		data += "Legal Record:\r\n\r\n";
-		Integer lr = 0;
-		for (final LegalRecord legalRecord : legalRecords) {
-			data += "Title: " + legalRecord.getTitle() + " \r\n" + "Text: " + legalRecord.getText() + " \r\n" + "Name: " + legalRecord.getName() + " \r\n" + "Vat Number: " + legalRecord.getVatNumber() + " \r\n" + "Laws: " + legalRecord.getLaws() + "\r\n";
-			lr++;
-			if (lr < legalRecords.size())
-				data += "\r\n" + "......................." + "\r\n\r\n";
-		}
-		data += "\r\n";
-		data += "- - - -";
-		data += "\r\n\r\n";
+				data += "\r\n";
+				data += "- - - -";
+				data += "\r\n\r\n";
 
-		data += "Link Record:\r\n\r\n";
-		Integer lir = 0;
-		for (final LinkRecord linkRecord : linkRecords) {
-			data += "Title: " + linkRecord.getTitle() + " \r\n" + "Text: " + linkRecord.getText() + "\r\n";
-			lir++;
-			if (lir < linkRecords.size())
-				data += "\r\n" + "......................." + "\r\n\r\n";
+				data += "Legal Record:\r\n\r\n";
+				Integer lr = 0;
+				for (final LegalRecord legalRecord : legalRecords) {
+					data += "Title: " + legalRecord.getTitle() + " \r\n" + "Text: " + legalRecord.getText() + " \r\n" + "Name: " + legalRecord.getName() + " \r\n" + "Vat Number: " + legalRecord.getVatNumber() + " \r\n" + "Laws: " + legalRecord.getLaws()
+						+ "\r\n";
+					lr++;
+					if (lr < legalRecords.size())
+						data += "\r\n" + "......................." + "\r\n\r\n";
+				}
+				data += "\r\n";
+				data += "- - - -";
+				data += "\r\n\r\n";
+
+				data += "Link Record:\r\n\r\n";
+				Integer lir = 0;
+				for (final LinkRecord linkRecord : linkRecords) {
+					data += "Title: " + linkRecord.getTitle() + " \r\n" + "Text: " + linkRecord.getText() + "\r\n";
+					lir++;
+					if (lir < linkRecords.size())
+						data += "\r\n" + "......................." + "\r\n\r\n";
+				}
+			}
+		} catch (final Exception e) {
+
 		}
 
 		data += "\r\n";
@@ -247,6 +256,16 @@ public class ExportDataBrotherhoodController extends AbstractController {
 		}
 
 		data += "\r\n";
+		data += "-------------------------------------------------------------";
+		data += "\r\n\r\n";
+
+		data += "Area:\r\n\r\n";
+		try {
+			if (!(actor.getArea().equals(null)))
+				data += actor.getArea().getName();
+		} catch (final Exception e) {
+
+		}
 
 		response.setContentType("text/plain");
 		response.setHeader("Content-Disposition", "attachment;filename=data_user_account.txt");
