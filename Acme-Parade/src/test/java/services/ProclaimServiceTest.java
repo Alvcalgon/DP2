@@ -68,13 +68,13 @@ public class ProclaimServiceTest extends AbstractTest {
 
 	/*
 	 * A: Req 12: Chapters can publish proclaims. For every proclaim, the system must store the moment when its published and a piece of text that cant be longer than 250 characters.
-	 * B: Insertamos una fecha que no sea past
+	 * B: Write 266 characters
 	 * C: 50%(11 lines/22 lines)
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void create_negative_test() {
-		super.authenticate("brotherhood1");
+		super.authenticate("chapter1");
 
 		Proclaim proclaim;
 
@@ -90,7 +90,7 @@ public class ProclaimServiceTest extends AbstractTest {
 
 	/*
 	 * A: Req 17.1: Publish a proclaim. Note that once a proclaim is published, theres no way to update or delete it, so double confirmation prior to publication is a must.
-	 * B: El proclaim no se puede editar. Su id!=0
+	 * B: Edit a proclaim.
 	 * C: 54.54%(12 lines /22 lines)
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
