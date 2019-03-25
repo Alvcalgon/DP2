@@ -362,7 +362,7 @@ public class ChapterService {
 	public Collection<Chapter> chaptersCoordinateLeast10MoreParadasThanAverage() {
 		Collection<Chapter> result;
 
-		result = this.chaptersCoordinateLeast10MoreParadasThanAverage();
+		result = this.chapterRepository.chaptersCoordinateLeast10MoreParadasThanAverage();
 
 		return result;
 	}

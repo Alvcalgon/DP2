@@ -29,7 +29,6 @@ import domain.Chapter;
 import domain.Finder;
 import domain.Float;
 import domain.Parade;
-import domain.Request;
 import domain.Segment;
 
 @Service
@@ -142,6 +141,7 @@ public class ParadeService {
 	public Parade saveRejected(final Parade parade) {
 		Assert.notNull(parade);
 
+		Assert.isTrue(parade.getStatus().equals("submitted"));
 		final Parade result;
 		this.checkChapter(parade);
 
@@ -158,14 +158,9 @@ public class ParadeService {
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
 		this.checkBrotherhoodByParade(parade);
 
-		Collection<Request> requests;
-
-		requests = this.requestService.findRequestByParade(parade.getId());
-
-		for (final Request r : requests)
-			this.requestService.deleteRequest(r);
-
-		this.finderService.removeParadeToFinder(parade);
+		this.sponsorshipService.removeSponsorshipFromParade(parade);
+		this.requestService.deleteRequestToParade(parade);
+		this.finderService.deleteFromFinders(parade);
 
 		this.paradeRepository.delete(parade);
 
@@ -203,6 +198,7 @@ public class ParadeService {
 
 		result = this.paradeRepository.findOne(paradeId);
 
+		Assert.isTrue(result.getStatus().equals("submitted"));
 		Assert.notNull(result);
 		this.checkChapter(result);
 
@@ -281,7 +277,7 @@ public class ParadeService {
 	public Parade accept(final Parade parade) {
 		this.checkChapter(parade);
 		Assert.notNull(parade);
-		Assert.isTrue(parade.getStatus().equals(""));
+		Assert.isTrue(parade.getStatus().equals("submitted"));
 
 		parade.setStatus("accepted");
 

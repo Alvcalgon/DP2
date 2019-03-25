@@ -29,6 +29,10 @@
 		</jstl:if>
 	</security:authorize>
 
+	<strong><spring:message code="parade.ticker"/>:</strong>
+		<jstl:out value="${parade.ticker}"/>
+	<br/>
+	
 
 	<strong><spring:message code="parade.brotherhood"/>:</strong>
 		<jstl:out value="${brotherhood.title}"/>

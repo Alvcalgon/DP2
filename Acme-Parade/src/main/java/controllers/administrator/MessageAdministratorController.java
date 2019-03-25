@@ -3,8 +3,6 @@ package controllers.administrator;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -55,17 +53,19 @@ public class MessageAdministratorController extends AbstractController {
 	// Edition ----------------------------------------------------------------
 
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
-	public ModelAndView broadcast(@Valid final Message broadcast, final BindingResult binding) {
+	public ModelAndView broadcast(final Message broadcast, final BindingResult binding) {
 		ModelAndView result;
+		Message broadcastRec;
 
+		broadcastRec = this.messageService.reconstruct(broadcast, binding);
 		if (binding.hasErrors())
 			result = this.broadcastModelAndView(broadcast);
 		else
 			try {
-				this.messageService.sendBroadcast(broadcast);
+				this.messageService.sendBroadcast(broadcastRec);
 				result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 			} catch (final Throwable oops) {
-				result = this.broadcastModelAndView(broadcast, "message.commit.error");
+				result = this.broadcastModelAndView(broadcastRec, "message.commit.error");
 			}
 
 		return result;

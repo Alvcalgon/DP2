@@ -59,6 +59,16 @@
 	<jstl:out value="${customisation.thresholdScore}" />
 </p>
 
+<p>
+	<strong> <spring:message code="customisation.vat" />: </strong>
+	<jstl:out value="${customisation.vatPercentage}" />
+</p>
+
+<p>
+	<strong> <spring:message code="customisation.fare" />: </strong>
+	<jstl:out value="${customisation.fare}" />
+</p>
+
 <p> <strong> <spring:message code="customisation.priorities" />: </strong> </p>	
 <ul>
 	<jstl:forEach var="row" items="${priorities}">

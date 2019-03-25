@@ -159,12 +159,10 @@ public class ParadeServiceTest extends AbstractTest {
 		Assert.isTrue(ratio == 0.11111);
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 2.2
-	 * A chapter logged list published parades grouped by status of a brotherhood in the area
-	 * that he/she coordinates.
-	 * Analysis of sentence coverage: 100% of sentence coverage
-	 * Analysis of data coverage: 100% of data coverage
+	/*
+	 * A: A chapter logged list published parades grouped by status of a brotherhood in the area that he/she coordinates.
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void list_publishedParadesGroupedByStatusChapter_positive_test() {
@@ -186,13 +184,11 @@ public class ParadeServiceTest extends AbstractTest {
 
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 2.2
-	 * The business rule that is intended to be broken: A chapter try to list the parades published
-	 * of an area different of his/her.
-	 * Analysis of sentence coverage: Approximately 77% of sentence coverage,
-	 * since it has been covered 7 lines of code of 9 possible.
-	 * Analysis of data coverage: intentionally blank
+	/*
+	 * A: Chapter try to list the parades published
+	 * B: A chapter try to list the parades published of an area different of his/her.
+	 * C: Approximately 77% of sentence coverage, since it has been covered 7 lines of code of 9 possible.
+	 * D: 100% of data coverage
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void list_publishedParadesGroupedByStatusChapter_negative_test() {
@@ -214,11 +210,10 @@ public class ParadeServiceTest extends AbstractTest {
 
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 2.2
-	 * Chapter rejected a parade writing a rejected reason.
-	 * Analysis of sentence coverage: 100% of sentence coverage
-	 * Analysis of data coverage: 100% of data coverage
+	/*
+	 * A: Chapter rejected a parade writing a rejected reason.
+	 * C: 100% of sentence coverage
+	 * D: 33% (1/3) of data coverage for this test. Parade::reasonWhy could be blank, null or could have a valid value.
 	 */
 	@Test
 	public void reject_parade_positive_test() {
@@ -235,13 +230,11 @@ public class ParadeServiceTest extends AbstractTest {
 
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 2.2
-	 * The business rule that is intended to be broken: Chapter tries to reject a parade without writes
-	 * a reason why.
-	 * Analysis of sentence coverage: Approximately 71% of sentence coverage,
-	 * since it has been covered 5 lines of code of 7 possible.
-	 * Analysis of data coverage: intentionally blank
+	/*
+	 * A: Chapter rejects a parade
+	 * B: Chapter tries to reject a parade without writes a reason why.
+	 * C: Approximately 71% of sentence coverage,since it has been covered 5 lines of code of 7 possible.
+	 * D: 33% (1/3) of data coverage for this test. Parade::reasonWhy could be blank, null or could have a valid value.
 	 */
 	@Test(expected = DataIntegrityViolationException.class)
 	public void reject_parade_negative_test() {
@@ -256,11 +249,10 @@ public class ParadeServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.1
-	 * Brotherhood list their parades grouped by status
-	 * Analysis of sentence coverage: 100% of sentence coverage
-	 * Analysis of data coverage: intentionally blank
+	/*
+	 * A:Brotherhood list their parades grouped by status
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void list_publishedParadesGroupedByStatusBrotherhood_positive_test() {
@@ -282,11 +274,10 @@ public class ParadeServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.2
-	 * Brotherhood makes a copy of one of their parades.
-	 * Analysis of sentence coverage: 100% of sentence coverage
-	 * Analysis of data coverage: intentionally blank
+	/*
+	 * A: Brotherhood makes a copy of one of their parades.
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void make_parade_copy_positive_test() {
@@ -303,13 +294,11 @@ public class ParadeServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.2
-	 * The business rule that is intended to be broken: Brotherhood make a copy of a parade that not
-	 * belongs to him.
-	 * Analysis of sentence coverage: Approximately 14% of sentence coverage,
-	 * since it has been covered 4 lines of code of 28 possible.
-	 * Analysis of data coverage: intentionally blank
+	/*
+	 * A: Brotherhood makes a copy of one of their parades.
+	 * B: Brotherhood make a copy of a parade that not belongs to him.
+	 * C: Approximately 14% of sentence coverage, since it has been covered 4 lines of code of 28 possible.
+	 * D: 100% of data coverage
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void make_parade_copy_negative_test() {

@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -131,17 +129,19 @@ public class MessageMultiUserController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "send")
-	public ModelAndView send(@Valid final Message message, final BindingResult binding) {
+	public ModelAndView send(final Message message, final BindingResult binding) {
 		ModelAndView result;
+		Message messageRec;
 
+		messageRec = this.messageService.reconstruct(message, binding);
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(message);
 		else
 			try {
-				this.messageService.send(message);
+				this.messageService.send(messageRec);
 				result = new ModelAndView("redirect:/box/administrator,brotherhood,chapter,member,sponsor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message, "message.commit.error");
+				result = this.createEditModelAndView(messageRec, "message.commit.error");
 			}
 
 		return result;

@@ -145,10 +145,8 @@ public class RequestService {
 		this.checkPrincipalIsBrotherhoodOfRequest(request);
 		this.checkNotChangeStatus(request);
 
-		if (request.getStatus().equals("APPROVED")) {
-			this.checkPositionFree(request);
+		if (request.getStatus().equals("APPROVED"))
 			Assert.isNull(request.getReasonWhy());
-		}
 		if (request.getStatus().equals("REJECTED")) {
 			Assert.isNull(request.getColumnParade());
 			Assert.isNull(request.getRowParade());
@@ -237,8 +235,11 @@ public class RequestService {
 		this.requestRepository.delete(request);
 	}
 
-	public void deleteRequest(final Request request) {
-		this.requestRepository.delete(request);
+	public void deleteRequestToParade(final Parade parade) {
+		Collection<Request> requests;
+
+		requests = this.findRequestByParade(parade.getId());
+		this.requestRepository.delete(requests);
 	}
 
 	public void deleteDropOut(final Request request) {
@@ -512,7 +513,7 @@ public class RequestService {
 
 		result = requestForm.getReasonWhy().trim();
 		if (result.equals("") || result.equals(null))
-			binding.rejectValue("reasonWhy", "request.error.blank", "Must not be blank");
+			binding.rejectValue("reasonWhy", "request.error.blank");
 
 		return result;
 	}

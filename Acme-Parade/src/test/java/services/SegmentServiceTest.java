@@ -41,11 +41,10 @@ public class SegmentServiceTest extends AbstractTest {
 
 	// Tests ------------------------
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3.
-	 * Brotherhood creates a segment, when it's creates their attributes are null.
-	 * Analysis of sentence coverage: 100% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood creates a segment, when it's creates their attributes are null.
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void create_test() {
@@ -67,130 +66,131 @@ public class SegmentServiceTest extends AbstractTest {
 	@Test
 	public void driverInsert() {
 		final Object testingData[][] = {
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Brotherhood creates a segment from a parade
-			 * that not belongs to him
-			 * Analysis of sentence coverage: Approximately 69% of sentence coverage
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Brotherhood creates a segment from a parade that not belongs to him
+			 * C: Approximately 69% of sentence coverage
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
-			 * latitudeOrigin exceeds the maximum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::origin in latitudeOrigin exceeds the maximum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
-			 * latitudeOrigin exceeds the minimum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::origin in latitudeOrigin exceeds the minimum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", -91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::origin in
-			 * longitudeOrigin exceeds the maximum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::origin in longitudeOrigin exceeds the maximum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, 181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::origin
-			 * longitudeOrigin exceeds the minimum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::origin longitudeOrigin exceeds the minimum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
-			 * latitudeDestination exceeds the maximum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::destination in latitudeDestination exceeds the maximum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, 91.000000, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
-			 * latitudeDestination exceeds the minimum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::destination in latitudeDestination exceeds the minimum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, -90.99999, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
-			 * longitudeDestination exceeds the maximum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::destination in longitudeDestination exceeds the maximum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, 180.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Invalid data in Segment::destination in
-			 * longitudeDestination exceeds the maximum allowed
-			 * Analysis of sentence coverage: Approximately 80% of sentence coverage.
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Invalid data in Segment::destination in longitudeDestination exceeds the maximum allowed
+			 * C: Approximately 80% of sentence coverage.
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -180.524886, "2020-02-02 14:30", "2020-02-02 16:30", ConstraintViolationException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Segment's origin is not the
-			 * destination of the previous segment
-			 * Analysis of sentence coverage: Approximately 70% of sentence coverage,
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Segment's origin is not the destination of the previous segment
+			 * C: Approximately 70% of sentence coverage,
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 41.379869, -8.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Segment::reachingOrigin is not equal to
-			 * Segment::reachingDestination of the previous segment.
-			 * Analysis of sentence coverage: Approximately 70% of sentence coverage,
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Segment::reachingOrigin is not equal to Segment::reachingDestination of the previous segment.
+			 * C: Approximately 70% of sentence coverage,
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 15:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * The business rule that is intended to be broken: Segment::reachingOrigin is before
-			 * Parade::moment.
-			 * Analysis of sentence coverage: Approximately 60% of sentence coverage,
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * B: Segment::reachingOrigin is before Parade::moment.
+			 * C: Approximately 60% of sentence coverage,
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2019-05-26 14:30", "2020-02-02 16:30", IllegalArgumentException.class
 			},
-			/**
-			 * Requirement tested: Level B - requirement 3.3 (Create segment)
-			 * Analysis of sentence coverage: 100% of sentence coverage
-			 * Analysis of data coverage: 100% of data coverage
+			/*
+			 * A: Brotherhood creates a segment from a parade
+			 * C: 100% of sentence coverage
+			 * D: 16,6% (1/6) of data coverage. GPSCoordinates has 2 attributes which only can writes right values, and Segment has 2 attributes of type GPSCoordinates that sum 4 combinations. And 2 attributes
+			 * of type Date that can´t be null so only right values.
 			 */
 			{
 				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", null
@@ -254,10 +254,10 @@ public class SegmentServiceTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Display segment)
-	 * Analysis of data coverage: 100% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood display a segment
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void display_positive_test() {
@@ -272,12 +272,11 @@ public class SegmentServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Display segment)
-	 * The business rule that is intended to be broken: a brotherhood try to display a other
-	 * brotherhood's segment.
-	 * Analysis of data coverage: 80% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood display a segment
+	 * B: a brotherhood try to display a other brotherhood's segment.
+	 * C: 80% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void display_negative_test() {
@@ -292,10 +291,10 @@ public class SegmentServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Listing the paths of their parades)
-	 * Analysis of data coverage: 100% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood list the paths of their parades
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void list_positive_test() {
@@ -313,12 +312,11 @@ public class SegmentServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Listing the paths of their parades)
-	 * The business rule that is intended to be broken: Brotherhood try to list the paths of a parade
-	 * that is not in final mode
-	 * Analysis of data coverage: 90% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood list the paths of their parades
+	 * B: Brotherhood try to list the paths of a parade that is not in final mode
+	 * C: 90% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void list_negative_test() {
@@ -336,10 +334,10 @@ public class SegmentServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Update segment)
-	 * Analysis of data coverage: 85% of sentence coverage
-	 * Analysis of data coverage: 25% of data coverage. (Only 1/4 attribute updates)
+	/*
+	 * A: Brotherhood updates a segment
+	 * C: 85% of sentence coverage
+	 * D: 25% of data coverage. (Only 1/4 attribute updates)
 	 */
 	@Test
 	public void update_positive_test() {
@@ -370,12 +368,11 @@ public class SegmentServiceTest extends AbstractTest {
 		super.unauthenticate();
 
 	}
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Update segment)
-	 * The business rule that is intended to be broken: Segment::reachingDestination is before
-	 * to reachingOrigin
-	 * Analysis of data coverage: 50% of sentence coverage
-	 * Analysis of data coverage: 25% of data coverage. (Only 1/4 attribute updates)
+	/*
+	 * A: Brotherhood updates a segment
+	 * B: Segment::reachingDestination is before to reachingOrigin
+	 * C: 50% of sentence coverage
+	 * D: 25% of data coverage. (Only 1/4 attribute updates)
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void update_negative_test() {
@@ -408,10 +405,10 @@ public class SegmentServiceTest extends AbstractTest {
 
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Delete segment)
-	 * Analysis of data coverage: 100% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood deletes a segment
+	 * C: 100% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test
 	public void delete_positive_test() {
@@ -431,12 +428,11 @@ public class SegmentServiceTest extends AbstractTest {
 
 	}
 
-	/**
-	 * Requirement tested: Level B - requirement 3.3 (Delete segment)
-	 * The business rule that is intended to be broken: Brotherhood tries to delete a segment that not
-	 * belongs to him/her parades.
-	 * Analysis of data coverage: 50% of sentence coverage
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Brotherhood deletes a segment
+	 * B: Brotherhood tries to delete a segment that not belongs to him/her parades.
+	 * C: 50% of sentence coverage
+	 * D: 100% of data coverage
 	 */
 	@Test(expected = NullPointerException.class)
 	public void delete_negative_test() {

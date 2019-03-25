@@ -23,9 +23,6 @@
 <form:form action="${actionURI}" modelAttribute="message" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
-	<form:hidden path="sentMoment"/>
-	<form:hidden path="sender"/>
-	<form:hidden path="isSpam" />
 	
 	<acme:textbox path="subject" code="message.display.subject" />
 	<acme:textarea path="body" code="message.display.body" />
@@ -37,7 +34,7 @@
 	<jstl:if test="${isBroadcastMessage}">
 		<form:hidden path="recipients" />
 	</jstl:if>
-
+	
 	<acme:textarea path="tags" code="message.display.tags" />	
  	<br />
 	
