@@ -34,6 +34,8 @@
 	<acme:textbox code="customisation.languages" path="languages" />
 	<acme:textbox code="customisation.makes" path="creditCardMakes" />
 	<acme:textbox code="customisation.threshold" path="thresholdScore" />
+	<acme:textbox code="customisation.vat" path="vatPercentage" />
+	<acme:textbox code="customisation.fare" path="fare" />
 	<br />
 	
 	<acme:submit name="save" code="customisation.save" />
