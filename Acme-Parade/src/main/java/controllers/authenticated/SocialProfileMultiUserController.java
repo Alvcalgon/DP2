@@ -20,7 +20,7 @@ import domain.Actor;
 import domain.SocialProfile;
 
 @Controller
-@RequestMapping(value = "/socialProfile/administrator,brotherhood,member")
+@RequestMapping(value = "/socialProfile/administrator,brotherhood,chapter,member,sponsor")
 public class SocialProfileMultiUserController extends AbstractController {
 
 	@Autowired

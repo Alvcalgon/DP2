@@ -20,7 +20,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="socialProfile/administrator,brotherhood,member/edit.do" modelAttribute="socialProfile" >
+<form:form action="socialProfile/administrator,brotherhood,chapter,member,sponsor/edit.do" modelAttribute="socialProfile" >
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>
 	<form:hidden path="actor"/>

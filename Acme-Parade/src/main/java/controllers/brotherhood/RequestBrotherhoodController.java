@@ -20,7 +20,6 @@ import services.BrotherhoodService;
 import services.ParadeService;
 import services.RequestService;
 import controllers.AbstractController;
-import domain.Brotherhood;
 import domain.Request;
 import forms.RequestForm;
 
@@ -76,9 +75,7 @@ public class RequestBrotherhoodController extends AbstractController {
 		Request request;
 		try {
 			request = this.requestService.findOneToBrotherhood(requestId);
-
-			//this.requestService.saveEditRejected(request);
-			result = new ModelAndView("redirect:edit.do?requestId=" + requestId);
+			result = new ModelAndView("redirect:edit.do?requestId=" + request.getId());
 
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
@@ -126,15 +123,12 @@ public class RequestBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveReject")
 	public ModelAndView saveReject(@Valid final RequestForm requestForm, final BindingResult binding) {
 		ModelAndView result;
-		Brotherhood brotherhood;
 		Request request;
 
 		request = this.requestService.reconstructReject(requestForm, binding);
 		this.requestService.validateReasonWhy(requestForm, binding);
 
 		try {
-			brotherhood = this.brotherhoodService.findByPrincipal();
-
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(requestForm);
 			else
@@ -156,14 +150,11 @@ public class RequestBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final RequestForm requestForm, final BindingResult binding) {
 		ModelAndView result;
-		Brotherhood brotherhood;
 		Request request;
 
 		request = this.requestService.reconstruct(requestForm, binding);
 
 		try {
-			brotherhood = this.brotherhoodService.findByPrincipal();
-
 			if (binding.hasErrors())
 				result = this.createEditModelAndView(requestForm);
 			else

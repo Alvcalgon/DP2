@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
 import services.ChapterService;
 import services.ParadeService;
 import controllers.AbstractController;
@@ -26,13 +25,10 @@ public class ParadeChapterController extends AbstractController {
 	// Services ---------------------------------------------------------------
 
 	@Autowired
-	private ParadeService		paradeService;
+	private ParadeService	paradeService;
 
 	@Autowired
-	private BrotherhoodService	brotherhoodService;
-
-	@Autowired
-	private ChapterService		chapterService;
+	private ChapterService	chapterService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -47,22 +43,19 @@ public class ParadeChapterController extends AbstractController {
 	public ModelAndView accept(@RequestParam final int paradeId) {
 		ModelAndView result;
 		Parade parade;
-		int brotherhoodId;
 
 		try {
 			parade = this.paradeService.findOneToEditChapter(paradeId);
-			brotherhoodId = this.brotherhoodService.findBrotherhoodByParade(paradeId).getId();
 
 			this.paradeService.accept(parade);
 
-			result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + brotherhoodId);
+			result = new ModelAndView("redirect:/parade/chapter/list.do");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../../error.do");
 		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
