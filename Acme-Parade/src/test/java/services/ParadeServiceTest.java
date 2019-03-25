@@ -73,10 +73,10 @@ public class ParadeServiceTest extends AbstractTest {
 
 		data = this.paradeService.findDataNumerParadesCoordinatedByChapters();
 
-		Assert.isTrue(data[0] == 8.0);
-		Assert.isTrue(data[1] == 5.0);
-		Assert.isTrue(data[2] == 11.0);
-		Assert.isTrue(data[3] == 3.0);
+		Assert.isTrue(data[0] == 7.5);
+		Assert.isTrue(data[1] == 7.0);
+		Assert.isTrue(data[2] == 8.0);
+		Assert.isTrue(data[3] == 0.5);
 	}
 
 	/*
@@ -116,7 +116,7 @@ public class ParadeServiceTest extends AbstractTest {
 
 		ratio = this.paradeService.findRatioSubmittedParadesFinalMode();
 
-		Assert.isTrue(ratio == 0.11111);
+		Assert.isTrue(ratio == 0.33333);
 	}
 
 	/*
@@ -136,7 +136,7 @@ public class ParadeServiceTest extends AbstractTest {
 
 		ratio = this.paradeService.findRatioAcceptedParadesFinalMode();
 
-		Assert.isTrue(ratio == 0.77778);
+		Assert.isTrue(ratio == 0.55556);
 	}
 
 	/*
