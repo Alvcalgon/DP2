@@ -73,10 +73,10 @@ public class ParadeServiceTest extends AbstractTest {
 
 		data = this.paradeService.findDataNumerParadesCoordinatedByChapters();
 
-		Assert.isTrue(data[0] == 7.5);
+		Assert.isTrue(data[0] == 7.0);
 		Assert.isTrue(data[1] == 7.0);
-		Assert.isTrue(data[2] == 8.0);
-		Assert.isTrue(data[3] == 0.5);
+		Assert.isTrue(data[2] == 7.0);
+		Assert.isTrue(data[3] == 0.0);
 	}
 
 	/*
