@@ -1,9 +1,7 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -32,27 +30,6 @@ public class TranslationPositionServiceTest extends AbstractTest {
 	// Other supporting test -----------------------
 
 	// Suite tests ---------------------------------
-	@Test
-	public void testList() {
-		List<String> ls;
-		int pos;
-
-		ls = new ArrayList<String>();
-		ls.add("Maria");
-		ls.add("Jose");
-		ls.add("Fernando");
-
-		pos = ls.indexOf("Alvaro");
-		System.out.println(pos);
-		Assert.isTrue(pos == -1);
-
-		pos = ls.indexOf("Maria");
-		System.out.println(pos);
-
-		Assert.isTrue(ls.get(0).equals("Maria"));
-
-	}
-
 	@Test
 	public void testCreate() {
 		super.authenticate("admin1");
