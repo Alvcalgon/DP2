@@ -287,13 +287,15 @@
 			 	<jstl:out value="${actor.area.name}" />
 			 </a>
 		</jstl:if>
-		
+
 		<jstl:if test="${actor.area == null && isActorLogged}">
-			<a href="chapter/chapter/selectArea.do">
-				<spring:message code="select.area" />
+			<strong> <spring:message code="actor.chapter.area" />:
+			</strong>
+			<a href="chapter/chapter/selectArea.do"> <spring:message
+					code="select.area" />
 			</a>
 		</jstl:if>
-		
+
 		<p>
 			<strong> <spring:message code="actor.proclaims" />: </strong>
 			<a href="proclaim/list.do?chapterId=${actor.id}">
