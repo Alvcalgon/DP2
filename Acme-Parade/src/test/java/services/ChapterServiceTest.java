@@ -182,11 +182,14 @@ public class ChapterServiceTest extends AbstractTest {
 		Assert.isTrue(chapters.contains(test));
 	}
 
-	/**
-	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
-	 * Le asignamos a un chapter (que ya coordina un area),un area (que ya está coordinada)
-	 * Analysis of sentence coverage: 23%(3 lines /13 lines)
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * 
+	 * B: It is assigned to a chapter, which already coordinates an area, an already coordinated area.
+	 * 
+	 * C: Analysis of sentence coverage: 23%(3 lines /13 lines)
+	 * 
+	 * D: Analysis of data coverage: Intentionally blank
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void selfAssignedArea_negative_test() {
@@ -203,11 +206,14 @@ public class ChapterServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
-	 * Le asignamos a un chapter (que ya coordina un area),un area (sin coordinar)
-	 * Analysis of sentence coverage: 76.9%(10 lines /13 lines)
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * 
+	 * B: It is assigned to a chapter, which already coordinates an area, an area without coordinating
+	 * 
+	 * C: Analysis of sentence coverage: 76.9%(10 lines /13 lines)
+	 * 
+	 * D: Analysis of data coverage: Intentionally blank
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void selfAssignedArea_negative2_test() {
@@ -224,11 +230,14 @@ public class ChapterServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
-	 * Le asignamos a un chapter (que no coordina area),un area (ya coordinada por otro chapter)
-	 * Analysis of sentence coverage: 23%(3 lines /13 lines)
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * 
+	 * B: An already coordinated area is assigned to a chapter.
+	 * 
+	 * C: Analysis of sentence coverage: 23%(3 lines /13 lines)
+	 * 
+	 * D: Analysis of data coverage: Intentionally blank
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void selfAssignedArea_negative3_test() {
@@ -245,10 +254,12 @@ public class ChapterServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/**
-	 * Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
-	 * Analysis of sentence coverage: 54.5%(6 lines /11 lines)
-	 * Analysis of data coverage: Intentionally blank
+	/*
+	 * A: Requirement tested: Req2 (B-level), 1: Self-assign an area to co-ordinate. Once an area is self-assigned, it cannot be changed.
+	 * 
+	 * C: Analysis of sentence coverage: 54.5%(6 lines /11 lines)
+	 * 
+	 * D: Analysis of data coverage: Intentionally blank
 	 */
 	@Test
 	public void selfAssignedArea_positive_test() {
