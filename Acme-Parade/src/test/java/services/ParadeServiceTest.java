@@ -221,7 +221,7 @@ public class ParadeServiceTest extends AbstractTest {
 
 		Parade parade;
 
-		parade = this.paradeService.findOne(super.getEntityId("parade3"));
+		parade = this.paradeService.findOne(super.getEntityId("parade10"));
 		parade.setReasonWhy("It could not be possible");
 
 		this.paradeService.saveRejected(parade);
@@ -242,7 +242,7 @@ public class ParadeServiceTest extends AbstractTest {
 
 		Parade parade;
 
-		parade = this.paradeService.findOne(super.getEntityId("parade3"));
+		parade = this.paradeService.findOne(super.getEntityId("parade10"));
 
 		this.paradeService.saveRejected(parade);
 
@@ -302,7 +302,7 @@ public class ParadeServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void make_parade_copy_negative_test() {
-		super.authenticate("brotherhood1");
+		super.authenticate("brotherhood2");
 
 		Parade parade, paradeCopied;
 

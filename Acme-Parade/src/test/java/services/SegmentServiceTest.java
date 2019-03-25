@@ -11,6 +11,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,7 +75,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -84,7 +85,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", 91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", 91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -94,7 +95,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", -91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", -91.42, -7.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -104,7 +105,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", 40.379869, 181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", 40.379869, 181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -114,7 +115,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", 40.379869, -181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", 40.379869, -181.222222, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -164,7 +165,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", 41.379869, -8.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", 41.379869, -8.997886, 41.379869, -7.524886, "2020-02-02 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -174,7 +175,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 15:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade2", 40.379869, -7.997886, 41.379869, -7.524886, "2020-02-02 15:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -184,7 +185,7 @@ public class SegmentServiceTest extends AbstractTest {
 			 * of type Date that can´t be null so only right values.
 			 */
 			{
-				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2019-05-26 14:30", "2020-02-02 16:30", IllegalArgumentException.class
+				"brotherhood1", "parade1", 40.379869, -7.997886, 41.379869, -7.524886, "2019-05-26 14:30", "2020-02-02 16:30", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Brotherhood creates a segment from a parade
@@ -374,7 +375,7 @@ public class SegmentServiceTest extends AbstractTest {
 	 * C: 50% of sentence coverage
 	 * D: 25% of data coverage. (Only 1/4 attribute updates)
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = DataIntegrityViolationException.class)
 	public void update_negative_test() {
 		super.authenticate("brotherhood1");
 

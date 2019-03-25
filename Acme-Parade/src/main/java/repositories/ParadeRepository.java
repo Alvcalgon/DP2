@@ -89,7 +89,7 @@ public interface ParadeRepository extends JpaRepository<Parade, Integer> {
 	Double findRatioRejectedParadesFinalMode();
 
 	// Req 8.1.2 Acme-Parade. Average, Min, Max, Stdev number of parades coordinated by the chapters
-	@Query("select avg(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),min(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),max(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)),stddev (1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)) from Area a where a in (select c.area from Chapter c)")
+	@Query("select avg(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id and p.isFinalMode = true)),min(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id and p.isFinalMode = true)),max(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id and p.isFinalMode = true)),stddev (1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id and p.isFinalMode = true)) from Area a where a in (select c.area from Chapter c)")
 	Double[] findDataNumerParadesCoordinatedByChapters();
 
 	@Query("select avg(1.0 * (select count(p) from Parade p join p.floats f where f.brotherhood.area.id = a.id)) from Area a where a in (select c.area from Chapter c)")
