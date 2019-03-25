@@ -127,9 +127,9 @@ public class SponsorServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * Requirement tested: Acme-Parade Req 12.c (A-level): The top-5 sponsors in terms of number of active sponsorships.
-	 * Analysis of sentence coverage: 100%
-	 * Analysis of data coverage: Intentionally blank 100%
+	 * A: Requirement tested: Acme-Parade Req 12.c (A-level): The top-5 sponsors in terms of number of active sponsorships.
+	 * C: Analysis of sentence coverage: 100%
+	 * D: Analysis of data coverage: Intentionally blank 100%
 	 */
 	@Test
 	public void testDataSponsorshipPerSponsor() {

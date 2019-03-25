@@ -606,9 +606,9 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * Requirement tested: Acme-Parade Req 12.a (A-level): The ratio of active sponsorships.
-	 * Analysis of sentence coverage: 100%
-	 * Analysis of data coverage: Intentionally blank 100%
+	 * A: Requirement tested: Acme-Parade Req 12.a (A-level): The ratio of active sponsorships.
+	 * C: Analysis of sentence coverage: 100%
+	 * D: Analysis of data coverage: Intentionally blank 100%
 	 */
 	@Test
 	public void testRatioActiveSponsorship() {
@@ -620,9 +620,9 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * Requirement tested: Acme-Parade Req 12.b (A-level): The average, the minimum, the maximum, and the standard deviation of ac-tive sponsorships per sponsor.
-	 * Analysis of sentence coverage: 100%
-	 * Analysis of data coverage: Intentionally blank 100%
+	 * A: Requirement tested: Acme-Parade Req 12.b (A-level): The average, the minimum, the maximum, and the standard deviation of ac-tive sponsorships per sponsor.
+	 * C: Analysis of sentence coverage: 100%
+	 * D: Analysis of data coverage: Intentionally blank 100%
 	 */
 	@Test
 	public void testDataSponsorshipPerSponsor() {
