@@ -108,7 +108,7 @@ public class ParadeBroherhoodController extends AbstractController {
 		try {
 			brotherhoodId = this.brotherhoodService.findBrotherhoodByParade(parade.getId()).getId();
 			this.paradeService.delete(parade);
-			result = new ModelAndView("redirect:../../parade/list.do?brotherhoodId=" + brotherhoodId);
+			result = new ModelAndView("redirect:/parade/list.do?brotherhoodId=" + brotherhoodId);
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(parade, "parade.delete.error");
 		}

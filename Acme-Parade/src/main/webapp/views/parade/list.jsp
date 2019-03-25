@@ -215,16 +215,13 @@
 </display:table>
 </fieldset>
 
-
-
-
-
 <!-- ---------------------------------LINK AND INFO-------------------------------------- -->
 	<security:authorize access="hasRole('BROTHERHOOD')"> 
 		<jstl:if test="${areaSelected && not hasFloats }">
 			<a href="parade/brotherhood/create.do">
 				<spring:message code="parade.create" />
 			</a>
+			<br />
 		</jstl:if>
 	
 		<jstl:if test="${ hasFloats }">
@@ -232,14 +229,15 @@
 				<a href="float/brotherhood/create.do">
 					<spring:message code="parade.info.notFloat1" />
 				</a>
+				<br />
 		</jstl:if>
 
 		<jstl:if test="${!areaSelected}">
 			<a href="brotherhood/brotherhood/selectArea.do">
 				<spring:message code="select.area.parade" />
 			</a>
+			<br />
 		</jstl:if>
-		 <br>
 	</security:authorize>
 	
 	<jstl:if test="${finder == null}">
