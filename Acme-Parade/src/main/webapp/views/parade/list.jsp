@@ -152,13 +152,7 @@
 		</a>
 	</display:column>
 
-	<jstl:if test="${isOwner}">
-		<display:column style="background-color:${colorValue }">
-			<a href="parade/brotherhood/edit.do?paradeId=${rowRejected.id}">
-				<spring:message code="parade.edit" />
-			</a>
-	</display:column>	
-	
+	<jstl:if test="${isOwner}">	
 	<display:column style="background-color:${colorValue }">
 				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowRejected.id}">
 					<spring:message code="parade.makeCopy" />
@@ -193,12 +187,7 @@
 	
 	<security:authorize access="hasRole('BROTHERHOOD')">	
 
-	<jstl:if test="${isOwner}">
-		<display:column style="background-color:${colorValue }">
-			<a href="parade/brotherhood/edit.do?paradeId=${rowAccepted.id}">
-				<spring:message code="parade.edit" />
-			</a>
-	</display:column>	
+	<jstl:if test="${isOwner}">	
 	<display:column style="background-color:${colorValue }">
 				<a href="parade/brotherhood/makeCopy.do?paradeId=${rowAccepted.id}">
 					<spring:message code="parade.makeCopy" />
