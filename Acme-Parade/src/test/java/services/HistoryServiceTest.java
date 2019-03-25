@@ -35,11 +35,11 @@ public class HistoryServiceTest extends AbstractTest {
 
 	// Suite test -----------------------------------
 
-	/**
+	/*
 	 * A: Requirement tested: level C: requirement 4.1: The average, the minimum, the maximum
 	 * and the standard deviation of the records per history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
-	 * D:
+	 * D:Analysis of data coverage: intentionally blank
 	 */
 	@Test
 	public void dataNumberRecordsPerHistory() {
@@ -51,10 +51,10 @@ public class HistoryServiceTest extends AbstractTest {
 		Assert.isTrue(data.length == 4);
 	}
 
-	/**
+	/*
 	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
-	 * D:
+	 * D:Analysis of data coverage: intentionally blank
 	 */
 	@Test
 	public void brotherhoohLargestHistory() {
@@ -66,10 +66,10 @@ public class HistoryServiceTest extends AbstractTest {
 		Assert.isTrue(brotherhood.size() == 1);
 	}
 
-	/**
+	/*
 	 * A: Requirement tested: level C: requirement 4.1: The brotherhood with the largest history.
 	 * C: 100% se ha recorrido todas las líneas de código del método
-	 * D:
+	 * D:Analysis of data coverage: intentionally blank
 	 */
 	@Test
 	public void brotherhoohsLargestHistoryAvg_positive_test() {
