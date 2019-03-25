@@ -3,6 +3,8 @@ package services;
 
 import java.util.Collection;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,9 +74,9 @@ public class ProclaimServiceTest extends AbstractTest {
 	 * C: 50%(11 lines/22 lines)
 	 * D: Analysis of data coverage: intentionally blank.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = ConstraintViolationException.class)
 	public void create_negative_test() {
-		super.authenticate("brotherhood1");
+		super.authenticate("chapter1");
 
 		Proclaim proclaim;
 
@@ -84,12 +86,13 @@ public class ProclaimServiceTest extends AbstractTest {
 			.setText("vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 caracteres, vamos a escribir 252 ,para probarlo");
 
 		this.proclaimService.save(proclaim);
+		this.proclaimService.flush();
 
 		super.unauthenticate();
 	}
 
 	/*
-	 * A: Req 17.1: Publish a proclaim. Note that once a proclaim is published, theres no way to update or delete it, so double confirmation prior to publication is a must.
+	 * A: Req 17.1: Publish a proclaim. Note that once a proclaim is published, there is no way to update or delete it, so double confirmation prior to publication is a must.
 	 * B: Edit a proclaim.
 	 * C: 54.54%(12 lines /22 lines)
 	 * D: Analysis of data coverage: intentionally blank.

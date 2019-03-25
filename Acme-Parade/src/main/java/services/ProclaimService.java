@@ -126,6 +126,10 @@ public class ProclaimService {
 		this.proclaimRepository.delete(proclaims);
 	}
 
+	protected void flush() {
+		this.proclaimRepository.flush();
+	}
+
 	private void checkByPrincipal(final Proclaim proclaim) {
 		Chapter principal;
 
