@@ -74,7 +74,7 @@ public class ProclaimServiceTest extends AbstractTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void create_negative_test() {
-		super.authenticate("chapter1");
+		super.authenticate("brotherhood1");
 
 		Proclaim proclaim;
 
