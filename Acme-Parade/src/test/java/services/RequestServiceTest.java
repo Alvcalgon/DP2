@@ -106,7 +106,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:14.25% 1/7
 			 */
 			{
-				"brotherhood1", "request1", 3, 3, null, null
+				"brotherhood1", "request1", 3, 3, null, null, null
 			},
 
 			/*
@@ -116,16 +116,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood3", "request1", 3, 3, null, IllegalArgumentException.class
-			},
-			/*
-			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
-			 * B:Test negativo: Editar row y column de una solicitud aprobada a unas posiciones ocupadas en la parade
-			 * C:51.2% 21/41 Recorre 21 de las 41 líneas totales
-			 * D:14.25%1/7
-			 */
-			{
-				"brotherhood2", "request6", 2, 1, null, IllegalArgumentException.class
+				"brotherhood3", "request1", 3, 3, null, null, IllegalArgumentException.class
 			},
 			/*
 			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
@@ -134,7 +125,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood2", "request6", 2, 2, "Reason why escrito", IllegalArgumentException.class
+				"brotherhood2", "request6", 2, 2, "Reason why escrito", null, IllegalArgumentException.class
 			},
 
 			/*
@@ -144,7 +135,7 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood2", "request9", 1, 1, "El estado es denegado", IllegalArgumentException.class
+				"brotherhood2", "request9", 1, 1, "El estado es denegado", null, IllegalArgumentException.class
 			},
 
 			/*
@@ -154,16 +145,27 @@ public class RequestServiceTest extends AbstractTest {
 			 * D:14.25%1/7
 			 */
 			{
-				"brotherhood2", "request9", null, null, "", IllegalArgumentException.class
+				"brotherhood2", "request9", null, null, "", null, IllegalArgumentException.class
+			},
+
+			/*
+			 * A: Acme-Madrugá Req.7,10.6 Editar una solicitud
+			 * B:Test negativo: Editar un request cambiando también el status
+			 * C:19% 8/41 Recorre 8 de las 41 líneas totales
+			 * D:14.25%1/7
+			 */
+			{
+				"brotherhood1", "request1", 3, 3, null, "REJECTED", IllegalArgumentException.class
 			},
 
 		};
 
 		for (int i = 0; i < testingData.length; i++)
-			this.templateEdit((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Integer) testingData[i][2], (Integer) testingData[i][3], (String) testingData[i][4], (Class<?>) testingData[i][5]);
+			this.templateEdit((String) testingData[i][0], super.getEntityId((String) testingData[i][1]), (Integer) testingData[i][2], (Integer) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Class<?>) testingData[i][6]);
 
 	}
-	protected void templateEdit(final String username, final int requestId, final Integer column, final Integer row, final String reasonWhy, final Class<?> expected) {
+
+	protected void templateEdit(final String username, final int requestId, final Integer column, final Integer row, final String reasonWhy, final String status, final Class<?> expected) {
 		Class<?> caught;
 		Request request;
 
@@ -174,9 +176,12 @@ public class RequestServiceTest extends AbstractTest {
 			super.authenticate(username);
 
 			request = this.requestService.findOne(requestId);
+			request = this.cloneRequest(request);
 			request.setColumnParade(column);
 			request.setRowParade(row);
 			request.setReasonWhy(reasonWhy);
+			if (status != null)
+				request.setStatus(status);
 			this.requestService.saveEdit(request);
 			this.requestService.flush();
 
@@ -419,5 +424,24 @@ public class RequestServiceTest extends AbstractTest {
 		this.requestService.deleteCancel(request);
 
 		super.unauthenticate();
+	}
+
+	// Ancillary methods ------------------------------------------------------
+
+	private Request cloneRequest(final Request request) {
+		Request result;
+
+		result = new Request();
+
+		result.setColumnParade(request.getColumnParade());
+		result.setId(request.getId());
+		result.setMember(request.getMember());
+		result.setParade(request.getParade());
+		result.setReasonWhy(request.getReasonWhy());
+		result.setRowParade(request.getRowParade());
+		result.setStatus(request.getStatus());
+		result.setVersion(request.getVersion());
+
+		return result;
 	}
 }
