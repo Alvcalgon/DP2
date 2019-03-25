@@ -160,7 +160,7 @@ public class ParadeService {
 
 		this.sponsorshipService.removeSponsorshipFromParade(parade);
 		this.requestService.deleteRequestToParade(parade);
-		this.finderService.removeParadeToFinder(parade);
+		this.finderService.deleteFromFinders(parade);
 
 		this.paradeRepository.delete(parade);
 
