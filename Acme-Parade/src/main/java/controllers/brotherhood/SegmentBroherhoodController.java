@@ -76,7 +76,6 @@ public class SegmentBroherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Segment segment, final BindingResult binding, final HttpServletRequest request) {
 		ModelAndView result;
-		final Brotherhood principal;
 		Parade parade;
 		Integer paradeId;
 		String paramParadeId;
@@ -94,7 +93,6 @@ public class SegmentBroherhoodController extends AbstractController {
 					parade = this.paradeService.findBySegment(segment.getId());
 
 				this.segmentService.save(segment, parade);
-				principal = this.brotherhoodService.findByPrincipal();
 				result = new ModelAndView("redirect:/parade/display.do?paradeId=" + parade.getId());
 			} catch (final DataIntegrityViolationException ex) {
 				if (ex.getMessage().equals("Invalid data"))

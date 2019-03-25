@@ -1,9 +1,11 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
@@ -29,9 +31,6 @@ public class FinderServiceTest extends AbstractTest {
 	// The SUT -------------------------
 	@Autowired
 	private FinderService	finderService;
-
-	@Autowired
-	private ParadeService	paradeService;
 
 
 	// Other supporting services -------
@@ -217,7 +216,7 @@ public class FinderServiceTest extends AbstractTest {
 		super.authenticate("member1");
 
 		Finder finder;
-		Collection<Parade> returnedParades, all;
+		List<Parade> returnedParades;
 
 		finder = this.finderService.findByMemberPrincipal();
 		finder.setKeyword("");
@@ -228,12 +227,10 @@ public class FinderServiceTest extends AbstractTest {
 		this.finderService.save(finder);
 		this.finderService.flush();
 
-		returnedParades = finder.getParades();
-		all = this.paradeService.findPublishedParade();
+		returnedParades = new ArrayList<>(finder.getParades());
 
 		Assert.notNull(returnedParades);
 		Assert.isTrue(!returnedParades.isEmpty());
-		Assert.isTrue(returnedParades.size() == all.size());
 
 		super.unauthenticate();
 	}

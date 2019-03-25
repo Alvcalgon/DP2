@@ -45,7 +45,7 @@ public class AdministratorServiceTest extends AbstractTest {
 		Assert.isNull(admin.getPhoto());
 		Assert.isNull(admin.getSurname());
 
-		Assert.isTrue(admin.getIsSpammer() == false);
+		Assert.isNull(admin.getIsSpammer());
 		Assert.isNull(admin.getScore());
 	}
 
