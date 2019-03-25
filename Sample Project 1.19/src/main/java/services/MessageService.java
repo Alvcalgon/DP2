@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import domain.Actor;
@@ -249,6 +250,32 @@ public class MessageService {
 
 				this.boxService.addMessage(notificationBoxRecipient, result);
 			}
+
+		return result;
+	}
+
+
+	@Autowired
+	private Validator	validator;
+
+
+	public Message reconstruct(final Message message, final BindingResult binding) {
+		Message result;
+		Collection<Actor> recipients;
+
+		result = this.create();
+		result.setSubject(message.getSubject());
+		result.setBody(message.getBody());
+		result.setPriority(message.getPriority());
+		result.setTags(message.getTags());
+
+		recipients = new ArrayList<>();
+		if (message.getRecipients() != null)
+			recipients.addAll(message.getRecipients());
+
+		result.setRecipients(recipients);
+
+		this.validator.validate(result, binding);
 
 		return result;
 	}
