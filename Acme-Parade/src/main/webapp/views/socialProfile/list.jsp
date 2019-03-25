@@ -24,7 +24,7 @@
 	
 		<jstl:if test="${isAuthorized == true}">
 		<display:column>
-		<a href="socialProfile/administrator,brotherhood,member/edit.do?socialProfileId=${row.id}"><spring:message code="socialProfile.edit"/></a>
+		<a href="socialProfile/administrator,brotherhood,chapter,member,sponsor/edit.do?socialProfileId=${row.id}"><spring:message code="socialProfile.edit"/></a>
 		</display:column>
 		</jstl:if>
 	
@@ -32,7 +32,7 @@
 	
 		<jstl:if test="${isAuthorized == true}">
 		<display:column>
-		<a href="socialProfile/administrator,brotherhood,member/delete.do?socialProfileId=${row.id}"><spring:message code="socialProfile.delete"/></a>
+		<a href="socialProfile/administrator,brotherhood,chapter,member,sponsor/delete.do?socialProfileId=${row.id}"><spring:message code="socialProfile.delete"/></a>
 			</display:column>
 		</jstl:if>
 
@@ -51,5 +51,5 @@
 </display:table>
 
 	<jstl:if test="${isAuthorized == true}">
-	<a href="socialProfile/administrator,brotherhood,member/create.do"><spring:message code="socialProfile.new"/></a>
+	<a href="socialProfile/administrator,brotherhood,chapter,member,sponsor/create.do"><spring:message code="socialProfile.new"/></a>
 	</jstl:if>

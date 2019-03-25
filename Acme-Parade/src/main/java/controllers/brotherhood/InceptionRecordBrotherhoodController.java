@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.HistoryService;
 import services.InceptionRecordService;
 import controllers.AbstractController;
 import domain.Brotherhood;
@@ -30,9 +29,6 @@ public class InceptionRecordBrotherhoodController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
-
-	@Autowired
-	private HistoryService			historyService;
 
 
 	// Constructors ---------------------------------------

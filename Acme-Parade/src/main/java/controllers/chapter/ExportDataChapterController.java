@@ -133,7 +133,13 @@ public class ExportDataChapterController extends AbstractController {
 		data += "-------------------------------------------------------------";
 		data += "\r\n\r\n";
 
-		data += "Area:\r\n\r\n" + actor.getArea().getName();
+		data += "Area:\r\n\r\n";
+		try {
+			if (!(actor.getArea().equals(null)))
+				data += actor.getArea().getName();
+		} catch (final Exception e) {
+
+		}
 
 		response.setContentType("text/plain");
 		response.setHeader("Content-Disposition", "attachment;filename=data_user_account.txt");
