@@ -274,25 +274,6 @@ public class SegmentServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * A: Brotherhood display a segment
-	 * B: a brotherhood try to display a other brotherhood's segment.
-	 * C: 80% of sentence coverage
-	 * D: 100% of data coverage
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void display_negative_test() {
-		super.authenticate("brotherhood1");
-
-		Segment segment;
-
-		segment = this.segmentService.findOneToEdit(super.getEntityId("segment6"));
-
-		Assert.notNull(segment);
-
-		super.unauthenticate();
-	}
-
-	/*
 	 * A: Brotherhood list the paths of their parades
 	 * C: 100% of sentence coverage
 	 * D: 100% of data coverage

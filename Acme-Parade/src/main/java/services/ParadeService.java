@@ -449,7 +449,7 @@ public class ParadeService {
 		finder.setUpdatedMoment(this.utilityService.current_moment());
 	}
 	//Compruebo que el chapter que cambia el estado sea el que gestiona el area del desfile
-	private void checkChapter(final Parade parade) {
+	protected void checkChapter(final Parade parade) {
 		final Chapter chapter;
 		final Area areaChapter;
 		Area areaParade;
