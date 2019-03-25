@@ -189,7 +189,7 @@ public class MessageService {
 		Assert.notNull(destination);
 		Assert.isTrue(origin.getId() != 0 && destination.getId() != 0 && this.messageRepository.exists(message.getId()));
 		Assert.isTrue(origin.getMessages().contains(message) && !destination.getMessages().contains(message));
-		this.checkByPrincipal(message);
+		this.checkSenderOrRecipient(message);
 		this.boxService.checkByPrincipal(origin);
 		this.boxService.checkByPrincipal(destination);
 
