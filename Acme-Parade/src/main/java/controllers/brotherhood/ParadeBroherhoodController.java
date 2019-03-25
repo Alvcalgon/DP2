@@ -107,7 +107,7 @@ public class ParadeBroherhoodController extends AbstractController {
 		Parade paradeBbdd;
 
 		try {
-			paradeBbdd = this.paradeService.findOne(parade.getId());
+			paradeBbdd = this.paradeService.findOneToEdit(parade.getId());
 			brotherhoodId = this.brotherhoodService.findBrotherhoodByParade(parade.getId()).getId();
 
 			this.paradeService.delete(paradeBbdd);

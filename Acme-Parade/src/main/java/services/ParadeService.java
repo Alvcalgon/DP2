@@ -121,6 +121,10 @@ public class ParadeService {
 
 		if (!parade.getIsFinalMode())
 			Assert.isTrue(parade.getStatus().equals(""));
+		else {
+			Assert.isTrue(!parade.getStatus().equals("rejected"));
+			Assert.isTrue(!parade.getStatus().equals("accepted"));
+		}
 		try {
 			fechaActual = this.utilityService.current_moment();
 			Assert.isTrue(parade.getMoment().after(fechaActual));
@@ -190,6 +194,8 @@ public class ParadeService {
 
 		Assert.notNull(result);
 		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(result).equals(brotherhood));
+		Assert.isTrue(!result.getStatus().equals("rejected"));
+		Assert.isTrue(!result.getStatus().equals("accepted"));
 
 		return result;
 	}
