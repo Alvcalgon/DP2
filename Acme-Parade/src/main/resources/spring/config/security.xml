@@ -102,7 +102,7 @@
 		<security:intercept-url pattern="/dashboard/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/position/**" access="hasRole('ADMIN')" />
 	
-		<security:intercept-url pattern="/socialProfile/administrator,brotherhood,member/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/socialProfile/administrator,brotherhood,chapter,member,sponsor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialProfile/**" access="permitAll" />
 		
 		<security:intercept-url pattern="/finder/member/**" access="hasRole('MEMBER')" />
