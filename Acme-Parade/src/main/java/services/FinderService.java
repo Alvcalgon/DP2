@@ -123,24 +123,6 @@ public class FinderService {
 		finder.setUpdatedMoment(new Date(Integer.MIN_VALUE));
 	}
 
-	public void removeParadeToFinder(final Parade parade) {
-		Collection<Finder> finders;
-		Collection<Parade> parades;
-
-		finders = this.finderRepository.findFinderByParade(parade.getId());
-
-		for (final Finder f : finders) {
-			parades = f.getParades();
-
-			if (parades.contains(parade)) {
-				parades.remove(parade);
-				f.setParades(parades);
-			}
-
-		}
-
-	}
-
 	public Finder reconstruct(final Finder finder, final BindingResult binding) {
 		Finder result, finderStored;
 
@@ -194,7 +176,7 @@ public class FinderService {
 	protected void deleteFromFinders(final Parade parade) {
 		Collection<Finder> finders;
 
-		finders = this.finderRepository.findAllByParade(parade);
+		finders = this.finderRepository.findAllByParade(parade.getId());
 
 		for (final Finder f : finders)
 			f.getParades().remove(parade);
