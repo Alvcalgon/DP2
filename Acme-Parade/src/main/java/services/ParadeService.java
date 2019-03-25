@@ -148,11 +148,11 @@ public class ParadeService {
 		if (parade.getReasonWhy() == null)
 			throw new DataIntegrityViolationException("ReasonWhy not blank");
 
+		parade.setStatus("rejected");
 		result = this.paradeRepository.save(parade);
 
 		return result;
 	}
-
 	public void delete(final Parade parade) {
 		Assert.notNull(parade);
 		Assert.isTrue(this.paradeRepository.exists(parade.getId()));
@@ -503,7 +503,7 @@ public class ParadeService {
 		result.setMoment(paradeStored.getMoment());
 		result.setIsFinalMode(paradeStored.getIsFinalMode());
 		result.setMatrizParade(paradeStored.getMatrizParade());
-		result.setStatus("rejected");
+		result.setStatus(paradeStored.getStatus());
 		result.setReasonWhy(parade.getReasonWhy());
 		result.setVersion(paradeStored.getVersion());
 		result.setFloats(paradeStored.getFloats());
