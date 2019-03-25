@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
@@ -81,9 +82,9 @@ public class InceptionRecordServiceTest extends AbstractTest {
 			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
-				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", IllegalArgumentException.class
+				"brotherhood4", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", DataIntegrityViolationException.class
 			},
-		//
+
 		};
 
 		for (int i = 0; i < testingData.length; i++)
@@ -174,7 +175,7 @@ public class InceptionRecordServiceTest extends AbstractTest {
 			 * además uno de ellos puede no estar en blanco y no cumplir el formato
 			 */
 			{
-				"brotherhood1", "inceptionRecord1", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", IllegalArgumentException.class
+				"brotherhood1", "inceptionRecord1", "title inceptionRecord test", "text inceptionRecord test", "foto sin formato", DataIntegrityViolationException.class
 			},
 			/*
 			 * A: Req1, 3.1: Un actor autenticado como brotherhod puede editar sus inceptionRecord

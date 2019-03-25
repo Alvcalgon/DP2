@@ -107,6 +107,7 @@ public class ParadeController extends AbstractController {
 			result.addObject("segments", parade.getSegments());
 			result.addObject("brotherhood", brotherhood);
 			result.addObject("sponsorship", sponsorship);
+			result.addObject("requestURI", "parade/display.do");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../error.do");
 		}
