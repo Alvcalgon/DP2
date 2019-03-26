@@ -692,5 +692,11 @@ public class ParadeService {
 		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(parade).equals(brotherhood));
 
 	}
+	public Parade findOneCheckPrincipal(final int id) {
+		Parade parade;
 
+		parade = this.paradeRepository.findOne(id);
+		this.checkBrotherhoodByParade(parade);
+		return parade;
+	}
 }
