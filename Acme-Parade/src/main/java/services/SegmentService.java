@@ -58,6 +58,9 @@ public class SegmentService {
 	public Segment save(final Segment segment, final Parade parade) {
 		Assert.notNull(segment);
 		Assert.notNull(parade);
+		Segment segmentBBDD;
+
+		segmentBBDD = this.findOne(segment.getId());
 
 		if (segment.getId() != 0)
 			Assert.isTrue(this.isDeletable(segment));
@@ -77,7 +80,7 @@ public class SegmentService {
 		}
 
 		List<Segment> segments;
-		Segment result, previousSegment, nextSegment;
+		Segment result, previousSegment;
 		int pos, tam;
 		Long reachingOriginMs, reachingDestinationMs;
 		double lat_origin, long_origin, lat_dest, long_dest;
@@ -131,63 +134,32 @@ public class SegmentService {
 			this.paradeService.addSegment(parade, result);
 
 			// The first segment is been edited and path has not other segments.	
-		} else if (pos == 0 && tam == 1) {
+		} else if (pos == 0) {
 			try {
 				Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
+				segment.setReachingDestination(segmentBBDD.getReachingDestination());
+				segment.setDestination(segmentBBDD.getDestination());
 			} catch (final Exception e) {
 				throw new DataIntegrityViolationException("Invalid date");
 			}
 
 			result = this.segmentRepository.save(segment);
 
-			// The first segment is been edited and path has another segments. So we
-			// must update the second segment
-		} else if (pos == 0 && tam > 1) {
-			try {
-				Assert.isTrue(segment.getReachingOrigin().equals(parade.getMoment()));
-			} catch (final Exception e) {
-				throw new DataIntegrityViolationException("Invalid date");
-			}
-			nextSegment = segments.get(1);
-			nextSegment.setOrigin(segment.getDestination());
-			nextSegment.setReachingOrigin(segment.getReachingDestination());
-
-			result = this.segmentRepository.save(segment);
-
-			// The last segment is been edited
 		} else if (pos == (tam - 1) && tam > 1) {
 
 			try {
 				this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
+				segment.setReachingOrigin(segmentBBDD.getReachingOrigin());
+				segment.setOrigin(segmentBBDD.getOrigin());
 			} catch (final Exception e) {
 				throw new DataIntegrityViolationException("Invalid date");
 			}
-
-			previousSegment = segments.get(pos - 1);
-			previousSegment.setDestination(segment.getOrigin());
-			previousSegment.setReachingDestination(segment.getReachingOrigin());
 
 			result = this.segmentRepository.save(segment);
 
 			// The segment doesn't take up the first position nor last position 
-		} else if (pos > 0 && pos < (tam - 1)) {
-
-			try {
-				this.utilityService.checkMoment(parade.getMoment(), segment.getReachingOrigin());
-			} catch (final Exception e) {
-				throw new DataIntegrityViolationException("Invalid date");
-			}
-
-			nextSegment = segments.get(pos + 1);
-			nextSegment.setOrigin(segment.getDestination());
-			nextSegment.setReachingOrigin(segment.getReachingDestination());
-
-			previousSegment = segments.get(pos - 1);
-			previousSegment.setDestination(segment.getOrigin());
-			previousSegment.setReachingDestination(segment.getReachingOrigin());
-
-			result = this.segmentRepository.save(segment);
-		}
+		} else if (pos > 0 && pos < (tam - 1))
+			throw new DataIntegrityViolationException("Invalid date");
 
 		return result;
 	}
