@@ -213,7 +213,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::banner.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::banner is null.
+			 * D: Analysis of data coverage: sponsorship::banner is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", null, "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -222,7 +222,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::banner.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::banner is empty string.
+			 * D: Analysis of data coverage: sponsorship::banner is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -231,7 +231,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::targetURL.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::targetURL is null.
+			 * D: Analysis of data coverage: sponsorship::targetURL is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", null, "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -240,7 +240,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::targetURL.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::targetURL is empty string.
+			 * D: Analysis of data coverage: sponsorship::targetURL is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -249,7 +249,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::holder.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::holder is null.
+			 * D: Analysis of data coverage: sponsorship::creditCard::holder is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", null, "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -258,7 +258,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::holder.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::holder is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::holder is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "", "MCARD", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -267,7 +267,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::make.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::make is null.
+			 * D: Analysis of data coverage: sponsorship::creditCard::make is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", null, "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -276,7 +276,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::make.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::make is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::make is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "", "5431423328867769", "12", "22", 774, ConstraintViolationException.class
@@ -285,7 +285,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::number is null .
+			 * D: Analysis of data coverage: sponsorship::creditCard::number is null: (1/30 -> 3.33%) .
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", null, "12", "22", 774, ConstraintViolationException.class
@@ -294,7 +294,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::number is a empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::number is a empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "", "12", "22", 774, ConstraintViolationException.class
@@ -303,7 +303,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::number.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::number is a invalid value.
+			 * D: Analysis of data coverage: sponsorship::creditCard::number is a invalid value: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "1111", "12", "22", 774, ConstraintViolationException.class
@@ -312,7 +312,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is null.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", null, "22", 774, IllegalArgumentException.class
@@ -321,7 +321,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "", "22", 774, IllegalArgumentException.class
@@ -330,7 +330,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 0.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 0 | (1/30 -> 3.33%).
 			 */
 
 			{
@@ -340,7 +340,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationMonth.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 13.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationMonth out of range (1,12): 13 | (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "13", "22", 774, IllegalFieldValueException.class
@@ -350,7 +350,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is null.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is null: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", null, 774, IllegalArgumentException.class
@@ -359,7 +359,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is empty string.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is empty string: (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "", 774, IllegalArgumentException.class
@@ -368,7 +368,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: 0.0.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: 0.0 | (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "0.0", 774, IllegalArgumentException.class
@@ -377,7 +377,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::expirationYear.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: -0.0.
+			 * D: Analysis of data coverage: sponsorship::creditCard::expirationYear is a invalid string: -0.0 | (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "-0.0", 774, IllegalArgumentException.class
@@ -386,7 +386,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::cvvCode.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 99.
+			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 99 | (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 99, ConstraintViolationException.class
@@ -395,7 +395,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * B: The business rule that is intended to be broken: invalid data in Sponsorship::creditCard::cvvCode.
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 1000.
+			 * D: Analysis of data coverage: sponsorship::creditCard::cvvCode out of range (100,999): 1000 | (1/30 -> 3.33%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 1000, ConstraintViolationException.class
@@ -403,7 +403,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 			/*
 			 * A: Requirement tested: level A: requirements 11, 13, 16.1 (Create a sponsorship)
 			 * C: Analysis of sentence coverage: 28/29 -> 96.55% executed code lines.
-			 * D: Analysis of data coverage: every attribute of sponsorship and sponsorship::creditCard have a valid value.
+			 * D: Analysis of data coverage: every attribute of sponsorship and sponsorship::creditCard have a valid value: (30/30 -> 100.00%).
 			 */
 			{
 				"sponsor2", "parade4", "https://www.digitalprinting.co.uk/media/images/products/slides/31/vinyl-pvc-banners-1.jpg", "https://www.marca.com/", "Pepito Perez", "MCARD", "5431423328867769", "12", "22", 774, null
