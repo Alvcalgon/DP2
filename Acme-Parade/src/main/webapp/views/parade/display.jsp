@@ -125,12 +125,14 @@
 		</display:column>
 		
 		<security:authorize access="hasRole('BROTHERHOOD')">		
-	<jstl:if test="${principal == row.brotherhood}">	 
+	<jstl:if test="${principal == row.brotherhood}">
+	<jstl:if test="${segmentsFirstLast.contains(rowSegments)}">
 		<display:column >
 			<a href="segment/brotherhood/edit.do?segmentId=${rowSegments.id}">
 				<spring:message	code="parade.edit" />
 			</a>
 		</display:column>
+	</jstl:if>
 	</jstl:if>
 		</security:authorize>
 	
