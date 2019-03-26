@@ -199,6 +199,19 @@ public class ParadeService {
 
 		return result;
 	}
+
+	public Parade findOneToDelete(final int paradeId) {
+		Parade result;
+		Brotherhood brotherhood;
+
+		result = this.paradeRepository.findOne(paradeId);
+		brotherhood = this.brotherhoodService.findByPrincipal();
+
+		Assert.notNull(result);
+		Assert.isTrue(this.brotherhoodService.getBrotherhoodToParade(result).equals(brotherhood));
+
+		return result;
+	}
 	public Parade findOneToEditChapter(final int paradeId) {
 		Parade result;
 
