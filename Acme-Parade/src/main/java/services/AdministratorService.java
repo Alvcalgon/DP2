@@ -288,6 +288,10 @@ public class AdministratorService {
 
 	}
 
+	protected void flush() {
+		this.administratorRepository.flush();
+	}
+
 	public RegistrationForm createForm(final Administrator administrator) {
 		RegistrationForm registrationForm;
 

@@ -88,30 +88,6 @@ public class AdministratorServiceTest extends AbstractTest {
 		super.unauthenticate();
 	}
 
-	/* Formato del correo: "identifier@domain" */
-	@Test(expected = IllegalArgumentException.class)
-	public void negativeTestSave_dos() {
-		Administrator admin, saved, showed;
-		UserAccount userAccount;
-
-		admin = this.administratorService.create();
-		admin.setAddress("Calle Viruela");
-		admin.setEmail("hola@gmail.com");
-		admin.setName("admin2");
-		admin.setPhoneNumber("+34 678345611");
-		admin.setSurname("Surname 2");
-
-		userAccount = admin.getUserAccount();
-		userAccount.setUsername("admin7");
-		userAccount.setPassword("admin7");
-
-		saved = this.administratorService.save(admin);
-
-		showed = this.administratorService.findOne(saved.getId());
-
-		Assert.notNull(showed);
-	}
-
 	/* Formato del correo: "alias <identifier@domain>" */
 	@Test
 	public void positiveTestSave_uno() {
@@ -154,6 +130,31 @@ public class AdministratorServiceTest extends AbstractTest {
 		userAccount.setPassword("admin7");
 
 		saved = this.administratorService.save(admin);
+
+		showed = this.administratorService.findOne(saved.getId());
+
+		Assert.notNull(showed);
+	}
+
+	/* Formato del correo: "identifier@domain" */
+	@Test
+	public void positiveTestSave_tres() {
+		Administrator admin, saved, showed;
+		UserAccount userAccount;
+
+		admin = this.administratorService.create();
+		admin.setAddress("Calle Viruela");
+		admin.setEmail("hola@gmail.com");
+		admin.setName("admin2");
+		admin.setPhoneNumber("+34 678345611");
+		admin.setSurname("Surname 2");
+
+		userAccount = admin.getUserAccount();
+		userAccount.setUsername("admin7");
+		userAccount.setPassword("admin7");
+
+		saved = this.administratorService.save(admin);
+		this.administratorService.flush();
 
 		showed = this.administratorService.findOne(saved.getId());
 
