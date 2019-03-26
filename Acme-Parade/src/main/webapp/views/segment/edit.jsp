@@ -22,6 +22,9 @@
 	<form:hidden path="version"/>	
 	<input type="hidden" name="paradeId" value="${paradeId}"/>
 	
+	
+	<jstl:if test="${segment.id == 0}" >
+	<spring:message code="segment.create.info" /> 
 	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
 	<acme:textbox code="segment.latitude.origin" path="origin.latitude"/><br/>
@@ -33,7 +36,37 @@
 	<acme:textbox code="segment.latitude.destination" path="destination.latitude"/><br/>
 	
 	<acme:textbox code="segment.longitude.destination" path="destination.longitude"/><br/>
+	</jstl:if>
 	
+	<jstl:if test="${isFirst}" >
+	<spring:message code="segment.first.info" /> 
+	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
+	
+	<acme:textbox code="segment.latitude.origin" path="origin.latitude"/><br/>
+	
+	<acme:textbox code="segment.longitude.origin" path="origin.longitude" /><br/>
+	
+	<acme:textbox readonly="true" code="segment.date.destination" path="reachingDestination" placeholder="dd/MM/yyyy hh:mm"/><br/>
+	
+	<acme:textbox readonly="true" code="segment.latitude.destination" path="destination.latitude"/><br/>
+	
+	<acme:textbox readonly="true" code="segment.longitude.destination" path="destination.longitude"/><br/>
+	</jstl:if>
+	
+	<jstl:if test="${isLast}" >
+	 <spring:message code="segment.last.info" />
+	<acme:textbox readonly="true" code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
+	
+	<acme:textbox readonly="true" code="segment.latitude.origin" path="origin.latitude"/><br/>
+	
+	<acme:textbox readonly="true" code="segment.longitude.origin" path="origin.longitude" /><br/>
+	
+	<acme:textbox code="segment.date.destination" path="reachingDestination" placeholder="dd/MM/yyyy hh:mm"/><br/>
+	
+	<acme:textbox code="segment.latitude.destination" path="destination.latitude"/><br/>
+	
+	<acme:textbox code="segment.longitude.destination" path="destination.longitude"/><br/>
+	</jstl:if>
 	
 	<acme:submit name="save" code="segment.save"/>	
 	

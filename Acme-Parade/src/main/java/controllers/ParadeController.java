@@ -19,6 +19,7 @@ import services.FloatService;
 import services.MemberService;
 import services.ParadeService;
 import services.RequestService;
+import services.SegmentService;
 import services.SponsorshipService;
 import services.UtilityService;
 import domain.Area;
@@ -26,6 +27,7 @@ import domain.Brotherhood;
 import domain.Chapter;
 import domain.Member;
 import domain.Parade;
+import domain.Segment;
 import domain.Sponsorship;
 
 @Controller
@@ -55,6 +57,8 @@ public class ParadeController extends AbstractController {
 
 	@Autowired
 	private ChapterService		chapterService;
+	@Autowired
+	private SegmentService		segmentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -73,12 +77,14 @@ public class ParadeController extends AbstractController {
 		Brotherhood principal;
 		Sponsorship sponsorship;
 		UserAccount userPrincipal;
+		final Collection<Segment> segmentsFirstLast;
 
 		result = new ModelAndView("parade/display");
 
 		try {
 			brotherhood = this.brotherhoodService.findBrotherhoodByParade(paradeId);
 			sponsorship = this.sponsorshipService.getRandomSponsorship(paradeId);
+			segmentsFirstLast = this.segmentService.firstAndLastSegment(paradeId);
 
 			try {
 				userPrincipal = LoginService.getPrincipal();
@@ -107,6 +113,7 @@ public class ParadeController extends AbstractController {
 			result.addObject("segments", parade.getSegments());
 			result.addObject("brotherhood", brotherhood);
 			result.addObject("sponsorship", sponsorship);
+			result.addObject("segmentsFirstLast", segmentsFirstLast);
 			result.addObject("requestURI", "parade/display.do");
 		} catch (final Exception e) {
 			result = new ModelAndView("redirect:../error.do");

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -57,6 +58,10 @@ public class SegmentService {
 	public Segment save(final Segment segment, final Parade parade) {
 		Assert.notNull(segment);
 		Assert.notNull(parade);
+
+		if (segment.getId() != 0)
+			Assert.isTrue(this.isDeletable(segment));
+
 		this.paradeService.checkParadeByBrotherhood(parade);
 		try {
 			this.utilityService.checkMoment(segment.getReachingOrigin(), segment.getReachingDestination());
@@ -250,6 +255,7 @@ public class SegmentService {
 		result = this.segmentRepository.findOne(segmentId);
 
 		Assert.notNull(result);
+		Assert.isTrue(this.isDeletable(result));
 		this.checkPrincipalBySegment(segmentId);
 
 		return result;
@@ -278,6 +284,60 @@ public class SegmentService {
 			result = true;
 
 		return result;
+	}
+	public Boolean isFirst(final Segment segment) {
+
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+
+		if (segments.indexOf(segment) == 0)
+			result = true;
+
+		return result;
+	}
+
+	public List<Segment> firstAndLastSegment(final int paradeId) {
+		List<Segment> segments;
+		List<Segment> segmentList;
+		Segment first;
+		Segment last;
+
+		segments = new ArrayList<>();
+		segmentList = this.findOrderedSegments(paradeId);
+
+		if (segmentList.size() != 0) {
+			first = segmentList.get(0);
+			segments.add(first);
+			if (segmentList.size() > 1) {
+				last = segmentList.get(segmentList.size() - 1);
+
+				segments.add(last);
+			}
+
+		}
+
+		return segments;
+	}
+
+	public Boolean isLast(final Segment segment) {
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+
+		if (segments.indexOf(segment) == segments.size() - 1)
+			result = true;
+
+		return result;
+
 	}
 
 	// Private methods ---------------------
