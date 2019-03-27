@@ -1,15 +1,12 @@
-CORREO
+DEPLOYMENT URL:
+	
+	- https://app-9ec788db-35d2-4966-889c-c887b04faa9a.cleverapps.io/
 
-- Usuario: 	disenyopruebasiid02@gmail.com
-- Contraseña:	c0ntra53nya
-________________________________________________________________________________
+CREDENTIALS CLEVERCLOUD:
+	
+	- Please, use GitHub Login.
 
-GITHUB
+CREDENTIALS GITHUB:
 
-- Usuario:	dpiid02
-- Contraseña:	c0ntra53nya
-________________________________________________________________________________
-
-CLEVER CLOUD
-
-- Iniciar sesión con la cuenta de github
+	- Usuario:		dpiid02
+	- Contraseña:	c0ntra53nya
