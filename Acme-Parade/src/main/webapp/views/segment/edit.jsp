@@ -24,7 +24,7 @@
 	
 	
 	<jstl:if test="${segment.id == 0}" >
-	<spring:message code="segment.create.info" /> 
+	<p style="color:blue;"><spring:message code="segment.create.info" /></p>
 	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
 	<acme:textbox code="segment.latitude.origin" path="origin.latitude"/><br/>
@@ -39,7 +39,7 @@
 	</jstl:if>
 	
 	<jstl:if test="${isFirst}" >
-	<spring:message code="segment.first.info" /> 
+	<p style="color:blue;"><spring:message code="segment.first.info" /></p>
 	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
 	<acme:textbox code="segment.latitude.origin" path="origin.latitude"/><br/>
@@ -54,7 +54,7 @@
 	</jstl:if>
 	
 	<jstl:if test="${isLast}" >
-	 <spring:message code="segment.last.info" />
+	<p style="color:blue;"><spring:message code="segment.last.info" /></p>
 	<acme:textbox readonly="true" code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
 	<acme:textbox readonly="true" code="segment.latitude.origin" path="origin.latitude"/><br/>

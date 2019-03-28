@@ -24,3 +24,5 @@ In this file we will describe the decisions we have made in case of we consider 
 README D02:
 
 - A parade can be edited provided it is in final mode and its status is accepted. This has been done so that the chapter function makes sense and a brotherhood does not change a parade accepted by the criteria of the chapter.
+
+- You can not edit the intermediate segments of a parade because they must be consecutive.

@@ -88,7 +88,7 @@ public class SegmentBroherhoodController extends AbstractController {
 		else
 			try {
 				if (segment.getId() == 0)
-					parade = this.paradeService.findOneToEdit(paradeId);
+					parade = this.paradeService.findOneCheckPrincipal(paradeId);
 				else
 					parade = this.paradeService.findBySegment(segment.getId());
 
