@@ -412,17 +412,17 @@ public class SegmentServiceTest extends AbstractTest {
 
 	/*
 	 * A: Brotherhood deletes a segment
-	 * B: Brotherhood tries to delete a segment that not belongs to him/her parades.
+	 * B: Brotherhood tries to delete a intermediate segment.
 	 * C: 50% of sentence coverage
 	 * D: 100% of data coverage
 	 */
-	@Test(expected = NullPointerException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void delete_negative_test() {
 		super.authenticate("brotherhood1");
 
 		Segment segment;
 
-		segment = this.segmentService.findOne(super.getEntityId("segment4"));
+		segment = this.segmentService.findOne(super.getEntityId("segment2"));
 
 		this.segmentService.delete(segment);
 
