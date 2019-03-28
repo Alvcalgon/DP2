@@ -3390,26 +3390,6 @@
 		<property name="longitude" value="-7.997886" />
 	</bean>
 	
-	<bean id="gpscoordinates7" class="domain.GPSCoordinates">
-		<property name="latitude" value="40.727837" />
-		<property name="longitude" value="-74.059413" />
-	</bean>
-	
-	<bean id="gpscoordinates8" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.379796" />
-		<property name="longitude" value="-5.902886" />
-	</bean>
-	
-	<bean id="gpscoordinates9" class="domain.GPSCoordinates">
-		<property name="latitude" value="37.379796" />
-		<property name="longitude" value="-5.902886" />
-	</bean>
-	
-	<bean id="gpscoordinates10" class="domain.GPSCoordinates">
-		<property name="latitude" value="25.189796" />
-		<property name="longitude" value="-10.502886" />
-	</bean>
-	
 	<bean id="gpscoordinates11" class="domain.GPSCoordinates">
 		<property name="latitude" value="25.189796" />
 		<property name="longitude" value="-10.502886" />
@@ -4585,7 +4565,7 @@
 	<bean id="segment1" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates1" />
 		<property name="destination" ref="gpscoordinates2" />
-		<property name="reachingOrigin" value="2020/02/02 08:30" />
+		<property name="reachingOrigin" value="2019/05/27 10:15" />
 		<property name="reachingDestination" value="2020/02/02 10:30" />
 	</bean>
 	
@@ -4602,25 +4582,11 @@
 		<property name="reachingOrigin" value="2020/02/02 12:30" />
 		<property name="reachingDestination" value="2020/02/02 14:30" />
 	</bean>
-
-	<bean id="segment4" class="domain.Segment">
-		<property name="origin" ref="gpscoordinates7" />
-		<property name="destination" ref="gpscoordinates8" />
-		<property name="reachingOrigin" value="2020/12/10 15:00" />
-		<property name="reachingDestination" value="2020/12/10 16:30" />
-	</bean>
-	
-	<bean id="segment5" class="domain.Segment">
-		<property name="origin" ref="gpscoordinates9" />
-		<property name="destination" ref="gpscoordinates10" />
-		<property name="reachingOrigin" value="2020/12/10 16:30" />
-		<property name="reachingDestination" value="2020/12/10 17:30" />
-	</bean>
 	
 	<bean id="segment6" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates11" />
 		<property name="destination" ref="gpscoordinates12" />
-		<property name="reachingOrigin" value="2020/12/10 17:30" />
+		<property name="reachingOrigin" value="2019/11/27 10:15" />
 		<property name="reachingDestination" value="2020/12/10 18:30" />
 	</bean>
 	
@@ -4634,7 +4600,7 @@
 	<bean id="segment8" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates15" />
 		<property name="destination" ref="gpscoordinates16" />
-		<property name="reachingOrigin" value="2020/06/05 19:30" />
+		<property name="reachingOrigin" value="2019/08/27 10:15" />
 		<property name="reachingDestination" value="2020/06/05 20:30" />
 	</bean>
 	
@@ -4648,7 +4614,7 @@
 	<bean id="segment10" class="domain.Segment">
 		<property name="origin" ref="gpscoordinates19" />
 		<property name="destination" ref="gpscoordinates20" />
-		<property name="reachingOrigin" value="2020/07/02 21:30" />
+		<property name="reachingOrigin" value="2019/03/27 10:15" />
 		<property name="reachingDestination" value="2020/07/02 22:30" />
 	</bean>
 	<!-- SocialProfile -->
