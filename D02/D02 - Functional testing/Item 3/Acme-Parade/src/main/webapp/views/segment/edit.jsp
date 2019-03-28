@@ -23,7 +23,7 @@
 	<input type="hidden" name="paradeId" value="${paradeId}"/>
 	
 	
-	<jstl:if test="${segment.id == 0}" >
+	<jstl:if test="${showAll}" >
 	<p style="color:blue;"><spring:message code="segment.create.info" /></p>
 	<acme:textbox code="segment.date.origin" path="reachingOrigin" placeholder="dd/MM/yyyy hh:mm"/><br/>
 	
