@@ -129,7 +129,7 @@
 		
 		
 		
-		<security:intercept-url pattern="/**" access="hasRole('NONE')" requires-channel="https" />  
+		<security:intercept-url pattern="/**" access="hasRole('NONE')" /> <!-- requires-channel="https" -->
 
 		<security:form-login 
 			login-page="/security/login.do"
