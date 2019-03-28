@@ -63,7 +63,7 @@ public class SegmentService {
 		segmentBBDD = this.findOne(segment.getId());
 
 		if (segment.getId() != 0)
-			Assert.isTrue(this.isDeletable(segment));
+			Assert.isTrue(this.isEditable(segment));
 
 		this.paradeService.checkParadeByBrotherhood(parade);
 		try {
@@ -227,7 +227,7 @@ public class SegmentService {
 		result = this.segmentRepository.findOne(segmentId);
 
 		Assert.notNull(result);
-		Assert.isTrue(this.isDeletable(result));
+		Assert.isTrue(this.isEditable(result));
 		this.checkPrincipalBySegment(segmentId);
 
 		return result;
@@ -243,20 +243,6 @@ public class SegmentService {
 		return segmentsOrdered;
 	}
 
-	public Boolean isDeletable(final Segment segment) {
-		Boolean result;
-		Parade parade;
-		List<Segment> segments;
-
-		result = false;
-		parade = this.paradeService.findBySegment(segment.getId());
-		segments = this.segmentRepository.findOrderedSegments(parade.getId());
-
-		if (segments.indexOf(segment) == 0 || segments.indexOf(segment) == segments.size() - 1)
-			result = true;
-
-		return result;
-	}
 	public Boolean isFirst(final Segment segment) {
 
 		Boolean result;
@@ -334,6 +320,36 @@ public class SegmentService {
 
 	protected void flush() {
 		this.segmentRepository.flush();
+	}
+	public Boolean isDeletable(final Segment segment) {
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+		Boolean isUnique;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+		isUnique = segments.size() == 1;
+
+		if ((segments.indexOf(segment) == 0 && isUnique) || segments.indexOf(segment) == segments.size() - 1)
+			result = true;
+
+		return result;
+	}
+	public Boolean isEditable(final Segment segment) {
+		Boolean result;
+		Parade parade;
+		List<Segment> segments;
+
+		result = false;
+		parade = this.paradeService.findBySegment(segment.getId());
+		segments = this.segmentRepository.findOrderedSegments(parade.getId());
+
+		if (segments.indexOf(segment) == 0 || segments.indexOf(segment) == segments.size() - 1)
+			result = true;
+
+		return result;
 	}
 
 }
