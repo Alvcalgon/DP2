@@ -163,6 +163,8 @@ public class SegmentBroherhoodController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Segment segment, final Integer paradeId, final String messageCode) {
 		ModelAndView result;
 		Brotherhood principal;
+		Boolean isFirst;
+		Boolean isLast;
 
 		principal = this.brotherhoodService.findByPrincipal();
 
@@ -173,13 +175,26 @@ public class SegmentBroherhoodController extends AbstractController {
 		result.addObject("principalId", principal.getId());
 
 		if (segment.getId() != 0) {
+			isFirst = this.segmentService.isFirst(segment);
+			isLast = this.segmentService.isLast(segment);
+
+			if (isFirst.equals(isLast)) {
+
+				result.addObject("isFirst", false);
+				result.addObject("isLast", false);
+				result.addObject("showAll", true);
+			} else {
+				result.addObject("isFirst", this.segmentService.isFirst(segment));
+				result.addObject("isLast", this.segmentService.isLast(segment));
+				result.addObject("showAll", false);
+			}
+
 			result.addObject("isDeletable", this.segmentService.isDeletable(segment));
-			result.addObject("isFirst", this.segmentService.isFirst(segment));
-			result.addObject("isLast", this.segmentService.isLast(segment));
 
 		} else {
 			result.addObject("isFirst", false);
 			result.addObject("isLast", false);
+			result.addObject("showAll", true);
 		}
 		return result;
 
