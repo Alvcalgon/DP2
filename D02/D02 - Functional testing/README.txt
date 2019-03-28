@@ -25,4 +25,4 @@ README D02:
 
 - A parade can be edited provided it is in final mode and its status is accepted. This has been done so that the chapter function makes sense and a brotherhood does not change a parade accepted by the criteria of the chapter.
 
-- You can not edit the intermediate segments of a parade because they must be consecutive.
+- You can not edit the intermediate segments of a parade because they must be consecutive. Besides, you only can delete de last segment of the path. It has been implemented in this way so that the segments follow an order and is easy for the user.
